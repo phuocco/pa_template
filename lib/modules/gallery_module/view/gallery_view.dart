@@ -47,8 +47,10 @@ class GalleryView extends StatelessWidget {
                           ]),
                       child: Column(
                         children: [
-                          Text(controller.galleryList[index].id),
-                          Text(controller.galleryList[index].name),
+                          Text(controller.galleryList[index].category),
+                          Text(controller.galleryList[index].id
+                          ),
+
                         ],
                       ),
                     );
