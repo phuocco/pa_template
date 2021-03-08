@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:pa_template/utils/models/base_card.dart';
 
 class BaseGalleryCard {
+  String category;
   bool isVerify;
   String id;
   BaseCard card;
@@ -19,6 +20,7 @@ class BaseGalleryCard {
   List<bool> reportCount;
 
   BaseGalleryCard(
+      this.category,
       this.id,
       this.isVerify,
   this.card,

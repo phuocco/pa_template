@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/modules/card_module/view/card_view.dart';
 import 'package:pa_template/modules/gallery_module/view/gallery_view.dart';
 
 void main() {
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(() => GalleryView()),
+        onPressed: () => Get.to(() => CardView()),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

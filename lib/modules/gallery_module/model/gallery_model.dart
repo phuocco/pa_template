@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:pa_template/modules/card_module/card_model/card_model.dart';
 import 'package:pa_template/utils/models/base_card.dart';
 import 'package:pa_template/utils/models/base_gallery_card.dart';
 
@@ -38,10 +39,9 @@ String galleryCardToJson(List<GalleryModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class GalleryModel extends BaseGalleryCard {
-  String category;
 
   GalleryModel(
-      {this.category,
+      {category,
       id,
       isVerify,
       card,
@@ -52,7 +52,7 @@ class GalleryModel extends BaseGalleryCard {
       reported,
       isBlocked,
       reportCount})
-      : super(id, isVerify, card, createdAt, ratePoint, rateCount, starAverage,
+      : super(category,id, isVerify, card, createdAt, ratePoint, rateCount, starAverage,
             reported, isBlocked, reportCount);
 
   factory GalleryModel.fromJson(Map<String, dynamic> json) {
@@ -60,7 +60,7 @@ class GalleryModel extends BaseGalleryCard {
       category: json["category"],
       id: json["id"],
       isVerify: json["isVerify"],
-      card: BaseCard.fromJson(json["card"]),
+      card: CardModel.fromJson(json["card"]),
       createdAt: json["createdAt"],
       rateCount: json["rateCount"],
       ratePoint: json["ratePoint"],
@@ -76,7 +76,7 @@ class GalleryModel extends BaseGalleryCard {
   Map<String, dynamic> toJson() => {
         "category": category,
         "isVerify": isVerify,
-        "card": card.toJson(),
+        "card": cardToJson,
         "createdAt": createdAt,
         "rateCount": rateCount,
         "ratePoint": ratePoint,
