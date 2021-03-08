@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pa_core_flutter/pa_core_flutter.dart';
+import 'package:get/get.dart';
+import 'package:pa_template/modules/gallery_module/view/gallery_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,7 +9,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -28,13 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +44,14 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          PACoreShowDialog.policyDialog(context,
-              title: "Policy",
-              content: Text("hi"),
-              policyAcceptTime: "2021", funcOk: () {
-                print("ok");
-              });
-        },
+        onPressed: () => Get.to(() => GalleryView()),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
