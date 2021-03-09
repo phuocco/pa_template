@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:pa_template/controllers/home_controller.dart';
+import 'package:pa_template/screens/main_screen.dart';
+import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
 
 class HomeScreen extends GetView<HomeController> {
@@ -8,23 +10,44 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Appbar'),
+      actions: [
+        BaseAppBar('assets icon', () {
+          controller.selectPage(0);
+          print('a');
+        }, 'Main'),
+        BaseAppBar('assets icon', () {
+          controller.selectPage(1);
+          controller.printController();
+        }, 'Gallery'),
+        BaseAppBar('assets icon', () {
+          controller.selectPage(2);
+        }, 'History'),
+      ],
+    );
     return SafeArea(
       top: false,
       bottom: true,
       child: Scaffold(
         key: controller.scaffoldKey,
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text('appbar'),
-        ),
+        appBar: appBar,
         drawer: MainDrawer(),
         body: GetBuilder(
           init: HomeController(),
-          builder: (value) {
-            return Image.asset('assets/images/rainbow.png');
+          builder: (a) {
+            return controller.pages[controller.selectingPage]['page'];
           },
+        ),
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => controller.selectPage(2),
+          child: Icon(Icons.ac_unit),
         ),
       ),
     );
+
   }
+
 }

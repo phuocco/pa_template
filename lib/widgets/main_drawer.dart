@@ -54,14 +54,20 @@ class MainDrawer extends GetView<HomeController> {
                   ),
                 ),
                 ListTile(
-                  onTap: null,
-                  title: Text('Item 2'),
+                  onTap: () { controller.selectPage(0);
+                  Get.back();
+                  },
+                  title: Text('Item 0'),
                 ),
                 ListTile(
-                  onTap: null,
-                  title: Text('Item 2'),
+                  onTap: () { controller.selectPage(1);
+                  Get.back();
+                  },
+                  title: Text('Item 1'),
                 ),ListTile(
-                  onTap: null,
+                  onTap: () { controller.selectPage(2);
+                  Get.back();
+                  },
                   title: Text('Item 2'),
                 ),ListTile(
                   onTap: null,
