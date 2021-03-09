@@ -21,7 +21,7 @@ class HomeScreen extends GetView<HomeController> {
         body: GetBuilder(
           init: HomeController(),
           builder: (value) {
-            return Text('a');
+            return Image.asset('assets/images/rainbow.png');
           },
         ),
       ),
