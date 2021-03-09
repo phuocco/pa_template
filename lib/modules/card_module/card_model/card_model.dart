@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
+
 import '../../../utils/models/base_card.dart';
 
 CardModel cardModelFromJson(String str) => CardModel.fromJson(json.decode(str));
@@ -7,6 +9,7 @@ CardModel cardModelFromJson(String str) => CardModel.fromJson(json.decode(str));
 String cardModelToJson(CardModel data) => json.encode(data.toJson());
 
 class CardModel extends BaseCard {
+
   CardModel(
       {isVerify,
       id,
@@ -26,7 +29,7 @@ class CardModel extends BaseCard {
   factory CardModel.fromJson(Map<String, dynamic> json) => CardModel(
     isVerify: json["isVerify"],
     id: json["id"],
-    card: CardModel.fromJson(json["card"]),
+    card: CardDetailModel.fromJson(json["card"]),
     createdAt: json["createdAt"],
     rateCount: json["rateCount"],
     ratePoint: json["ratePoint"],
@@ -40,7 +43,7 @@ class CardModel extends BaseCard {
   Map<String, dynamic> toJson() => {
     "isVerify": isVerify,
     "id": id,
-    "card": CardModel().toJson(),
+    "card": CardDetailModel().toJson(),
     "createdAt": createdAt,
     "rateCount": rateCount,
     "ratePoint": ratePoint,

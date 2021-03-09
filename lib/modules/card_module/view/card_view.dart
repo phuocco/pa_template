@@ -24,8 +24,15 @@ class CardView extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(10),
-          child: GetBuilder(init: CardController(),
-          builder: (controller) =>Text("a"),),
+          child: GetX<CardController>(
+            init: CardController(),
+            builder: (value) {
+                if(value.card.value.id == null){
+                  return Text('data null');
+                }
+                return Text(value.card.value.id);
+              },
+          )
         ),
       ),
     );

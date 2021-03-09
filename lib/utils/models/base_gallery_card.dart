@@ -5,12 +5,13 @@
 import 'dart:convert';
 
 import 'package:pa_template/utils/models/base_card.dart';
+import 'package:pa_template/utils/models/base_card_detail.dart';
 
 class BaseGalleryCard {
   String category;
   bool isVerify;
   String id;
-  BaseCard card;
+  BaseCardDetail card;
   int createdAt;
   int rateCount;
   int ratePoint;

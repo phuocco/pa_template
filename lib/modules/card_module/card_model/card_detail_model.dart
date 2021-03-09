@@ -3,67 +3,69 @@ import 'dart:convert';
 import 'package:pa_template/utils/models/base_card.dart';
 import 'package:pa_template/utils/models/base_card_detail.dart';
 
-List<CardDetailModel> cardFromJson(String str) =>
-    List<CardDetailModel>.from(json.decode(str).map((x) => CardDetailModel.fromJson(x)));
+List<CardDetailModel> cardFromJson(String str) => List<CardDetailModel>.from(
+    json.decode(str).map((x) => CardDetailModel.fromJson(x)));
 
 String cardToJson(List<CardDetailModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class CardDetailModel extends BaseCardDetail {
+  List<dynamic> arrLink;
+  String atk;
+  String bluePendulum;
+  String cardTit;
+  String cardType;
+  int colorCardName;
+  String def;
+  String defPendulum;
+  bool pendulum;
+  bool rainbow;
+  int rank;
+  String redPendulum;
+  int star;
+  String theme;
+  String themeType;
+  String yourName;
   CardDetailModel(
-      {
-    arrLink,
-    atk,
-    bluePendulum,
-    cardCategory,
-    cardDesc,
-    cardImg,
-    cardName,
-    cardPath,
-    cardTit,
-    cardType,
-    colorCardName,
-    createdAt,
-    def,
-    defPendulum,
-    pendulum,
-    premium,
-    rainbow,
-    rank,
-    redPendulum,
-    star,
-    theme,
-    themeType,
-    thumbUrl,
-    yourName
-  }) : super (
-            arrLink,
-            atk,
-            bluePendulum,
-            cardCategory,
-            cardDesc,
-            cardImg,
-            cardName,
-            cardPath,
-            cardTit,
-            cardType,
-            colorCardName,
-            createdAt,
-            def,
-            defPendulum,
-            pendulum,
-            premium,
-            rainbow,
-            rank,
-            redPendulum,
-            star,
-            theme,
-            themeType,
-            thumbUrl,
-            yourName);
+      {this.arrLink,
+      this.atk,
+      this.bluePendulum,
+      cardCategory,
+      cardDesc,
+      cardImg,
+      cardName,
+      cardPath,
+      this.cardTit,
+      this.cardType,
+      this.colorCardName,
+      createdAt,
+      this.def,
+      this.defPendulum,
+      this.pendulum,
+      premium,
+      this.rainbow,
+      this.rank,
+      this.redPendulum,
+      this.star,
+      this.theme,
+      this.themeType,
+      thumbUrl,
+      this.yourName})
+      : super(
+            cardCategory: cardCategory,
+            cardDesc: cardDesc,
+            cardImg: cardImg,
+            cardName: cardName,
+            cardPath: cardPath,
+            createdAt: createdAt,
+            premium: premium,
+            thumbUrl: thumbUrl);
 
-  factory CardDetailModel.fromJson(Map<String, dynamic> json) => CardDetailModel(
-        arrLink: List<dynamic>.from(json["arrLink"].map((x) => x)),
+  factory CardDetailModel.fromJson(Map<String, dynamic> json) =>
+      CardDetailModel(
+        arrLink: json["arrLink"] == null
+            ? null
+            : List<dynamic>.from(json["arrLink"].map((x) => x)),
         atk: json["atk"],
         bluePendulum: json["blue_pendulum"],
         cardCategory: json["card_category"],
@@ -90,7 +92,8 @@ class CardDetailModel extends BaseCardDetail {
       );
 
   Map<String, dynamic> toJson() => {
-        "arrLink": List<dynamic>.from(arrLink.map((x) => x)),
+        "arrLink":
+            arrLink == null ? null : List<dynamic>.from(arrLink.map((x) => x)),
         "atk": atk,
         "blue_pendulum": bluePendulum,
         "card_category": cardCategory,

@@ -36,7 +36,7 @@ class GalleryModel extends BaseGalleryCard {
       category: json["category"],
       id: json["id"],
       isVerify: json["isVerify"],
-      card: CardModel.fromJson(json["card"]),
+      card: CardDetailModel.fromJson(json["card"]),
       createdAt: json["createdAt"],
       rateCount: json["rateCount"],
       ratePoint: json["ratePoint"],
@@ -52,7 +52,7 @@ class GalleryModel extends BaseGalleryCard {
   Map<String, dynamic> toJson() => {
         "category": category,
         "isVerify": isVerify,
-        "card": CardModel().toJson(),
+        "card": CardDetailModel().toJson(),
         "createdAt": createdAt,
         "rateCount": rateCount,
         "ratePoint": ratePoint,

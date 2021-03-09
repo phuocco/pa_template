@@ -25,15 +25,15 @@ class NetworkHelper {
 
   Future getCard() async {
     http.Response response = await http.get(Uri.parse(url));
+
     if (response.statusCode == 200) {
       var data = response.body;
       var decodedData = cardModelFromJson(data);
       print(response.statusCode);
-      print(decodedData);
       return decodedData;
     } else {
       print('error' + response.statusCode.toString());
-      return cardModelFromJson("[]");
+      return null;
     }
   }
 
