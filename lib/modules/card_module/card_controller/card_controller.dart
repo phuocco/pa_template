@@ -1,24 +1,30 @@
 
 import 'package:get/get.dart';
 import 'package:pa_template/constants/const_url.dart';
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
+import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 import 'package:pa_template/utils/services/network_helper.dart';
 
-class CardController extends GetxController {
-  var card = CardModel().obs;
+import '../../../constants/const_url.dart';
+import '../../gallery_module/model/gallery_model.dart';
+import '../card_model/card_detail_model.dart';
+import '../card_model/card_detail_model.dart';
+import '../card_model/card_model.dart';
 
+class CardController extends GetxController {
+
+  final card =  CardModel().obs;
   @override
   void onInit() {
-    fetchGalleryList();
+    fetchCard();
     super.onInit();
   }
 
-  void fetchGalleryList() async {
-    NetworkHelper networkHelper = NetworkHelper(url: galleryUrl);
+  void fetchCard() async {
+    NetworkHelper networkHelper = NetworkHelper(url: getCardUrl);
 
-    networkHelper.getGallery().then((value) {
-      card = value[0];
-      print(card);
+    networkHelper.getCard().then((value) {
+      print(value);
     });
+
   }
 }

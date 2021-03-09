@@ -1,57 +1,33 @@
 import 'dart:convert';
 
+import 'package:pa_template/utils/models/base_card_detail.dart';
+
 
 class BaseCard {
-  BaseCard({
-    this.arrLink,
-    this.atk,
-    this.bluePendulum,
-    this.cardCategory,
-    this.cardDesc,
-    this.cardImg,
-    this.cardName,
-    this.cardPath,
-    this.cardTit,
-    this.cardType,
-    this.colorCardName,
-    this.createdAt,
-    this.def,
-    this.defPendulum,
-    this.pendulum,
-    this.premium,
-    this.rainbow,
-    this.rank,
-    this.redPendulum,
-    this.star,
-    this.theme,
-    this.themeType,
-    this.thumbUrl,
-    this.yourName,
-  });
+  BaseCard(
+      this.isVerify,
+      this.id,
+      this.card,
+      this.createdAt,
+      this.rateCount,
+      this.ratePoint,
+      this.starAverage,
+      this.reported,
+      this.category,
+      this.isBlocked,
+      this.reportCount
+);
 
-  List<dynamic> arrLink;
-  String atk;
-  String bluePendulum;
-  String cardCategory;
-  String cardDesc;
-  String cardImg;
-  String cardName;
-  String cardPath;
-  String cardTit;
-  String cardType;
-  int colorCardName;
+  bool isVerify;
+  String id;
+  BaseCardDetail card;
   int createdAt;
-  String def;
-  String defPendulum;
-  bool pendulum;
-  bool premium;
-  bool rainbow;
-  int rank;
-  String redPendulum;
-  int star;
-  String theme;
-  String themeType;
-  String thumbUrl;
-  String yourName;
+  int rateCount;
+  int ratePoint;
+  double starAverage;
+  bool reported;
+  String category;
+  bool isBlocked;
+  List<bool> reportCount;
 
 }

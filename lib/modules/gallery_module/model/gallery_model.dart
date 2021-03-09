@@ -1,36 +1,12 @@
 import 'dart:convert';
 
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
+import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 import 'package:pa_template/utils/models/base_card.dart';
 import 'package:pa_template/utils/models/base_gallery_card.dart';
 
-// List<GalleryModel> galleryCardFromJson(String str) => List<GalleryModel>.from(json.decode(str).map((x) => GalleryModel.fromJson(x)));
-//
-// String galleryCardToJson(List<GalleryModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+import '../../card_module/card_model/card_detail_model.dart';
+import '../../card_module/card_model/card_model.dart';
 
-// class GalleryModel {
-//   GalleryModel({
-//     this.id,
-//     this.createdAt,
-//     this.name,
-//   });
-//
-//   String id;
-//   DateTime createdAt;
-//   String name;
-//
-//   factory GalleryModel.fromJson(Map<String, dynamic> json) => GalleryModel(
-//     id: json["id"],
-//     createdAt: DateTime.parse(json["createdAt"]),
-//     name: json["name"],
-//   );
-//
-//   Map<String, dynamic> toJson() => {
-//     "id": id,
-//     "createdAt": createdAt.toIso8601String(),
-//     "name": name,
-//   };
-// }
 
 List<GalleryModel> galleryCardFromJson(String str) => List<GalleryModel>.from(
     json.decode(str).map((x) => GalleryModel.fromJson(x)));
@@ -76,7 +52,7 @@ class GalleryModel extends BaseGalleryCard {
   Map<String, dynamic> toJson() => {
         "category": category,
         "isVerify": isVerify,
-        "card": cardToJson,
+        "card": CardModel().toJson(),
         "createdAt": createdAt,
         "rateCount": rateCount,
         "ratePoint": ratePoint,

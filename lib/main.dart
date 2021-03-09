@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/modules/card_module/view/card_view.dart';
-import 'package:pa_template/modules/gallery_module/view/gallery_view.dart';
+
+import 'modules/card_module/view/card_view.dart';
+import 'modules/gallery_module/view/gallery_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -44,15 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+           TextButton(onPressed: () => Get.to(() => CardView()), child: Text('card')),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.to(() => CardView()),
+        onPressed: () => Get.to(() => GalleryView()),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

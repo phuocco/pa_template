@@ -23,12 +23,12 @@ class BaseGalleryCard {
       this.category,
       this.id,
       this.isVerify,
-  this.card,
-  this.createdAt,
-  this.ratePoint,
-  this.rateCount,
-  this.starAverage,
-  this.reported,
-  this.isBlocked,
-  this.reportCount);
+      this.card,
+      this.createdAt,
+      this.ratePoint,
+      this.rateCount,
+      this.starAverage,
+      this.reported,
+      this.isBlocked,
+      this.reportCount);
 }

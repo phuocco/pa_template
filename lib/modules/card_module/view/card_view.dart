@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/modules/card_module/card_controller/card_controller.dart';
-import 'package:pa_template/modules/gallery_module/controller/gallery_controller.dart';
+
+import '../../gallery_module/controller/gallery_controller.dart';
+import '../../gallery_module/controller/gallery_controller.dart';
+import '../card_controller/card_controller.dart';
+import '../card_controller/card_controller.dart';
+import '../card_controller/card_controller.dart';
+import '../card_controller/card_controller.dart';
+import '../card_controller/card_controller.dart';
 
 class CardView extends StatelessWidget {
   final controller = Get.put(CardController());
@@ -17,17 +24,8 @@ class CardView extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(10),
-          child: GetX<CardController>(
-            builder: (controller) {
-              if (controller.card.isBlank) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return Text('controller.card.toString()');
-              }
-            },
-          ),
+          child: GetBuilder(init: CardController(),
+          builder: (controller) =>Text("a"),),
         ),
       ),
     );

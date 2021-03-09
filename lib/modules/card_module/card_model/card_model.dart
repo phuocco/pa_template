@@ -1,119 +1,53 @@
 import 'dart:convert';
 
-import 'package:pa_template/utils/models/base_card.dart';
+import '../../../utils/models/base_card.dart';
 
-List<CardModel> cardFromJson(String str) =>
-    List<CardModel>.from(json.decode(str).map((x) => CardModel.fromJson(x)));
+CardModel cardModelFromJson(String str) => CardModel.fromJson(json.decode(str));
 
-String cardToJson(List<CardModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String cardModelToJson(CardModel data) => json.encode(data.toJson());
 
-class CardModel extends BaseCard{
-  CardModel({
-    this.arrLink,
-    this.atk,
-    this.bluePendulum,
-    this.cardCategory,
-    this.cardDesc,
-    this.cardImg,
-    this.cardName,
-    this.cardPath,
-    this.cardTit,
-    this.cardType,
-    this.colorCardName,
-    this.createdAt,
-    this.def,
-    this.defPendulum,
-    this.pendulum,
-    this.premium,
-    this.rainbow,
-    this.rank,
-    this.redPendulum,
-    this.star,
-    this.theme,
-    this.themeType,
-    this.thumbUrl,
-    this.yourName,
-  });
+class CardModel extends BaseCard {
+  CardModel(
+      {isVerify,
+      id,
+      card,
+      createdAt,
+      rateCount,
+      ratePoint,
+      starAverage,
+      reported,
+      category,
+      isBlocked,
+      reportCount})
+      : super(isVerify, id, card, createdAt, rateCount, ratePoint, starAverage,
+            reported, category, isBlocked, reportCount);
 
-  List<dynamic> arrLink;
-  String atk;
-  String bluePendulum;
-  String cardCategory;
-  String cardDesc;
-  String cardImg;
-  String cardName;
-  String cardPath;
-  String cardTit;
-  String cardType;
-  int colorCardName;
-  int createdAt;
-  String def;
-  String defPendulum;
-  bool pendulum;
-  bool premium;
-  bool rainbow;
-  int rank;
-  String redPendulum;
-  int star;
-  String theme;
-  String themeType;
-  String thumbUrl;
-  String yourName;
 
   factory CardModel.fromJson(Map<String, dynamic> json) => CardModel(
-    arrLink: List<dynamic>.from(json["arrLink"].map((x) => x)),
-    atk: json["atk"],
-    bluePendulum: json["blue_pendulum"],
-    cardCategory: json["card_category"],
-    cardDesc: json["card_desc"],
-    cardImg: json["card_img"],
-    cardName: json["card_name"],
-    cardPath: json["card_path"],
-    cardTit: json["card_tit"],
-    cardType: json["card_type"],
-    colorCardName: json["colorCardName"],
+    isVerify: json["isVerify"],
+    id: json["id"],
+    card: CardModel.fromJson(json["card"]),
     createdAt: json["createdAt"],
-    def: json["def"],
-    defPendulum: json["def_pendulum"],
-    pendulum: json["pendulum"],
-    premium: json["premium"],
-    rainbow: json["rainbow"],
-    rank: json["rank"],
-    redPendulum: json["red_pendulum"],
-    star: json["star"],
-    theme: json["theme"],
-    themeType: json["theme_type"],
-    thumbUrl: json["thumb_url"],
-    yourName: json["your_name"],
+    rateCount: json["rateCount"],
+    ratePoint: json["ratePoint"],
+    starAverage: json["starAverage"].toDouble(),
+    reported: json["reported"],
+    category: json["category"],
+    isBlocked: json["isBlocked"],
+    reportCount: List<bool>.from(json["reportCount"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
-    "arrLink": List<dynamic>.from(arrLink.map((x) => x)),
-    "atk": atk,
-    "blue_pendulum": bluePendulum,
-    "card_category": cardCategory,
-    "card_desc": cardDesc,
-    "card_img": cardImg,
-    "card_name": cardName,
-    "card_path": cardPath,
-    "card_tit": cardTit,
-    "card_type": cardType,
-    "colorCardName": colorCardName,
+    "isVerify": isVerify,
+    "id": id,
+    "card": CardModel().toJson(),
     "createdAt": createdAt,
-    "def": def,
-    "def_pendulum": defPendulum,
-    "pendulum": pendulum,
-    "premium": premium,
-    "rainbow": rainbow,
-    "rank": rank,
-    "red_pendulum": redPendulum,
-    "star": star,
-    "theme": theme,
-    "theme_type": themeType,
-    "thumb_url": thumbUrl,
-    "your_name": yourName,
+    "rateCount": rateCount,
+    "ratePoint": ratePoint,
+    "starAverage": starAverage,
+    "reported": reported,
+    "category": category,
+    "isBlocked": isBlocked,
+    "reportCount": List<dynamic>.from(reportCount.map((x) => x)),
   };
-
-
 }
