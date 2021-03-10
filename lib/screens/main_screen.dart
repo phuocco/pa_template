@@ -37,7 +37,7 @@ class MainScreen extends GetWidget<HomeController> {
           ),
           TextButton(
               onPressed: () {
-                adsController.showIntersAds();
+              //  adsController.showIntersAds();
                 Get.to(() => SavedScreen());
               },
               child: Text('show inters')),

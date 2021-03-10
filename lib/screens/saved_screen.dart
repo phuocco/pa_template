@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/saved_controller.dart';
 import 'package:pa_template/screens/home_screen.dart';
@@ -10,6 +11,8 @@ class SavedScreen extends GetView<SavedController> {
   final adsController = Get.put(AdsController());
   @override
   Widget build(BuildContext context) {
+    final AdWidget adWidget = AdWidget(ad: adsController.myNativeAd);
+
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -38,6 +41,13 @@ class SavedScreen extends GetView<SavedController> {
                     Get.back();
                   }, child: Text("a"),
                 ),
+              ),
+              Container(
+                color: Colors.transparent,
+                alignment: Alignment.center,
+                child: adWidget,
+                width: Get.width,
+                height: 200,
               ),
             ],
           ),),

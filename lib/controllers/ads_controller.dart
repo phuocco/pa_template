@@ -18,6 +18,12 @@ class AdsController extends GetxController {
   BannerAd myBanner;
   loadBanner() => myBanner.load();
 
+  NativeAd myNativeAd;
+  loadNative() {
+    print('cac');
+    myNativeAd.load();
+  }
+
   InterstitialAd _interstitialAd;
   bool _interstitialReady = false;
 
@@ -119,6 +125,8 @@ class AdsController extends GetxController {
     myBanner?.dispose();
     _interstitialAd?.dispose();
     _rewardedAd?.dispose();
+    // myNativeAd?.dispose();
+    // myNativeAd=null;
     super.onClose();
   }
 
@@ -145,6 +153,31 @@ class AdsController extends GetxController {
         onApplicationExit: (Ad ad) => print('Left application.'),
       ),
     );
+    myNativeAd = NativeAd(
+      adUnitId: AdManager.nativeAdUnitId,
+      factoryId: 'adFactoryExample',
+      request: adRequest,
+      listener: AdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (Ad ad) => print('Native Ad loaded.'),
+        // Called when an ad request failed.
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Ad failed to load: $error');
+        },
+        // Called when an ad opens an overlay that covers the screen.
+        onAdOpened: (Ad ad) => print('Ad opened.'),
+        // Called when an ad removes an overlay that covers the screen.
+        onAdClosed: (Ad ad) => print('Ad closed.'),
+        // Called when an ad is in the process of leaving the application.
+        onApplicationExit: (Ad ad) => print('Left application.'),
+        // Called when a click is recorded for a NativeAd.
+        onNativeAdClicked: (NativeAd ad) => print('Ad clicked.'),
+        // Called when an impression is recorded for a NativeAd.
+        onNativeAdImpression: (NativeAd ad) => print('Ad impression.'),
+      ),
+    );
+
     loadBanner();
+    loadNative();
   }
 }
