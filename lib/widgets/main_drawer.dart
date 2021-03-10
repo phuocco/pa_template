@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/controllers/home_controller.dart';
+import 'package:pa_template/utils/functions/util_functions.dart';
 
 class MainDrawer extends GetView<HomeController> {
 
@@ -11,8 +12,7 @@ class MainDrawer extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Container(
       width: Get.width * 0.65,
-      margin: EdgeInsets.only(bottom: 50),
-      child: Drawer(
+                child: Drawer(
         child: Column(
           children: [
             Container(

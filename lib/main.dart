@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/modules/card_module/view/card_view.dart';
 import 'package:pa_template/screens/home_screen.dart';
 
@@ -7,6 +8,8 @@ import 'modules/card_module/view/card_view.dart';
 import 'modules/gallery_module/view/gallery_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

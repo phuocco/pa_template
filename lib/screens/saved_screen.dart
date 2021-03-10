@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/controllers/saved_controller.dart';
+import 'package:pa_template/screens/home_screen.dart';
 
 class SavedScreen extends GetView<SavedController> {
   @override
@@ -14,17 +15,29 @@ class SavedScreen extends GetView<SavedController> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: Container(
-              height: 300,
-              width: 300,
-              color: Colors.blue,
-            ),
-
-          ),
+          // Expanded(
+          //   child: Container(
+          //     height: 300,
+          //     width: 300,
+          //     color: Colors.blue,
+          //   ),
+          //
+          // ),
           Padding(padding: EdgeInsets.only(bottom: 2),child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [],
+            children: [
+              Container(
+                height: 35,
+                width: double.maxFinite,
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: TextButton(
+                  
+                  onPressed: () {
+                    Get.back();
+                  }, child: Text("a"),
+                ),
+              ),
+            ],
           ),),
         ],
       ),
