@@ -6,8 +6,7 @@ import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  final controller = Get.put(HomeController());
-
+final controller = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -19,7 +18,6 @@ class HomeScreen extends GetView<HomeController> {
         }, 'Main'),
         BaseAppBar('assets icon', () {
           controller.selectPage(1);
-          controller.printController();
         }, 'Gallery'),
         BaseAppBar('assets icon', () {
           controller.selectPage(2);
@@ -34,10 +32,10 @@ class HomeScreen extends GetView<HomeController> {
         resizeToAvoidBottomInset: false,
         appBar: appBar,
         drawer: MainDrawer(),
-        body: GetBuilder(
+        body: GetX<HomeController>(
           init: HomeController(),
-          builder: (a) {
-            return controller.pages[controller.selectingPage]['page'];
+          builder: (_) {
+            return _.list.value[_.selectingPage.value]['page'];
           },
         ),
 
