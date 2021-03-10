@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/saved_controller.dart';
 import 'package:pa_template/screens/home_screen.dart';
 
 class SavedScreen extends GetView<SavedController> {
+  final adsController = Get.put(AdsController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,8 +33,8 @@ class SavedScreen extends GetView<SavedController> {
                 width: double.maxFinite,
                 margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                 child: TextButton(
-                  
                   onPressed: () {
+                    adsController.showIntersAds();
                     Get.back();
                   }, child: Text("a"),
                 ),

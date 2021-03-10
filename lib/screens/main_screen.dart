@@ -26,7 +26,30 @@ class MainScreen extends GetWidget<HomeController> {
                 // adsController.dispose();
               },
               child: Text('To Saved Screen')),
-          TextButton(onPressed: () => Get.snackbar("hi", "hello", snackPosition: SnackPosition.BOTTOM, margin: EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())), child: Text('snack bar'),),
+          TextButton(
+            onPressed: () => Get.snackbar("hi", "hello",
+                snackPosition: SnackPosition.BOTTOM,
+                margin:
+                    EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())),
+            child: Text(
+              'snack bar',
+            ),
+          ),
+          TextButton(
+              onPressed: () {
+                adsController.showIntersAds();
+                Get.to(() => SavedScreen());
+              },
+              child: Text('show inters')),
+          TextButton(
+            onPressed: () {
+              adsController.showRewardedAd();
+
+            },
+            child: Obx(
+              () => Text(adsController.count.value.toString()),
+            ),
+          ),
         ],
       ),
     );
