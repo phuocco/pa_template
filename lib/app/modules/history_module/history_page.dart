@@ -10,6 +10,6 @@ class HistoryPage extends GetWidget<HistoryController> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Gallery'),);
+    return Center(child: Text('History'),);
   }
 }

@@ -10,7 +10,7 @@ class SavedPage extends GetWidget<SavedController> {
   SavedController savedController = Get.put(SavedController());
   @override
   Widget build(BuildContext context) {
-    // final AdWidget adWidget = AdWidget(ad: adsController.myNativeAd);
+    final AdWidget adWidget = AdWidget(ad: adsController.myNativeAd);
 
     return SafeArea(
         child: Scaffold(
@@ -58,7 +58,7 @@ class SavedPage extends GetWidget<SavedController> {
                           break;
                         case ConnectionState.done:
                           if (snapshot.hasData) {
-                            child = AdWidget(ad: adsController.myNativeAd);
+                            child = adWidget;
                           } else {
                             child = Text('Error loading $NativeAd');
                           }
