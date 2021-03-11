@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
+import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/screens/gallery_screen.dart';
 import 'package:pa_template/screens/history_screen.dart';
 import 'package:pa_template/screens/main_screen.dart';
@@ -57,12 +58,12 @@ class HomeController extends GetxController{
   pages = [
   {'page': MainScreen(), 'title': 'Main Screen'},
   {'page': GalleryPage(), 'title': 'Gallery Screen'},
-  {'page': HistoryScreen(), 'title': 'History Screen'},
+  {'page': HistoryPage(), 'title': 'History Screen'},
   ];
   list.value.addAll([
   {'page': MainScreen(), 'title': 'Main Screen'},
   {'page': GalleryPage(), 'title': 'Gallery Screen'},
-  {'page': HistoryScreen(), 'title': 'History Screen'},
+  {'page': HistoryPage(), 'title': 'History Screen'},
   ]);
   }
 

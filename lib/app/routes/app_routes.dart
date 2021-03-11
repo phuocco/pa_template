@@ -8,4 +8,6 @@ abstract class Routes {
   static const HOME = '/home'; // Home page
   static const SAVED = '/saved'; // Saved page
   static const GALLERY = '/gallery'; // Gallery page
+  static const HISTORY = '/history'; // History page
+  static const MAIN = '/main'; // Main page
 }
