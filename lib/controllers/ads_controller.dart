@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -19,8 +21,9 @@ class AdsController extends GetxController {
   loadBanner() => myBanner.load();
 
   NativeAd myNativeAd;
+  final nativeAdCompleter = Completer<NativeAd>().obs;
+
   loadNative() {
-    print('cac');
     myNativeAd.load();
   }
 
@@ -125,8 +128,8 @@ class AdsController extends GetxController {
     myBanner?.dispose();
     _interstitialAd?.dispose();
     _rewardedAd?.dispose();
-    // myNativeAd?.dispose();
-    // myNativeAd=null;
+    myNativeAd?.dispose();
+    myNativeAd=null;
     super.onClose();
   }
 
@@ -154,28 +157,24 @@ class AdsController extends GetxController {
       ),
     );
     myNativeAd = NativeAd(
-      adUnitId: AdManager.nativeAdUnitId,
+      adUnitId: NativeAd.testAdUnitId,
+      request: AdRequest(),
       factoryId: 'adFactoryExample',
-      request: adRequest,
       listener: AdListener(
-        // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) => print('Native Ad loaded.'),
-        // Called when an ad request failed.
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Ad failed to load: $error');
+        onAdLoaded: (Ad ad) {
+          print('$NativeAd loaded..');
+          nativeAdCompleter.value.complete(ad as NativeAd);
         },
-        // Called when an ad opens an overlay that covers the screen.
-        onAdOpened: (Ad ad) => print('Ad opened.'),
-        // Called when an ad removes an overlay that covers the screen.
-        onAdClosed: (Ad ad) => print('Ad closed.'),
-        // Called when an ad is in the process of leaving the application.
-        onApplicationExit: (Ad ad) => print('Left application.'),
-        // Called when a click is recorded for a NativeAd.
-        onNativeAdClicked: (NativeAd ad) => print('Ad clicked.'),
-        // Called when an impression is recorded for a NativeAd.
-        onNativeAdImpression: (NativeAd ad) => print('Ad impression.'),
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('$NativeAd failedToLoad: $error');
+          nativeAdCompleter.value.completeError(null);
+        },
+        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+        onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
       ),
     );
+    Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
 
     loadBanner();
     loadNative();

@@ -42,15 +42,39 @@ class SavedScreen extends GetView<SavedController> {
                   }, child: Text("a"),
                 ),
               ),
-              Container(
-                color: Colors.transparent,
-                alignment: Alignment.center,
-                child: adWidget,
-                width: Get.width,
-                height: 200,
-              ),
-            ],
+            ]
           ),),
+          GetX<AdsController>(
+            builder: (adsController) {
+              return FutureBuilder<NativeAd>(
+                future: adsController.nativeAdCompleter.value.future,
+                builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
+                  Widget child;
+
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                    case ConnectionState.waiting:
+                    case ConnectionState.active:
+                      child = Container();
+                      break;
+                    case ConnectionState.done:
+                      if (snapshot.hasData) {
+                        child = AdWidget(ad: adsController.myNativeAd);
+                      } else {
+                        child = Text('Error loading $NativeAd');
+                      }
+                  }
+
+                  return Container(
+                    width: 250,
+                    height: 350,
+                    child: child,
+                    color: Colors.blueGrey,
+                  );
+                },
+              );
+            },
+          )
         ],
       ),
     ));

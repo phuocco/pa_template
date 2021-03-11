@@ -10,27 +10,25 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 import com.google.android.gms.ads.formats.UnifiedNativeAdView;
-import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin.NativeAdFactory;
 import java.util.Map;
+import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin.NativeAdFactory;
 
 
 public class MainActivity extends FlutterActivity {
-
-    private NativeAdFactoryExample nativeAdFactoryExample;
-
+    @Override
     public void configureFlutterEngine(FlutterEngine flutterEngine) {
-        flutterEngine.getPlugins().add(new GoogleMobileAdsPlugin());
         super.configureFlutterEngine(flutterEngine);
-
-        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "adFactoryExample",nativeAdFactoryExample);
+        final NativeAdFactory factory = new NativeAdFactoryExample(getLayoutInflater());
+        GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "adFactoryExample", factory);
     }
+
     @Override
     public void cleanUpFlutterEngine(FlutterEngine flutterEngine) {
         GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "adFactoryExample");
     }
 }
 
-class NativeAdFactoryExample implements GoogleMobileAdsPlugin.NativeAdFactory {
+class NativeAdFactoryExample implements NativeAdFactory {
     private final LayoutInflater layoutInflater;
 
     NativeAdFactoryExample(LayoutInflater layoutInflater) {
