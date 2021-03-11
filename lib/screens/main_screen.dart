@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/screens/saved_screen.dart';
-import 'package:pa_template/utils/functions/util_functions.dart';
+import 'package:pa_template/functions/util_functions.dart';
 
 class MainScreen extends GetWidget<HomeController> {
   final adsController = Get.put(AdsController());
@@ -22,7 +22,7 @@ class MainScreen extends GetWidget<HomeController> {
               controller.list.value[controller.selectingPage.value]['title'])),
           TextButton(
               onPressed: () {
-                Get.to(() => SavedScreen());
+                Get.to(() => SavedPage());
                 // adsController.dispose();
               },
               child: Text('To Saved Screen')),
@@ -38,7 +38,7 @@ class MainScreen extends GetWidget<HomeController> {
           TextButton(
               onPressed: () {
               //  adsController.showIntersAds();
-                Get.to(() => SavedScreen());
+                Get.to(() => SavedPage());
               },
               child: Text('show inters')),
           TextButton(

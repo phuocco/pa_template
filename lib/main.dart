@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
+import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 import 'package:pa_template/app/routes/app_pages.dart';
 
 

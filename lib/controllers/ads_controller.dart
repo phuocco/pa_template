@@ -14,7 +14,7 @@ class AdsController extends GetxController {
   AdRequest adRequest = AdRequest(testDevices: [
     'C53C9F562E282082EAFCDB42BF360BC1',
     '79A2C46F7F42017B2CD92F43970F4F2F',
-    'e645b85f78980a92381fe225e3df5aec'
+    'e645b85f78980a92381fe225e3df5aec',
   ]);
 
   BannerAd myBanner;

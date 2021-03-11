@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/utils/functions/util_functions.dart';
+import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
 /**
