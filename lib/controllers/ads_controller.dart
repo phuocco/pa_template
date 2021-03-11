@@ -18,6 +18,7 @@ class AdsController extends GetxController {
   ]);
 
   BannerAd myBanner;
+  final bannerCompleter = Completer<BannerAd>().obs;
   loadBanner() => myBanner.load();
 
   NativeAd myNativeAd;
@@ -126,6 +127,7 @@ class AdsController extends GetxController {
   @override
   void onClose() {
     myBanner?.dispose();
+    myBanner = null;
     _interstitialAd?.dispose();
     _rewardedAd?.dispose();
     myNativeAd?.dispose();
@@ -143,10 +145,13 @@ class AdsController extends GetxController {
       request: adRequest,
       listener: AdListener(
         // Called when an ad is successfully received.
-        onAdLoaded: (Ad ad) => print('bannerAd loaded.'),
+        onAdLoaded: (Ad ad) { print('bannerAd loaded.');
+        bannerCompleter.value.complete(ad as BannerAd);
+        },
         // Called when an ad request failed.
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Ad failed to load: $error');
+          bannerCompleter.value.completeError(null);
         },
         // Called when an ad opens an overlay that covers the screen.
         onAdOpened: (Ad ad) => print('Ad opened.'),

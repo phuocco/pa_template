@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/controllers/home_controller.dart';
 
 class BaseAppBar extends StatelessWidget {
   BaseAppBar(this.icon, this.onIconTap, this.text, {this.key});

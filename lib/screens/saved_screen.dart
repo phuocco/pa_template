@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/saved_controller.dart';
-import 'package:pa_template/screens/home_screen.dart';
 
 class SavedScreen extends GetView<SavedController> {
   final adsController = Get.put(AdsController());
