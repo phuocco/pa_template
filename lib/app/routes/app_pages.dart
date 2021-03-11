@@ -1,3 +1,5 @@
+import '../../app/modules/gallery_module/gallery_page.dart';
+import '../../app/modules/gallery_module/gallery_bindings.dart';
 import '../../app/modules/saved_module/saved_page.dart';
 import '../../app/modules/saved_module/saved_bindings.dart';
 import '../../app/modules/home_module/home_page.dart';
@@ -19,6 +21,11 @@ abstract class AppPages {
       name: Routes.SAVED,
       page: () => SavedPage(),
       binding: SavedBinding(),
+    ),
+    GetPage(
+      name: Routes.GALLERY,
+      page: () => GalleryPage(),
+      binding: GalleryBinding(),
     ),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
 import 'package:pa_template/screens/gallery_screen.dart';
 import 'package:pa_template/screens/history_screen.dart';
 import 'package:pa_template/screens/main_screen.dart';
@@ -55,12 +56,12 @@ class HomeController extends GetxController{
   void initPages(){
   pages = [
   {'page': MainScreen(), 'title': 'Main Screen'},
-  {'page': GalleryScreen(), 'title': 'Gallery Screen'},
+  {'page': GalleryPage(), 'title': 'Gallery Screen'},
   {'page': HistoryScreen(), 'title': 'History Screen'},
   ];
   list.value.addAll([
   {'page': MainScreen(), 'title': 'Main Screen'},
-  {'page': GalleryScreen(), 'title': 'Gallery Screen'},
+  {'page': GalleryPage(), 'title': 'Gallery Screen'},
   {'page': HistoryScreen(), 'title': 'History Screen'},
   ]);
   }
