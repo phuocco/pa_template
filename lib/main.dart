@@ -9,6 +9,7 @@ import 'package:pa_template/app/routes/app_pages.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
+
   runApp(MyApp());
 }
 

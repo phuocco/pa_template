@@ -1,4 +1,4 @@
-package com.example.pa_template;
+package co.pamobile.yugioh.cardmaker;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;

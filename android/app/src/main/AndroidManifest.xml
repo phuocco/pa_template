@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pa_template">
-   <application
+    package="co.pamobile.yugioh.cardmaker">
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <application
         android:label="pa_template"
         android:icon="@mipmap/ic_launcher">
         <activity

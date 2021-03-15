@@ -5,6 +5,7 @@ import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
+import 'package:pa_template/purchase_screen.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
@@ -35,25 +36,28 @@ class MainPage extends GetWidget<HomeController> {
             onPressed: () => Get.snackbar("hi", "hello",
                 snackPosition: SnackPosition.BOTTOM,
                 margin:
-                EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())),
+                    EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())),
             child: Text(
               'snack bar',
             ),
           ),
           TextButton(
               onPressed: () {
-                 adsController.showIntersAds();
+                adsController.showIntersAds();
                 Get.to(() => SavedPage());
               },
               child: Text('show inters')),
           TextButton(
             onPressed: () {
               adsController.showRewardedAd();
-
             },
             child: Obx(
-                  () => Text(adsController.count.value.toString()),
+              () => Text(adsController.count.value.toString()),
             ),
+          ),
+          TextButton(
+            onPressed: () => Get.to(() => PurchaseScreen()),
+            child: Text('iap'),
           ),
         ],
       ),
