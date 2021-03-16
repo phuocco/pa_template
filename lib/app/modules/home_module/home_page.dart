@@ -15,7 +15,7 @@ class HomePage extends GetView<HomeController> {
   final adsController = Get.put(AdsController());
   @override
   Widget build(BuildContext context) {
-    final AdWidget adWidget = AdWidget(ad: adsController.myBanner);
+
     var scaffoldKey = GlobalKey<ScaffoldState>();
 
     final appBar = AppBar(
@@ -63,18 +63,29 @@ class HomePage extends GetView<HomeController> {
               break;
             case ConnectionState.done:
               if (snapshot.hasData) {
-                child = adWidget;
+                if(adsController.isPremium.value = false)
+                child = AdWidget(ad: adsController.myBanner);
               } else {
                 child = Text('Error loading $BannerAd');
               }
           }
-
-          return Container(
-            width: double.infinity,
-            height: UtilFunctions().getHeightBanner(),
-            child: child,
-            color: Colors.transparent,
+          return GetX<AdsController>(
+            builder: (controller) {
+              print("count 1 rebuild");
+              return Container(
+                width: double.infinity,
+                height: controller.isPremium.value == false ? UtilFunctions().getHeightBanner() : 0,
+                child: child,
+                color: Colors.green,
+              );
+            },
           );
+          // return Container(
+          //   width: double.infinity,
+          //   height: UtilFunctions().getHeightBanner(),
+          //   child: child,
+          //   color: Colors.green,
+          // );
         },
       ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_page.dart';
@@ -12,7 +13,7 @@ import 'package:pa_template/purchase_screen.dart';
 
 class MainPage extends GetWidget<HomeController> {
   final adsController = Get.put(AdsController());
-
+  final box = GetStorage();
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -56,8 +57,17 @@ class MainPage extends GetWidget<HomeController> {
             ),
           ),
           TextButton(
-            onPressed: () => Get.to(() => PurchaseScreen()),
-            child: Text('iap'),
+            onPressed: () {
+
+              print(box.read('IS_PREMIUM'));
+            },
+            child: Text('get shared'),
+          ),
+          TextButton(
+            onPressed: () {
+              box.remove('IS_PREMIUM');
+            },
+            child: Text('remove shared'),
           ),
         ],
       ),

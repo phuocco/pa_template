@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_bindings.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
@@ -8,10 +9,10 @@ import 'package:pa_template/app/routes/app_pages.dart';
 
 import 'app/modules/all_binding.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
-
+  await GetStorage.init();
   runApp(MyApp());
 }
 

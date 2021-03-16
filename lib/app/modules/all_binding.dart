@@ -13,6 +13,7 @@ import 'package:pa_template/app/modules/history_module/history_controller.dart';
 import 'package:pa_template/app/data/provider/history_provider.dart';
 import 'package:pa_template/app/data/repository/history_repository.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'gallery_module/gallery_controller.dart';
 import 'home_module/home_controller.dart';
 import 'main_module/main_controller.dart';
@@ -26,6 +27,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => HomeController(repository: HomeRepository(provider: HomeProvider())));
     Get.lazyPut(() => MainController(repository: MainRepository(provider: MainProvider())));
     Get.lazyPut(() => SavedController(repository: SavedRepository(provider: SavedProvider())));
+    //Get.lazyPut(() => AdsController());
 
   }
 }
