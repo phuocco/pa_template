@@ -10,7 +10,7 @@ class SavedController extends GetxController{
 
   SavedController({this.repository});
 
-  var _obj = ''.obs;
+  var _obj = 'aa'.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
 }

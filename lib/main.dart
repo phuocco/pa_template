@@ -6,6 +6,8 @@ import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 import 'package:pa_template/app/routes/app_pages.dart';
 
+import 'app/modules/all_binding.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   MobileAds.instance.initialize();
@@ -23,9 +25,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HomePage(),
+    //  home: HomePage(),
       getPages: AppPages.pages,
-      initialBinding: HomeBinding(),
+      initialBinding: AllBinding(),
+      initialRoute: '/home',
     );
   }
 }

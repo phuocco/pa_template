@@ -5,9 +5,10 @@ import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 
 
-class SavedPage extends GetWidget<SavedController> {
+class SavedPage extends StatelessWidget {
   final adsController = Get.put(AdsController());
-  SavedController savedController = Get.put(SavedController());
+  final SavedController savedController = Get.find();
+
   @override
   Widget build(BuildContext context) {
     final AdWidget adWidget = AdWidget(ad: adsController.myNativeAd);
@@ -38,7 +39,7 @@ class SavedPage extends GetWidget<SavedController> {
                         onPressed: () {
                           adsController.showIntersAds();
                           Get.back();
-                        }, child: Text("a"),
+                        }, child: Text(savedController.obj),
                       ),
                     ),
                   ]
@@ -78,4 +79,5 @@ class SavedPage extends GetWidget<SavedController> {
           ),
         ));
   }
+
 }
