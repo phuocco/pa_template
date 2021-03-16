@@ -282,6 +282,7 @@ class AdsController extends GetxController {
   Future getProduct() async {
     List<IAPItem> items = await FlutterInappPurchase.instance.getProducts(_productLists);
     for (var item in items) {
+      print('get items');
       print('${item.toString()}');
       this._items.add(item);
     }

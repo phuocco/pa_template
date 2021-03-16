@@ -6,7 +6,7 @@ import 'package:pa_template/modules/gallery_module/model/gallery_model.dart';
  * GetX Template Generator - fb.com/htngu.99
  * */
 
-const baseUrl = 'http://144.202.7.67:3004/api/UploadItems/getListUploadItem?current_page=1&lim=5&sort_type=0';
+const baseUrl = 'http://144.202.7.67:3004/api/UploadItems/getListUploadItem?current_page=1&lim=30&sort_type=0';
 
 class GalleryProvider extends GetConnect {
 
@@ -16,8 +16,9 @@ class GalleryProvider extends GetConnect {
   // Post request example
   Future<Response> postUser(Map data) => post('$baseUrl/users', data);
 
-  Future getGallery() async {
-    var response = await httpClient.get(baseUrl);
+  Future getGallery(int sortType) async {
+    var url = 'http://144.202.7.67:3004/api/UploadItems/getListUploadItem?current_page=1&lim=30&sort_type=$sortType';
+    var response = await httpClient.get(url);
     if (response.statusCode == 200) {
       var data = response.bodyString;
       var decodedData = galleryCardFromJson(data);

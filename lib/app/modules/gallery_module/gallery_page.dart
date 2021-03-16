@@ -1,55 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_controller.dart';
+import 'package:pa_template/app/modules/gallery_module/keep_alive_wrapper.dart';
+
+import 'gallery_tab.dart';
 
 class GalleryPage extends GetView<GalleryController> {
   final controller = Get.put(GalleryController());
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GetX<GalleryController>(
-        initState: (state) {
-          Get.find<GalleryController>().getGallery();
-        },
-        builder: (_) {
-          if (controller.listCard.isEmpty) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
-            return GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 5,
-              children: List.generate(controller.listCard.length, (index) {
-                return Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 2.0,
-                          spreadRadius: 0.0,
-                          offset: Offset(
-                              2.0, 2.0), // shadow direction: bottom right
-                        )
-                      ]),
-                  child: Column(
-                    children: [
-                      Text(controller.listCard[index].category),
-                      Text(controller.listCard[index].id),
-                    ],
-                  ),
-                );
-              }),
-            );
-          }
-        },
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          decoration: BoxDecoration(color: Color(0xff5f6368)),
+          child: TabBar(
+            indicatorColor: Colors.black,
+            controller: controller.tabController,
+            tabs: [
+              Container(
+                height: 40,
+                child: Tab(
+                  text: 'NEWEST',
+                ),
+              ),
+              Container(
+                height: 40,
+                child: Tab(
+                  text: 'RATING',
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: controller.tabController,
+            children: <Widget>[
+              KeepAliveWrapper(child: GalleryTab(0),),
+              KeepAliveWrapper(child: GalleryTab(1),),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

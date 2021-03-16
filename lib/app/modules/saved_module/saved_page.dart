@@ -6,7 +6,7 @@ import 'package:pa_template/controllers/ads_controller.dart';
 
 class SavedPage extends StatelessWidget {
   final adsController = Get.put(AdsController());
-  final SavedController savedController = Get.find();
+  final SavedController savedController = Get.put(SavedController());
 
   @override
   Widget build(BuildContext context) {
