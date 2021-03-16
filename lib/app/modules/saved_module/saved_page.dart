@@ -39,7 +39,9 @@ class SavedPage extends StatelessWidget {
           TextButton(
                 onPressed: () {
                   adsController.requestPurchase(adsController.items[0]);
+                  // print(adsController.items.toString());
                 },
+
                 child: Text('buy')),
 
           TextButton(

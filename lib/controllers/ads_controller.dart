@@ -24,11 +24,9 @@ class AdsController extends GetxController {
   ]
       : ['premium_yugioh'];
   final _platformVersion = 'Unknown'.obs;
-  final _items = <IAPItem>[].obs;
-  final _purchases = <PurchasedItem>[].obs;
+  final items = <IAPItem>[].obs;
+  final purchases = <PurchasedItem>[].obs;
 
-  get items => _items;
-  get purchases => _purchases;
 
   bool getPremium()  {
     bool check  = box.read('IS_PREMIUM');
@@ -276,43 +274,42 @@ class AdsController extends GetxController {
   }
 
   void requestPurchase(IAPItem item) {
+
     FlutterInappPurchase.instance.requestPurchase(item.productId);
   }
 
   Future getProduct() async {
-    List<IAPItem> items = await FlutterInappPurchase.instance.getProducts(_productLists);
-    for (var item in items) {
+    List<IAPItem> listItems = await FlutterInappPurchase.instance.getProducts(_productLists);
+    for (var item in listItems) {
       print('get items');
       print('${item.toString()}');
-      this._items.add(item);
+      this.items.add(item);
     }
     print('get products');
-      _items.assignAll(items);
-      _purchases.assignAll([]);
+      items.assignAll(listItems);
+      purchases.assignAll([]);
   }
 
   Future getPurchases() async {
-    List<PurchasedItem> items =
+    List<PurchasedItem> listItems =
     await FlutterInappPurchase.instance.getAvailablePurchases();
-    for (var item in items) {
+    for (var item in listItems) {
       print('${item.toString()}');
-      this._purchases.add(item);
+      this.purchases.add(item);
     }
     print('get purchases');
-    _items.assignAll([]);
-    _purchases.assignAll(items);
+    // items.assignAll([]);
+    purchases.assignAll(listItems);
   }
 
   Future getPurchaseHistory() async {
-    List<PurchasedItem> items = await FlutterInappPurchase.instance.getPurchaseHistory();
-    for (var item in items) {
+    List<PurchasedItem> listItems = await FlutterInappPurchase.instance.getPurchaseHistory();
+    for (var item in listItems) {
       print('${item.toString()}');
-      this._purchases.add(item);
+      this.purchases.add(item);
     }
     print('get history');
-      _items.assignAll([]);
-      _purchases.assignAll(items);
-
+      purchases.addAll(listItems);
   }
 
 
