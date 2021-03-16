@@ -63,7 +63,7 @@ class HomePage extends GetView<HomeController> {
               break;
             case ConnectionState.done:
               if (snapshot.hasData) {
-                if(adsController.isPremium.value = false)
+
                 child = AdWidget(ad: adsController.myBanner);
               } else {
                 child = Text('Error loading $BannerAd');
@@ -76,7 +76,7 @@ class HomePage extends GetView<HomeController> {
                 width: double.infinity,
                 height: controller.isPremium.value == false ? UtilFunctions().getHeightBanner() : 0,
                 child: child,
-                color: Colors.green,
+                color: Colors.black12,
               );
             },
           );

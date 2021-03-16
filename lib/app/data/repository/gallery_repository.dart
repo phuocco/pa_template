@@ -13,8 +13,8 @@ class GalleryRepository {
     return provider.getUser(id);
   }
 
-  postUser(Map data) {
-    return provider.postUser(data);
+  getGallery(){
+    return provider.getGallery();
   }
 
 }
