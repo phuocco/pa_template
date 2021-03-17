@@ -37,8 +37,10 @@ class GalleryPage extends GetView<GalleryController> {
           child: TabBarView(
             controller: controller.tabController,
             children: <Widget>[
-              KeepAliveWrapper(child: GalleryTab(0),),
-              KeepAliveWrapper(child: GalleryTab(1),),
+              // KeepAliveWrapper(child: GalleryTab(0),),
+              // KeepAliveWrapper(child: GalleryTab(1),),
+              GalleryTab(0),
+              GalleryTab(1),
             ],
           ),
         ),

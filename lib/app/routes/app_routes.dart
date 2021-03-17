@@ -10,4 +10,6 @@ abstract class Routes {
   static const GALLERY = '/gallery'; // Gallery page
   static const HISTORY = '/history'; // History page
   static const MAIN = '/main'; // Main page
+  static const GALLERYITEM = '/galleryitem'; // GalleryItem page
+  static const DIALOGCARD = '/dialogcard'; // DialogCard page
 }

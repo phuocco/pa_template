@@ -1,3 +1,10 @@
+import '../../app/modules/dialog_card_module/dialog_card_page.dart';
+import '../../app/modules/dialog_card_module/dialog_card_bindings.dart';
+import 'package:pa_template/app/modules/gallery_item_module/gallery_item_bindings.dart';
+import 'package:pa_template/app/modules/gallery_item_module/gallery_item_page.dart';
+
+import '../../app/modules/gallery_item_module/gallery_item_page.dart';
+import '../../app/modules/gallery_item_module/gallery_item_bindings.dart';
 import '../../app/modules/main_module/main_page.dart';
 import '../../app/modules/main_module/main_bindings.dart';
 import '../../app/modules/history_module/history_page.dart';
@@ -40,6 +47,16 @@ abstract class AppPages {
       name: Routes.MAIN,
       page: () => MainPage(),
       binding: MainBinding(),
+    ),
+    GetPage(
+      name: Routes.GALLERYITEM,
+      page: () => GalleryItemPage(),
+      binding: GalleryItemBinding(),
+    ),
+    GetPage(
+      name: Routes.DIALOGCARD,
+      page: () => DialogCardPage(),
+      binding: DialogCardBinding(),
     ),
   ];
 }
