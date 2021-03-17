@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
@@ -51,43 +52,14 @@ class HomePage extends GetView<HomeController> {
           onPressed: () => controller.selectPage(2),
           child: Icon(Icons.ac_unit),
         ),
-        bottomNavigationBar:  FutureBuilder<BannerAd>(
-        future: adsController.bannerCompleter.value.future,
-        builder: (BuildContext context, AsyncSnapshot<BannerAd> snapshot) {
-          Widget child;
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-            case ConnectionState.active:
-              child = Container();
-              break;
-            case ConnectionState.done:
-              if (snapshot.hasData) {
+        bottomNavigationBar: Container(
+          height: 90,
+          width: Get.width,
+          color: Colors.transparent,
+          child: BaseBanner(),
+        ),
 
-                child = AdWidget(ad: adsController.myBanner);
-              } else {
-                child = Text('Error loading $BannerAd');
-              }
-          }
-          return GetX<AdsController>(
-            builder: (controller) {
-              print("count 1 rebuild");
-              return Container(
-                width: double.infinity,
-                height: controller.isPremium.value == false ? UtilFunctions().getHeightBanner() : 0,
-                child: child,
-                color: Colors.black12,
-              );
-            },
-          );
-          // return Container(
-          //   width: double.infinity,
-          //   height: UtilFunctions().getHeightBanner(),
-          //   child: child,
-          //   color: Colors.green,
-          // );
-        },
-      ),
+
       ),
     );
   }

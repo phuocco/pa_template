@@ -14,7 +14,7 @@ class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
   final box = GetStorage();
-
+  final isLoaded =  false.obs;
   //region purchase
   StreamSubscription purchaseUpdatedSubscription;
   StreamSubscription purchaseErrorSubscription;
@@ -146,7 +146,8 @@ class AdsController extends GetxController {
       isPremium.value = true;
       return;
     }
-    initAds();
+    initNativeAds();
+    initBannerAds();
     MobileAds.instance.initialize().then((InitializationStatus status) {
       print('Init ads done: ${status.adapterStatuses}');
       MobileAds.instance
@@ -177,7 +178,7 @@ class AdsController extends GetxController {
 
   @override
   void onReady() {
-
+    print('ready');
   }
 
   purchased(){
@@ -188,24 +189,7 @@ class AdsController extends GetxController {
     }
   }
 
-  initAds() {
-    myBanner = BannerAd(
-      adUnitId: AdManager.bannerAdUnitId,
-      size: AdSize.getSmartBanner(Orientation.portrait),
-      request: adRequest,
-      listener: AdListener(
-        onAdLoaded: (Ad ad) { print('bannerAd loaded.');
-        bannerCompleter.value.complete(ad as BannerAd);
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Ad failed to load: $error');
-          bannerCompleter.value.completeError(null);
-        },
-        onAdOpened: (Ad ad) => print('Ad opened.'),
-        onAdClosed: (Ad ad) => print('Ad closed.'),
-        onApplicationExit: (Ad ad) => print('Left application.'),
-      ),
-    );
+  initNativeAds() {
     myNativeAd = NativeAd(
       adUnitId: AdManager.nativeAdUnitId,
       request: adRequest,
@@ -226,8 +210,31 @@ class AdsController extends GetxController {
     );
     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
 
-    loadBanner();
+
     loadNative();
+  }
+
+  initBannerAds(){
+    myBanner = BannerAd(
+      adUnitId: AdManager.bannerAdUnitId,
+      size: AdSize.getSmartBanner(Orientation.portrait),
+      request: adRequest,
+      listener: AdListener(
+        onAdLoaded: (Ad ad) { print('bannerAd loaded.');
+        bannerCompleter.value.complete(ad as BannerAd);
+
+        },
+        onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          print('Ad failed to load: $error');
+          bannerCompleter.value.completeError(null);
+        },
+        onAdOpened: (Ad ad) => print('Ad opened.'),
+        onAdClosed: (Ad ad) => print('Ad closed.'),
+        onApplicationExit: (Ad ad) => print('Left application.'),
+      ),
+    );
+
+    myBanner.load().then((value) => isLoaded.value = true);
   }
 
 
