@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/functions/custom_dialog.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
@@ -36,20 +37,12 @@ class HomePage extends GetView<HomeController> {
           controller.selectPage(2);
         }, 'History'),
         IconButton(icon: Icon(Icons.save), onPressed: () async {
-          int time = DateTime.now().millisecondsSinceEpoch;
-          Future cardPathF = UtilFunctions().exportToImage(
-              globalKey: cardKey,
-              fileName: time.toString(),
-              isSaveToGallery: true,
-              folder: "");
-          Future thumbnailPathF =  UtilFunctions().exportToImage(
-              globalKey: cardKey,
-              fileName: time.toString() + '_Thumbnail',
-              isSaveToGallery: false,
-              folder: '.thumbnail');
 
-          await Future.wait([cardPathF,thumbnailPathF]).then((value) => print(value));
-        }),
+         CustomDialog.inputNameDialog(title: 'File name', currentValue: '', isNumber: false);
+
+
+
+         }),
       ],
     );
     print('init home');

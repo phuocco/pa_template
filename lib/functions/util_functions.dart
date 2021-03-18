@@ -98,9 +98,20 @@ class UtilFunctions {
     bool check = await file.exists();
     if (check) await file.delete();
     await file.writeAsBytes(bytes);
-    bool isSavedToGallery =
-        await GallerySaver.saveImage(file.path, albumName: 'Yugi');
+    // bool isSavedToGallery =
+    //     await GallerySaver.saveImage(file.path, albumName: 'Yugi');
+    // if(isSavedToGallery)
+    String filePath;
+    GallerySaver.saveImage(file.path).then((value) {
+      if(value == true) {
+        filePath = file.path;
+        print(file.path);
+        print('ccc');
+        return filePath;
+      }
+    });
 
-    return file.path;
+
+
   }
 }

@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
 import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
+import 'package:pa_template/functions/util_functions.dart';
+
+import 'home_page.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
@@ -15,7 +18,7 @@ class HomeController extends GetxController{
   HomeController({this.repository});
 
   final selectingPage = 0.obs;
-
+  final fileName = ''.obs;
   Offset center = Offset(0, 0);
   double radius = 30.0;
   bool enabled = false;
@@ -70,5 +73,26 @@ class HomeController extends GetxController{
   update();
   }
   void changeText() => text.value = "bbb";
+
+  Future<void> saveImage(String fileName) async {
+
+
+    Future cardPathF = UtilFunctions().exportToImage(
+        globalKey: cardKey,
+        fileName: fileName.toString(),
+        isSaveToGallery: true,
+        folder: "");
+    // Future thumbnailPathF =  UtilFunctions().exportToImage(
+    //     globalKey: cardKey,
+    //     fileName: fileName.toString() + '_Thumbnail',
+    //     isSaveToGallery: false,
+    //     folder: '.thumbnail');
+
+    cardPathF.then((value) {
+      print(value);
+      print('cac');
+    });
+
+  }
 
   }
