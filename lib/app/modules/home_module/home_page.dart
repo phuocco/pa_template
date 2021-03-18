@@ -11,6 +11,9 @@ import 'package:pa_template/widgets/main_drawer.dart';
  * GetX Template Generator - fb.com/htngu.99
  * */
 
+GlobalKey cardKey = new GlobalKey();
+GlobalKey imageCardKey = new GlobalKey();
+
 class HomePage extends GetView<HomeController> {
   final controller = Get.put(HomeController());
   final adsController = Get.put(AdsController());
@@ -32,6 +35,21 @@ class HomePage extends GetView<HomeController> {
         BaseAppBar('assets icon', () {
           controller.selectPage(2);
         }, 'History'),
+        IconButton(icon: Icon(Icons.save), onPressed: () async {
+          int time = DateTime.now().millisecondsSinceEpoch;
+          Future cardPathF = UtilFunctions().exportToImage(
+              globalKey: cardKey,
+              fileName: time.toString(),
+              isSaveToGallery: true,
+              folder: "");
+          Future thumbnailPathF =  UtilFunctions().exportToImage(
+              globalKey: cardKey,
+              fileName: time.toString() + '_Thumbnail',
+              isSaveToGallery: false,
+              folder: '.thumbnail');
+
+          await Future.wait([cardPathF,thumbnailPathF]).then((value) => print(value));
+        }),
       ],
     );
     print('init home');

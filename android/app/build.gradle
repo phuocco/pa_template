@@ -34,6 +34,7 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -49,6 +50,6 @@ flutter {
     source '../..'
 }
 dependencies {
-    implementation 'com.android.billingclient:billing:3.0.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 }

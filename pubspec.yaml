@@ -34,10 +34,16 @@ dependencies:
   flutter_rating_bar: ^3.2.0+1
   cached_network_image: ^2.5.1
   pull_to_refresh: ^1.6.3
+  path_provider: ^2.0.1
+  gallery_saver: ^2.0.3
 
 dependency_overrides:
   get_storage: ^1.4.0
   cached_network_image: ^2.3.1
+  http: ^0.12.0+2
+  path_provider: ^1.6.28
+  gallery_saver:
+    git: https://github.com/phuocco/gallery_saver.git
 
 
 dev_dependencies:

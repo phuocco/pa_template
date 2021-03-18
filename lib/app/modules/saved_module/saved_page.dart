@@ -12,7 +12,7 @@ class SavedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AdWidget adWidget = AdWidget(ad: adsController.myNativeAd);
-
+    print('build saved');
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -55,38 +55,38 @@ class SavedPage extends StatelessWidget {
           TextButton(onPressed: adsController.purchased, child: Text('fake purchased')),
           TextButton(onPressed:() => Get.back(), child: Text('back')),
 
-          GetX<AdsController>(
-            builder: (adsController) {
-              return FutureBuilder<NativeAd>(
-                future: adsController.nativeAdCompleter.value.future,
-                builder:
-                    (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
-                  Widget child;
-
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                    case ConnectionState.waiting:
-                    case ConnectionState.active:
-                      child = Container();
-                      break;
-                    case ConnectionState.done:
-                      if (snapshot.hasData) {
-                        child = adWidget;
-                      } else {
-                        child = Text('Error loading $NativeAd');
-                      }
-                  }
-
-                  return Container(
-                    width: Get.width,
-                    height: 200,
-                    child: child,
-                    color: Colors.blueGrey,
-                  );
-                },
-              );
-            },
-          )
+          // GetX<AdsController>(
+          //   builder: (adsController) {
+          //     return FutureBuilder<NativeAd>(
+          //       future: adsController.nativeAdCompleter.value.future,
+          //       builder:
+          //           (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
+          //         Widget child;
+          //
+          //         switch (snapshot.connectionState) {
+          //           case ConnectionState.none:
+          //           case ConnectionState.waiting:
+          //           case ConnectionState.active:
+          //             child = Container();
+          //             break;
+          //           case ConnectionState.done:
+          //             if (snapshot.hasData) {
+          //               child = adWidget;
+          //             } else {
+          //               child = Text('Error loading $NativeAd');
+          //             }
+          //         }
+          //
+          //         return Container(
+          //           width: Get.width,
+          //           height: 200,
+          //           child: child,
+          //           color: Colors.blueGrey,
+          //         );
+          //       },
+          //     );
+          //   },
+          // )
         ],
       ),
     ));

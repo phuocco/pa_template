@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
@@ -69,6 +70,9 @@ class MainPage extends GetWidget<HomeController> {
             },
             child: Text('remove shared'),
           ),
+          RepaintBoundary(
+              key: cardKey,
+              child: Image.asset('assets/images/loading.png', height: 200,)),
         ],
       ),
     );
