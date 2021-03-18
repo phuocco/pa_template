@@ -34,6 +34,7 @@ class HomePage extends GetView<HomeController> {
         }, 'History'),
       ],
     );
+    print('init home');
     return SafeArea(
       top: false,
       bottom: true,

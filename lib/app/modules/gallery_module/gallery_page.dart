@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_controller.dart';
+import 'package:pa_template/app/modules/gallery_module/gallery_newest.dart';
 import 'package:pa_template/app/modules/gallery_module/keep_alive_wrapper.dart';
 
 import 'gallery_tab.dart';
@@ -9,6 +10,7 @@ class GalleryPage extends GetView<GalleryController> {
   final controller = Get.put(GalleryController());
   @override
   Widget build(BuildContext context) {
+    print('Hello');
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -37,10 +39,10 @@ class GalleryPage extends GetView<GalleryController> {
           child: TabBarView(
             controller: controller.tabController,
             children: <Widget>[
-              // KeepAliveWrapper(child: GalleryTab(0),),
+              KeepAliveWrapper(child: GalleryNewest(),),
               // KeepAliveWrapper(child: GalleryTab(1),),
-              GalleryTab(0),
-              GalleryTab(1),
+              // GalleryTab(0,key: new UniqueKey(),),
+              KeepAliveWrapper(child: GalleryRating(),),
             ],
           ),
         ),

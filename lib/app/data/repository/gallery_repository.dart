@@ -13,8 +13,8 @@ class GalleryRepository {
     return provider.getUser(id);
   }
 
-  getGallery(int sortType){
-    return provider.getGallery(sortType);
+  getGallery(int page,int sortType){
+    return provider.getGallery(page,sortType);
   }
 
 }

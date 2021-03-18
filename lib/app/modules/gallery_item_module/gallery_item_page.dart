@@ -10,7 +10,7 @@ import 'package:pa_template/modules/card_module/card_model/card_detail_model.dar
  * */
 
 class GalleryItemPage extends GetWidget<GalleryItemController> {
-  final GalleryTab galleryTab;
+
   final int index;
   final CardDetailModel cardDetailModel;
   final String id;
@@ -19,7 +19,7 @@ class GalleryItemPage extends GetWidget<GalleryItemController> {
   final double starAverage;
 
   GalleryItemPage(
-      {this.galleryTab,
+      {
       this.index,
       this.cardDetailModel,
       this.id,

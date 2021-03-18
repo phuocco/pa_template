@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pa_template/app/data/repository/gallery_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/modules/gallery_module/model/gallery_model.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
 
 class GalleryController extends GetxController with SingleGetTickerProviderMixin{
 
@@ -18,9 +16,10 @@ class GalleryController extends GetxController with SingleGetTickerProviderMixin
     Tab(text: 'RIGHT'),
   ];
 
-  final _listCard = <GalleryModel>[].obs;
-  get listCard => _listCard;
-
+  final _listCardNewest = <GalleryModel>[].obs;
+  get listCardNewest => _listCardNewest;
+  final _listCardRating = <GalleryModel>[].obs;
+  get listCardRating => _listCardRating;
   @override
   void onInit() {
     super.onInit();
@@ -33,10 +32,17 @@ class GalleryController extends GetxController with SingleGetTickerProviderMixin
     super.onClose();
   }
 
-  getGallery(int sortType) {
-    repository.getGallery(sortType).then((data){
-      _listCard.assignAll(data);
+  getGallery(int page,int type) {
+
+    type == 0 ? repository.getGallery(page,0).then((data){
+      _listCardNewest.addAll(data);
+    }) : repository.getGallery(page,1).then((data){
+      _listCardRating.addAll(data);
     });
+  }
+
+  refreshGallery(int type){
+    type == 0 ? _listCardNewest.assignAll([]) : _listCardRating.assignAll([]);
   }
 
 }
