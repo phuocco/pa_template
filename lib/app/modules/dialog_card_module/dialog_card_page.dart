@@ -19,6 +19,9 @@ class DialogCardPage extends GetWidget<DialogCardController> {
 
   @override
   Widget build(BuildContext context) {
+     //  controller.getSharedPref();
+
+    bool isRated = controller.checkRated(id);
     return Container(
       child: GetBuilder<DialogCardController>(
         initState: (state) {
@@ -90,7 +93,8 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                     Padding(
                         padding: EdgeInsets.symmetric(vertical: 5),
                         child: AbsorbPointer(
-                          absorbing: false,
+                          absorbing: isRated,
+                          // absorbing: false,
                           child: RatingBar(
                               initialRating: 1,
                               minRating: 1,
@@ -114,6 +118,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                               ),
                               onRatingUpdate: (point) {
                                 print(point);
+                                controller.rateCard(id);
                               }),
                         )),
                     Row(

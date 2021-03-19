@@ -21,7 +21,13 @@ class MainPage extends GetWidget<HomeController> {
     return Center(
       child: Column(
         children: [
-          Text(adsController.a),
+          TextButton(
+            onPressed: () {
+              final box = GetStorage();
+              print(box.read('LIST_ITEM'));
+            },
+            child: Text('read list'),
+          ),
           TextButton(
             onPressed: () => controller.changeText(),
             child: Obx(() => Text(controller.text.value)),
