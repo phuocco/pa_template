@@ -82,16 +82,13 @@ class HomeController extends GetxController{
         fileName: fileName.toString(),
         isSaveToGallery: true,
         folder: "");
-    // Future thumbnailPathF =  UtilFunctions().exportToImage(
-    //     globalKey: cardKey,
-    //     fileName: fileName.toString() + '_Thumbnail',
-    //     isSaveToGallery: false,
-    //     folder: '.thumbnail');
+    Future thumbnailPathF =  UtilFunctions().exportToImage(
+        globalKey: cardKey,
+        fileName: fileName.toString() + '_Thumbnail',
+        isSaveToGallery: false,
+        folder: '.thumbnail');
 
-    cardPathF.then((value) {
-      print(value);
-      print('cac');
-    });
+    Future.wait([cardPathF, thumbnailPathF]).then((value) => print(value));
 
   }
 

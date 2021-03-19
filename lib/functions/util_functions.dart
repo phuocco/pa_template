@@ -55,8 +55,8 @@ class UtilFunctions {
           await image.toByteData(format: ui.ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();
       var bs64 = base64Encode(pngBytes);
-      print(pngBytes);
-      print(bs64);
+      // print(pngBytes);
+      // print(bs64);
       filePath = await createImageFromBase64(
           base64: bs64,
           fileName: fileName,
@@ -102,15 +102,14 @@ class UtilFunctions {
     //     await GallerySaver.saveImage(file.path, albumName: 'Yugi');
     // if(isSavedToGallery)
     String filePath;
-    GallerySaver.saveImage(file.path).then((value) {
-      if(value == true) {
-        filePath = file.path;
-        print(file.path);
-        print('ccc');
-        return filePath;
-      }
-    });
-
+    if(isSaveToGallery){
+      GallerySaver.saveImage(file.path).then((value) {
+        if(value == true) {
+          print('ccc');
+        }
+      });
+    }
+    return file.path;
 
 
   }
