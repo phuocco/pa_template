@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
 import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
+import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
+import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 
 import 'home_page.dart';
 /**
@@ -16,6 +18,8 @@ class HomeController extends GetxController{
   final HomeRepository repository;
 
   HomeController({this.repository});
+
+  final cardDetail = defaultCard.obs;
 
   final selectingPage = 0.obs;
   final fileName = ''.obs;
@@ -88,7 +92,9 @@ class HomeController extends GetxController{
         isSaveToGallery: false,
         folder: '.thumbnail');
 
-    Future.wait([cardPathF, thumbnailPathF]).then((value) => print(value));
+    Future.wait([cardPathF, thumbnailPathF]).then((value) {
+      cardDetail.value.cardImg = value[0];
+    });
 
   }
 

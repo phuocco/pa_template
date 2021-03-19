@@ -1,6 +1,6 @@
 import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 
-CardDetailModel cardDetailModel = CardDetailModel(
+CardDetailModel defaultCard = CardDetailModel(
   arrLink: [],
   atk: '3000', // Attack Point
   cardCategory: "0", // ID Category Card

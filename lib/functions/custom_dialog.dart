@@ -56,6 +56,7 @@ class CustomDialog {
             }
             Get.find<HomeController>().saveImage(time.toString() + "_" + value);
             Get.back();
+            Get.toNamed('/saved');
 
           },
         ),

@@ -8,6 +8,8 @@ import 'package:gallery_saver/gallery_saver.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
+import 'package:path/path.dart';
 
 class UtilFunctions {
   double getHeightBanner() {
@@ -101,11 +103,11 @@ class UtilFunctions {
     // bool isSavedToGallery =
     //     await GallerySaver.saveImage(file.path, albumName: 'Yugi');
     // if(isSavedToGallery)
-    String filePath;
+
     if(isSaveToGallery){
       GallerySaver.saveImage(file.path).then((value) {
         if(value == true) {
-          print('ccc');
+
         }
       });
     }
@@ -113,4 +115,17 @@ class UtilFunctions {
 
 
   }
+
+  share(String path) async {
+    try {
+      File file = File(path);
+      String fileName = basename(path);
+      Uint8List bytes = await file.readAsBytes();
+      // Share.shareFiles(fileName, fileName + ".png", bytes, "image/png");
+      Share.shareFiles([path],mimeTypes: ['image/png']);
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
 }
