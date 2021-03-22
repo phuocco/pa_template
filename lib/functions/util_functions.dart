@@ -30,13 +30,11 @@ class UtilFunctions {
     }
   }
 
-  Future<void> captureToShare() async{
-    RenderRepaintBoundary boundary =
-    cardKey.currentContext.findRenderObject();
+  Future<void> captureToShare() async {
+    RenderRepaintBoundary boundary = cardKey.currentContext.findRenderObject();
     double devicePixelRatio = Get.context.devicePixelRatio;
     ui.Image image = await boundary.toImage(pixelRatio: devicePixelRatio);
-    ByteData byteData =
-        await image.toByteData(format: ui.ImageByteFormat.png);
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     var pngBytes = byteData.buffer.asUint8List();
     var bs64 = base64Encode(pngBytes);
     return pngBytes;
@@ -52,7 +50,8 @@ class UtilFunctions {
       RenderRepaintBoundary boundary =
           globalKey.currentContext.findRenderObject();
       double devicePixelRatio = Get.context.devicePixelRatio;
-      ui.Image image = await boundary.toImage(pixelRatio: folder == '.thumbnail' ? 0.35 : devicePixelRatio);
+      ui.Image image = await boundary.toImage(
+          pixelRatio: folder == '.thumbnail' ? 0.35 : devicePixelRatio);
       ByteData byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();
@@ -81,13 +80,14 @@ class UtilFunctions {
     if (GetPlatform.isAndroid) {
       Directory result = await getExternalStorageDirectory();
       Directory newDir;
-      folder == '.thumbnail' ? newDir = Directory(result.path + '/thumbnail') : newDir = result;
+      folder == '.thumbnail'
+          ? newDir = Directory(result.path + '/thumbnail')
+          : newDir = result;
 
       if (!newDir.existsSync()) {
         await newDir.create();
       }
       path = newDir.path;
-
     } else if (GetPlatform.isIOS) {
       Directory result = await getApplicationDocumentsDirectory();
       if (!result.existsSync()) {
@@ -104,16 +104,12 @@ class UtilFunctions {
     //     await GallerySaver.saveImage(file.path, albumName: 'Yugi');
     // if(isSavedToGallery)
 
-    if(isSaveToGallery){
+    if (isSaveToGallery) {
       GallerySaver.saveImage(file.path).then((value) {
-        if(value == true) {
-
-        }
+        if (value == true) {}
       });
     }
     return file.path;
-
-
   }
 
   share(String path) async {
@@ -122,10 +118,9 @@ class UtilFunctions {
       String fileName = basename(path);
       Uint8List bytes = await file.readAsBytes();
       // Share.shareFiles(fileName, fileName + ".png", bytes, "image/png");
-      Share.shareFiles([path],mimeTypes: ['image/png']);
+      Share.shareFiles([path], mimeTypes: ['image/png']);
     } on Exception catch (e) {
       print(e);
     }
   }
-
 }

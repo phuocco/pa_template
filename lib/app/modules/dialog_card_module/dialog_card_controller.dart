@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/data/repository/dialog_card_repository.dart';
@@ -13,44 +15,41 @@ class DialogCardController extends GetxController {
   DialogCardController({this.repository});
 
   final listRate = <String>[].obs;
+  final isRated = false.obs;
 
   final box = GetStorage();
 
-  List getSharedPref() {
-    box.hasData('LIST_RATE')
-        ? listRate.assignAll(box.read('LIST_RATE'))
-        : listRate.assignAll([]);
-
+   getSharedPref() async {
+     if(box.hasData('LIST_RATE')){
+        List<String> myList = box.read('LIST_RATE').cast<String>();
+        listRate.assignAll(myList);
+     }
+    print(listRate);
+     print('hiiiii');
     return listRate;
   }
 
-  updateSharedPref(String id) {
-    List<String> temp = listRate;
-    temp.add(id);
-    box.remove('LIST_RATE');
-    box.write('LIST_RATE', temp);
-  }
 
-  bool checkRated(String id) {
-    bool isRated = false;
-    List<String> temp = [];
-    temp = box.read('LIST_RATE');
-    if (box.hasData('LIST_RATE')) {
-      var contain = temp.where((element) => id == element);
-      if (contain.isNotEmpty) {
-        isRated = true;
-      } else {
-        isRated = false;
+   checkRated( String id) {
+     print('check');
+     isRated.value = false;
+      if(!listRate.isBlank){
+        var checkID = listRate.where((element) => id == element);
+        print(id);
+        if(!checkID.isBlank) {
+          print('blank');
+          isRated.value = true;
+        } else {
+          isRated.value = false;
+        }
       }
-    } else {
-      isRated = false;
-    }
-    return isRated;
+
   }
 
-  rateCard(String id) {
+  rateCard(String id) async {
+    print(id);
     listRate.add(id);
-    box.write('LIST_RATE', listRate);
+    await box.write('LIST_RATE', listRate.toList());
   }
 
   double widthScreen, heightScreen;

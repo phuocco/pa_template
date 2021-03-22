@@ -19,13 +19,13 @@ class DialogCardPage extends GetWidget<DialogCardController> {
 
   @override
   Widget build(BuildContext context) {
-     //  controller.getSharedPref();
 
-    bool isRated = controller.checkRated(id);
     return Container(
       child: GetBuilder<DialogCardController>(
         initState: (state) {
           Get.find<DialogCardController>().setSize();
+          controller.getSharedPref();
+          controller.checkRated(id);
         },
         builder: (controller) => Container(
           color: Colors.transparent,
@@ -92,9 +92,9 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                   children: [
                     Padding(
                         padding: EdgeInsets.symmetric(vertical: 5),
-                        child: AbsorbPointer(
-                          absorbing: isRated,
-                          // absorbing: false,
+                        child: Obx(() => AbsorbPointer(
+                          // absorbing: isRated,
+                          absorbing: controller.isRated.value,
                           child: RatingBar(
                               initialRating: 1,
                               minRating: 1,
@@ -119,8 +119,9 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                               onRatingUpdate: (point) {
                                 print(point);
                                 controller.rateCard(id);
+                                controller.isRated.value = true;
                               }),
-                        )),
+                        ))),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -134,6 +135,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
+                            print(controller.isRated.value);
                             print('copy card');
                           },
                         ),
@@ -163,7 +165,9 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                                   'Cannot report',
                                   'You\'ve already report this card',
                                   snackPosition: SnackPosition.BOTTOM,
-                                  margin: EdgeInsets.only(bottom: UtilFunctions().getHeightBanner()),
+                                  margin: EdgeInsets.only(
+                                      bottom:
+                                          UtilFunctions().getHeightBanner()),
                                 );
                               },
                             ),

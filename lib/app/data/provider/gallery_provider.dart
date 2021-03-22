@@ -17,7 +17,7 @@ class GalleryProvider extends GetConnect {
   Future<Response> postUser(Map data) => post('$baseUrl/users', data);
 
   Future getGallery(int page, int sortType) async {
-    var url = 'http://144.202.7.67:3004/api/UploadItems/getListUploadItem?current_page=$page&lim=1&sort_type=$sortType';
+    var url = 'http://144.202.7.67:3004/api/UploadItems/getListUploadItem?current_page=$page&lim=30&sort_type=$sortType';
     var response = await httpClient.get(url);
     if (response.statusCode == 200) {
       var data = response.bodyString;

@@ -72,10 +72,13 @@ class MainPage extends GetWidget<HomeController> {
           ),
           TextButton(
             onPressed: () {
-              box.remove('IS_PREMIUM');
+              // box.read('LIST_RATE');
+              print(box.read('LIST_RATE'));
             },
             child: Text('remove shared'),
           ),
+
+
           RepaintBoundary(
               key: cardKey,
               child: Image.asset('assets/images/loading.png', height: 200,)),

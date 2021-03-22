@@ -4,18 +4,17 @@ import 'package:pa_template/app/modules/gallery_item_module/gallery_item_page.da
 import 'package:pa_template/app/modules/gallery_module/gallery_controller.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class GalleryRating extends GetView<GalleryController> {
+class GalleryNewest extends GetView<GalleryController> {
   final controller = Get.put(GalleryController());
   int page = 1;
-
 
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
     page = 1;
-    Get.find<GalleryController>().refreshGallery(1);
-    Get.find<GalleryController>().getGallery(page, 1);
+    Get.find<GalleryController>().refreshGallery(0);
+    Get.find<GalleryController>().getGallery(page, 0);
     _refreshController.refreshCompleted();
   }
 
@@ -26,7 +25,7 @@ class GalleryRating extends GetView<GalleryController> {
   }
 
   void loadMore() async {
-    await Get.find<GalleryController>().getGallery(page, 1);
+    await Get.find<GalleryController>().getGallery(page, 0);
     _refreshController.loadComplete();
   }
 
@@ -37,7 +36,7 @@ class GalleryRating extends GetView<GalleryController> {
       // key: key,
       child: GetX<GalleryController>(
         initState: (state) {
-          Get.find<GalleryController>().getGallery(page, 1);
+          Get.find<GalleryController>().getGallery(page, 0);
           print('hello request');
         },
         builder: (_) {
@@ -57,7 +56,7 @@ class GalleryRating extends GetView<GalleryController> {
               onRefresh: _onRefresh,
               onLoading: _onLoading,
               child: GridView.builder(
-                  itemCount: controller.listCardRating.length,
+                  itemCount: controller.listCardNewest.length,
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200,
                     childAspectRatio: 7 / 14,
@@ -68,10 +67,10 @@ class GalleryRating extends GetView<GalleryController> {
                     return GalleryItemPage(
 
                       index: index,
-                      cardDetailModel: controller.listCardRating[index].card,
-                      id: controller.listCardRating[index].id,
-                      rateCount: controller.listCardRating[index].rateCount,
-                      starAverage: controller.listCardRating[index].starAverage,
+                      cardDetailModel: controller.listCardNewest[index].card,
+                      id: controller.listCardNewest[index].id,
+                      rateCount: controller.listCardNewest[index].rateCount,
+                      starAverage: controller.listCardNewest[index].starAverage,
                     );
                   }
               ),

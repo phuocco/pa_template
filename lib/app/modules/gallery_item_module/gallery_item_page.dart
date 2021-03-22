@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/dialog_card_module/dialog_card_page.dart';
 import 'package:pa_template/app/modules/gallery_item_module/gallery_item_controller.dart';
-import 'package:pa_template/app/modules/gallery_module/gallery_tab.dart';
+import 'package:pa_template/app/modules/gallery_module/gallery_newest.dart';
 import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
