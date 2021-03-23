@@ -157,7 +157,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                               ),
                               onPressed: () async {
                                 print(controller.isRated.value);
-                                controller.rateCard('604b8eda6a4e101025c988d5', 3);
+                                // controller.rateCard('604b8eda6a4e101025c988d5', 3);
                               },
                             ),
                             Row(
@@ -193,8 +193,27 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                                         backgroundColor: Colors.blue,
                                       );
                                     } else {
-                                      controller.reportCard(id);
-                                      controller.isReported.value = true;
+                                      Get.dialog(
+                                        AlertDialog(
+                                          title: Text('Report card'),
+                                          content: Text(
+                                              'Are you sure want to report this card?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Get.back(),
+                                              child: Text('Cancel'),
+                                            ),
+                                            TextButton(
+                                                onPressed: () {
+                                                  controller.reportCard(id);
+                                                  controller.isReported.value =
+                                                      true;
+                                                  Get.back();
+                                                },
+                                                child: Text('OK')),
+                                          ],
+                                        ),
+                                      );
                                     }
                                   },
                                 ),

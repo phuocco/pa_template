@@ -74,8 +74,11 @@ class DialogCardController extends GetxController {
   }
 
   reportCard(String id) async {
-     listReport.add(id);
-     await box.write('LIST_REPORT', listReport.toList());
+    bool reported = await repository.reportCard(id);
+    if(reported){
+      listReport.add(id);
+      await box.write('LIST_REPORT', listReport.toList());
+    }
   }
 
   double widthScreen, heightScreen;

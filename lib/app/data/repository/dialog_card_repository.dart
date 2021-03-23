@@ -9,11 +9,8 @@ class DialogCardRepository {
 
   DialogCardRepository({@required this.provider}) : assert(provider != null);
 
-    rateCard(String id, double point){
-      print('repo');
-      return provider.rateCard(id, point);
+    rateCard(String id, double point) => provider.rateCard(id, point);
 
-    }
-
+    reportCard(String id) => provider.reportCard(id);
 
 }
