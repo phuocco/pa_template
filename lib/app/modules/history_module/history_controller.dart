@@ -10,7 +10,5 @@ class HistoryController extends GetxController{
 
   HistoryController({this.repository});
 
-  var _obj = ''.obs;
-  set obj(value) => _obj.value = value;
-  get obj => _obj.value;
+
 }

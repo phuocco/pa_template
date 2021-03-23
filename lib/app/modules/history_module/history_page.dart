@@ -23,15 +23,15 @@ class HistoryPage extends GetWidget<HistoryController> {
         ),
         TextButton(
           onPressed: () {
-
-            print(box.read('LIST_RATE'));
+            var a = box.read('LIST_HISTORY');
+            print(box.read('LIST_HISTORY'));
           },
           child: Text('read shared'),
         ),
         TextButton(
           onPressed: () {
 
-            box.remove('LIST_RATE');
+            box.remove('LIST_HISTORY');
           },
           child: Text('remove shared'),
         ),

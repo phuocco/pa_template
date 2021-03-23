@@ -13,8 +13,8 @@ import 'package:open_file/open_file.dart';
 
 class SavedPage extends StatelessWidget {
   final adsController = Get.put(AdsController());
-  final SavedController savedController = Get.put(SavedController());
-  final HomeController homeController = Get.put(HomeController());
+  final  savedController = Get.put(SavedController());
+  final  homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(

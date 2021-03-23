@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
@@ -19,6 +22,8 @@ class HomeController extends GetxController{
 
   HomeController({this.repository});
 
+  final box = GetStorage();
+  
   final cardDetail = defaultCard.obs;
 
   final selectingPage = 0.obs;
@@ -44,12 +49,6 @@ class HomeController extends GetxController{
 
   }
 
-// called after the widget is rendered on screen
-  @override
-  void onReady() {
-  // TODO: implement onReady
-  super.onReady();
-  }
 
   // giong dispose
   // called just before the Controller is deleted from memory
@@ -78,6 +77,23 @@ class HomeController extends GetxController{
   }
   void changeText() => text.value = "bbb";
 
+  final listHistory = <CardDetailModel>[].obs;
+  getPref() async {
+    if(box.hasData('LIST_HISTORY')){
+      List<CardDetailModel> historyCard = box.read('LIST_HISTORY').cast<CardDetailModel>();
+      listHistory.assignAll(historyCard);
+    }
+  }
+
+// called after the widget is rendered on screen
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+    getPref();
+  }
+
+
   Future<void> saveImage(String fileName) async {
 
 
@@ -93,7 +109,15 @@ class HomeController extends GetxController{
         folder: '.thumbnail');
 
     Future.wait([cardPathF, thumbnailPathF]).then((value) {
+
       cardDetail.value.cardImg = value[0];
+      cardDetail.value.thumbUrl = value[1];
+      // String encodeSTR = jsonEncode(cardDetail.value);
+      CardDetailModel tempCard = CardDetailModel.fromJson(cardDetail.value.toJson());
+
+      listHistory.add(tempCard);
+      box.write('LIST_HISTORY', listHistory);
+      print('a');
     });
 
   }
