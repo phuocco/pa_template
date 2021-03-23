@@ -1,16 +1,30 @@
+import 'dart:convert';
+
 import 'package:get/get_connect/connect.dart';
+import 'package:pa_template/constants/const_url.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
 
-const baseUrl = 'http://youapi';
-
 class DialogCardProvider extends GetConnect {
 
-  // Get request example
-  Future<Response> getUser(int id) => get('$baseUrl/users/id');
+   rateCard(String id, double point) async {
+    print('callapi');
+    var url = baseAPIUrl + 'api/UploadItems/Vote';
+    Map<String, String> headers = {"Content-type": "application/json"};
+    var response = await httpClient.post(url,
+        headers: headers,
+        body: json.encode({
+          "item_id": id,
+          "point": point,
+        }));
 
-  // Post request example
-  Future<Response> postUser(Map data) => post('$baseUrl/users', data);
+    if (response.statusCode == 200) {
+      print("point on server: " + point.toString());
+      return true;
+    } else {
+      return false;
+    }
 
+  }
 }

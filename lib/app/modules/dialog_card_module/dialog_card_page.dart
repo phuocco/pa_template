@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -6,9 +5,6 @@ import 'package:get/get.dart';
 import 'package:pa_template/app/modules/dialog_card_module/dialog_card_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
 
 class DialogCardPage extends GetWidget<DialogCardController> {
   final controller = Get.put(DialogCardController());
@@ -20,6 +16,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
 
   @override
   Widget build(BuildContext context) {
+    print(id);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -29,6 +26,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
               Get.find<DialogCardController>().setSize();
               controller.getSharedPref();
               controller.checkRated(id);
+              controller.checkReported(id);
             },
             builder: (controller) => Container(
               color: Colors.transparent,
@@ -122,8 +120,27 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                                       ),
                                       onRatingUpdate: (point) {
                                         print(point);
-                                        controller.rateCard(id);
-                                        controller.isRated.value = true;
+                                        Get.dialog(
+                                          AlertDialog(
+                                            content:
+                                                Text('Want to rate this card?'),
+                                            actions: [
+                                              TextButton(
+                                                  onPressed: () => Get.back(),
+                                                  child: Text('Cancel')),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    controller.rateCard(
+                                                        id, point);
+                                                    controller.isRated.value =
+                                                        true;
+                                                    Get.back();
+                                                  },
+                                                  child: Text('Ok')),
+                                            ],
+                                          ),
+                                          barrierDismissible: false,
+                                        );
                                       }),
                                 ))),
                         Row(
@@ -140,7 +157,7 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                               ),
                               onPressed: () async {
                                 print(controller.isRated.value);
-                                print('copy card');
+                                controller.rateCard('604b8eda6a4e101025c988d5', 3);
                               },
                             ),
                             Row(
@@ -152,7 +169,8 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                                     color: Colors.white,
                                     size: 30,
                                   ),
-                                  onPressed: () => print('share'),
+                                  onPressed: () =>
+                                      print(controller.isReported.value),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -164,26 +182,20 @@ class DialogCardPage extends GetWidget<DialogCardController> {
                                     size: 30,
                                   ),
                                   onPressed: () async {
-                                    print('check reported');
-
-
-                                      // ScaffoldMessenger.of(Get.overlayContext).showSnackBar(
-                                      //   SnackBar(
-                                      //     content: Text('h'),
-                                      //     behavior: SnackBarBehavior.floating,
-                                      //   ),
-                                      // );
-
-                                    Get.snackbar(
-                                      'Cannot report',
-                                      'You\'ve already report this card',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      margin: EdgeInsets.only(
-                                          bottom:
-                                          UtilFunctions().getHeightBanner()),
-                                      backgroundColor: Colors.blue,
-                                    );
-
+                                    if (controller.isReported.value) {
+                                      Get.snackbar(
+                                        'Cannot report',
+                                        'You\'ve already report this card',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        margin: EdgeInsets.only(
+                                            bottom: UtilFunctions()
+                                                .getHeightBanner()),
+                                        backgroundColor: Colors.blue,
+                                      );
+                                    } else {
+                                      controller.reportCard(id);
+                                      controller.isReported.value = true;
+                                    }
                                   },
                                 ),
                               ],

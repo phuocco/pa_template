@@ -9,9 +9,7 @@ class GalleryRepository {
 
   GalleryRepository({@required this.provider}) : assert(provider != null);
 
-  getUser(id) {
-    return provider.getUser(id);
-  }
+
 
   getGallery(int page,int sortType){
     return provider.getGallery(page,sortType);

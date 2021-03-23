@@ -9,12 +9,11 @@ class DialogCardRepository {
 
   DialogCardRepository({@required this.provider}) : assert(provider != null);
 
-  getUser(id) {
-    return provider.getUser(id);
-  }
+    rateCard(String id, double point){
+      print('repo');
+      return provider.rateCard(id, point);
 
-  postUser(Map data) {
-    return provider.postUser(data);
-  }
+    }
+
 
 }
