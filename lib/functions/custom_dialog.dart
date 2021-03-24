@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
 
 class CustomDialog {
- static inputNameDialog(
+  static inputNameDialog(
       {String title,
       String currentValue,
       bool isNumber,
@@ -29,8 +30,8 @@ class CustomDialog {
             keyboardType: isNumber
                 ? TextInputType.number
                 : multiLine != null
-                ? TextInputType.multiline
-                : TextInputType.text,
+                    ? TextInputType.multiline
+                    : TextInputType.text,
             onChanged: (onChangeValue) {
               value = onChangeValue;
             },
@@ -57,69 +58,13 @@ class CustomDialog {
             Get.find<HomeController>().saveImage(time.toString() + "_" + value);
             Get.back();
             Get.toNamed('/saved');
-
           },
         ),
       ],
     ));
-
   }
 
 
- static inputNameDialog2(BuildContext context,
-     {String title,
-       String currentValue,
-       bool isNumber,
-       bool multiLine}) async {
-   String value = currentValue;
-   final textController = TextEditingController();
-   if (currentValue != null) {
-     textController.text = currentValue;
-   }
-   return showDialog(
-       context: context,
-       barrierDismissible: false,
-       builder: (BuildContext context) {
-         return AlertDialog(
-           title: Text(title),
-           content: SingleChildScrollView(
-             scrollDirection: Axis.vertical,
-             child: Container(
-               width: MediaQuery.of(context).size.shortestSide,
-               child: TextField(
-                 autofocus: true,
-                 controller: textController,
-                 keyboardType: isNumber
-                     ? TextInputType.number
-                     : multiLine != null
-                     ? TextInputType.multiline
-                     : TextInputType.text,
-                 onChanged: (onChangeValue) {
-                   value = onChangeValue;
-                 },
-               ),
-             ),
-           ),
-           actions: [
-             FlatButton(
-               child: Text(
-                 'Cancel'.toUpperCase(),
-                 style: TextStyle(color: Colors.grey),
-               ),
-               onPressed: () {
-                 Navigator.pop(context);
-               },
-             ),
-             FlatButton(
-               child: Text('Ok'.toUpperCase()),
-               onPressed: () {
-                 int time = DateTime.now().millisecondsSinceEpoch;
-                 Navigator.of(context).pop(time.toString() + "_" + value);
-               },
-             ),
-           ],
-         );
-       });
- }
+
 
 }

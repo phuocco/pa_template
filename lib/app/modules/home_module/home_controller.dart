@@ -10,6 +10,7 @@ import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
+import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
 
 import 'home_page.dart';
 /**
@@ -25,7 +26,6 @@ class HomeController extends GetxController{
   final box = GetStorage();
   
   final cardDetail = defaultCard.obs;
-
   final selectingPage = 0.obs;
   final fileName = ''.obs;
   Offset center = Offset(0, 0);
@@ -39,8 +39,6 @@ class HomeController extends GetxController{
   final list = Rx<List<Map<String, Object>>>([]);
 
 
-  // giong initState
-  // called immediately after the widget is allocated memory
   @override
   void onInit() {
   // TODO: implement onInit
@@ -49,9 +47,6 @@ class HomeController extends GetxController{
 
   }
 
-
-  // giong dispose
-  // called just before the Controller is deleted from memory
   @override
   void onClose() {
   // TODO: implement onClose
@@ -77,10 +72,11 @@ class HomeController extends GetxController{
   }
   void changeText() => text.value = "bbb";
 
-  final listHistory = <CardDetailModel>[].obs;
+  final listHistory = <HistoryCardModel>[].obs;
+
   getPref() async {
     if(box.hasData('LIST_HISTORY')){
-      List<CardDetailModel> historyCard = box.read('LIST_HISTORY').cast<CardDetailModel>();
+      List<HistoryCardModel> historyCard = box.read('LIST_HISTORY').cast<HistoryCardModel>();
       listHistory.assignAll(historyCard);
     }
   }
@@ -93,6 +89,7 @@ class HomeController extends GetxController{
     getPref();
   }
 
+  final historyCard = HistoryCardModel(card: defaultCard).obs;
 
   Future<void> saveImage(String fileName) async {
 
@@ -109,11 +106,12 @@ class HomeController extends GetxController{
         folder: '.thumbnail');
 
     Future.wait([cardPathF, thumbnailPathF]).then((value) {
-
+      
       cardDetail.value.cardImg = value[0];
       cardDetail.value.thumbUrl = value[1];
-      // String encodeSTR = jsonEncode(cardDetail.value);
-      CardDetailModel tempCard = CardDetailModel.fromJson(cardDetail.value.toJson());
+      int id = DateTime.now().millisecondsSinceEpoch;
+       historyCard.value = HistoryCardModel(card: cardDetail.value,isUploaded: false, id: id);
+      HistoryCardModel tempCard = HistoryCardModel.fromJson(historyCard.toJson());
 
       listHistory.add(tempCard);
       box.write('LIST_HISTORY', listHistory);

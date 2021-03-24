@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 class SavedBinding implements Bindings {
   @override
   void dependencies() {
-    print("puttt");
+
     Get.lazyPut(() => SavedController(repository: SavedRepository(provider: SavedProvider())));
   }
 }

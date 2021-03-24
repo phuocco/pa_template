@@ -8,8 +8,10 @@ import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 import 'package:pa_template/base_native.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/functions/custom_dialog.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:open_file/open_file.dart';
+import 'package:pa_template/modules/card_module/card_model/card_model.dart';
 
 class SavedPage extends StatelessWidget {
   final adsController = Get.put(AdsController());
@@ -29,7 +31,8 @@ class SavedPage extends StatelessWidget {
               padding:
                   EdgeInsets.only(top: 20, bottom: 20, left: 25, right: 25),
               child: Obx(() =>
-                  Image.file(File(homeController.cardDetail.value.cardImg))),
+                  // Image.file(File(homeController.cardDetail.value.cardImg))),
+                Text(homeController.historyCard.value.card.cardImg)),
             ),
           ),
           buildNativeAdSection(),
@@ -70,7 +73,7 @@ class SavedPage extends StatelessWidget {
               ),
               onPressed: () {
                 //TODO: open file
-                OpenFile.open(homeController.cardDetail.value.cardImg);
+                OpenFile.open(homeController.historyCard.value.card.cardImg);
               },
             ),
           ),
@@ -90,7 +93,8 @@ class SavedPage extends StatelessWidget {
               ),
               onPressed: () {
                 //TODO: share file
-                UtilFunctions().share(homeController.cardDetail.value.cardImg);
+                savedController.uploadFile(File(homeController.historyCard.value.card.cardImg), 'MainImage');
+                // UtilFunctions().share( homeController.historyCard.value.card.cardImg);
               },
             ),
           ),
@@ -109,7 +113,10 @@ class SavedPage extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                //TODO: open file
+                //TODO: upload file
+                savedController.uploadCard(homeController.historyCard.value);
+                // savedController.uploadImageGetLinkNewServer(homeController.historyCard.value);
+                // savedController.testUploadCard(homeController.historyCard.value.card);
               },
             ),
           ),
