@@ -37,12 +37,13 @@ class HomePage extends GetView<HomeController> {
           controller.selectPage(2);
         }, 'History'),
         IconButton(icon: Icon(Icons.save), onPressed: () async {
-
          CustomDialog.inputNameDialog(title: 'File name', currentValue: '', isNumber: false);
-
-
-
          }),
+        IconButton(icon: Icon(Icons.add), onPressed: () async {
+          print(controller.listHistory);
+          // controller.getPref();
+          print(controller.listHistory);
+        }),
       ],
     );
     print('init home');

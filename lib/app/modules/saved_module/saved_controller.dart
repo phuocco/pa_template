@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/data/repository/saved_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
 import 'package:pa_template/modules/card_module/card_model/card_model.dart';
 import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
@@ -16,7 +19,21 @@ class SavedController extends GetxController {
 
   SavedController({this.repository});
 
-  uploadCard(HistoryCardModel historyCardModel) {
+  final listHistory = <HistoryCardModel>[].obs;
+  final box = GetStorage();
+
+  getPref() async {
+    if (box.hasData('LIST_HISTORY')) {
+      List<HistoryCardModel> tempReport =
+      historyCardFromJson(jsonEncode(box.read('LIST_HISTORY')));
+      listHistory.assignAll(tempReport);
+    }
+  }
+
+
+
+  uploadCard(HistoryCardModel historyCardModel, int index) {
+    getPref();
     historyCardModel.isUploaded
         ? Get.dialog(
             AlertDialog(
@@ -40,7 +57,10 @@ class SavedController extends GetxController {
                       uploadImageGetLinkNewServer(historyCardModel).then((value) {
                         Get.back();
                         print(value);
+                        listHistory[index].isUploaded = true;
+                        box.write('LIST_HISTORY', listHistory);
                         Get.dialog(Dialog(child: Text('Success'),));
+
                       });
                     },
                     child: Text('OK')),

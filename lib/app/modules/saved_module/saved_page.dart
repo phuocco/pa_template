@@ -114,7 +114,8 @@ class SavedPage extends StatelessWidget {
               ),
               onPressed: () {
                 //TODO: upload file
-                savedController.uploadCard(homeController.historyCard.value);
+                final index = homeController.listHistory.indexWhere((element) => element.id == homeController.historyCard.value.id);
+                savedController.uploadCard(homeController.historyCard.value, index);
                 // savedController.uploadImageGetLinkNewServer(homeController.historyCard.value);
                 // savedController.testUploadCard(homeController.historyCard.value.card);
               },

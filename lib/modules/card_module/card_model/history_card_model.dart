@@ -24,6 +24,12 @@ class HistoryCardModel {
     id: json["id"],
   );
 
+  factory HistoryCardModel.fromMap(Map json) => HistoryCardModel(
+    isUploaded: json["isUploaded"],
+    card: CardDetailModel.fromJson(json["card"]),
+    id: json["id"],
+  );
+
   Map<String, dynamic> toJson() => {
     "isUploaded": isUploaded,
     "card": card.toJson(),
