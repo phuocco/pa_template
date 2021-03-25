@@ -4,19 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/modules/history_module/history_controller.dart';
+import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
 
 class HistoryPage extends StatelessWidget {
-  final controller = Get.put(HistoryController());
+  // final controller = Get.put(HistoryController());
   final savedController = Get.put(SavedController());
   final box = GetStorage();
   @override
   Widget build(BuildContext context) {
+    Get.find<HomeController>().getPref();
     return Container(
-      child: GetX<HistoryController>(
+      child: GetX<HomeController>(
         builder: (_) {
           if (_.listHistory.isEmpty) {
             return Center(
@@ -38,7 +40,7 @@ class HistoryPage extends StatelessWidget {
                       GestureDetector(
                         onTap: null,
                         child: Image.file(
-                            File(controller.listHistory[index].card.cardImg)),
+                            File(_.listHistory[index].card.cardImg)),
                       ),
                       Expanded(
                           child: Row(
@@ -46,10 +48,12 @@ class HistoryPage extends StatelessWidget {
                         children: [
                           IconButton(
                               icon: Icon(Icons.cloud_upload), onPressed: (){
-                                savedController.uploadCard(controller.listHistory[index], index);
+                                savedController.uploadCard(_.listHistory[index], index);
                           }),
                           IconButton(
-                              icon: Icon(Icons.delete), onPressed: null),
+                              icon: Icon(Icons.delete), onPressed: (){
+                                _.listHistory.removeAt(index);
+                          }),
                         ],
                       )),
                     ],

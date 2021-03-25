@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/base_banner.dart';
@@ -40,9 +41,10 @@ class HomePage extends GetView<HomeController> {
          CustomDialog.inputNameDialog(title: 'File name', currentValue: '', isNumber: false);
          }),
         IconButton(icon: Icon(Icons.add), onPressed: () async {
-          print(controller.listHistory);
+
           // controller.getPref();
           print(controller.listHistory);
+          // GetStorage().remove('LIST_HISTORY');
         }),
       ],
     );

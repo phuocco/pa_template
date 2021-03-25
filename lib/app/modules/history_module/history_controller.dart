@@ -14,22 +14,15 @@ class HistoryController extends GetxController{
 
   HistoryController({this.repository});
 
-  final listHistory = <HistoryCardModel>[].obs;
-  final box = GetStorage();
+ 
 
-  getPref() async {
-    if (box.hasData('LIST_HISTORY')) {
-      List<HistoryCardModel> tempReport =
-      historyCardFromJson(jsonEncode(box.read('LIST_HISTORY')));
-      listHistory.assignAll(tempReport);
-    }
-  }
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getPref();
+
+
   }
 
 }

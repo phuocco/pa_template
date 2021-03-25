@@ -41,7 +41,6 @@ class HomeController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     initPages();
-
     super.onInit();
   }
 
