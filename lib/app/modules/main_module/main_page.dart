@@ -3,14 +3,10 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
-import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
-import 'package:pa_template/purchase_screen.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
 
 class MainPage extends GetWidget<HomeController> {
   final adsController = Get.put(AdsController());

@@ -66,6 +66,7 @@ class AdsController extends GetxController {
 
   showIntersAds() {
     if (!_interstitialReady) return;
+    if(isPremium.value) return;
     _interstitialAd.show();
     _interstitialReady = false;
     _interstitialAd = null;

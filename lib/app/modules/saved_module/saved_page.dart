@@ -1,8 +1,11 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
+import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/widgets/base_native.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:open_file/open_file.dart';
@@ -23,10 +26,10 @@ class SavedPage extends StatelessWidget {
           Expanded(
             child: Container(
               padding:
-                  EdgeInsets.only(top: 20, bottom: 20, left: 25, right: 25),
+              kPaddingImageSaved,
               child: Obx(() =>
-                  // Image.file(File(homeController.cardDetail.value.cardImg))),
-                Text(homeController.historyCard.value.card.cardImg)),
+                  Image.file(File(homeController.cardDetail.value.cardImg))),
+                // Text(homeController.historyCard.value.card.cardImg)),
             ),
           ),
           buildNativeAdSection(),
@@ -37,7 +40,7 @@ class SavedPage extends StatelessWidget {
 
   buildNativeAdSection() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 2.0),
+      padding:  kPaddingAdSection,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -47,23 +50,19 @@ class SavedPage extends StatelessWidget {
                 : Container(
                     height: GetPlatform.isAndroid ? 150 : 130,
                     width: Get.width,
-                    color: Colors.transparent,
+                    color: kBackgroundNativeAdColor,
                     child: BaseNative(),
                   );
           }),
           Container(
-            height: 35,
-            width: double.maxFinite,
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            height: kHeightSavedContainerButton,
+            width: kWidthSavedContainerButton,
+            margin: kPaddingSavedContainerButton,
             child: TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xff5f6368)),
-                shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
-              ),
+              style: kButtonStyleSavedContainer,
               child: Text(
                 'OPEN',
-                style: TextStyle(color: Colors.white),
+                style: kSavedButtonText,
               ),
               onPressed: () {
                 //TODO: open file
@@ -72,18 +71,14 @@ class SavedPage extends StatelessWidget {
             ),
           ),
           Container(
-            height: 35,
-            width: double.maxFinite,
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            height: kHeightSavedContainerButton,
+            width: kWidthSavedContainerButton,
+            margin: kPaddingSavedContainerButton,
             child: TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xff5f6368)),
-                shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
-              ),
+              style: kButtonStyleSavedContainer,
               child: Text(
                 'SHARE',
-                style: TextStyle(color: Colors.white),
+                style: kSavedButtonText,
               ),
               onPressed: () {
                 //TODO: share file
@@ -93,18 +88,14 @@ class SavedPage extends StatelessWidget {
             ),
           ),
           Container(
-            height: 35,
-            width: double.maxFinite,
-            margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            height: kHeightSavedContainerButton,
+            width: kWidthSavedContainerButton,
+            margin: kPaddingSavedContainerButton,
             child: TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color(0xff5f6368)),
-                shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
-              ),
+              style: kButtonStyleSavedContainer,
               child: Text(
                 'UPLOAD',
-                style: TextStyle(color: Colors.white),
+                style: kSavedButtonText,
               ),
               onPressed: () {
                 //TODO: upload file

@@ -33,7 +33,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => HomeController(repository: HomeRepository(provider: HomeProvider())));
     Get.lazyPut(() => MainController(repository: MainRepository(provider: MainProvider())));
     Get.lazyPut(() => SavedController(repository: SavedRepository(provider: SavedProvider())));
-    //Get.lazyPut(() => AdsController());
+    Get.lazyPut(() => AdsController());
     Get.lazyPut(() => GalleryItemController(repository: GalleryItemRepository(provider: GalleryItemProvider())));
     Get.lazyPut(() => DialogCardController(repository: DialogCardRepository(provider: DialogCardProvider())));
 

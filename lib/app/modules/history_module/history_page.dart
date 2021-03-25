@@ -53,6 +53,7 @@ class HistoryPage extends StatelessWidget {
                           IconButton(
                               icon: Icon(Icons.delete), onPressed: (){
                                 _.listHistory.removeAt(index);
+                                //TODO: ask dialog + call api delete
                           }),
                         ],
                       )),

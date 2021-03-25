@@ -9,6 +9,7 @@ import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
 import 'package:pa_template/app/routes/app_pages.dart';
 
 import 'app/modules/all_binding.dart';
+import 'app/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,9 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: appThemeData,
       // home: MyHomePage(title: 'Flutter Demo Home Page'),
     //  home: HomePage(),
       getPages: AppPages.pages,

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 
 class CustomDialog {
@@ -38,22 +39,21 @@ class CustomDialog {
         ),
       ),
       actions: [
-        FlatButton(
+        TextButton(
           child: Text(
             'Cancel'.toUpperCase(),
-            style: TextStyle(color: Colors.grey),
+            style: kCancelDialogText,
           ),
           onPressed: () {
             Get.back();
           },
         ),
-        FlatButton(
-          child: Text('Ok'.toUpperCase()),
+        TextButton(
+          child: Text('Ok'.toUpperCase(),
+          style: kOKDialogText,),
           onPressed: () {
             int time = DateTime.now().millisecondsSinceEpoch;
-            if (Get.find<AdsController>().isPremium.value) {
-              Get.find<AdsController>().showIntersAds();
-            }
+            Get.find<AdsController>().showIntersAds();
             Get.find<HomeController>().saveImage(time.toString() + "_" + value);
             Get.back();
             Get.toNamed('/saved');
@@ -62,8 +62,4 @@ class CustomDialog {
       ],
     ));
   }
-
-
-
-
 }

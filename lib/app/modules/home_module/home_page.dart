@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/widgets/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/custom_dialog.dart';
@@ -44,6 +45,8 @@ class HomePage extends GetView<HomeController> {
 
           // controller.getPref();
           print(controller.listHistory);
+
+
           // GetStorage().remove('LIST_HISTORY');
         }),
       ],
@@ -70,7 +73,7 @@ class HomePage extends GetView<HomeController> {
         bottomNavigationBar: Container(
           height: 90,
           width: Get.width,
-          color: Colors.transparent,
+          color: kBottomColor,
           child: BaseBanner(),
         ),
 
