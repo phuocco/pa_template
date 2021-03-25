@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_template/constants/const_drawer.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
@@ -23,7 +24,7 @@ class BaseNative extends StatelessWidget {
           width: double.infinity,
           height: GetPlatform.isAndroid ? 150 : 130,
           child: ads,
-          color: Colors.black12,
+          color: kBackgroundContainerNativeAds,
         ): Container());
       },
     );

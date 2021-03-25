@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:pa_template/constants/const_drawer.dart';
 
 class BaseAppBar extends StatelessWidget {
   BaseAppBar(this.icon, this.onIconTap, this.text, {this.key});
@@ -15,7 +15,7 @@ class BaseAppBar extends StatelessWidget {
     return text != null
         ? Container(
             key: key,
-            padding: EdgeInsets.symmetric(vertical: 4),
+            padding: kPaddingIcon,
             child: FittedBox(
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -28,12 +28,7 @@ class BaseAppBar extends StatelessWidget {
                       SizedBox(
                         height: 4,
                       ),
-                      Text(
-                        text,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      )
+                      Text(text, style: kTextIconAppBar)
                     ],
                   ),
                 ),
@@ -41,7 +36,7 @@ class BaseAppBar extends StatelessWidget {
             ),
           )
         : Padding(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+            padding: kPaddingIconText,
             child: GestureDetector(
               onTap: onIconTap,
               child: Icon(Icons.more_vert),
