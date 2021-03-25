@@ -9,8 +9,8 @@ import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
+import 'package:pa_template/models/history_card_model.dart';
 
 import 'home_page.dart';
 /**

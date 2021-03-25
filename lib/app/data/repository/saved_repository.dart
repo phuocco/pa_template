@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:pa_template/app/data/provider/saved_provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
-import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
+import 'package:pa_template/models/card_model.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-import 'package:pa_template/utils/models/base_card.dart';
-import 'package:pa_template/utils/models/base_gallery_card.dart';
+import 'package:pa_template/models/card_detail_model.dart';
+import 'package:pa_template/models/base_card.dart';
 
-import '../../card_module/card_model/card_detail_model.dart';
-import '../../card_module/card_model/card_model.dart';
+import 'base_gallery_card.dart';
+import 'card_detail_model.dart';
+import 'card_model.dart';
 
 
 List<GalleryModel> galleryCardFromJson(String str) => List<GalleryModel>.from(

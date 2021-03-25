@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pa_template/app/data/repository/gallery_repository.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/modules/gallery_module/model/gallery_model.dart';
+import 'package:pa_template/models/gallery_model.dart';
 
 
 class GalleryController extends GetxController with SingleGetTickerProviderMixin{

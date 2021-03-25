@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-import 'package:pa_template/utils/models/base_card.dart';
-import 'package:pa_template/utils/models/base_card_detail.dart';
+
+import 'base_card_detail.dart';
 
 class BaseGalleryCard {
   String category;

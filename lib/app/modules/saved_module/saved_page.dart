@@ -1,17 +1,11 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:pa_template/app/modules/saved_module/saved_controller.dart';
-import 'package:pa_template/base_native.dart';
+import 'package:pa_template/widgets/base_native.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/functions/custom_dialog.dart';
-import 'package:pa_template/functions/util_functions.dart';
 import 'package:open_file/open_file.dart';
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
 
 class SavedPage extends StatelessWidget {
   final adsController = Get.put(AdsController());

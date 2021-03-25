@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
 
-import '../../../utils/models/base_card.dart';
+import 'base_card.dart';
 
 CardModel cardModelFromJson(String str) => CardModel.fromJson(json.decode(str));
 

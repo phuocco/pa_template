@@ -4,7 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/dialog_card_module/dialog_card_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
 
 class DialogCardPage extends GetWidget<DialogCardController> {
   final controller = Get.put(DialogCardController());

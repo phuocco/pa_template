@@ -7,9 +7,9 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/data/repository/saved_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
-import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
+import 'package:pa_template/models/card_model.dart';
+import 'package:pa_template/models/history_card_model.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

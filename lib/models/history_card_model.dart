@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
+import 'package:pa_template/models/card_detail_model.dart';
 
 List<HistoryCardModel> historyCardFromJson(String str) => List<HistoryCardModel>.from(
     json.decode(str).map((x) => HistoryCardModel.fromJson(x)));

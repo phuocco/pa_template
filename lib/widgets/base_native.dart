@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-import 'controllers/ads_controller.dart';
-import 'functions/util_functions.dart';
+import '../controllers/ads_controller.dart';
+import '../functions/util_functions.dart';
 
 class BaseNative extends StatelessWidget {
 

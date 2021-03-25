@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:get/get_connect/connect.dart';
 import 'package:pa_template/constants/const_url.dart';
-import 'package:pa_template/modules/card_module/card_model/card_detail_model.dart';
-import 'package:pa_template/modules/card_module/card_model/card_model.dart';
-import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
-import 'package:pa_template/modules/gallery_module/model/gallery_model.dart';
-import 'package:pa_template/utils/models/base_gallery_card.dart';
+import 'package:pa_template/models/card_detail_model.dart';
+import 'package:pa_template/models/card_model.dart';
+
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

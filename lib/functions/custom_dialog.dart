@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/modules/card_module/card_model/history_card_model.dart';
 
 class CustomDialog {
   static inputNameDialog(
