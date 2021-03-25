@@ -93,7 +93,7 @@ class SavedPage extends StatelessWidget {
               ),
               onPressed: () {
                 //TODO: share file
-                savedController.uploadFile(File(homeController.historyCard.value.card.cardImg), 'MainImage');
+                // savedController.uploadFile(File(homeController.historyCard.value.card.cardImg), 'MainImage');
                 // UtilFunctions().share( homeController.historyCard.value.card.cardImg);
               },
             ),

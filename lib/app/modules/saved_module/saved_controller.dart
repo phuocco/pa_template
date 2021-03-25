@@ -31,7 +31,6 @@ class SavedController extends GetxController {
   }
 
 
-
   uploadCard(HistoryCardModel historyCardModel, int index) {
     getPref();
     historyCardModel.isUploaded
@@ -89,11 +88,11 @@ class SavedController extends GetxController {
     ),barrierDismissible: false);
   }
 
-  uploadFile(File file, String container) async {
-    String a = '';
-    a = await repository.uploadFile(file, container);
-    print(a);
-  }
+  // uploadFile(File file, String container) async {
+  //   String a = '';
+  //   a = await repository.uploadFile(file, container);
+  //   print(a);
+  // }
 
   Future<CardModel> uploadImageGetLinkNewServer(
       HistoryCardModel historyCardModel) async {
@@ -126,11 +125,6 @@ class SavedController extends GetxController {
     print(card.id);
     return card;
   }
-  //
-  // testUploadCard(CardDetailModel cardModel)async {
-  //   CardModel card = await repository.uploadCard(cardModel);
-  //   print(card.id);
-  //
-  // }
+
 
 }
