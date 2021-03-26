@@ -18,9 +18,9 @@ class HistoryPage extends StatelessWidget {
   final box = GetStorage();
   @override
   Widget build(BuildContext context) {
-    Get.find<HomeController>().getPref();
+    Get.find<SavedController>().getPref();
     return Container(
-      child: GetX<HomeController>(
+      child: GetX<SavedController>(
         builder: (_) {
           if (_.listHistory.isEmpty) {
             return Center(
@@ -102,6 +102,7 @@ class HistoryPage extends StatelessWidget {
                                 } else {
                                   _.listHistory.removeAt(index);
                                 }
+                                GetStorage().write('LIST_HISTORY', _.listHistory);
                                 Get.back();
                               }, child: Text('Ok')),
                             ],));

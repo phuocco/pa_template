@@ -60,7 +60,6 @@ class SavedController extends GetxController {
                         listHistory[index].id = value.id;
                         box.write('LIST_HISTORY', listHistory);
                         Get.dialog(Dialog(child: Text('Success'),));
-                        Get.back();
                       });
                     },
                     child: Text('OK')),
