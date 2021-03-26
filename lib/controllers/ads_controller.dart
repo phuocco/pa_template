@@ -10,33 +10,25 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 
 class AdsController extends GetxController {
-
   final isPremium = false.obs;
   static bool initPurchase = false;
   final box = GetStorage();
-  final isLoaded =  false.obs;
+  final isLoaded = false.obs;
   //region purchase
   StreamSubscription purchaseUpdatedSubscription;
   StreamSubscription purchaseErrorSubscription;
-  final List<String> _productLists = GetPlatform.isAndroid
-      ? [
-    'premium',
-  ]
-      : ['premium_yugioh'];
+  final List<String> _productLists =
+      GetPlatform.isAndroid ? ['premium'] : ['premium_yugioh'];
   final _platformVersion = 'Unknown'.obs;
   final items = <IAPItem>[].obs;
   final purchases = <PurchasedItem>[].obs;
 
-
-  bool getPremium()  {
-    bool check  = box.read('IS_PREMIUM');
+  bool getPremium() {
+    bool check = box.read('IS_PREMIUM');
     update();
-     return check;
+    return check;
   }
-
-
   //endregion
-
   //region ads
   String a = "test";
 
@@ -57,7 +49,6 @@ class AdsController extends GetxController {
   final nativeAdCompleter = Completer<NativeAd>().obs;
   loadNative() => myNativeAd.load();
 
-
   InterstitialAd _interstitialAd;
   bool _interstitialReady = false;
 
@@ -66,11 +57,12 @@ class AdsController extends GetxController {
 
   showIntersAds() {
     if (!_interstitialReady) return;
-    if(isPremium.value) return;
+    if (isPremium.value) return;
     _interstitialAd.show();
     _interstitialReady = false;
     _interstitialAd = null;
   }
+
   void createInterstitialAd() {
     _interstitialAd ??= InterstitialAd(
       adUnitId: AdManager.interstitialAdUnitId,
@@ -98,7 +90,7 @@ class AdsController extends GetxController {
     )..load();
   }
 
-  showRewardedAd(){
+  showRewardedAd() {
     if (!_rewardedReady) return;
     _rewardedAd.show();
     _rewardedReady = false;
@@ -132,7 +124,7 @@ class AdsController extends GetxController {
             print(
               '$RewardedAd with reward $RewardItem(${reward.amount}, ${reward.type})',
             );
-            count.value ++;
+            count.value++;
           }),
     )..load();
   }
@@ -140,10 +132,9 @@ class AdsController extends GetxController {
   //endregion
   @override
   void onInit() {
-
     initPlatformState();
 
-    if(box.read('IS_PREMIUM') == true){
+    if (box.read('IS_PREMIUM') == true) {
       isPremium.value = true;
       return;
     }
@@ -153,8 +144,8 @@ class AdsController extends GetxController {
       print('Init ads done: ${status.adapterStatuses}');
       MobileAds.instance
           .updateRequestConfiguration(RequestConfiguration(
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
+              tagForChildDirectedTreatment:
+                  TagForChildDirectedTreatment.unspecified))
           .then((value) {
         createInterstitialAd();
         createRewardedAd();
@@ -171,7 +162,7 @@ class AdsController extends GetxController {
     _interstitialAd?.dispose();
     _rewardedAd?.dispose();
     myNativeAd?.dispose();
-    myNativeAd=null;
+    myNativeAd = null;
     purchaseUpdatedSubscription.cancel();
     purchaseErrorSubscription.cancel();
     super.onClose();
@@ -182,8 +173,8 @@ class AdsController extends GetxController {
     print('ready');
   }
 
-  purchased(){
-    if(isPremium.value == false){
+  purchased() {
+    if (isPremium.value == false) {
       isPremium.value = true;
       print('purchased');
       box.write('IS_PREMIUM', isPremium.value);
@@ -211,19 +202,18 @@ class AdsController extends GetxController {
     );
     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
 
-
     loadNative();
   }
 
-  initBannerAds(){
+  initBannerAds() {
     myBanner = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
       size: AdSize.getSmartBanner(Orientation.portrait),
       request: adRequest,
       listener: AdListener(
-        onAdLoaded: (Ad ad) { print('bannerAd loaded.');
-        bannerCompleter.value.complete(ad as BannerAd);
-
+        onAdLoaded: (Ad ad) {
+          print('bannerAd loaded.');
+          bannerCompleter.value.complete(ad as BannerAd);
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Ad failed to load: $error');
@@ -238,8 +228,6 @@ class AdsController extends GetxController {
     myBanner.load().then((value) => isLoaded.value = true);
   }
 
-
-
   Future<void> initPlatformState() async {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -251,14 +239,11 @@ class AdsController extends GetxController {
 
     await FlutterInappPurchase.instance.initConnection;
 
-
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
 
-
     _platformVersion.value = platformVersion;
-
 
     // refresh items for android
     try {
@@ -268,39 +253,41 @@ class AdsController extends GetxController {
       print('consumeAllItems error: $err');
     }
 
-    purchaseUpdatedSubscription = FlutterInappPurchase.purchaseUpdated.listen((productItem) {
+    purchaseUpdatedSubscription =
+        FlutterInappPurchase.purchaseUpdated.listen((productItem) {
       print('purchase-updated: $productItem');
     });
 
-    purchaseErrorSubscription = FlutterInappPurchase.purchaseError.listen((purchaseError) {
+    purchaseErrorSubscription =
+        FlutterInappPurchase.purchaseError.listen((purchaseError) {
       print('purchase-error: $purchaseError');
     });
 
     await getProduct();
     await getPurchaseHistory();
-    initPurchase =  true;
+    initPurchase = true;
   }
 
   void requestPurchase(IAPItem item) {
-
     FlutterInappPurchase.instance.requestPurchase(item.productId);
   }
 
   Future getProduct() async {
-    List<IAPItem> listItems = await FlutterInappPurchase.instance.getProducts(_productLists);
+    List<IAPItem> listItems =
+        await FlutterInappPurchase.instance.getProducts(_productLists);
     for (var item in listItems) {
       print('get items');
       print('${item.toString()}');
       this.items.add(item);
     }
     print('get products');
-      items.assignAll(listItems);
-      purchases.assignAll([]);
+    items.assignAll(listItems);
+    purchases.assignAll([]);
   }
 
   Future getPurchases() async {
     List<PurchasedItem> listItems =
-    await FlutterInappPurchase.instance.getAvailablePurchases();
+        await FlutterInappPurchase.instance.getAvailablePurchases();
     for (var item in listItems) {
       print('${item.toString()}');
       this.purchases.add(item);
@@ -311,16 +298,13 @@ class AdsController extends GetxController {
   }
 
   Future getPurchaseHistory() async {
-    List<PurchasedItem> listItems = await FlutterInappPurchase.instance.getPurchaseHistory();
+    List<PurchasedItem> listItems =
+        await FlutterInappPurchase.instance.getPurchaseHistory();
     for (var item in listItems) {
       print('${item.toString()}');
-      this.purchases.add(item);
     }
     print('get history');
-      purchases.addAll(listItems);
+    purchases.assignAll(listItems);
+    print(purchases);
   }
-
-
 }
-
-

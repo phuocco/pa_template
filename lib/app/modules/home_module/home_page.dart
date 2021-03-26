@@ -67,7 +67,7 @@ class HomePage extends GetView<HomeController> {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => controller.selectPage(2),
+          onPressed: () => adsController.requestPurchase(adsController.items[0]),
           child: Icon(Icons.ac_unit),
         ),
         bottomNavigationBar: Container(
