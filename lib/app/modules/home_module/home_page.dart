@@ -47,7 +47,7 @@ class HomePage extends GetView<HomeController> {
           print(controller.listHistory);
 
 
-          // GetStorage().remove('LIST_HISTORY');
+        //  GetStorage().remove('LIST_HISTORY');
         }),
       ],
     );

@@ -13,7 +13,7 @@ String historyCardToJson(List<HistoryCardModel> data) =>
 class HistoryCardModel {
   CardDetailModel card;
   bool isUploaded = false;
-  int id;
+  String id;
 
   HistoryCardModel({this.card, this.isUploaded, this.id});
 
@@ -24,11 +24,6 @@ class HistoryCardModel {
     id: json["id"],
   );
 
-  factory HistoryCardModel.fromMap(Map json) => HistoryCardModel(
-    isUploaded: json["isUploaded"],
-    card: CardDetailModel.fromJson(json["card"]),
-    id: json["id"],
-  );
 
   Map<String, dynamic> toJson() => {
     "isUploaded": isUploaded,

@@ -7,3 +7,4 @@ final String getCardUrl =
 
 final uploadUrl = 'http://144.202.7.67:3004/api/attachments/';
 final uploadCardUrl= 'http://144.202.7.67:3004/api/UploadItems/CreateCard';
+final deleteCardUrl = 'http://144.202.7.67:3004/api/UploadItems/';

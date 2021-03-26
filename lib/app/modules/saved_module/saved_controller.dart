@@ -57,9 +57,10 @@ class SavedController extends GetxController {
                         Get.back();
                         print(value);
                         listHistory[index].isUploaded = true;
+                        listHistory[index].id = value.id;
                         box.write('LIST_HISTORY', listHistory);
                         Get.dialog(Dialog(child: Text('Success'),));
-
+                        Get.back();
                       });
                     },
                     child: Text('OK')),
@@ -73,14 +74,11 @@ class SavedController extends GetxController {
       child: SizedBox(
         width: 250.0,
         child: TypewriterAnimatedTextKit(
-
           text: [
             "Uploading.........",
-
           ],
           textStyle: TextStyle(
               fontSize: 30.0,
-              fontFamily: "Agne"
           ),
           textAlign: TextAlign.start,
         ),

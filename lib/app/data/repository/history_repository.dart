@@ -16,5 +16,5 @@ class HistoryRepository {
   postUser(Map data) {
     return provider.postUser(data);
   }
-
+  deleteCard(String id) =>  provider.deleteCard(id);
 }

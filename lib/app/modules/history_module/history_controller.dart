@@ -11,15 +11,15 @@ class HistoryController extends GetxController{
 
   HistoryController({this.repository});
 
-
+  final isCheckedBox = false.obs;
 
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-
-
   }
-
+  deleteCard(String id){
+    return repository.deleteCard(id);
+  }
 }

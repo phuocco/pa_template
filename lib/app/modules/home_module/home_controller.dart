@@ -107,7 +107,7 @@ class HomeController extends GetxController {
       cardDetail.value.thumbUrl = value[1];
       int id = DateTime.now().millisecondsSinceEpoch;
       historyCard.value =
-          HistoryCardModel(card: cardDetail.value, isUploaded: false, id: id);
+          HistoryCardModel(card: cardDetail.value, isUploaded: false, id: id.toString());
       HistoryCardModel tempCard =
           HistoryCardModel.fromJson(historyCard.toJson());
 
