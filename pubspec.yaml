@@ -54,7 +54,7 @@ dependency_overrides:
   share: ^0.6.5+4
   path: ^1.7.0
   open_file: ^3.0.3
-
+  firebase_remote_config: ^0.6.0
 
 
 dev_dependencies:

@@ -13,12 +13,12 @@ import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/models/card_detail_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
+import 'package:pa_template/utils/services/remove_config_service.dart';
 import 'package:package_info/package_info.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import 'home_page.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
 
 class HomeController extends GetxController {
   final HomeRepository repository;
@@ -90,46 +90,31 @@ class HomeController extends GetxController {
     super.onReady();
     getPref();
     countOpen();
+    checkUpdate();
 
   }
-  
 
-  int openTimes;
+  checkUpdate() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    var versionInApp = packageInfo.buildNumber;
+    var versionRemote = "";
+    Map<String, RemoteConfigValue> maps =
+    await RemoteConfigService.getConfigAppVersion();
+    GetPlatform.isAndroid
+        ? versionRemote = maps["versionCode"].asString()
+        : versionRemote = maps["build_code_ios"].asString();
+    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp));
+  }
+
+
   countOpen() async  {
-    if (!box.hasData('OPEN_TIMES')) {
-      box.write('OPEN_TIMES', 1);
-    } else {
-      openTimes = box.read('OPEN_TIMES');
-      if (openTimes % 3 == 0)  {
-        PackageInfo packageInfo = await PackageInfo.fromPlatform();
-        Get.dialog(AlertDialog(
-          title: Text('Thank you'),
-          content: Text(
-              "Would you please rate me? If you need more features, please post your suggestion in review comment!"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text('Cancel')),
-            TextButton(onPressed: () {
-              GetPlatform.isAndroid
-                  ? LaunchReview.launch(
-                  androidAppId: packageInfo.packageName, writeReview: true)
-                  : repository.fetchAppInfo(packageInfo.packageName).then((value) => {
-                LaunchReview.launch(
-                    iOSAppId: '${value.results[0].trackId}',
-                    writeReview: true),
-              });
-              Get.back();
-            }, child: Text('Rate')),
-          ],
-        ));
-      }
-      box.write('OPEN_TIMES', openTimes+1);
-    }
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String packageName;
+    GetPlatform.isAndroid ? packageName =packageInfo.packageName : repository.fetchAppInfo(packageName).then((value){
+      packageName = value.results[0].trackId;
+    });
+    PACoreGetX().countOpen(packageName);
   }
-
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
 
@@ -160,3 +145,5 @@ class HomeController extends GetxController {
     });
   }
 }
+
+
