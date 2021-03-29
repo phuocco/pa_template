@@ -44,8 +44,6 @@ class HomePage extends GetView<HomeController> {
         IconButton(icon: Icon(Icons.add), onPressed: () async {
 
           // controller.getPref();
-          print(controller.listHistory);
-
 
         //  GetStorage().remove('LIST_HISTORY');
         }),

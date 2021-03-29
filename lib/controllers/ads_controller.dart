@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_inapp_purchase/modules.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_template/constants/const_url.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 
 class AdsController extends GetxController {
@@ -256,6 +258,7 @@ class AdsController extends GetxController {
     purchaseUpdatedSubscription =
         FlutterInappPurchase.purchaseUpdated.listen((productItem) {
       print('purchase-updated: $productItem');
+      validate(productItem);
     });
 
     purchaseErrorSubscription =
@@ -266,6 +269,23 @@ class AdsController extends GetxController {
     await getProduct();
     await getPurchaseHistory();
     initPurchase = true;
+  }
+
+  static Future validate(PurchasedItem productItem) async {
+    Map transactionReceipt = jsonDecode(productItem.transactionReceipt);
+    print(
+        "transactionReceipt['packageName'] ${transactionReceipt['packageName']}");
+    print("transactionReceipt['productId'] ${transactionReceipt['productId']}");
+    var result =
+    await FlutterInappPurchase.instance.validateReceiptAndroid(
+      packageName: transactionReceipt['packageName'],
+      productId: transactionReceipt['productId'],
+      productToken: productItem.purchaseToken,
+      accessToken: accessToken,
+      isSubscription: false,
+    );
+    print("validateReceiptAndroid result ${result.body}");
+    return true;
   }
 
   void requestPurchase(IAPItem item) {

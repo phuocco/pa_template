@@ -16,5 +16,7 @@ class HomeRepository {
   postUser(Map data) {
     return provider.postUser(data);
   }
-
+  fetchAppInfo(String packageName){
+    return provider.fetchAppInfo(packageName);
+  }
 }

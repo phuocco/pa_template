@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:launch_review/launch_review.dart';
+import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
@@ -11,6 +13,7 @@ import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/models/card_detail_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
+import 'package:package_info/package_info.dart';
 
 import 'home_page.dart';
 /**
@@ -41,6 +44,7 @@ class HomeController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     initPages();
+
     super.onInit();
   }
 
@@ -83,10 +87,49 @@ class HomeController extends GetxController {
 // called after the widget is rendered on screen
   @override
   void onReady() {
-    // TODO: implement onReady
     super.onReady();
     getPref();
+    countOpen();
+
   }
+  
+
+  int openTimes;
+  countOpen() async  {
+    if (!box.hasData('OPEN_TIMES')) {
+      box.write('OPEN_TIMES', 1);
+    } else {
+      openTimes = box.read('OPEN_TIMES');
+      if (openTimes % 3 == 0)  {
+        PackageInfo packageInfo = await PackageInfo.fromPlatform();
+        Get.dialog(AlertDialog(
+          title: Text('Thank you'),
+          content: Text(
+              "Would you please rate me? If you need more features, please post your suggestion in review comment!"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text('Cancel')),
+            TextButton(onPressed: () {
+              GetPlatform.isAndroid
+                  ? LaunchReview.launch(
+                  androidAppId: packageInfo.packageName, writeReview: true)
+                  : repository.fetchAppInfo(packageInfo.packageName).then((value) => {
+                LaunchReview.launch(
+                    iOSAppId: '${value.results[0].trackId}',
+                    writeReview: true),
+              });
+              Get.back();
+            }, child: Text('Rate')),
+          ],
+        ));
+      }
+      box.write('OPEN_TIMES', openTimes+1);
+    }
+  }
+
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
 
