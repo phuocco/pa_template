@@ -15,7 +15,7 @@ import 'package:pa_template/models/card_detail_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
 import 'package:pa_template/utils/services/remove_config_service.dart';
 import 'package:package_info/package_info.dart';
-// import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import 'home_page.dart';
 
@@ -95,15 +95,15 @@ class HomeController extends GetxController {
   }
 
   checkUpdate() async {
-    // PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    // var versionInApp = packageInfo.buildNumber;
-    // var versionRemote = "";
-    // Map<String, RemoteConfigValue> maps =
-    // await RemoteConfigService.getConfigAppVersion();
-    // GetPlatform.isAndroid
-    //     ? versionRemote = maps["versionCode"].asString()
-    //     : versionRemote = maps["build_code_ios"].asString();
-    // PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp));
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    var versionInApp = packageInfo.buildNumber;
+    var versionRemote = "";
+    Map<String, RemoteConfigValue> maps =
+    await RemoteConfigService.getConfigAppVersion();
+    GetPlatform.isAndroid
+        ? versionRemote = maps["versionCode"].asString()
+        : versionRemote = maps["build_code_ios"].asString();
+    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp));
   }
 
 
