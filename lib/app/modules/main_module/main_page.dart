@@ -47,16 +47,7 @@ class MainPage extends GetWidget<HomeController> {
                 'snack bar',
               ),
             ),
-            TextButton(
-              onPressed: () => PACoreShowDialog.customAlertDialog(context,
-                  title: "custom alert",
-                  content: Text("alert"),
-                  trueButton: TextButton(onPressed: null, child: Text("OK")),
-                  falseButton: TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text("Cancel"))),
-              child: Text("custom alert dialog"),
-            ),
+
             TextButton(
               onPressed: () => PACoreShowDialog.pickYearDialog(context,policyText: "aaaa"),
               child: Text('pick year'),

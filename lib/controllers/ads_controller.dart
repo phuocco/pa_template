@@ -188,6 +188,7 @@ class AdsController extends GetxController {
       adUnitId: AdManager.nativeAdUnitId,
       request: adRequest,
       factoryId: 'adFactoryExample',
+        customOptions: <String, Object> {},
       listener: AdListener(
         onAdLoaded: (Ad ad) {
           print('$NativeAd loaded..');
