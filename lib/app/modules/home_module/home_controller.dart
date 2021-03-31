@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:launch_review/launch_review.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -11,7 +10,6 @@ import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
-import 'package:pa_template/models/card_detail_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
 import 'package:pa_template/utils/services/remove_config_service.dart';
 import 'package:package_info/package_info.dart';
@@ -103,13 +101,13 @@ class HomeController extends GetxController {
     GetPlatform.isAndroid
         ? versionRemote = maps["versionCode"].asString()
         : versionRemote = maps["build_code_ios"].asString();
-    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp));
+    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp),  packageInfo.packageName, packageName);
   }
 
-
+  String packageName;
   countOpen() async  {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    String packageName;
+
     GetPlatform.isAndroid ? packageName =packageInfo.packageName : repository.fetchAppInfo(packageName).then((value){
       packageName = value.results[0].trackId;
     });
