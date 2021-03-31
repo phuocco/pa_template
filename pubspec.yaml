@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,12 +24,39 @@ dependencies:
   flutter:
     sdk: flutter
   pa_core_flutter:
-    git: https://github.com/pamobilevn/PACoreFlutter.git
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+    path: /Users/phuocnguyen/IdeaProjects/pa_core_flutter
+#    git:
+#      url: https://github.com/pamobilevn/PACoreFlutter.git
+#      ref: getx
   cupertino_icons: ^1.0.2
+  get: ^3.26.0
+  google_mobile_ads: ^0.11.0+2
+  http: ^0.13.0
+  flutter_inapp_purchase: ^4.0.2
+  get_storage: ^2.0.1
+  flutter_rating_bar: ^3.2.0+1
+  cached_network_image: ^2.5.1
+  pull_to_refresh: ^1.6.3
+  path_provider: ^1.6.28
+  share: ^2.0.1
+  animated_text_kit: ^3.1.2
+  gallery_saver: ^2.0.3
+  launch_review: ^2.0.0
+  package_info: ^0.4.3+4
+  firebase_remote_config: ^0.6.0
+
+dependency_overrides:
+  get_storage: ^1.4.0
+  cached_network_image: ^2.3.1
+  http: ^0.12.0+2
+  gallery_saver:
+    git:
+      url: https://github.com/phuocco/gallery_saver.git
+      ref: master
+  share: ^0.6.5+4
+  path: ^1.7.0
+  open_file: ^3.0.3
+
 
 dev_dependencies:
   flutter_test:
@@ -37,26 +64,20 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

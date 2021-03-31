@@ -1,73 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:pa_core_flutter/pa_core_flutter.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_template/app/routes/app_pages.dart';
 
-void main() {
+import 'app/modules/all_binding.dart';
+import 'app/theme/app_theme.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
+  await GetStorage.init();
   runApp(MyApp());
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          PACoreShowDialog.policyDialog(context,
-              title: "Policy",
-              content: Text("hi"),
-              policyAcceptTime: "2021", funcOk: () {
-                print("ok");
-              });
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: appThemeData,
+      // home: MyHomePage(title: 'Flutter Demo Home Page'),
+    //  home: HomePage(),
+      getPages: AppPages.pages,
+      initialBinding: AllBinding(),
+      initialRoute: '/home',
     );
   }
 }
