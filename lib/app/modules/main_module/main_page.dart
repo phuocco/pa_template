@@ -5,7 +5,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
-import 'package:pa_template/app/modules/test_native_module/test_native_page.dart';
+import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_native.dart';
@@ -35,6 +35,25 @@ class MainPage extends GetWidget<HomeController> {
               onPressed: () {
                 Get.to(TestNativePage());
               },
+              child: Text('read list'),
+            ),
+            TextButton(
+              onPressed: () => controller.changeText(),
+              child: Obx(() => Text(controller.text.value)),
+            ),
+            Obx(() => Text(
+                controller.list.value[controller.selectingPage.value]['title'])),
+            TextButton(
+                onPressed: () {
+                  Get.to(() => SavedPage());
+                  // adsController.dispose();
+                },
+                child: Text('To Saved Screen')),
+            TextButton(
+              onPressed: () => Get.snackbar("hi", "hello",
+                  snackPosition: SnackPosition.BOTTOM,
+                  margin:
+                      EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())),
               child: Text(
                 'snack bar',
               ),
@@ -54,7 +73,12 @@ class MainPage extends GetWidget<HomeController> {
               },
               child: Text('print open time'),
             ),
-
+            TextButton(
+                onPressed: () {
+                  adsController.showIntersAds();
+                  Get.to(() => SavedPage());
+                },
+                child: Text('show inters')),
             TextButton(
               onPressed: () {
                 adsController.showRewardedAd();

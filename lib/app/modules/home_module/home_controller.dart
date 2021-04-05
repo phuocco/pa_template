@@ -5,6 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/gallery_module/gallery_page.dart';
+import 'package:pa_template/app/modules/history_module/history_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
@@ -53,13 +55,13 @@ class HomeController extends GetxController {
   void initPages() {
     pages = [
       {'page': MainPage(), 'title': 'Main Screen'},
-      // {'page': GalleryPage(), 'title': 'Gallery Screen'},
-      // {'page': HistoryPage(), 'title': 'History Screen'},
+      {'page': GalleryPage(), 'title': 'Gallery Screen'},
+      {'page': HistoryPage(), 'title': 'History Screen'},
     ];
     list.value.addAll([
       {'page': MainPage(), 'title': 'Main Screen'},
-      // {'page': GalleryPage(), 'title': 'Gallery Screen'},
-      // {'page': HistoryPage(), 'title': 'History Screen'},
+      {'page': GalleryPage(), 'title': 'Gallery Screen'},
+      {'page': HistoryPage(), 'title': 'History Screen'},
     ]);
   }
 
