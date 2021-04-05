@@ -273,8 +273,8 @@ packages:
   pa_core_flutter:
     dependency: "direct main"
     description:
-      path: pa_core_flutter
-      relative: true
+      path: "/Users/phuocnguyen/IdeaProjects/pa_core_flutter"
+      relative: false
     source: path
     version: "0.0.1"
   package_info:

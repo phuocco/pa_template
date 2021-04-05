@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,22 +12,42 @@ class BaseNative extends StatelessWidget {
 
   final controller = Get.put(AdsController());
 
+  final AdWidget adWidget;
+  final Completer completer;
+  BaseNative({this.adWidget, this.completer});
+
   @override
   Widget build(BuildContext context) {
-    AdWidget ads =  AdWidget(ad: controller.myNativeAd);
     print('build new object');
     return  GetBuilder<AdsController>(
-      initState: (state){
-        Get.find<AdsController>().initNativeAds();
-      },
       builder: (controller) {
         print("count 1 rebuild");
-        return Obx(() => controller.isLoaded.value ? Container(
-          width: double.infinity,
-          height: GetPlatform.isAndroid ? 150 : 130,
-          child: ads,
-          color: kBackgroundContainerNativeAds,
-        ): Container());
+        return FutureBuilder<NativeAd>(
+          future: completer.future,
+          builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
+            Widget child;
+
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                child = Container();
+                break;
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  child = adWidget;
+                } else {
+                  child = Text('Error loading $NativeAd');
+                }
+            }
+            return Container(
+              width: 250,
+              height: 350,
+              color: Colors.blueGrey,
+              child: child,
+            );
+          },
+        );
       },
     );
   }

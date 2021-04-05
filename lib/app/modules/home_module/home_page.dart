@@ -32,12 +32,12 @@ class HomePage extends GetView<HomeController> {
           controller.selectPage(0);
           print('a');
         }, 'Main'),
-        BaseAppBar('assets icon', () {
-          controller.selectPage(1);
-        }, 'Gallery'),
-        BaseAppBar('assets icon', () {
-          controller.selectPage(2);
-        }, 'History'),
+        // BaseAppBar('assets icon', () {
+        //   controller.selectPage(1);
+        // }, 'Gallery'),
+        // BaseAppBar('assets icon', () {
+        //   controller.selectPage(2);
+        // }, 'History'),
         IconButton(icon: Icon(Icons.save), onPressed: () async {
          CustomDialog.inputNameDialog(title: 'File name', currentValue: '', isNumber: false);
          }),

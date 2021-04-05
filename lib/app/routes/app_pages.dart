@@ -1,3 +1,5 @@
+import '../../app/modules/test_native_module/test_native_page.dart';
+import '../../app/modules/test_native_module/test_native_bindings.dart';
 
 
 import '../../app/modules/main_module/main_page.dart';
@@ -47,5 +49,10 @@ abstract class AppPages {
     //   page: () => DialogCardPage(),
     //   binding: DialogCardBinding(),
     // ),
+    GetPage(
+      name: Routes.TEST_NATIVE,
+      page: () => TestNativePage(),
+      binding: TestNativeBinding(),
+    ),
   ];
 }

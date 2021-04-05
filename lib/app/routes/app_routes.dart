@@ -12,4 +12,5 @@ abstract class Routes {
   static const MAIN = '/main'; // Main page
   static const GALLERYITEM = '/galleryitem'; // GalleryItem page
   static const DIALOGCARD = '/dialogcard'; // DialogCard page
+  static const TEST_NATIVE = '/test_native'; // TestNative page
 }

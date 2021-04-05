@@ -48,7 +48,11 @@ class AdsController extends GetxController {
   loadBanner() => myBanner.load();
 
   NativeAd myNativeAd;
-  final nativeAdCompleter = Completer<NativeAd>().obs;
+  Completer nativeAdCompleter;
+
+
+
+
   loadNative() => myNativeAd.load();
 
   InterstitialAd _interstitialAd;
@@ -184,6 +188,7 @@ class AdsController extends GetxController {
   }
 
   initNativeAds() {
+    nativeAdCompleter = Completer<NativeAd>();
     myNativeAd = NativeAd(
       adUnitId: AdManager.nativeAdUnitId,
       request: adRequest,
@@ -192,11 +197,11 @@ class AdsController extends GetxController {
       listener: AdListener(
         onAdLoaded: (Ad ad) {
           print('$NativeAd loaded..');
-          nativeAdCompleter.value.complete(ad as NativeAd);
+          nativeAdCompleter.complete(ad as NativeAd);
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('$NativeAd failedToLoad: $error');
-          nativeAdCompleter.value.completeError(null);
+          nativeAdCompleter.completeError(null);
         },
         onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
         onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
@@ -204,7 +209,7 @@ class AdsController extends GetxController {
       ),
     );
     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-
+    isLoaded.value = true;
     loadNative();
   }
 

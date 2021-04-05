@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
+import 'package:pa_template/app/modules/test_native_module/test_native_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
+import 'package:pa_template/widgets/base_native.dart';
 
 
 class MainPage extends GetWidget<HomeController> {
@@ -18,25 +21,20 @@ class MainPage extends GetWidget<HomeController> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            TextButton(
-              onPressed: () {
-                final box = GetStorage();
-                print(box.read('LIST_ITEM'));
-              },
-              child: Text('read list'),
-            ),
-            TextButton(
-              onPressed: () => controller.changeText(),
-              child: Obx(() => Text(controller.text.value)),
-            ),
-            Obx(() => Text(
-                controller.list.value[controller.selectingPage.value]['title'])),
+            // BaseNative(initAds:adsController.initNativeAds(),adWidget: AdWidget(ad: adsController.myNativeAd,), completer: adsController.nativeAdCompleter ),
+            TextButton(onPressed: (){
+              PACoreShowDialog.policyDialog(context,
+                  title: "Policy",
+                  policyAcceptTime:box.read("PRIVACY_POLICY").toString(), funcOk: () {
+                    Navigator.pop(context);
+                    print("ok");
+                  });
+            }, child: Text('dialog policy')),
 
             TextButton(
-              onPressed: () => Get.snackbar("hi", "hello",
-                  snackPosition: SnackPosition.BOTTOM,
-                  margin:
-                      EdgeInsets.only(bottom: UtilFunctions().getHeightBanner())),
+              onPressed: () {
+                Get.to(TestNativePage());
+              },
               child: Text(
                 'snack bar',
               ),
@@ -65,20 +63,8 @@ class MainPage extends GetWidget<HomeController> {
                 () => Text(adsController.count.value.toString()),
               ),
             ),
-            TextButton(
-              onPressed: () {
 
-                print(box.read('IS_PREMIUM'));
-              },
-              child: Text('get shared'),
-            ),
-            TextButton(
-              onPressed: () {
-                // box.read('LIST_RATE');
-                print(box.read('LIST_RATE'));
-              },
-              child: Text('remove shared'),
-            ),
+
 
 
             RepaintBoundary(
