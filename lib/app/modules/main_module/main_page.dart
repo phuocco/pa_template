@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
+import 'package:pa_template/app/modules/saved_module/saved_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 
@@ -31,7 +32,12 @@ class MainPage extends GetWidget<HomeController> {
             ),
             Obx(() => Text(
                 controller.list.value[controller.selectingPage.value]['title'])),
-
+            TextButton(
+                onPressed: () {
+                  Get.to(() => SavedPage());
+                  // adsController.dispose();
+                },
+                child: Text('To Saved Screen')),
             TextButton(
               onPressed: () => Get.snackbar("hi", "hello",
                   snackPosition: SnackPosition.BOTTOM,
@@ -56,7 +62,12 @@ class MainPage extends GetWidget<HomeController> {
               },
               child: Text('print open time'),
             ),
-
+            TextButton(
+                onPressed: () {
+                  adsController.showIntersAds();
+                  Get.to(() => SavedPage());
+                },
+                child: Text('show inters')),
             TextButton(
               onPressed: () {
                 adsController.showRewardedAd();
