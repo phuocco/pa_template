@@ -46,7 +46,8 @@ dependencies:
   firebase_remote_config: ^0.6.0
   dio: ^3.0.10
   sn_progress_dialog: ^0.0.5
-
+  archive: ^2.0.13
+  flutter_archive: ^2.0.2
 dependency_overrides:
   get_storage: ^1.4.0
   cached_network_image: ^2.3.1

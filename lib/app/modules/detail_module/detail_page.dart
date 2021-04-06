@@ -10,8 +10,8 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String linkSkin = 'https://files.mcpedata.com/mcpeskins/files/movies/captainamerica.png';
-    String filePathSkin = '/storage/emulated/0/Android/data/co.pamobile.yugioh.cardmaker/files/captainamerica.mcpack';
     String linkAddon = 'https://files.mcpedata.com/mcpemods/files/FurnicraftAddon113.addon';
+    String linkMapSeed = 'https://files.mcpedata.com/mcpeseeds/files/MassiveTemple.zip';
     return Scaffold(
       appBar: AppBar(title: Text('Detail Page')),
       body: Container(
@@ -46,6 +46,21 @@ class DetailPage extends StatelessWidget {
                   ));
                 }
               }), child: Text('install addon')),
+              SizedBox(height: 20,),
+
+              Text(linkMapSeed),
+              TextButton(onPressed: () => controller.installMapSeed(linkMapSeed).then((value){
+                if(controller.isDownloaded.value){
+                  Get.dialog(AlertDialog(
+                    title: Text('File downloaded'),
+                    content: Text('Do you want to install now?'),
+                    actions: [
+                      TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
+                      TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
+                    ],
+                  ));
+                }
+              }), child: Text('install map/seed')),
             ],
           ),
         ),
