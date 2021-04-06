@@ -1,3 +1,5 @@
+import '../../app/modules/detail_module/detail_page.dart';
+import '../../app/modules/detail_module/detail_bindings.dart';
 import '../../app/modules/test_native_module/test_native_page.dart';
 import '../../app/modules/test_native_module/test_native_bindings.dart';
 
@@ -53,6 +55,11 @@ abstract class AppPages {
       name: Routes.TEST_NATIVE,
       page: () => TestNativePage(),
       binding: TestNativeBinding(),
+    ),
+    GetPage(
+      name: Routes.DETAIL,
+      page: () => DetailPage(),
+      binding: DetailBinding(),
     ),
   ];
 }

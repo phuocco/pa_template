@@ -6,6 +6,7 @@ import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_page.dart';
 import 'package:pa_template/app/modules/test_native_module/test_native_page.dart';
+import 'package:pa_template/app/routes/app_pages.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_native.dart';
@@ -22,6 +23,7 @@ class MainPage extends GetWidget<HomeController> {
         child: Column(
           children: [
             // BaseNative(initAds:adsController.initNativeAds(),adWidget: AdWidget(ad: adsController.myNativeAd,), completer: adsController.nativeAdCompleter ),
+           TextButton(onPressed: () => Get.toNamed(Routes.DETAIL, arguments: 'https://files.mcpedata.com/mcpeskins/files/movies/captainamerica.png'), child: Text('skin')),
             TextButton(onPressed: (){
               PACoreShowDialog.policyDialog(context,
                   title: "Policy",
