@@ -17,6 +17,7 @@ class DetailController extends GetxController{
 
   String basePath = '';
   final fileName = ''.obs;
+  final fileNameNoExt = ''.obs;
   final finalPath = ''.obs;
   var dio = new Dio();
   final isDownloaded =  false.obs;
@@ -44,13 +45,12 @@ class DetailController extends GetxController{
     super.onClose();
   }
 
-  installSkin(String link, BuildContext context) async{
+  installSkin(String link) async{
     String newLink = link.split('.png').first + '.mcpack';
     finalPath.value = '$basePath' +'/'+ newLink.split('/').last;
     CancelToken cancelToken = CancelToken();
-    ProgressDialog pd = ProgressDialog(context: context);
+    ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
-
     var response = await dio.get(
       newLink,
       cancelToken: cancelToken,
@@ -62,17 +62,45 @@ class DetailController extends GetxController{
           }),
     );
     pd.close();
-    print(finalPath.value);
     File file = File(finalPath.value);
     var raf = file.openSync(mode: FileMode.write);
     raf.writeFromSync(response.data);
     await raf.close();
     isDownloaded.value = true;
+  }
 
+
+
+  installAddon(String link) async {
+    isDownloaded.value = false;
+    fileName.value = link.split('/').last;
+    fileNameNoExt.value = fileName.value.split('.').first;
+    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcaddon';
+    CancelToken cancelToken = CancelToken();
+    ProgressDialog pd = ProgressDialog(context: Get.context);
+    pd.show(max: 100, msg: 'File Downloading...');
+    var response = await dio.get(
+      link,
+      cancelToken: cancelToken,
+      options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          }),
+    );
+    pd.close();
+    File file = File(finalPath.value);
+    print(finalPath.value);
+    var raf = file.openSync(mode: FileMode.write);
+    raf.writeFromSync(response.data);
+    await raf.close();
+    isDownloaded.value = true;
   }
 
   importToMinecraft(String filePath) async {
     await platform.invokeMethod('install', filePath);
+    Get.back();
   }
 
 }
