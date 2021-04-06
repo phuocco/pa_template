@@ -12,6 +12,7 @@ class DetailPage extends StatelessWidget {
     String linkSkin = 'https://files.mcpedata.com/mcpeskins/files/movies/captainamerica.png';
     String linkAddon = 'https://files.mcpedata.com/mcpemods/files/FurnicraftAddon113.addon';
     String linkMapSeed = 'https://files.mcpedata.com/mcpeseeds/files/MassiveTemple.zip';
+    String linkTexture = 'https://files.mcpedata.com/mcpetextures/files/RUSPEShadersV143.zip';
     return Scaffold(
       appBar: AppBar(title: Text('Detail Page')),
       body: Container(
@@ -61,6 +62,20 @@ class DetailPage extends StatelessWidget {
                   ));
                 }
               }), child: Text('install map/seed')),
+
+              Text(linkTexture),
+              TextButton(onPressed: () => controller.installTexture(linkTexture).then((value){
+                if(controller.isDownloaded.value){
+                  Get.dialog(AlertDialog(
+                    title: Text('File downloaded'),
+                    content: Text('Do you want to install now?'),
+                    actions: [
+                      TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
+                      TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
+                    ],
+                  ));
+                }
+              }), child: Text('install texture')),
             ],
           ),
         ),
