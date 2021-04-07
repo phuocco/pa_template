@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pa_template/app/data/repository/detail_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/models/addons_item.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
@@ -18,6 +19,8 @@ class DetailController extends GetxController{
   DetailController({this.repository});
 
   static const platform = MethodChannel('addons/detail');
+
+  final listAddon = <AddonsItem>[].obs;
 
   String basePath = '';
   final fileName = ''.obs;
@@ -32,13 +35,13 @@ class DetailController extends GetxController{
       Directory appDocDirAndroid = await getExternalStorageDirectory();
       basePath = appDocDirAndroid.path;
       Directory mcpe = Directory("$basePath/" + "mcpe/");
-      if(mcpe.existsSync()) mcpe.deleteSync(recursive: true);
+      if(mcpe.existsSync()) mcpe.delete(recursive: true);
       print(basePath);
     } else if (GetPlatform.isIOS){
       Directory documents = await getApplicationDocumentsDirectory();
       basePath = documents.path;
       Directory mcpe = Directory("$basePath/" + "mcpe/");
-      if(mcpe.existsSync()) mcpe.deleteSync(recursive: true);
+      if(mcpe.existsSync()) mcpe.delete(recursive: true);
       print(basePath);
     }
   }
@@ -47,8 +50,15 @@ class DetailController extends GetxController{
   void onInit() {
 
     initBasePath();
+    getItems();
     print('init..');
     super.onInit();
+  }
+
+  getItems() async {
+    return repository.getItem().then((value){
+      listAddon.assignAll(value);
+    });
   }
 
   @override
@@ -115,7 +125,7 @@ class DetailController extends GetxController{
     fileNameNoExt.value = fileName.value.split('.').first;
     filePathDownload.value = '$basePath' +'/'+ fileName.value;
     finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcworld';
-    dirPath.value = "$basePath/" + fileNameNoExt.value;
+    dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcWorld = File(finalPath.value);
@@ -194,7 +204,7 @@ class DetailController extends GetxController{
     fileNameNoExt.value = fileName.value.split('.').first;
     filePathDownload.value = '$basePath' +'/'+ fileName.value;
     finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcpack';
-    dirPath.value = "$basePath/" + fileNameNoExt.value;
+    dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcPack = File(finalPath.value);
@@ -256,6 +266,7 @@ class DetailController extends GetxController{
           recurseSubDirs: true,
         );
         pd.close();
+        print('done');
       } catch (e){
         print(e);
       }
@@ -277,7 +288,7 @@ class DetailController extends GetxController{
     fileNameNoExt.value = fileName.value.split('.').first;
     filePathDownload.value = '$basePath' +'/'+ fileName.value;
     finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + extension;
-    dirPath.value = "$basePath/" + fileNameNoExt.value;
+    dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcFile = File(finalPath.value);
@@ -339,6 +350,7 @@ class DetailController extends GetxController{
           recurseSubDirs: true,
         );
         pd.close();
+        print('done');
       } catch (e){
         print(e);
       }

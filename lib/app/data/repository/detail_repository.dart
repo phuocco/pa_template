@@ -9,7 +9,6 @@ class DetailRepository {
 
   DetailRepository({@required this.provider}) : assert(provider != null);
 
+  getItem() => provider.getItem();
 
-
-  downloadFile(String filePath, String urlDownload) => provider.downloadFile(filePath, urlDownload);
 }

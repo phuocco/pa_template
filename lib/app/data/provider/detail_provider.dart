@@ -1,34 +1,25 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart' ;
-import 'package:get/get_connect/connect.dart' hide Response;
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+import 'package:get/get_connect/connect.dart';
+import 'package:pa_template/models/addons_item.dart';
 
-const baseUrl = 'http://youapi';
+
+const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/get_hot_items_home';
 
 class DetailProvider extends GetConnect {
-  Dio dio = Dio();
 
-  Future downloadFile(String filePath, String urlDownload) async {
-    try {
-      Response response = await dio.get(
-        urlDownload,
-        options: Options(
-            responseType: ResponseType.bytes,
-            followRedirects: false,
-            validateStatus: (status) {
-              return status < 500;
-            }),
-      );
-      File file = File(filePath);
-      var raf = file.openSync(mode: FileMode.write);
-      raf.writeFromSync(response.data);
-      await raf.close();
-      return true;
-    } catch (e) {
-      print(e);
-    }
+  getItem() async {
+
+      final response = await httpClient.get(baseUrl);
+      if (response.statusCode == 200) {
+        var data = response.bodyString;
+        var decodedData = addonsItemFromJson(data);
+        print(response.statusCode);
+        return decodedData;
+      } else {
+        print('error' + response.statusCode.toString());
+        return addonsItemFromJson("[]");
+      }
   }
+
 }
