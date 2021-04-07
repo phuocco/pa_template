@@ -147,7 +147,7 @@ class DetailController extends GetxController{
 
     try {
       final zipFile = File(filePathDownload.value);
-      final destinationDir = Directory("$basePath/" + fileNameNoExt.value);
+      final destinationDir = Directory("$basePath/" + 'mcpe/');
       print(fileNameNoExt.value);
       print(destinationDir.path);
       final bytes = zipFile.readAsBytesSync();
@@ -269,6 +269,86 @@ class DetailController extends GetxController{
 
   }
 
+  installMapSeedTexture(String link, bool isTexture) async {
+    String extension = isTexture ? '.mcpack' : '.mcworld';
+
+    isDownloaded.value = false;
+    fileName.value = link.split('/').last;
+    fileNameNoExt.value = fileName.value.split('.').first;
+    filePathDownload.value = '$basePath' +'/'+ fileName.value;
+    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + extension;
+    dirPath.value = "$basePath/" + fileNameNoExt.value;
+    final sourceDir = Directory(dirPath.value);
+    final file = File(filePathDownload.value);
+    final mcFile = File(finalPath.value);
+
+    if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
+    if(file.existsSync()) file.deleteSync(recursive: true);
+    if (GetPlatform.isIOS) {
+      if(mcFile.existsSync())  mcFile.deleteSync(recursive: true);
+    }
+    CancelToken cancelToken = CancelToken();
+    ProgressDialog pd = ProgressDialog(context: Get.context);
+    pd.show(max: 100, msg: 'File Downloading...');
+    var response = await dio.get(
+      link,
+      cancelToken: cancelToken,
+      options: Options(
+          responseType: ResponseType.bytes,
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          }),
+    );
+    print(finalPath.value);
+    print(filePathDownload.value);
+    var raf = file.openSync(mode: FileMode.write);
+    raf.writeFromSync(response.data);
+    await raf.close();
+
+    try {
+      final zipFile = File(filePathDownload.value);
+      final destinationDir = Directory("$basePath/" + 'mcpe');
+      print(fileNameNoExt.value);
+      print(destinationDir.path);
+      final bytes = zipFile.readAsBytesSync();
+      final arc = archive.ZipDecoder().decodeBytes(bytes);
+
+      for (final file in arc) {
+        final filename = file.name;
+        print("$basePath/" + fileNameNoExt.value +'/'+ filename);
+        if (file.isFile) {
+          final data = file.content as List<int>;
+          File("$basePath/" + 'mcpe' +'/'+ filename)
+            ..createSync(recursive: true)
+            ..writeAsBytesSync(data);
+        } else {
+          destinationDir..create(recursive: true);
+        }
+      }
+      try {
+        List folder = [];
+        final dir2 = Directory("$basePath/" + "mcpe/");
+        if(dir2.existsSync()){
+          folder = dir2.listSync();
+        }
+
+        await ZipFile.createFromDirectory(
+          sourceDir: folder[0],
+          zipFile: mcFile,
+          recurseSubDirs: true,
+        );
+        pd.close();
+      } catch (e){
+        print(e);
+      }
+
+    } catch (e){
+      print(e);
+    }
+    isDownloaded.value = true;
+
+  }
 
   importToMinecraft(String filePath) async {
     if(GetPlatform.isAndroid){
