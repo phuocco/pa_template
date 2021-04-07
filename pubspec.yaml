@@ -48,6 +48,8 @@ dependencies:
   sn_progress_dialog: ^0.0.5
   archive: ^2.0.13
   flutter_archive: ^2.0.2
+  device_info: ^1.0.0
+  open_file: ^3.0.3
 dependency_overrides:
   get_storage: ^1.4.0
   cached_network_image: ^2.3.1

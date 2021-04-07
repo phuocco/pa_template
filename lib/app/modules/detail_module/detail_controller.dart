@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:archive/archive_io.dart' as archive;
+import 'package:device_info/device_info.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:open_file/open_file.dart';
 import 'package:pa_template/app/data/repository/detail_repository.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -282,8 +284,33 @@ class DetailController extends GetxController{
 
 
   importToMinecraft(String filePath) async {
-    await platform.invokeMethod('install', filePath);
+    if(GetPlatform.isAndroid){
+      await platform.invokeMethod('install', filePath);
+    } else if (GetPlatform.isIOS){
+      var isInstalled = await platform.invokeMethod('install', filePath);
+      var is1131 = await platform.invokeMethod('check1331');
+      if(isInstalled){
+        IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
+        var version = iosInfo.systemVersion;
+        var arr = version.split(".");
+        var currentVersion = arr[0];
+        if(is1131){
+          OpenFile.open(filePath,uti: "com.mojang.minecraftpe");
+         // return true;
+        }else{
+          if(num.parse(currentVersion)>=13){
+            //return "true";
+          }else{
+            OpenFile.open(filePath,uti: "com.mojang.minecraftpe");
+          //  return true;
+          }
+        }
+      }else{
+       // return false;
+      }
+    }
     Get.back();
+
   }
 
 }

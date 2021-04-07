@@ -30,7 +30,7 @@ class DetailPage extends StatelessWidget {
                       TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
                       TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install skin')),
                     ],
-                  ));
+                  ),barrierDismissible: false);
                 }
               }), child: Text('install skin')),
               SizedBox(height: 20,),
@@ -44,7 +44,7 @@ class DetailPage extends StatelessWidget {
                       TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
                       TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
                     ],
-                  ));
+                  ),barrierDismissible: false);
                 }
               }), child: Text('install addon')),
               SizedBox(height: 20,),
@@ -54,13 +54,14 @@ class DetailPage extends StatelessWidget {
                 if(controller.isDownloaded.value){
                   Get.dialog(AlertDialog(
                     title: Text('File downloaded'),
+
                     content: Text('Do you want to install now?'),
                     actions: [
                       TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
                       TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
 
                     ],
-                  ));
+                  ),barrierDismissible: false);
                 }
               }), child: Text('install map/seed')),
 
@@ -74,7 +75,7 @@ class DetailPage extends StatelessWidget {
                       TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
                       TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
                     ],
-                  ));
+                  ),barrierDismissible: false);
                 }
               }), child: Text('install texture')),
             ],
