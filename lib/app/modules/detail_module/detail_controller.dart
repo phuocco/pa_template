@@ -29,10 +29,15 @@ class DetailController extends GetxController{
     if(GetPlatform.isAndroid){
       Directory appDocDirAndroid = await getExternalStorageDirectory();
       basePath = appDocDirAndroid.path;
+      Directory mcpe = Directory("$basePath/" + "mcpe/");
+      if(mcpe.existsSync()) mcpe.deleteSync(recursive: true);
       print(basePath);
     } else if (GetPlatform.isIOS){
       Directory documents = await getApplicationDocumentsDirectory();
       basePath = documents.path;
+      Directory mcpe = Directory("$basePath/" + "mcpe/");
+      if(mcpe.existsSync()) mcpe.deleteSync(recursive: true);
+      print(basePath);
     }
   }
 
@@ -68,6 +73,7 @@ class DetailController extends GetxController{
     );
     pd.close();
     File file = File(finalPath.value);
+    print(finalPath.value);
     var raf = file.openSync(mode: FileMode.write);
     raf.writeFromSync(response.data);
     await raf.close();
@@ -110,9 +116,15 @@ class DetailController extends GetxController{
     dirPath.value = "$basePath/" + fileNameNoExt.value;
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
+    final mcWorld = File(finalPath.value);
 
     if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
     if(file.existsSync()) file.deleteSync(recursive: true);
+    if (GetPlatform.isIOS) {
+      if(mcWorld.existsSync())  mcWorld.deleteSync(recursive: true);
+    }
+
+
 
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
@@ -161,7 +173,7 @@ class DetailController extends GetxController{
         if(dir2.existsSync()){
           folder = dir2.listSync();
         }
-        final mcWorld = File(finalPath.value);
+
         await ZipFile.createFromDirectory(
           //  sourceDir: isText ? Directory(dir) : folder[0],
           sourceDir: folder[0],
@@ -192,10 +204,13 @@ class DetailController extends GetxController{
     dirPath.value = "$basePath/" + fileNameNoExt.value;
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
+    final mcPack = File(finalPath.value);
 
     if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
     if(file.existsSync()) file.deleteSync(recursive: true);
-
+    if (GetPlatform.isIOS) {
+      if(mcPack.existsSync())  mcPack.deleteSync(recursive: true);
+    }
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
@@ -243,7 +258,7 @@ class DetailController extends GetxController{
         if(dir2.existsSync()){
           folder = dir2.listSync();
         }
-        final mcPack = File(finalPath.value);
+
         await ZipFile.createFromDirectory(
           //  sourceDir: isText ? Directory(dir) : folder[0],
           sourceDir: folder[0],

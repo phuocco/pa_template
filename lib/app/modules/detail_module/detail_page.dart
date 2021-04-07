@@ -58,6 +58,7 @@ class DetailPage extends StatelessWidget {
                     actions: [
                       TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
                       TextButton(onPressed:() => controller.importToMinecraft(controller.finalPath.value), child: Text('Install')),
+
                     ],
                   ));
                 }

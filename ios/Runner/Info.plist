@@ -33,13 +33,15 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This permission is required to add custom images to your card editor</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-            <string>itms-beta</string>
-            <string>itms</string>
-    </array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This permission is required to add custom images to your card editor</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>itms-beta</string>
+		<string>itms</string>
+		<string>minecraft</string>
+		<string>youtube</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
