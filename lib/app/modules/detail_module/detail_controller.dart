@@ -125,9 +125,6 @@ class DetailController extends GetxController{
     if (GetPlatform.isIOS) {
       if(mcWorld.existsSync())  mcWorld.deleteSync(recursive: true);
     }
-
-
-
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
@@ -168,16 +165,13 @@ class DetailController extends GetxController{
           destinationDir..create(recursive: true);
         }
       }
-
       try {
         List folder = [];
         final dir2 = Directory("$basePath/" + "mcpe/");
         if(dir2.existsSync()){
           folder = dir2.listSync();
         }
-
         await ZipFile.createFromDirectory(
-          //  sourceDir: isText ? Directory(dir) : folder[0],
           sourceDir: folder[0],
           zipFile: mcWorld,
           recurseSubDirs: true,
@@ -190,10 +184,7 @@ class DetailController extends GetxController{
     } catch (e){
       print(e);
     }
-
     isDownloaded.value = true;
-
-
   }
 
 
@@ -226,7 +217,6 @@ class DetailController extends GetxController{
             return status < 500;
           }),
     );
-
     print(finalPath.value);
     print(filePathDownload.value);
     var raf = file.openSync(mode: FileMode.write);
@@ -253,7 +243,6 @@ class DetailController extends GetxController{
           destinationDir..create(recursive: true);
         }
       }
-
       try {
         List folder = [];
         final dir2 = Directory("$basePath/" + "mcpe/");
@@ -262,12 +251,10 @@ class DetailController extends GetxController{
         }
 
         await ZipFile.createFromDirectory(
-          //  sourceDir: isText ? Directory(dir) : folder[0],
           sourceDir: folder[0],
           zipFile: mcPack,
           recurseSubDirs: true,
         );
-        print('donee');
         pd.close();
       } catch (e){
         print(e);
