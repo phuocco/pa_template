@@ -50,6 +50,7 @@ dependencies:
   flutter_archive: ^2.0.2
   device_info: ^1.0.0
   open_file: ^3.0.3
+  flutter_widget_from_html: ^0.5.2+1
 dependency_overrides:
   get_storage: ^1.4.0
   cached_network_image: ^2.3.1
@@ -79,6 +80,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/icons/
+    - assets/images/tutorial_image/android/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

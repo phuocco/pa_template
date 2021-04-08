@@ -1,3 +1,5 @@
+import '../../app/modules/tutorial_module/tutorial_page.dart';
+import '../../app/modules/tutorial_module/tutorial_bindings.dart';
 import '../../app/modules/language_module/language_page.dart';
 import '../../app/modules/language_module/language_bindings.dart';
 import '../../app/modules/detail_module/detail_page.dart';
@@ -67,6 +69,11 @@ abstract class AppPages {
       name: Routes.LANGUAGE,
       page: () => LanguagePage(),
       binding: LanguageBinding(),
+    ),
+    GetPage(
+      name: Routes.TUTORIAL,
+      page: () => TutorialPage(),
+      binding: TutorialBinding(),
     ),
   ];
 }

@@ -15,4 +15,5 @@ abstract class Routes {
   static const TEST_NATIVE = '/test_native'; // TestNative page
   static const DETAIL = '/detail'; // Detail page
   static const LANGUAGE = '/language'; // Language page
+  static const TUTORIAL = '/tutorial'; // Tutorial page
 }
