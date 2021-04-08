@@ -1,3 +1,5 @@
+import '../../app/modules/language_module/language_page.dart';
+import '../../app/modules/language_module/language_bindings.dart';
 import '../../app/modules/detail_module/detail_page.dart';
 import '../../app/modules/detail_module/detail_bindings.dart';
 import '../../app/modules/test_native_module/test_native_page.dart';
@@ -60,6 +62,11 @@ abstract class AppPages {
       name: Routes.DETAIL,
       page: () => DetailPage(),
       binding: DetailBinding(),
+    ),
+    GetPage(
+      name: Routes.LANGUAGE,
+      page: () => LanguagePage(),
+      binding: LanguageBinding(),
     ),
   ];
 }

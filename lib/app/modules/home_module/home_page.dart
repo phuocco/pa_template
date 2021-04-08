@@ -23,14 +23,14 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
 
-    var scaffoldKey = GlobalKey<ScaffoldState>();
+    // var scaffoldKey = GlobalKey<ScaffoldState>();
 
     final appBar = AppBar(
       title: Text('Appbar'),
       actions: [
         BaseAppBar('assets icon', () {
           controller.selectPage(0);
-          print('a');
+          print('main');
         }, 'Main'),
         // BaseAppBar('assets icon', () {
         //   controller.selectPage(1);
@@ -42,22 +42,28 @@ class HomePage extends GetView<HomeController> {
          CustomDialog.inputNameDialog(title: 'File name', currentValue: '', isNumber: false);
          }),
         IconButton(icon: Icon(Icons.add), onPressed: () async {
-
+          controller.selectPage(0);
+          print('a');
           // controller.getPref();
 
         //  GetStorage().remove('LIST_HISTORY');
         }),
       ],
     );
+
     print('init home');
     return SafeArea(
       top: false,
       bottom: true,
       child: Scaffold(
-        key: scaffoldKey,
+        // key: scaffoldKey,
+        key: controller.scaffoldKey,
         resizeToAvoidBottomInset: false,
         appBar: appBar,
-        drawer: MainDrawer(),
+        drawer: Theme(
+          data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+          child: MainDrawer(),
+        ),
         body: GetX<HomeController>(
           init: HomeController(),
           builder: (_) {

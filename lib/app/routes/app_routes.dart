@@ -14,4 +14,5 @@ abstract class Routes {
   static const DIALOGCARD = '/dialogcard'; // DialogCard page
   static const TEST_NATIVE = '/test_native'; // TestNative page
   static const DETAIL = '/detail'; // Detail page
+  static const LANGUAGE = '/language'; // Language page
 }

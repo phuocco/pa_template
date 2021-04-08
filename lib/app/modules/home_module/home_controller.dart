@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
@@ -20,7 +21,15 @@ class HomeController extends GetxController {
   final HomeRepository repository;
 
   HomeController({this.repository});
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
+  void openDrawer() {
+    scaffoldKey.currentState.openDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.currentState.openEndDrawer();
+  }
   final box = GetStorage();
 
   final cardDetail = defaultCard.obs;
@@ -51,13 +60,10 @@ class HomeController extends GetxController {
   }
 
   void initPages() {
-    pages = [
-      {'page': MainPage(), 'title': 'Main Screen'},
-      // {'page': GalleryPage(), 'title': 'Gallery Screen'},
-      // {'page': HistoryPage(), 'title': 'History Screen'},
-    ];
+
     list.value.addAll([
       {'page': MainPage(), 'title': 'Main Screen'},
+      {'page': LanguagePage(), 'title': 'Language Screen'},
       // {'page': GalleryPage(), 'title': 'Gallery Screen'},
       // {'page': HistoryPage(), 'title': 'History Screen'},
     ]);
@@ -85,8 +91,8 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
     getPref();
-    countOpen();
-    checkUpdate();
+    // countOpen();
+    // checkUpdate();
 
   }
 

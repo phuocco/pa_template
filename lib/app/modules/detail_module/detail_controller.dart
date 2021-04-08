@@ -109,12 +109,13 @@ class DetailController extends GetxController{
             return status < 500;
           }),
     );
-    pd.close();
+
     File file = File(finalPath.value);
     print(finalPath.value);
     var raf = file.openSync(mode: FileMode.write);
     raf.writeFromSync(response.data);
     await raf.close();
+    pd.close();
     isDownloaded.value = true;
   }
 
@@ -148,7 +149,7 @@ class DetailController extends GetxController{
             return status < 500;
           }),
     );
-    pd.close();
+
     print(finalPath.value);
     print(filePathDownload.value);
     var raf = file.openSync(mode: FileMode.write);
@@ -187,6 +188,7 @@ class DetailController extends GetxController{
           recurseSubDirs: true,
         );
           print('donee');
+        pd.close();
       } catch (e){
         print(e);
       }

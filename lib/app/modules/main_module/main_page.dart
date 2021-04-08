@@ -22,6 +22,7 @@ class MainPage extends GetWidget<HomeController> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+            Text('misc_download_message'.tr),
             // BaseNative(initAds:adsController.initNativeAds(),adWidget: AdWidget(ad: adsController.myNativeAd,), completer: adsController.nativeAdCompleter ),
            TextButton(onPressed: () => Get.toNamed(Routes.DETAIL, arguments: 'https://files.mcpedata.com/mcpeskins/files/movies/captainamerica.png'), child: Text('skin')),
             TextButton(onPressed: (){
