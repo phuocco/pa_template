@@ -95,7 +95,7 @@ class HomeController extends GetxController {
   void onReady() {
     super.onReady();
     getPref();
-    // countOpen();
+    countOpen();
     // checkUpdate();
 
   }
@@ -116,10 +116,17 @@ class HomeController extends GetxController {
   countOpen() async  {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    GetPlatform.isAndroid ? packageName =packageInfo.packageName : repository.fetchAppInfo(packageName).then((value){
-      packageName = value.results[0].trackId;
-    });
-    PACoreGetX().countOpen(packageName);
+    if (GetPlatform.isAndroid) {
+      packageName = packageInfo.packageName;
+      PACoreGetX().countOpen(packageName);
+    } else {
+      repository.fetchAppInfo(packageInfo.packageName).then((value) {
+        packageName = value.results[0].trackId.toString();
+        PACoreGetX().countOpen(packageName);
+        // LaunchReview.launch(iOSAppId: packageName, writeReview: true);
+      });
+    }
+
   }
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
