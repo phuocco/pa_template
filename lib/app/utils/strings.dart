@@ -35,3 +35,7 @@ const kYoutubeIcon = "assets/images/icons_about/ic_youtube.png";
 const kTwitterIcon = "assets/images/icons_about/ic_twitter.jpg";
 const kTranslateIcon = "assets/images/icons_about/ic_translate.jpg";
 const kEmailIcon = "assets/images/icons_about/ic_email.jpg";
+
+//* icon appbar
+const kShareIcon = "assets/images/icons/ic_action_share.png";
+const kMoreIcon = "assets/images/icons/ic_more.png";

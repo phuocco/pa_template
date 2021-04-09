@@ -155,26 +155,3 @@ email() {
   });
   launch(Uri.decodeFull(_emailLaunchUri.toString()));
 }
-GestureDetector communityButton(
-    {String imagePath, String text, Function onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      color: Colors.transparent,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              imagePath,
-              width: 50,
-              height: 50,
-            ),
-          ),
-          Text(text),
-        ],
-      ),
-    ),
-  );
-}

@@ -9,12 +9,6 @@ class MainRepository {
 
   MainRepository({@required this.provider}) : assert(provider != null);
 
-  getUser(id) {
-    return provider.getUser(id);
-  }
 
-  postUser(Map data) {
-    return provider.postUser(data);
-  }
-
+  getItem() => provider.getItem();
 }
