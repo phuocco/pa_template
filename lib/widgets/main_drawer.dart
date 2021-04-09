@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:launch_review/launch_review.dart';
+import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/provider/home_provider.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
@@ -43,17 +44,21 @@ class MainDrawer extends GetView<HomeController> {
         GetStorage().write('OPEN_TIMES', 1);
       }),
       drawerItem(kSubmitIcon, 'nav_items_submit'.tr, () {
-        print('a');
+        Get.find<HomeController>().selectPage(4);
+        Get.back();
       }),
       drawerItem(kLanguageIcon, 'nav_items_language'.tr, () {
         Get.find<HomeController>().selectPage(1);
         Get.back();
       }),
       drawerItem(kPrivacyIcon, 'nav_items_policy'.tr, () {
-        print('a');
+        Get.back();
+        PACoreShowDialog.policyDialog(context, title: 'Privacy Policy',policyAcceptTime: '', funcOk: ()=> Get.back());
+
       }),
       drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
-        print('a');
+        Get.find<HomeController>().selectPage(5);
+        Get.back();
       }),
     ];
     return Drawer(

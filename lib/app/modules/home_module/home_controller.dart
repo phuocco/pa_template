@@ -5,9 +5,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/about_module/about_page.dart';
 import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/app/modules/question_module/question_page.dart';
+import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
@@ -68,6 +70,8 @@ class HomeController extends GetxController {
       {'page': LanguagePage(), 'title': 'Language Screen'},
       {'page': TutorialPage(), 'title': 'Tutorial Screen'},
       {'page': QuestionPage(), 'title': 'Question Screen'},
+      {'page': SubmitPage(), 'title': 'Submit Screen'},
+      {'page': AboutPage(), 'title': 'About Screen'},
       // {'page': GalleryPage(), 'title': 'Gallery Screen'},
       // {'page': HistoryPage(), 'title': 'History Screen'},
     ]);

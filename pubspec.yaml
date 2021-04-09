@@ -84,6 +84,8 @@ flutter:
     - assets/images/
     - assets/images/icons/
     - assets/images/tutorial_image/android/
+    - assets/images/tutorial_image/mods/
+    - assets/images/icons_about/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
