@@ -16,4 +16,5 @@ abstract class Routes {
   static const DETAIL = '/detail'; // Detail page
   static const LANGUAGE = '/language'; // Language page
   static const TUTORIAL = '/tutorial'; // Tutorial page
+  static const QUESTION = '/question'; // Question page
 }

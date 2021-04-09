@@ -1,3 +1,5 @@
+import '../../app/modules/question_module/question_page.dart';
+import '../../app/modules/question_module/question_bindings.dart';
 import '../../app/modules/tutorial_module/tutorial_page.dart';
 import '../../app/modules/tutorial_module/tutorial_bindings.dart';
 import '../../app/modules/language_module/language_page.dart';
@@ -74,6 +76,11 @@ abstract class AppPages {
       name: Routes.TUTORIAL,
       page: () => TutorialPage(),
       binding: TutorialBinding(),
+    ),
+    GetPage(
+      name: Routes.QUESTION,
+      page: () => QuestionPage(),
+      binding: QuestionBinding(),
     ),
   ];
 }

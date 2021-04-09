@@ -18,7 +18,8 @@ class MainDrawer extends GetView<HomeController> {
         Get.back();
       }),
       drawerItem(kQuestionIcon, 'nav_items_question'.tr, (){
-        print('a');
+        Get.find<HomeController>().selectPage(3);
+        Get.back();
       }),
       drawerItem(kReviewIcon, 'nav_items_review'.tr, (){
         print('a');

@@ -37,6 +37,8 @@
 	<string>This permission is required to add custom images to your card editor</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+	    <string>https</string>
+        <string>http</string>
 		<string>itms-beta</string>
 		<string>itms</string>
 		<string>minecraft</string>

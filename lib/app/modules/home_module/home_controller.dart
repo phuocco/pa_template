@@ -7,6 +7,7 @@ import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
+import 'package:pa_template/app/modules/question_module/question_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
@@ -66,6 +67,7 @@ class HomeController extends GetxController {
       {'page': MainPage(), 'title': 'Main Screen'},
       {'page': LanguagePage(), 'title': 'Language Screen'},
       {'page': TutorialPage(), 'title': 'Tutorial Screen'},
+      {'page': QuestionPage(), 'title': 'Question Screen'},
       // {'page': GalleryPage(), 'title': 'Gallery Screen'},
       // {'page': HistoryPage(), 'title': 'History Screen'},
     ]);
