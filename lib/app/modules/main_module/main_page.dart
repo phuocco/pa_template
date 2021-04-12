@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
+  final detailController = Get.put(DetailController());
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -20,10 +22,6 @@ class MainPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Container(
-                // margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                // decoration: BoxDecoration(
-                //   color: kColorBottomItem,
-                // ),
                 child: Column(
                   children: [
                     Stack(children: [
@@ -53,7 +51,6 @@ class MainPage extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: kColorBottomItem,
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,7 +93,11 @@ class MainPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               TextButton(
-                                onPressed: null,
+                                onPressed: ()async {
+                                  detailController.installAddon(controller.listAddon[index].fileUrl).then((value) {
+                                    return GetPlatform.isAndroid ? dialogAskImport() : detailController.importToMinecraft(detailController.finalPath.value);
+                                  });
+                                },
                                 child: Text('DOWNLOAD'),
                                 style: ButtonStyle(
                                   foregroundColor:
@@ -140,5 +141,18 @@ class MainPage extends StatelessWidget {
 
           }),
     );
+  }
+  dialogAskImport(){
+    if(detailController.isDownloaded.value){
+      Get.back();
+      Get.dialog(AlertDialog(
+        title: Text('File downloaded'),
+        content: Text('Do you want to install now?'),
+        actions: [
+          TextButton(onPressed:() => Get.back(), child: Text('Cancel')),
+          TextButton(onPressed:() => detailController.importToMinecraft(detailController.finalPath.value), child: Text('Install skin')),
+        ],
+      ),barrierDismissible: false);
+    }
   }
 }
