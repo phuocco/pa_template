@@ -108,6 +108,7 @@ class HomePage extends GetView<HomeController> {
               kMoreIcon,
               height: 29,
               width: 29,
+              color: kColorMoreAppIcon,
             ),
           ),
         )

@@ -53,6 +53,7 @@ dependencies:
   flutter_widget_from_html: ^0.5.2+1
   url_launcher: ^5.7.10
   dio_http_cache: ^0.2.11
+  flutter_svg: ^0.19.3
 
 dependency_overrides:
   get_storage: ^1.4.0

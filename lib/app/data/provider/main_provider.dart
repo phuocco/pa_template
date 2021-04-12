@@ -29,7 +29,7 @@ class MainProvider extends GetConnect {
 
 
 
-  getItem(bool isFetchNewData) async {
+  getItem({bool isFetchNewData = false}) async {
 
 
     try {
@@ -38,7 +38,7 @@ class MainProvider extends GetConnect {
         baseUrl,
         options: buildCacheOptions(Duration(days: 5),
             maxStale: Duration(days: 10),
-            forceRefresh: false),
+            forceRefresh: isFetchNewData),
       );
       if (response.statusCode == 200) {
         var data = response.data;

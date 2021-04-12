@@ -10,5 +10,5 @@ class MainRepository {
   MainRepository({@required this.provider}) : assert(provider != null);
 
 
-  getItem() => provider.getItem();
+  getItem({bool isFetchNewData = false}) => provider.getItem(isFetchNewData: isFetchNewData);
 }

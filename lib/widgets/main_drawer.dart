@@ -6,6 +6,7 @@ import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/provider/home_provider.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/functions/util_functions.dart';
@@ -82,7 +83,7 @@ class MainDrawer extends GetView<HomeController> {
           Expanded(
             child: Container(
               padding: EdgeInsets.only(top: 5),
-              color: Color(0xb2005c8c),
+              color: kBackgroundDrawer,
               child: ListView.separated(
                   padding: EdgeInsets.zero,
                   itemBuilder: (context, index) {
@@ -115,6 +116,7 @@ Widget drawerItem(String icIcon, String text, Function onTapDrawerItem) {
         ),
         Text(
           text,
+          style: TextStyle(color: Colors.black),
         ),
       ],
     ),
