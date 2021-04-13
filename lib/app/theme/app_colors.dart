@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 final Color exampleColor = Colors.white;
 
-const kBackgroundDrawer = Color(0xffeedddd);
+const kBackgroundDrawer = Color(0xffffffff);
 const kColorDivider = Color(0xff008edb);
 const holo_blue_bright = Color(0xff00ddff);
 const kColorTextFieldAppBar = Colors.white;
@@ -21,3 +21,4 @@ const kBackgroundTopDrawer = Colors.red;
 const kColorLikeIcon = Colors.yellow;
 const kColorBottomItem =Color(0xf7efe5);
 const kColorTextDrawer = Colors.black;
+const kBottomDetailColor = Color(0x70D9D8D5);
