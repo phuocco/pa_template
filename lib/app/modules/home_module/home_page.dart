@@ -102,7 +102,7 @@ class HomePage extends GetView<HomeController> {
             onTap: () {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-
+              Get.changeTheme(Get.isDarkMode? ThemeData.light(): ThemeData.dark());
             },
             child: Image.asset(
               kMoreIcon,

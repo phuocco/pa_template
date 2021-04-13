@@ -50,16 +50,16 @@ class DetailController extends GetxController{
   void onInit() {
 
     initBasePath();
-    getItems();
+    // getItems();
     print('init..');
     super.onInit();
   }
 
-  getItems() async {
-    return repository.getItem().then((value){
-      listAddon.assignAll(value);
-    });
-  }
+  // getItems() async {
+  //   return repository.getItem().then((value){
+  //     listAddon.assignAll(value);
+  //   });
+  // }
 
   @override
   void onClose() {

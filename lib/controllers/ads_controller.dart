@@ -105,7 +105,7 @@ class AdsController extends GetxController {
 
   void createRewardedAd() {
     _rewardedAd ??= RewardedAd(
-      adUnitId: "ca-app-pub-3940256099942544/5224354917",
+      adUnitId: AdManager.rewardedAdUnitId,
       request: adRequest,
       listener: AdListener(
           onAdLoaded: (Ad ad) {
