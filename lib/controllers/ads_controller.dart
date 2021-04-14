@@ -138,7 +138,7 @@ class AdsController extends GetxController {
   //endregion
   @override
   void onInit() {
-    initPlatformState();
+   // initPlatformState();
 
     if (box.read('IS_PREMIUM') == true) {
       isPremium.value = true;

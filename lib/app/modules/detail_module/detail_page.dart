@@ -2,15 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
+import 'package:pa_template/widgets/base_native.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
 
 class DetailPage extends StatelessWidget {
   final controller = Get.put(DetailController());
+  final adsController = Get.put(AdsController());
   final AddonsItem addonsItem;
 
   DetailPage({this.addonsItem});
@@ -130,7 +134,12 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset('assets/images/ads.png'),
+            // Image.asset('assets/images/ads.png'),
+            BaseNative(
+                adWidget: AdWidget(
+                  ad: adsController.myNativeAd,
+                ),
+                completer: adsController.nativeAdCompleter),
             Container(
               margin: EdgeInsets.all(10),
               height: 400,

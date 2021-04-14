@@ -3,16 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/detail_module/detail_page.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
+import 'package:pa_template/widgets/base_native.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
   final detailController = Get.put(DetailController());
+  final adsController = Get.put(AdsController());
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -291,7 +296,7 @@ class MainPage extends StatelessWidget {
     return Get.dialog(Dialog(
       insetPadding: EdgeInsets.all(150),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -415,7 +420,12 @@ class MainPage extends StatelessWidget {
                 ),
               ],
             ),
-            Image.asset('assets/images/ads.png'),
+            BaseNative(
+                adWidget: AdWidget(
+                  ad: adsController.myNativeAd,
+                ),
+                completer: adsController.nativeAdCompleter),
+            // Image.asset('assets/images/ads.png'),
             Container(
               margin: EdgeInsets.all(10),
               height: 400,
