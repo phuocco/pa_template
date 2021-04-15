@@ -26,6 +26,13 @@ class MainPage extends StatelessWidget {
           ? ListView.builder(
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
+                if(index == 0){
+                  return NativeAdHomeWidget(
+                      adWidget: AdWidget(
+                        ad: adsController.myNativeAd,
+                      ),
+                      completer: adsController.nativeAdCompleter);
+                }
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
                   child: Card(
@@ -420,7 +427,7 @@ class MainPage extends StatelessWidget {
                 ),
               ],
             ),
-            BaseNative(
+            NativeAdHomeWidget(
                 adWidget: AdWidget(
                   ad: adsController.myNativeAd,
                 ),

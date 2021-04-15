@@ -3,25 +3,24 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
 
-class BaseNative extends StatelessWidget {
-
+class NativeAdHomeWidget extends StatelessWidget {
   final controller = Get.put(AdsController());
 
   final AdWidget adWidget;
   final Completer completer;
-  BaseNative({this.adWidget, this.completer});
+  NativeAdHomeWidget({this.adWidget, this.completer});
 
   @override
   Widget build(BuildContext context) {
     print('build new object');
-    return  GetBuilder<AdsController>(
+    return GetBuilder<AdsController>(
       builder: (controller) {
-        print("count 1 rebuild");
         return FutureBuilder<NativeAd>(
           future: completer.future,
           builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
@@ -41,9 +40,14 @@ class BaseNative extends StatelessWidget {
                 }
             }
             return Container(
-              width: 250,
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: kNativeAdBackground
+              ),
+              width: double.infinity,
               height: 350,
-              color: Colors.blueGrey,
+              // color: kNativeAdBackground,
               child: child,
             );
           },

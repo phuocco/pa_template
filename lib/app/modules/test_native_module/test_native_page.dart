@@ -14,7 +14,7 @@ class TestNativePage extends GetWidget<TestNativeController> {
       appBar: AppBar(title: Text('TestNative Page')),
       body: Container(
         child: Center(
-          child: BaseNative(
+          child: NativeAdHomeWidget(
               adWidget: AdWidget(
                 ad: adsController.myNativeAd,
               ),

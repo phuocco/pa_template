@@ -135,11 +135,14 @@ class DetailPage extends StatelessWidget {
               ],
             ),
             // Image.asset('assets/images/ads.png'),
-            BaseNative(
-                adWidget: AdWidget(
-                  ad: adsController.myNativeAd,
-                ),
-                completer: adsController.nativeAdCompleter),
+            // Container(
+            //   margin: EdgeInsets.all(10),
+            //   child: BaseNative(
+            //       adWidget: AdWidget(
+            //         ad: adsController.myNativeAd,
+            //       ),
+            //       completer: adsController.nativeAdCompleter),
+            // ),
             Container(
               margin: EdgeInsets.all(10),
               height: 400,

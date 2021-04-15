@@ -20,7 +20,7 @@ class AdManager {
       throw new UnsupportedError("Unsupported platform");
     }
   }
-  
+
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
