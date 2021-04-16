@@ -28,7 +28,7 @@ class DetailPage extends StatelessWidget {
         title: Text(addonsItem.itemName),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: ClampingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

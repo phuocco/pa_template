@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F0C90E02613156100242C13 /* UnifiedNativeAdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F0C90DF2613156100242C13 /* UnifiedNativeAdView.xib */; };
-		0F0C90F42613164600242C13 /* NativeAdFactoryExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0C90F32613164600242C13 /* NativeAdFactoryExample.swift */; };
+		0F0C90F42613164600242C13 /* NativeAdFactoryAddon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0C90F32613164600242C13 /* NativeAdFactoryAddon.swift */; };
 		0FAA8D47261D6394007981F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0FAA8D46261D6394007981F5 /* GoogleService-Info.plist */; };
+		0FAE7C8826298FF700B88E01 /* NativeAdHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FAE7C8726298FF700B88E01 /* NativeAdHome.xib */; };
+		0FAE7C8A2629948A00B88E01 /* NativeAdDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FAE7C892629948A00B88E01 /* NativeAdDetail.xib */; };
 		0FE52E3425FF44B700C3670C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE52E3325FF44B700C3670C /* StoreKit.framework */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -35,8 +37,10 @@
 
 /* Begin PBXFileReference section */
 		0F0C90DF2613156100242C13 /* UnifiedNativeAdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnifiedNativeAdView.xib; sourceTree = "<group>"; };
-		0F0C90F32613164600242C13 /* NativeAdFactoryExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdFactoryExample.swift; sourceTree = "<group>"; };
+		0F0C90F32613164600242C13 /* NativeAdFactoryAddon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdFactoryAddon.swift; sourceTree = "<group>"; };
 		0FAA8D46261D6394007981F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0FAE7C8726298FF700B88E01 /* NativeAdHome.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeAdHome.xib; sourceTree = "<group>"; };
+		0FAE7C892629948A00B88E01 /* NativeAdDetail.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeAdDetail.xib; sourceTree = "<group>"; };
 		0FE52E3325FF44B700C3670C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
@@ -127,10 +131,12 @@
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
 				97C147021CF9000F007C117D /* Info.plist */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
-				0F0C90F32613164600242C13 /* NativeAdFactoryExample.swift */,
+				0F0C90F32613164600242C13 /* NativeAdFactoryAddon.swift */,
 				0FAA8D46261D6394007981F5 /* GoogleService-Info.plist */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				0F0C90DF2613156100242C13 /* UnifiedNativeAdView.xib */,
+				0FAE7C8726298FF700B88E01 /* NativeAdHome.xib */,
+				0FAE7C892629948A00B88E01 /* NativeAdDetail.xib */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
@@ -202,8 +208,10 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				0FAE7C8A2629948A00B88E01 /* NativeAdDetail.xib in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+				0FAE7C8826298FF700B88E01 /* NativeAdHome.xib in Resources */,
 				0F0C90E02613156100242C13 /* UnifiedNativeAdView.xib in Resources */,
 				0FAA8D47261D6394007981F5 /* GoogleService-Info.plist in Resources */,
 			);
@@ -286,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F0C90F42613164600242C13 /* NativeAdFactoryExample.swift in Sources */,
+				0F0C90F42613164600242C13 /* NativeAdFactoryAddon.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);

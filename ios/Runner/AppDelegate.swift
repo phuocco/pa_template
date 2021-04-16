@@ -121,10 +121,10 @@ import Firebase
     
     GeneratedPluginRegistrant.register(with: self)
     
-    let nativeAdFactory = NativeAdFactoryExample()
+    let nativeAdFactory = NativeAdFactoryAddon()
     FLTGoogleMobileAdsPlugin.registerNativeAdFactory(
         self,
-        factoryId: "adFactoryExample",
+        factoryId: "adFactoryId",
         nativeAdFactory: nativeAdFactory)
     
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)

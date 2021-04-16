@@ -145,8 +145,8 @@ class AdsController extends GetxController {
       return;
     }
     initNativeAds(
-        listNativeAdsHomeController, 3, new NativeAdsOption(type: 'home'));
-    initNativeAds(listNativeAdsDetailController,1, new NativeAdsOption(type: 'detail'));
+        listNativeAdsHomeController, 3, new NativeAdsOption(type: 'NativeAdHome'));
+    initNativeAds(listNativeAdsDetailController,1, new NativeAdsOption(type: 'NativeAdDetail'));
 
     initBannerAds();
     MobileAds.instance.initialize().then((InitializationStatus status) {

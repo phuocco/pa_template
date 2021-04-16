@@ -10,25 +10,31 @@ import google_mobile_ads
 import MobileCoreServices
 import GoogleMobileAds
 
-class NativeAdFactoryExample: NSObject, FLTNativeAdFactory {
+class NativeAdFactoryAddon: NSObject, FLTNativeAdFactory {
     
 
     func createNativeAd(_ nativeAd: GADUnifiedNativeAd, customOptions: [AnyHashable : Any]? = nil) -> GADUnifiedNativeAdView? {
         // Create and place ad in view hierarchy.
-        
-        let adView:GADUnifiedNativeAdView = (Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil)?.first as? GADUnifiedNativeAdView)!
+        var adView:GADUnifiedNativeAdView? = nil
+        if let dict = customOptions as NSDictionary? as! [String:Any]? {
+          print(dict["type"]!)
+            adView = (Bundle.main.loadNibNamed(dict["type"]! as! String, owner: nil, options: nil)?.first as? GADUnifiedNativeAdView)!
 
-        adView.nativeAd = nativeAd
+        } else {
+            adView = (Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil)?.first as? GADUnifiedNativeAdView)!
+        }
 
-        (adView.headlineView as? UILabel)?.text = nativeAd.headline
+        adView?.nativeAd = nativeAd
 
-        (adView.bodyView as? UILabel)?.text = nativeAd.body
-        adView.bodyView?.isHidden = (nativeAd.body != nil) ? false : true
+        (adView?.headlineView as? UILabel)?.text = nativeAd.headline
 
-        (adView.callToActionView as? UIButton)?.setTitle(
+        (adView?.bodyView as? UILabel)?.text = nativeAd.body
+        adView?.bodyView?.isHidden = (nativeAd.body != nil) ? false : true
+
+        (adView?.callToActionView as? UIButton)?.setTitle(
             nativeAd.callToAction,
             for: .normal)
-        adView.callToActionView?.isHidden = (nativeAd.callToAction != nil) ? false : true
+        adView?.callToActionView?.isHidden = (nativeAd.callToAction != nil) ? false : true
 
         return adView
     }

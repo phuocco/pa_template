@@ -37,10 +37,10 @@ class NativeAdFactoryAddon implements GoogleMobileAdsPlugin.NativeAdFactory {
             adType =(String) customOptions.get("type");
             if(!adType.equals("")){
                 switch (adType) {
-                    case "home":
+                    case "NativeAdHome":
                         adView = (UnifiedNativeAdView) layoutInflater.inflate(R.layout.native_home_view, null);
                         break;
-                    case "detail":
+                    case "NativeAdDetail":
                         adView = (UnifiedNativeAdView) layoutInflater.inflate(R.layout.native_detail_view, null);
                         break;
 
