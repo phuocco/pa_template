@@ -16,6 +16,7 @@ class AdsController extends GetxController {
   static bool initPurchase = false;
   final box = GetStorage();
   final isLoaded = false.obs;
+
   //region purchase
   StreamSubscription purchaseUpdatedSubscription;
   StreamSubscription purchaseErrorSubscription;
@@ -30,6 +31,7 @@ class AdsController extends GetxController {
     update();
     return check;
   }
+
   //endregion
   //region ads
   String a = "test";
@@ -45,15 +47,13 @@ class AdsController extends GetxController {
 
   BannerAd myBanner;
   final bannerCompleter = Completer<BannerAd>().obs;
+
   loadBanner() => myBanner.load();
 
-  NativeAd myNativeAd;
-  Completer nativeAdCompleter;
+  // NativeAd myNativeAd;
+  // Completer nativeAdCompleter;
 
-
-
-
-  loadNative() => myNativeAd.load();
+  // loadNative() => myNativeAd.load();
 
   InterstitialAd _interstitialAd;
   bool _interstitialReady = false;
@@ -138,13 +138,16 @@ class AdsController extends GetxController {
   //endregion
   @override
   void onInit() {
-   // initPlatformState();
+    // initPlatformState();
 
     if (box.read('IS_PREMIUM') == true) {
       isPremium.value = true;
       return;
     }
-    initNativeAds();
+    initNativeAds(
+        listNativeAdsHomeController, 3, new NativeAdsOption(type: 'home'));
+    initNativeAds(listNativeAdsDetailController,1, new NativeAdsOption(type: 'detail'));
+
     initBannerAds();
     MobileAds.instance.initialize().then((InitializationStatus status) {
       print('Init ads done: ${status.adapterStatuses}');
@@ -167,8 +170,8 @@ class AdsController extends GetxController {
     myBanner = null;
     _interstitialAd?.dispose();
     _rewardedAd?.dispose();
-    myNativeAd?.dispose();
-    myNativeAd = null;
+    // myNativeAd?.dispose();
+    // myNativeAd = null;
     purchaseUpdatedSubscription.cancel();
     purchaseErrorSubscription.cancel();
     super.onClose();
@@ -187,31 +190,72 @@ class AdsController extends GetxController {
     }
   }
 
-  initNativeAds() {
-    nativeAdCompleter = Completer<NativeAd>();
-    myNativeAd = NativeAd(
-      adUnitId: AdManager.nativeAdUnitId,
-      request: adRequest,
-      factoryId: 'adFactoryId',
-        customOptions: <String, Object> {},
-      listener: AdListener(
-        onAdLoaded: (Ad ad) {
-          print('$NativeAd loaded..');
-          nativeAdCompleter.complete(ad as NativeAd);
-        },
-        onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('$NativeAd failedToLoad: $error');
-          nativeAdCompleter.completeError(null);
-        },
-        onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
-        onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
-        onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
-      ),
-    );
-    Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-    isLoaded.value = true;
-    loadNative();
+  List<NativeAdsController> listNativeAdsHomeController = [];
+  List<NativeAdsController> listNativeAdsDetailController = [];
+
+  initNativeAds(
+      List<NativeAdsController> listAds, int numAds, NativeAdsOption option) {
+    for (int i = 0; i < numAds; i++) {
+      var nativeAdCompleter = Completer<NativeAd>();
+      var controller = new NativeAdsController(nativeAdCompleter);
+      var myNativeAd = NativeAd(
+        adUnitId: AdManager.nativeAdUnitId,
+        request: adRequest,
+        factoryId: 'adFactoryId',
+        customOptions: option.toJson(),
+        listener: AdListener(
+          onAdLoaded: (Ad ad) {
+            print('$NativeAd loaded..');
+            nativeAdCompleter.complete(ad as NativeAd);
+            controller.ad = ad;
+          },
+          onAdFailedToLoad: (Ad ad, LoadAdError error) {
+            print('$NativeAd failedToLoad: $error');
+            nativeAdCompleter.completeError(null);
+          },
+          onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+          onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+          onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
+        ),
+      );
+      listAds.add(controller);
+      Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
+      isLoaded.value = true;
+    }
+    // loadNative();
   }
+
+//region list detail
+  // initNativeAdsDetail(int numAds, NativeAdsOption option) {
+  //   for (int i = 0; i < numAds; i++) {
+  //     var nativeAdCompleter = Completer<NativeAd>();
+  //     var myNativeAd = NativeAd(
+  //       adUnitId: AdManager.nativeAdUnitId,
+  //       request: adRequest,
+  //       factoryId: 'adFactoryId',
+  //       customOptions: option.toJson(),
+  //       listener: AdListener(
+  //         onAdLoaded: (Ad ad) {
+  //           print('$NativeAd loaded..');
+  //           nativeAdCompleter.complete(ad as NativeAd);
+  //           listNativeAdsDetailController
+  //               .add(new NativeAdsController(nativeAdCompleter, ad: ad));
+  //         },
+  //         onAdFailedToLoad: (Ad ad, LoadAdError error) {
+  //           print('$NativeAd failedToLoad: $error');
+  //           nativeAdCompleter.completeError(null);
+  //         },
+  //         onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
+  //         onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
+  //         onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
+  //       ),
+  //     );
+  //     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
+  //     isLoaded.value = true;
+  //   }
+  //   // loadNative();
+  // }
+  //endregion
 
   initBannerAds() {
     myBanner = BannerAd(
@@ -235,7 +279,7 @@ class AdsController extends GetxController {
 
     myBanner.load().then((value) => isLoaded.value = true);
   }
-
+//region purchase
   Future<void> initPlatformState() async {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -282,8 +326,7 @@ class AdsController extends GetxController {
     print(
         "transactionReceipt['packageName'] ${transactionReceipt['packageName']}");
     print("transactionReceipt['productId'] ${transactionReceipt['productId']}");
-    var result =
-    await FlutterInappPurchase.instance.validateReceiptAndroid(
+    var result = await FlutterInappPurchase.instance.validateReceiptAndroid(
       packageName: transactionReceipt['packageName'],
       productId: transactionReceipt['productId'],
       productToken: productItem.purchaseToken,
@@ -332,5 +375,23 @@ class AdsController extends GetxController {
     print('get history');
     purchases.assignAll(listItems);
     print(purchases);
+  }
+
+  //endregion
+}
+
+class NativeAdsController {
+  Completer<NativeAd> completer;
+  NativeAd ad;
+  bool isUsing = false;
+  NativeAdsController(this.completer, {this.ad, this.isUsing = false});
+}
+
+class NativeAdsOption {
+  final String type;
+  NativeAdsOption({this.type});
+  Map<String, Object> toJson() {
+    var map = {'type': type};
+    return map;
   }
 }

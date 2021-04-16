@@ -9,12 +9,12 @@ import 'package:pa_template/constants/const_drawer.dart';
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
 
-class NativeAdHomeWidget extends StatelessWidget {
+class NativeAdDetailWidget extends StatelessWidget {
   final controller = Get.put(AdsController());
 
-  final AdWidget adWidget;
-  final Completer completer;
-  NativeAdHomeWidget({this.adWidget, this.completer});
+  // final AdWidget adWidget;
+  final NativeAdsController nativeAdsController;
+  NativeAdDetailWidget({this.nativeAdsController});
 
   @override
   Widget build(BuildContext context) {
@@ -22,31 +22,24 @@ class NativeAdHomeWidget extends StatelessWidget {
     return GetBuilder<AdsController>(
       builder: (controller) {
         return FutureBuilder<NativeAd>(
-          future: completer.future,
+          future: nativeAdsController.completer.future,
           builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
             Widget child;
-
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                child = Container();
-                break;
-              case ConnectionState.done:
-                if (snapshot.hasData) {
-                  child = adWidget;
-                } else {
-                  child = Text('Error loading $NativeAd');
-                }
+            if (snapshot.hasData && snapshot.data != null) {
+              child = AdWidget(
+                ad: snapshot.data,
+              );
+            }else{
+              child = Text('Error loading $NativeAd');
             }
             return Container(
               margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                color: kNativeAdBackground
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: kNativeAdBackground
               ),
               width: double.infinity,
-              height: 350,
+              height: 375,
               // color: kNativeAdBackground,
               child: child,
             );

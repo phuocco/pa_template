@@ -7,7 +7,8 @@ import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
-import 'package:pa_template/widgets/base_native.dart';
+import 'package:pa_template/widgets/native_ad_detail_widget.dart';
+import 'package:pa_template/widgets/native_ad_home_widget.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
@@ -102,6 +103,8 @@ class DetailPage extends StatelessWidget {
                 ],
               ),
             ),
+            NativeAdDetailWidget(
+                nativeAdsController: adsController.listNativeAdsDetailController[0]),
             Column(
               children: [
                 Container(
@@ -143,6 +146,8 @@ class DetailPage extends StatelessWidget {
             //       ),
             //       completer: adsController.nativeAdCompleter),
             // ),
+
+
             Container(
               margin: EdgeInsets.all(10),
               height: 400,

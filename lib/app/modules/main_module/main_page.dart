@@ -11,7 +11,7 @@ import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
-import 'package:pa_template/widgets/base_native.dart';
+import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
@@ -26,12 +26,9 @@ class MainPage extends StatelessWidget {
           ? ListView.builder(
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                if(index == 0){
+                if(index == 0 ){
                   return NativeAdHomeWidget(
-                      adWidget: AdWidget(
-                        ad: adsController.myNativeAd,
-                      ),
-                      completer: adsController.nativeAdCompleter);
+                      nativeAdsController: adsController.listNativeAdsHomeController[0]);
                 }
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
@@ -428,10 +425,7 @@ class MainPage extends StatelessWidget {
               ],
             ),
             NativeAdHomeWidget(
-                adWidget: AdWidget(
-                  ad: adsController.myNativeAd,
-                ),
-                completer: adsController.nativeAdCompleter),
+                nativeAdsController: adsController.listNativeAdsHomeController[0]),
             // Image.asset('assets/images/ads.png'),
             Container(
               margin: EdgeInsets.all(10),

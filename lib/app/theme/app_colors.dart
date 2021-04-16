@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
 
 final Color exampleColor = Colors.white;
 
@@ -22,4 +20,4 @@ const kColorLikeIcon = Colors.yellow;
 const kColorBottomItem =Color(0xf7efe5);
 const kColorTextDrawer = Colors.black;
 const kBottomDetailColor = Color(0x70D9D8D5);
-const kNativeAdBackground = Color(0xffc17517);
+const kNativeAdBackground = Color(0x25ddd2c4);
