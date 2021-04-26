@@ -25,16 +25,38 @@ class NativeAdFactoryAddon: NSObject, FLTNativeAdFactory {
         }
 
         adView?.nativeAd = nativeAd
-
+        
         (adView?.headlineView as? UILabel)?.text = nativeAd.headline
+        
+        
+        //icon
+        (adView?.iconView as? UIImageView)?.image = nativeAd.icon?.image
+        adView?.iconView?.isHidden = nativeAd.icon == nil
 
+        
+        //body text
         (adView?.bodyView as? UILabel)?.text = nativeAd.body
-        adView?.bodyView?.isHidden = (nativeAd.body != nil) ? false : true
+        adView?.bodyView?.isHidden = nativeAd.body == nil
+        
+        //rating
+//        (adView?.starRatingView as? UIImageView)?.image = imageOfStars(
+//            fromStarRating: nativeAd.starRating)
+//          adView?.starRatingView?.isHidden = nativeAd.starRating == nil
 
-        (adView?.callToActionView as? UIButton)?.setTitle(
-            nativeAd.callToAction,
-            for: .normal)
-        adView?.callToActionView?.isHidden = (nativeAd.callToAction != nil) ? false : true
+        //advertiser
+        (adView?.advertiserView as? UILabel)?.text = nativeAd.advertiser
+          adView?.advertiserView?.isHidden = nativeAd.advertiser == nil
+
+    
+        
+        //button call to action
+        
+        
+        (adView?.callToActionView as? UIButton)?.setTitle(nativeAd.callToAction?.uppercased(), for: .normal)
+          adView?.callToActionView?.isHidden = nativeAd.callToAction == nil
+
+        adView?.callToActionView?.isUserInteractionEnabled = false
+
 
         return adView
     }

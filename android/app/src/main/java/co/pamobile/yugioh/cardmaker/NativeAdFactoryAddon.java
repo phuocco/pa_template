@@ -28,7 +28,9 @@ class NativeAdFactoryAddon implements GoogleMobileAdsPlugin.NativeAdFactory {
     @Override
     public UnifiedNativeAdView createNativeAd(
             UnifiedNativeAd nativeAd, Map<String, Object> customOptions) {
-        Log.e("testNative", (String) customOptions.get("type"));
+        if(customOptions.get("type") != null){
+            Log.e("testNative", (String) customOptions.get("type"));
+        }
         UnifiedNativeAdView adView =
                 (UnifiedNativeAdView) layoutInflater.inflate(R.layout.native_default_view, null);
 
@@ -43,7 +45,6 @@ class NativeAdFactoryAddon implements GoogleMobileAdsPlugin.NativeAdFactory {
                     case "NativeAdDetail":
                         adView = (UnifiedNativeAdView) layoutInflater.inflate(R.layout.native_detail_view, null);
                         break;
-
                     default:
                         throw new IllegalStateException("Unexpected value: " + adType);
                 }
@@ -151,8 +152,6 @@ class NativeAdFactoryAddon implements GoogleMobileAdsPlugin.NativeAdFactory {
                 adView.getAdvertiserView().setVisibility(View.GONE);
             }
         }
-
-
 
 
         return adView;

@@ -11,6 +11,7 @@ import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
+import 'package:pa_template/widgets/native_ad_detail_widget.dart';
 import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class MainPage extends StatelessWidget {
@@ -167,6 +168,10 @@ class MainPage extends StatelessWidget {
                   mainAxisSpacing: 5),
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
+                if(index == 0 ){
+                  return NativeAdHomeWidget(
+                      nativeAdsController: adsController.listNativeAdsHomeController[0]);
+                }
                 return GestureDetector(
                   onTap:() => showDetailDialog(controller.listAddon[index]),
                   child: Card(
@@ -238,6 +243,7 @@ class MainPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.max,
@@ -284,6 +290,7 @@ class MainPage extends StatelessWidget {
                               ],
                             ),
                           ),
+
                         ],
                       ),
                     ),
