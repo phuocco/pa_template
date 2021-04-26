@@ -33,7 +33,7 @@ class NativeAdHomeWidget extends StatelessWidget {
               child = Text('Error loading $NativeAd');
             }
             return Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: kNativeAdBackground

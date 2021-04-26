@@ -24,7 +24,7 @@ class MainPage extends StatelessWidget {
     // TODO: implement build
     return Obx(
       () => context.isPhone
-          ? ListView.builder(
+          ? ListView.builder (
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
                 if(index == 0 ){
@@ -398,6 +398,9 @@ class MainPage extends StatelessWidget {
                 ],
               ),
             ),
+            //todo: ad dialog
+            NativeAdDetailWidget(
+                nativeAdsController: adsController.listNativeAdsDetailController[0]),
             Column(
               children: [
                 Container(
@@ -431,8 +434,7 @@ class MainPage extends StatelessWidget {
                 ),
               ],
             ),
-            NativeAdHomeWidget(
-                nativeAdsController: adsController.listNativeAdsHomeController[0]),
+
             // Image.asset('assets/images/ads.png'),
             Container(
               margin: EdgeInsets.all(10),
