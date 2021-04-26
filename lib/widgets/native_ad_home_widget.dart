@@ -39,7 +39,7 @@ class NativeAdHomeWidget extends StatelessWidget {
                 color: kNativeAdBackground
               ),
               width: double.infinity,
-              height: 340,
+              height: 290,
               // color: kNativeAdBackground,
               child: child,
             );

@@ -23,11 +23,15 @@ class NativeAdFactoryAddon: NSObject, FLTNativeAdFactory {
         } else {
             adView = (Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil)?.first as? GADUnifiedNativeAdView)!
         }
+        
 
         adView?.nativeAd = nativeAd
         
-        (adView?.headlineView as? UILabel)?.text = nativeAd.headline
         
+
+
+        
+        (adView?.headlineView as? UILabel)?.text = nativeAd.headline!
         
         //icon
         (adView?.iconView as? UIImageView)?.image = nativeAd.icon?.image
