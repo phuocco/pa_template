@@ -16,7 +16,6 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
-  final detailController = Get.put(DetailController());
   final adsController = Get.put(AdsController());
 
   @override
@@ -402,8 +401,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
             //todo: ad dialog
-            NativeAdDetailWidget(
-                nativeAdsController: adsController.listNativeAdsDetailController[0]),
+            // NativeAdDetailWidget(
+            //     nativeAdsController: adsController.listNativeAdsDetailController[0]),
             Column(
               children: [
                 Container(

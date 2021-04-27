@@ -9,7 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pa_template/app/data/repository/detail_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/models/addons_item.dart';
+import 'package:pa_template/utils/ad_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
@@ -45,14 +48,35 @@ class DetailController extends GetxController{
       print(basePath);
     }
   }
+  NativeAdControllerNew nativeAdControllerNew;
+
+  getAdsFromList() async {
+    nativeAdControllerNew = NativeAdControllerNew();
+   await nativeAdControllerNew.getAdsByIncreaseIndex();
+  }
 
   @override
   void onInit() {
 
     initBasePath();
     // getItems();
-    print('init..');
+    print('init...');
+    initAds();
+
     super.onInit();
+  }
+
+  initAds(){
+    if(nativeAdControllerNew == null){
+      nativeAdControllerNew = NativeAdControllerNew();
+      nativeAdControllerNew.initAds(
+          maxCountAds: 1,
+          maxCallRequest: 3,
+          adUnitId: AdManager.nativeAdUnitId,
+          options: new NativeAdsOption(type: 'NativeAdDetail'));
+      nativeAdControllerNew.requestAds();
+
+    }
   }
 
   // getItems() async {

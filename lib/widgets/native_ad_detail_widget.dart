@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
+import 'package:pa_template/controllers/native_ad_controller_new.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
@@ -13,8 +14,8 @@ class NativeAdDetailWidget extends StatelessWidget {
   final controller = Get.put(AdsController());
 
   // final AdWidget adWidget;
-  final NativeAdsController nativeAdsController;
-  NativeAdDetailWidget({this.nativeAdsController});
+  final Completer<NativeAd> adItem;
+  NativeAdDetailWidget({this.adItem});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +23,21 @@ class NativeAdDetailWidget extends StatelessWidget {
     return GetBuilder<AdsController>(
       builder: (controller) {
         return FutureBuilder<NativeAd>(
-          future: nativeAdsController.completer.future,
+          future: adItem.future,
           builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
             Widget child;
-            if (snapshot.hasData && snapshot.data != null) {
-              child = AdWidget(
-                ad: snapshot.data,
-              );
-            }else{
-              child = Text('Error loading $NativeAd');
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                child = Text('loading');
+                break;
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  child = AdWidget(ad: snapshot.data);
+                } else {
+                  child = Text('error');
+                }
             }
             return Container(
               margin: EdgeInsets.all(10),
