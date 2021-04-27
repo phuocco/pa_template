@@ -28,8 +28,11 @@ class MainPage extends StatelessWidget {
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
                 if(index == 0 ){
-                  return NativeAdHomeWidget(
-                      nativeAdsController: adsController.listNativeAdsHomeController[0]);
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: NativeAdHomeWidget(
+                        nativeAdsController: adsController.listNativeAdsHomeController[0]),
+                  );
                 }
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
@@ -319,7 +322,7 @@ class MainPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(onPressed: () => Get.back(),icon: Icon(Icons.arrow_back_ios ,color: Colors.white,),),
-                  Text(addonsItem.itemName),
+                  Text(addonsItem.itemName, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22, color: Colors.white),),
                   IconButton(onPressed: () => Get.back(),icon: Icon(Icons.share_outlined ,color: Colors.white,),),
                 ],
               ),

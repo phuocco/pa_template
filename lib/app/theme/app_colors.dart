@@ -20,4 +20,4 @@ const kColorLikeIcon = Colors.yellow;
 const kColorBottomItem =Color(0xf7efe5);
 const kColorTextDrawer = Colors.black;
 const kBottomDetailColor = Color(0x70D9D8D5);
-const kNativeAdBackground = Color(0x3ce7e0d7);
+const kNativeAdBackground = Color(0x3cc8beb1);
