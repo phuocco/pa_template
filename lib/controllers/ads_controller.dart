@@ -13,8 +13,8 @@ import 'package:pa_template/utils/ad_manager.dart';
 
 import 'native_ad_controller_new.dart';
 
-NativeAdControllerNew nativeAdControllerNew;
-
+NativeAdControllerNew nativeDetailAdControllerNew;
+NativeAdControllerNew nativeHomeAdControllerNew;
 class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
@@ -142,15 +142,28 @@ class AdsController extends GetxController {
   //endregion
 
 
-  initAds(){
-    if(nativeAdControllerNew == null){
-      nativeAdControllerNew = NativeAdControllerNew();
-      nativeAdControllerNew.initAds(
+  initDetailAds(){
+    if(nativeDetailAdControllerNew == null){
+      nativeDetailAdControllerNew = NativeAdControllerNew();
+      nativeDetailAdControllerNew.initAds(
           maxCountAds: 1,
           maxCallRequest:3,
           forceRefresh: false,
           adUnitId: AdManager.nativeAdUnitId,
           options: new NativeAdsOption(type: 'NativeAdDetail'));
+    }
+  }
+  initHomeAds(){
+    if(nativeHomeAdControllerNew == null){
+      nativeHomeAdControllerNew = NativeAdControllerNew();
+      nativeHomeAdControllerNew.initAds(
+          initNumberAds: 2,
+          maxCountAds: 3,
+          maxCallRequest:3,
+          forceRefresh: false,
+          adUnitId: AdManager.nativeAdUnitId,
+          options: new NativeAdsOption(type: 'NativeAdHome'));
+      print(nativeHomeAdControllerNew.listAds.length.toString() +'abcdef');
     }
   }
 
@@ -159,7 +172,8 @@ class AdsController extends GetxController {
   @override
   void onInit() {
     // initPlatformState();
-    initAds();
+    initDetailAds();
+    initHomeAds();
     if (box.read('IS_PREMIUM') == true) {
       isPremium.value = true;
       return;

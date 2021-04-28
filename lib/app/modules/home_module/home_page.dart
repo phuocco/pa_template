@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget{
             onTap: () {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-              Get.changeTheme(Get.isDarkMode? ThemeData.light(): ThemeData.dark());
+              print(nativeHomeAdControllerNew.listAds.length);
             },
             child: Image.asset(
               kMoreIcon,

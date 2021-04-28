@@ -104,7 +104,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             NativeAdDetailWidget(
-                adItem: nativeAdControllerNew.getAdsByIncreaseIndex()),
+                adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
                 Container(

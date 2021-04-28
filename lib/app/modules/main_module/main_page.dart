@@ -26,13 +26,13 @@ class MainPage extends StatelessWidget {
           ? ListView.builder (
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                // if(index == 0 ){
-                //   return Padding(
-                //     padding: const EdgeInsets.all(5),
-                //     child: NativeAdHomeWidget(
-                //         nativeAdsController: adsController.listNativeAdsHomeController[0]),
-                //   );
-                // }
+                if(index == 0 ){
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: NativeAdHomeWidget(
+                        adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                  );
+                }
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
                   child: Card(
@@ -170,10 +170,10 @@ class MainPage extends StatelessWidget {
                   mainAxisSpacing: 5),
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                // if(index == 0 ){
-                //   return NativeAdHomeWidget(
-                //       nativeAdsController: adsController.listNativeAdsHomeController[0]);
-                // }
+                if(index == 0 ){
+                  return NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex());
+                }
                 return GestureDetector(
                   onTap:() => showDetailDialog(controller.listAddon[index]),
                   child: Card(
@@ -402,7 +402,7 @@ class MainPage extends StatelessWidget {
             ),
             //todo: ad dialog
             NativeAdDetailWidget(
-                adItem: nativeAdControllerNew.getAdsByIncreaseIndex()),
+                adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
                 Container(
@@ -446,7 +446,11 @@ class MainPage extends StatelessWidget {
           ],
         ),
       ),
-    ), barrierDismissible: true).whenComplete(() => nativeAdControllerNew.requestAds());
+    ), barrierDismissible: true).whenComplete(()
+    {
+      nativeDetailAdControllerNew.requestAds();
+      nativeHomeAdControllerNew.requestAds();
+    });
   }
   // downloadInstallAddon(String link) async {
   //   detailController.installAddon(link).then((value) {

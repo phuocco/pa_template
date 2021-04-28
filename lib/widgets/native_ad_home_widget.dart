@@ -13,8 +13,8 @@ class NativeAdHomeWidget extends StatelessWidget {
   final AdsController controller = Get.find();
 
   // final AdWidget adWidget;
-  final NativeAdsController nativeAdsController;
-  NativeAdHomeWidget({this.nativeAdsController});
+  final Completer<NativeAd> adItem;
+  NativeAdHomeWidget({this.adItem});
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +22,21 @@ class NativeAdHomeWidget extends StatelessWidget {
     return GetBuilder<AdsController>(
       builder: (controller) {
         return FutureBuilder<NativeAd>(
-          future: nativeAdsController.completer.future,
+          future: adItem.future,
           builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
             Widget child;
-            if (snapshot.hasData && snapshot.data != null) {
-              child = AdWidget(
-                ad: snapshot.data,
-              );
-            }else{
-              child = Text('Error loading $NativeAd');
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+                child = Text('loading');
+                break;
+              case ConnectionState.done:
+                if (snapshot.hasData) {
+                  child = AdWidget(ad: snapshot.data);
+                } else {
+                  child = Text('error');
+                }
             }
             return Container(
               margin: EdgeInsets.all(5),

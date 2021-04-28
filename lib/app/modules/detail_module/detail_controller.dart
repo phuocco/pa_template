@@ -70,7 +70,8 @@ class DetailController extends GetxController{
 
   @override
   void onClose() {
-    nativeAdControllerNew.requestAds();
+    nativeDetailAdControllerNew.requestAds();
+    nativeHomeAdControllerNew.requestAds();
     print('dispose');
     super.onClose();
   }

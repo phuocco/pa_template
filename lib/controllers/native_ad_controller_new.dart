@@ -10,12 +10,17 @@ class NativeAdControllerNew {
 
   int _maxCountAds;
   int _maxCountRequest;
+  int _initNumberAds;
   bool _forceRefresh;
   String _adUnitId;
   NativeAdsOption _optionsAds;
   AdRequest _adRequest = AdsController().adRequest;
 
   List<Completer<NativeAd>> _listAds = [];
+
+
+  List<Completer<NativeAd>> get listAds => _listAds;
+
   int _indexCurrentAds = 0;
   int _countRequest = 0;
 
@@ -23,11 +28,13 @@ class NativeAdControllerNew {
   void initAds(
       {int maxCountAds = 1,
       int maxCallRequest = 3,
+      int initNumberAds = 1,
       bool forceRefresh = true,
       @required String adUnitId,
       @required NativeAdsOption options}) {
     _maxCountAds = maxCountAds;
     _maxCountRequest = maxCallRequest;
+    _initNumberAds = initNumberAds;
     _forceRefresh = forceRefresh;
     _adUnitId = adUnitId;
     _optionsAds = options;
@@ -83,7 +90,11 @@ class NativeAdControllerNew {
           'length ${_listAds.length}'.adsData;
           _getListAds(_optionsAds);
         } else {
-          _getItemAds(_optionsAds);
+          // if(_initNumberAds<_maxCountAds){
+          //   _getItemAds(_optionsAds, addItem: true);
+          // } else {
+            _getItemAds(_optionsAds);
+          // }
         }
         _countRequest = 0;
       } else {
@@ -100,7 +111,7 @@ class NativeAdControllerNew {
 
   _getListAds(NativeAdsOption options) {
 // "Max Count Ads: $_maxCountAds".adsData;
-    for (var i = 0; i < _maxCountAds; i++) {
+    for (var i = 0; i < _initNumberAds; i++) {
       Completer completerItemAds = Completer<NativeAd>();
       NativeAd myNativeAd = NativeAd(
         adUnitId: _adUnitId,
@@ -127,7 +138,7 @@ class NativeAdControllerNew {
     }
   }
 
-  _getItemAds(NativeAdsOption options) {
+  _getItemAds(NativeAdsOption options, {bool addItem = false}) {
     Completer completerItemAds = Completer<NativeAd>();
     NativeAd myNativeAd = NativeAd(
       adUnitId: _adUnitId,
@@ -138,7 +149,7 @@ class NativeAdControllerNew {
         onAdLoaded: (Ad ad) {
           print('$NativeAd loaded.. purchase');
           completerItemAds.complete(ad as NativeAd);
-          "New Ads: ${ad.hashCode}".adsData;
+          "New Ads Detail: ${ad.hashCode}".adsData;
 
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -151,9 +162,13 @@ class NativeAdControllerNew {
       ),
     );
     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-    if(_listAds.length>0){
+    // if(_listAds.length>0 && !addItem){
+    //   _listAds.removeAt(0);
+    // }
+    if (_listAds.length >= _maxCountAds){
       _listAds.removeAt(0);
     }
+    "length ${_listAds.length}".adsData;
     _listAds.add(completerItemAds);
   }
 //endregion
