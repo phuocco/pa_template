@@ -11,6 +11,10 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/constants/const_url.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 
+import 'native_ad_controller_new.dart';
+
+NativeAdControllerNew nativeAdControllerNew;
+
 class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
@@ -136,17 +140,31 @@ class AdsController extends GetxController {
   }
 
   //endregion
+
+
+  initAds(){
+    if(nativeAdControllerNew == null){
+      nativeAdControllerNew = NativeAdControllerNew();
+      nativeAdControllerNew.initAds(
+          maxCountAds: 1,
+          maxCallRequest:3,
+          forceRefresh: false,
+          adUnitId: AdManager.nativeAdUnitId,
+          options: new NativeAdsOption(type: 'NativeAdDetail'));
+    }
+  }
+
+
+
   @override
   void onInit() {
     // initPlatformState();
-
+    initAds();
     if (box.read('IS_PREMIUM') == true) {
       isPremium.value = true;
       return;
     }
-    initNativeAds(
-        listNativeAdsHomeController, 3, new NativeAdsOption(type: 'NativeAdHome'));
-    initNativeAds(listNativeAdsDetailController,1, new NativeAdsOption(type: 'NativeAdDetail'));
+
 
     initBannerAds();
     MobileAds.instance.initialize().then((InitializationStatus status) {
@@ -190,40 +208,8 @@ class AdsController extends GetxController {
     }
   }
 
-  List<NativeAdsController> listNativeAdsHomeController = [];
-  List<NativeAdsController> listNativeAdsDetailController = [];
 
-  initNativeAds(
-      List<NativeAdsController> listAds, int numAds, NativeAdsOption option) {
-    for (int i = 0; i < numAds; i++) {
-      var nativeAdCompleter = Completer<NativeAd>();
-      var controller = new NativeAdsController(nativeAdCompleter);
-      var myNativeAd = NativeAd(
-        adUnitId: AdManager.nativeAdUnitId,
-        request: adRequest,
-        factoryId: 'adFactoryId',
-        customOptions: option.toJson(),
-        listener: AdListener(
-          onAdLoaded: (Ad ad) {
-            print('$NativeAd loaded..');
-            nativeAdCompleter.complete(ad as NativeAd);
-            controller.ad = ad;
-          },
-          onAdFailedToLoad: (Ad ad, LoadAdError error) {
-            print('$NativeAd failedToLoad: $error');
-            nativeAdCompleter.completeError(null);
-          },
-          onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
-          onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
-          onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
-        ),
-      );
-      listAds.add(controller);
-      Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-      isLoaded.value = true;
-    }
-    // loadNative();
-  }
+
 
 //region list detail
   // initNativeAdsDetail(int numAds, NativeAdsOption option) {

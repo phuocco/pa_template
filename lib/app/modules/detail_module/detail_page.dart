@@ -15,7 +15,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class DetailPage extends StatelessWidget {
   final controller = Get.put(DetailController());
-  final adsController = Get.put(AdsController());
+  final AdsController adsController = Get.find();
   final AddonsItem addonsItem;
 
   DetailPage({this.addonsItem});
@@ -104,7 +104,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             NativeAdDetailWidget(
-                adItem: controller.nativeAdControllerNew.getAdsByIncreaseIndex()),
+                adItem: nativeAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
                 Container(

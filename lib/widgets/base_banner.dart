@@ -8,7 +8,7 @@ import '../functions/util_functions.dart';
 
 class BaseBanner extends StatelessWidget {
 
-  final controller = Get.put(AdsController());
+  final AdsController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

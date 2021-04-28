@@ -48,12 +48,7 @@ class DetailController extends GetxController{
       print(basePath);
     }
   }
-  NativeAdControllerNew nativeAdControllerNew;
 
-  getAdsFromList() async {
-    nativeAdControllerNew = NativeAdControllerNew();
-   await nativeAdControllerNew.getAdsByIncreaseIndex();
-  }
 
   @override
   void onInit() {
@@ -61,23 +56,11 @@ class DetailController extends GetxController{
     initBasePath();
     // getItems();
     print('init...');
-    initAds();
 
     super.onInit();
   }
 
-  initAds(){
-    if(nativeAdControllerNew == null){
-      nativeAdControllerNew = NativeAdControllerNew();
-      nativeAdControllerNew.initAds(
-          maxCountAds: 1,
-          maxCallRequest: 3,
-          adUnitId: AdManager.nativeAdUnitId,
-          options: new NativeAdsOption(type: 'NativeAdDetail'));
-      nativeAdControllerNew.requestAds();
 
-    }
-  }
 
   // getItems() async {
   //   return repository.getItem().then((value){
@@ -87,6 +70,8 @@ class DetailController extends GetxController{
 
   @override
   void onClose() {
+    nativeAdControllerNew.requestAds();
+    print('dispose');
     super.onClose();
   }
 

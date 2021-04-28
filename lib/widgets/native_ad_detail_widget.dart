@@ -11,7 +11,7 @@ import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
 
 class NativeAdDetailWidget extends StatelessWidget {
-  final controller = Get.put(AdsController());
+  final AdsController adsController = Get.find();
 
   // final AdWidget adWidget;
   final Completer<NativeAd> adItem;

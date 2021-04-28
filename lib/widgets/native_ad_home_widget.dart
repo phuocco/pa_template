@@ -10,7 +10,7 @@ import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
 
 class NativeAdHomeWidget extends StatelessWidget {
-  final controller = Get.put(AdsController());
+  final AdsController controller = Get.find();
 
   // final AdWidget adWidget;
   final NativeAdsController nativeAdsController;

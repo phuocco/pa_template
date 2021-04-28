@@ -19,14 +19,13 @@ import 'package:pa_template/widgets/main_drawer.dart';
 GlobalKey cardKey = new GlobalKey();
 GlobalKey imageCardKey = new GlobalKey();
 
-class HomePage extends GetView<HomeController> {
-  final controller = Get.put(HomeController());
-  final adsController = Get.put(AdsController());
-  TextEditingController searchController;
+class HomePage extends StatelessWidget{
+  final HomeController controller = Get.find();
+  final AdsController adsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-
+    TextEditingController searchController;
     // var scaffoldKey = GlobalKey<ScaffoldState>();
 
     final appBar = AppBar(

@@ -16,7 +16,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
-  final adsController = Get.put(AdsController());
+  final AdsController adsController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,13 @@ class MainPage extends StatelessWidget {
           ? ListView.builder (
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                if(index == 0 ){
-                  return Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: NativeAdHomeWidget(
-                        nativeAdsController: adsController.listNativeAdsHomeController[0]),
-                  );
-                }
+                // if(index == 0 ){
+                //   return Padding(
+                //     padding: const EdgeInsets.all(5),
+                //     child: NativeAdHomeWidget(
+                //         nativeAdsController: adsController.listNativeAdsHomeController[0]),
+                //   );
+                // }
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
                   child: Card(
@@ -170,10 +170,10 @@ class MainPage extends StatelessWidget {
                   mainAxisSpacing: 5),
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                if(index == 0 ){
-                  return NativeAdHomeWidget(
-                      nativeAdsController: adsController.listNativeAdsHomeController[0]);
-                }
+                // if(index == 0 ){
+                //   return NativeAdHomeWidget(
+                //       nativeAdsController: adsController.listNativeAdsHomeController[0]);
+                // }
                 return GestureDetector(
                   onTap:() => showDetailDialog(controller.listAddon[index]),
                   child: Card(

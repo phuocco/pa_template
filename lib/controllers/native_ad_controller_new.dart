@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -74,9 +75,12 @@ class NativeAdControllerNew {
 //region requestAds
   void requestAds() {
     try {
+      'Count Request $_countRequest'.adsData;
+      'Max Count Request $_maxCountRequest'.adsData;
       if (_countRequest >= _maxCountRequest) {
         if (_forceRefresh) {
           _clearListAds();
+          'length ${_listAds.length}'.adsData;
           _getListAds(_optionsAds);
         } else {
           _getItemAds(_optionsAds);
@@ -107,6 +111,7 @@ class NativeAdControllerNew {
           onAdLoaded: (Ad ad) {
             print('$NativeAd loaded.. purchase');
             completerItemAds.complete(ad as NativeAd);
+            "New Ads: ${ad.hashCode}".adsData;
           },
           onAdFailedToLoad: (Ad ad, LoadAdError error) {
             print('$NativeAd failedToLoad: $error');
@@ -133,6 +138,8 @@ class NativeAdControllerNew {
         onAdLoaded: (Ad ad) {
           print('$NativeAd loaded.. purchase');
           completerItemAds.complete(ad as NativeAd);
+          "New Ads: ${ad.hashCode}".adsData;
+
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('$NativeAd failedToLoad: $error');
@@ -144,9 +151,17 @@ class NativeAdControllerNew {
       ),
     );
     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-    _listAds.removeAt(0);
+    if(_listAds.length>0){
+      _listAds.removeAt(0);
+    }
     _listAds.add(completerItemAds);
   }
 //endregion
 
+}
+extension DebugAds on String {
+  void get adsFlow => log(this, name: 'Ads Flow', level: 1);
+  void get adsError => log(this, name: 'Ads Error', level: 2);
+  void get adsData => log(this, name: 'Ads Data', level: 3);
+  void get adsState => log(this, name: 'Ads State', level: 4);
 }
