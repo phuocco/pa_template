@@ -401,8 +401,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
             //todo: ad dialog
-            // NativeAdDetailWidget(
-            //     nativeAdsController: adsController.listNativeAdsDetailController[0]),
+            NativeAdDetailWidget(
+                adItem: nativeAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
                 Container(
@@ -446,7 +446,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    ), barrierDismissible: true).whenComplete(() => nativeAdControllerNew.requestAds());
   }
   // downloadInstallAddon(String link) async {
   //   detailController.installAddon(link).then((value) {
