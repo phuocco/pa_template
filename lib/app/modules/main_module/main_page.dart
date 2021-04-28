@@ -26,13 +26,15 @@ class MainPage extends StatelessWidget {
           ? ListView.builder (
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                if(index == 0 ){
+
+                if(controller.listAddon[index] == 'Ads'){
                   return Padding(
                     padding: const EdgeInsets.all(5),
                     child: NativeAdHomeWidget(
                         adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
                   );
                 }
+
                 return GestureDetector(
                   onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
                   child: Card(
