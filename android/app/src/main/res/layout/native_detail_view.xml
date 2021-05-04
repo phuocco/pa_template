@@ -80,21 +80,23 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="3dp"
+            android:gravity="center_vertical"
             android:textColor="#000000"
             android:ellipsize="end"
             android:lines="2"
-            android:textSize="13sp" />
+            android:textSize="13sp"/>
 
-        <Button
-            android:id="@+id/ad_call_to_action"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center"
-            android:background="@drawable/background_native_button"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textSize="14sp" />
-
+            <Button
+                android:id="@+id/ad_call_to_action"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:background="@drawable/background_native_button"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textSize="14sp" />
     </LinearLayout>
+
+
 </com.google.android.gms.ads.formats.UnifiedNativeAdView>
