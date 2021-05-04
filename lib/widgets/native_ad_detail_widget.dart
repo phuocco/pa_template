@@ -45,7 +45,7 @@ class NativeAdDetailWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   color: kNativeAdBackground
               ),
-              // width: double.infinity,
+              width: double.infinity,
               height: 370,
               // color: kNativeAdBackground,
               child: child,
