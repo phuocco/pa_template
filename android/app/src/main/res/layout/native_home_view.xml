@@ -13,29 +13,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ad_attribution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textColor="#000000"
-            android:textSize="12sp"
-            android:text="@string/ad_label"
-            android:background="@drawable/background_ad_text"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp" />
 
-        <com.google.android.gms.ads.formats.MediaView
-            android:id="@+id/ad_media"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:adjustViewBounds="true" />
+            android:layout_height="195dp">
+
+            <com.google.android.gms.ads.formats.MediaView
+                android:id="@+id/ad_media"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:foregroundGravity="top"
+                android:adjustViewBounds="true" />
+            <TextView
+                android:id="@+id/ad_attribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                android:text="@string/ad_label"
+                android:background="@drawable/background_ad_text"
+                android:paddingTop="0dp"
+                android:paddingBottom="1dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="3dp" />
+        </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,6 +68,9 @@
             android:layout_weight="25"
             android:background="@drawable/background_native_button"
             android:gravity="center"
+            android:ellipsize="end"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
             android:layout_gravity="center_vertical"
             android:textColor="@android:color/white"
             android:textSize="14sp"
