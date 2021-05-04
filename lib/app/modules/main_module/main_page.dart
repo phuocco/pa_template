@@ -10,6 +10,7 @@ import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/models/addons_item.dart';
 import 'package:pa_template/widgets/native_ad_detail_widget.dart';
 import 'package:pa_template/widgets/native_ad_home_widget.dart';
@@ -17,6 +18,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
   final AdsController adsController = Get.find();
+  final NativeAdControllerNew nativeAdControllerNew = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +30,15 @@ class MainPage extends StatelessWidget {
               itemBuilder: (context, index) {
 
                 if(controller.listAddon[index] == 'Ads'){
-                  return Padding(
-                    padding: const EdgeInsets.all(5),
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                     child: NativeAdHomeWidget(
                         adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    semanticContainer: false,
                   );
                 }
 
@@ -172,10 +179,19 @@ class MainPage extends StatelessWidget {
                   mainAxisSpacing: 5),
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-                if(index == 0 ){
-                  return NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex());
+                if(controller.listAddon[index] == 'Ads'){
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                        adItem: nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    semanticContainer: false,
+                  );
                 }
+
                 return GestureDetector(
                   onTap:() => showDetailDialog(controller.listAddon[index]),
                   child: Card(

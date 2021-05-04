@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
-
-class NativeAdControllerNew {
+import 'package:get/get.dart';
+class NativeAdControllerNew  extends GetxController{
   NativeAdControllerNew();
 
   int _maxCountAds;
@@ -16,10 +16,10 @@ class NativeAdControllerNew {
   NativeAdsOption _optionsAds;
   AdRequest _adRequest = AdsController().adRequest;
 
-  List<Completer<NativeAd>> _listAds = [];
+  final listAds = <Completer<NativeAd>>[].obs;
 
 
-  List<Completer<NativeAd>> get listAds => _listAds;
+  // List<Completer<NativeAd>> get listAdsAds => _listAds;
 
   int _indexCurrentAds = 0;
   int _countRequest = 0;
@@ -47,21 +47,17 @@ class NativeAdControllerNew {
     print('ad');
     try {
       var _itemAd;
-      if (_listAds.length == 1) {
-        _itemAd = _listAds[0];
+      if (listAds.length == 1) {
+        _itemAd = listAds[0];
       } else {
         if (index == null) {
-          _itemAd = _listAds[_indexCurrentAds];
+          _itemAd = listAds[_indexCurrentAds];
           _indexCurrentAds++;
-          if (_indexCurrentAds >= _listAds.length) {
+          if (_indexCurrentAds >= listAds.length) {
             _indexCurrentAds = 0;
           }
         } else {
-          if (index >= _listAds.length) {
-            _itemAd = _listAds[0];
-          } else {
-            _itemAd = _listAds[index];
-          }
+          _itemAd = listAds[index];
         }
       }
       return _itemAd;
@@ -70,48 +66,59 @@ class NativeAdControllerNew {
     }
   }
 
+
+
+
+
   _getAds(NativeAdsOption options) {
     if (_maxCountAds == 1) {
       _getItemAds(options);
     } else {
-      _getListAds(options);
+      _getListAds(options, _initNumberAds);
     }
   }
 //endregion
 
 //region requestAds
   void requestAds() {
+    "Request Ads".adsFlow;
     try {
       'Count Request $_countRequest'.adsData;
       'Max Count Request $_maxCountRequest'.adsData;
       if (_countRequest >= _maxCountRequest) {
-        if (_forceRefresh) {
+        //TODO:
+        if (_forceRefresh && _maxCountAds > 1) {
           _clearListAds();
-          'length ${_listAds.length}'.adsData;
-          _getListAds(_optionsAds);
+          _getListAds(_optionsAds, _maxCountAds);
         } else {
-          // if(_initNumberAds<_maxCountAds){
-          //   _getItemAds(_optionsAds, addItem: true);
-          // } else {
-            _getItemAds(_optionsAds);
-          // }
+          _getItemAds(_optionsAds);
         }
         _countRequest = 0;
       } else {
         _countRequest++;
       }
     } catch (e) {
-      print(e.toString());
+      e.toString().adsError;
+    }
+  }
+
+  void requestAdsNow() {
+    "Request Ads Now".adsFlow;
+    try {
+      _clearListAds();
+      _getListAds(_optionsAds, _maxCountAds);
+    } catch (e) {
+      e.toString().adsError;
     }
   }
 
   _clearListAds() {
-    _listAds.clear();
+    listAds.clear();
   }
 
-  _getListAds(NativeAdsOption options) {
+  _getListAds(NativeAdsOption options, int countAds) {
 // "Max Count Ads: $_maxCountAds".adsData;
-    for (var i = 0; i < _initNumberAds; i++) {
+    for (var i = 0; i < countAds; i++) {
       Completer completerItemAds = Completer<NativeAd>();
       NativeAd myNativeAd = NativeAd(
         adUnitId: _adUnitId,
@@ -134,7 +141,7 @@ class NativeAdControllerNew {
         ),
       );
       Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-      _listAds.add(completerItemAds);
+      listAds.add(completerItemAds);
     }
   }
 
@@ -165,11 +172,11 @@ class NativeAdControllerNew {
     // if(_listAds.length>0 && !addItem){
     //   _listAds.removeAt(0);
     // }
-    if (_listAds.length >= _maxCountAds){
-      _listAds.removeAt(0);
+    if (listAds.length > 0){
+      listAds.removeAt(0);
     }
-    "length ${_listAds.length}".adsData;
-    _listAds.add(completerItemAds);
+    "length ${listAds.length}".adsData;
+    listAds.add(completerItemAds);
   }
 //endregion
 

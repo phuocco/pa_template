@@ -6,6 +6,7 @@ import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
+import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/widgets/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/custom_dialog.dart';
@@ -22,7 +23,6 @@ GlobalKey imageCardKey = new GlobalKey();
 class HomePage extends StatelessWidget{
   final HomeController controller = Get.find();
   final AdsController adsController = Get.find();
-
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController;

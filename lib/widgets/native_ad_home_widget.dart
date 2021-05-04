@@ -19,6 +19,7 @@ class NativeAdHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('build new object');
+    print('ads::' + adItem.hashCode.toString());
     return GetBuilder<AdsController>(
       builder: (controller) {
         return FutureBuilder<NativeAd>(
@@ -39,13 +40,13 @@ class NativeAdHomeWidget extends StatelessWidget {
                 }
             }
             return Container(
-              margin: EdgeInsets.all(5),
+             // margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: kNativeAdBackground
               ),
               width: double.infinity,
-              height: (GetPlatform.isIOS && GetPlatform.isMobile) ? 300 : 340,
+              height: (GetPlatform.isIOS && GetPlatform.isMobile) ? 310 : 330,
               // color: kNativeAdBackground,
               child: child,
             );
