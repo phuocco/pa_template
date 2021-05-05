@@ -16,8 +16,7 @@ import 'package:pa_template/utils/ad_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 
-class DetailController extends GetxController{
-
+class DetailController extends GetxController {
   final DetailRepository repository;
   DetailController({this.repository});
 
@@ -32,35 +31,36 @@ class DetailController extends GetxController{
   final filePathDownload = ''.obs;
   final dirPath = ''.obs;
   var dio = new Dio();
-  final isDownloaded =  false.obs;
+  final isDownloaded = false.obs;
+  final isDownloading = false.obs;
+  final progress = 0.0.obs;
+  CancelToken cancelToken = CancelToken();
+  RandomAccessFile randomAccessFile;
+
   initBasePath() async {
-    if(GetPlatform.isAndroid){
+    if (GetPlatform.isAndroid) {
       Directory appDocDirAndroid = await getExternalStorageDirectory();
       basePath = appDocDirAndroid.path;
       Directory mcpe = Directory("$basePath/" + "mcpe/");
-      if(mcpe.existsSync()) mcpe.delete(recursive: true);
+      if (mcpe.existsSync()) mcpe.delete(recursive: true);
       print(basePath);
-    } else if (GetPlatform.isIOS){
+    } else if (GetPlatform.isIOS) {
       Directory documents = await getApplicationDocumentsDirectory();
       basePath = documents.path;
       Directory mcpe = Directory("$basePath/" + "mcpe/");
-      if(mcpe.existsSync()) mcpe.delete(recursive: true);
+      if (mcpe.existsSync()) mcpe.delete(recursive: true);
       print(basePath);
     }
   }
 
-
   @override
   void onInit() {
-
     initBasePath();
     // getItems();
     print('init...');
 
     super.onInit();
   }
-
-
 
   // getItems() async {
   //   return repository.getItem().then((value){
@@ -76,10 +76,16 @@ class DetailController extends GetxController{
     super.onClose();
   }
 
-  installSkin(String link) async{
+  void showDownloadProgress(received, total) {
+    if (total != -1) {
+      progress.value = received / total;
+    }
+  }
+
+  installSkin(String link) async {
     isDownloaded.value = false;
     String newLink = link.split('.png').first + '.mcpack';
-    finalPath.value = '$basePath' +'/'+ newLink.split('/').last;
+    finalPath.value = '$basePath' + '/' + newLink.split('/').last;
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
@@ -101,16 +107,19 @@ class DetailController extends GetxController{
     await raf.close();
     isDownloaded.value = true;
   }
+
   installAddon(String link) async {
     isDownloaded.value = false;
+    isDownloading.value = true;
     fileName.value = link.split('/').last;
     fileNameNoExt.value = fileName.value.split('.').first;
-    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcaddon';
-    CancelToken cancelToken = CancelToken();
-    ProgressDialog pd = ProgressDialog(context: Get.context);
-    pd.show(max: 100, msg: 'File Downloading...');
-    var response = await dio.get(
+    finalPath.value = '$basePath' + '/' + fileNameNoExt.value + '.mcaddon';
+
+    var response = await dio
+        .download(
       link,
+      finalPath.value,
+      onReceiveProgress: showDownloadProgress,
       cancelToken: cancelToken,
       options: Options(
           responseType: ResponseType.bytes,
@@ -118,33 +127,35 @@ class DetailController extends GetxController{
           validateStatus: (status) {
             return status < 500;
           }),
-    );
-
-    File file = File(finalPath.value);
-    print(finalPath.value);
-    var raf = file.openSync(mode: FileMode.write);
-    raf.writeFromSync(response.data);
-    await raf.close();
-    pd.close();
-    isDownloaded.value = true;
+    )
+        .whenComplete(() {
+      cancelToken.isCancelled ? isDownloaded.value = false : isDownloaded.value = true;
+    }).catchError((e) {
+      if (CancelToken.isCancel(e)) {
+        print('canceledd: $e');
+        isDownloaded.value = false;
+      }
+    });
+    dio.close();
+    isDownloading.value = false;
+    return response;
   }
-
 
   installMapSeed(String link) async {
     isDownloaded.value = false;
     fileName.value = link.split('/').last;
     fileNameNoExt.value = fileName.value.split('.').first;
-    filePathDownload.value = '$basePath' +'/'+ fileName.value;
-    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcworld';
+    filePathDownload.value = '$basePath' + '/' + fileName.value;
+    finalPath.value = '$basePath' + '/' + fileNameNoExt.value + '.mcworld';
     dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcWorld = File(finalPath.value);
 
-    if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
-    if(file.existsSync()) file.deleteSync(recursive: true);
+    if (sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
+    if (file.existsSync()) file.deleteSync(recursive: true);
     if (GetPlatform.isIOS) {
-      if(mcWorld.existsSync())  mcWorld.deleteSync(recursive: true);
+      if (mcWorld.existsSync()) mcWorld.deleteSync(recursive: true);
     }
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
@@ -176,10 +187,10 @@ class DetailController extends GetxController{
 
       for (final file in arc) {
         final filename = file.name;
-        print("$basePath/" + fileNameNoExt.value +'/'+ filename);
+        print("$basePath/" + fileNameNoExt.value + '/' + filename);
         if (file.isFile) {
           final data = file.content as List<int>;
-          File("$basePath/" + 'mcpe' +'/'+ filename)
+          File("$basePath/" + 'mcpe' + '/' + filename)
             ..createSync(recursive: true)
             ..writeAsBytesSync(data);
         } else {
@@ -189,7 +200,7 @@ class DetailController extends GetxController{
       try {
         List folder = [];
         final dir2 = Directory("$basePath/" + "mcpe/");
-        if(dir2.existsSync()){
+        if (dir2.existsSync()) {
           folder = dir2.listSync();
         }
         await ZipFile.createFromDirectory(
@@ -197,34 +208,32 @@ class DetailController extends GetxController{
           zipFile: mcWorld,
           recurseSubDirs: true,
         );
-          print('donee');
+        print('donee');
         pd.close();
-      } catch (e){
+      } catch (e) {
         print(e);
       }
-
-    } catch (e){
+    } catch (e) {
       print(e);
     }
     isDownloaded.value = true;
   }
 
-
   installTexture(String link) async {
     isDownloaded.value = false;
     fileName.value = link.split('/').last;
     fileNameNoExt.value = fileName.value.split('.').first;
-    filePathDownload.value = '$basePath' +'/'+ fileName.value;
-    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + '.mcpack';
+    filePathDownload.value = '$basePath' + '/' + fileName.value;
+    finalPath.value = '$basePath' + '/' + fileNameNoExt.value + '.mcpack';
     dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcPack = File(finalPath.value);
 
-    if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
-    if(file.existsSync()) file.deleteSync(recursive: true);
+    if (sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
+    if (file.existsSync()) file.deleteSync(recursive: true);
     if (GetPlatform.isIOS) {
-      if(mcPack.existsSync())  mcPack.deleteSync(recursive: true);
+      if (mcPack.existsSync()) mcPack.deleteSync(recursive: true);
     }
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
@@ -255,10 +264,10 @@ class DetailController extends GetxController{
 
       for (final file in arc) {
         final filename = file.name;
-        print("$basePath/" + fileNameNoExt.value +'/'+ filename);
+        print("$basePath/" + fileNameNoExt.value + '/' + filename);
         if (file.isFile) {
           final data = file.content as List<int>;
-          File("$basePath/" + 'mcpe' +'/'+ filename)
+          File("$basePath/" + 'mcpe' + '/' + filename)
             ..createSync(recursive: true)
             ..writeAsBytesSync(data);
         } else {
@@ -268,7 +277,7 @@ class DetailController extends GetxController{
       try {
         List folder = [];
         final dir2 = Directory("$basePath/" + "mcpe/");
-        if(dir2.existsSync()){
+        if (dir2.existsSync()) {
           folder = dir2.listSync();
         }
 
@@ -279,17 +288,14 @@ class DetailController extends GetxController{
         );
         pd.close();
         print('done');
-      } catch (e){
+      } catch (e) {
         print(e);
       }
-
-    } catch (e){
+    } catch (e) {
       print(e);
     }
 
     isDownloaded.value = true;
-
-
   }
 
   installMapSeedTexture(String link, bool isTexture) async {
@@ -298,17 +304,17 @@ class DetailController extends GetxController{
     isDownloaded.value = false;
     fileName.value = link.split('/').last;
     fileNameNoExt.value = fileName.value.split('.').first;
-    filePathDownload.value = '$basePath' +'/'+ fileName.value;
-    finalPath.value = '$basePath' +'/'+ fileNameNoExt.value + extension;
+    filePathDownload.value = '$basePath' + '/' + fileName.value;
+    finalPath.value = '$basePath' + '/' + fileNameNoExt.value + extension;
     dirPath.value = "$basePath/" + 'mcpe';
     final sourceDir = Directory(dirPath.value);
     final file = File(filePathDownload.value);
     final mcFile = File(finalPath.value);
 
-    if(sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
-    if(file.existsSync()) file.deleteSync(recursive: true);
+    if (sourceDir.existsSync()) sourceDir.deleteSync(recursive: true);
+    if (file.existsSync()) file.deleteSync(recursive: true);
     if (GetPlatform.isIOS) {
-      if(mcFile.existsSync())  mcFile.deleteSync(recursive: true);
+      if (mcFile.existsSync()) mcFile.deleteSync(recursive: true);
     }
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
@@ -339,10 +345,10 @@ class DetailController extends GetxController{
 
       for (final file in arc) {
         final filename = file.name;
-        print("$basePath/" + fileNameNoExt.value +'/'+ filename);
+        print("$basePath/" + fileNameNoExt.value + '/' + filename);
         if (file.isFile) {
           final data = file.content as List<int>;
-          File("$basePath/" + 'mcpe' +'/'+ filename)
+          File("$basePath/" + 'mcpe' + '/' + filename)
             ..createSync(recursive: true)
             ..writeAsBytesSync(data);
         } else {
@@ -352,7 +358,7 @@ class DetailController extends GetxController{
       try {
         List folder = [];
         final dir2 = Directory("$basePath/" + "mcpe/");
-        if(dir2.existsSync()){
+        if (dir2.existsSync()) {
           folder = dir2.listSync();
         }
 
@@ -363,45 +369,41 @@ class DetailController extends GetxController{
         );
         pd.close();
         print('done');
-      } catch (e){
+      } catch (e) {
         print(e);
       }
-
-    } catch (e){
+    } catch (e) {
       print(e);
     }
     isDownloaded.value = true;
-
   }
 
   importToMinecraft(String filePath) async {
-    if(GetPlatform.isAndroid){
+    if (GetPlatform.isAndroid) {
       await platform.invokeMethod('install', filePath);
-    } else if (GetPlatform.isIOS){
+    } else if (GetPlatform.isIOS) {
       var isInstalled = await platform.invokeMethod('install', filePath);
       var is1131 = await platform.invokeMethod('check1331');
-      if(isInstalled){
+      if (isInstalled) {
         IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
         var version = iosInfo.systemVersion;
         var arr = version.split(".");
         var currentVersion = arr[0];
-        if(is1131){
-          OpenFile.open(filePath,uti: "com.mojang.minecraftpe");
-         // return true;
-        }else{
-          if(num.parse(currentVersion)>=13){
+        if (is1131) {
+          OpenFile.open(filePath, uti: "com.mojang.minecraftpe");
+          // return true;
+        } else {
+          if (num.parse(currentVersion) >= 13) {
             //return "true";
-          }else{
-            OpenFile.open(filePath,uti: "com.mojang.minecraftpe");
-          //  return true;
+          } else {
+            OpenFile.open(filePath, uti: "com.mojang.minecraftpe");
+            //  return true;
           }
         }
-      }else{
-       // return false;
+      } else {
+        // return false;
       }
     }
     Get.back();
-
   }
-
 }

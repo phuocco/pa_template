@@ -120,7 +120,7 @@ class MainPage extends StatelessWidget {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     TextButton(
-                                      onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
+                                      // onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
                                       
                                       child: Text(
                                         'DOWNLOAD',
@@ -271,7 +271,7 @@ class MainPage extends StatelessWidget {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     TextButton(
-                                      onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
+                                      // onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
                                       child: Text(
                                         'DOWNLOAD',
                                         style: TextStyle(
@@ -429,7 +429,7 @@ class MainPage extends StatelessWidget {
                   height: 45,
                   child: TextButton(
 
-                    onPressed: () async => DetailPage().downloadInstallAddon(addonsItem.fileUrl),
+                    // onPressed: () async => DetailPage().downloadInstallAddon(addonsItem.fileUrl),
                     child: Text(
                       'DOWNLOAD',
                       style: TextStyle(fontWeight: FontWeight.bold),

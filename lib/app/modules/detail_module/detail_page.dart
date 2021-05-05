@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,26 +109,50 @@ class DetailPage extends StatelessWidget {
                 adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
-                Container(
-                  margin: EdgeInsets.all(10),
-                  width: Get.width,
-                  height: 45,
-                  child: TextButton(
-                    onPressed: () async => downloadInstallAddon(addonsItem.fileUrl),
-                    child: Text(
-                      'DOWNLOAD',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                          kColorDownloadButtonForeground),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          kColorDownloadButtonBackground),
+                Obx(() => Text(controller.progress.value.toString())),
+                Obx(
+                  () => GestureDetector(
+                    onTap: () async => downloadInstallAddon(addonsItem.fileUrl),
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      width: Get.width,
+                      height: 45,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: kColorDownloadButtonBackground,
+                            width: 1,
+                          )),
+                      child: Stack(
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: AnimatedContainer(
+                              color: kColorDownloadButtonBackground,
+                              width: controller.isDownloading.value
+                                  ? controller.progress.value * Get.width
+                                  : Get.width,
+                              duration: Duration(milliseconds: 50),
+                              curve: Curves.fastOutSlowIn,
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              'DOWNLOAD',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: controller.isDownloading.value
+                                      ? Colors.black
+                                      : Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left:10, bottom: 5),
+                  padding: EdgeInsets.only(left: 10, bottom: 5),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -147,7 +173,6 @@ class DetailPage extends StatelessWidget {
             //       completer: adsController.nativeAdCompleter),
             // ),
 
-
             Container(
               margin: EdgeInsets.all(10),
               height: 400,
@@ -160,18 +185,35 @@ class DetailPage extends StatelessWidget {
   }
 
   downloadInstallAddon(String link) async {
-    print('a');
-    controller.installAddon(link).then((value) {
-      return GetPlatform.isAndroid
-          ? dialogAskImport()
-          : controller.importToMinecraft(controller.finalPath.value);
-    });
+    print("is downloading :" + controller.isDownloading.value.toString());
+    if (!controller.isDownloading.value) {
+      controller.installAddon(link).then((value) async {
+        return GetPlatform.isAndroid
+            ? dialogAskImport()
+            : controller.importToMinecraft(controller.finalPath.value);
+      });
+
+    } else {
+      print(controller.cancelToken.isCancelled);
+      if(!controller.cancelToken.isCancelled){
+        controller.cancelToken.cancel();
+
+        // controller.cancelToken.whenCancel.then((value) {
+        //   controller.isDownloading.value = false;
+        // });
+      }
+      // controller.randomAccessFile.close().then((value) {
+      //   print('close write');
+      // });
+      controller.isDownloading.value = false;
+      controller.isDownloaded.value = false;
+    }
   }
 
   dialogAskImport() {
     print('aa');
     if (controller.isDownloaded.value) {
-      Get.back();
+      // Get.back();
       Get.dialog(
           AlertDialog(
             title: Text('File downloaded'),
