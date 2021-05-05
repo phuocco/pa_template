@@ -31,7 +31,7 @@ class MainController extends GetxController{
     } else {
       return repository.getItem().then((value){
         listAddon.assignAll(value);
-        for (var i = 2; i < listAddon.length; i += 9) {
+        for (var i = 2; i < listAddon.length; i += 11) {
           listAddon.insert(i, 'Ads');
         }
       });

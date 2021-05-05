@@ -16,7 +16,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="195dp">
+            android:layout_height="205dp">
 
             <com.google.android.gms.ads.formats.MediaView
                 android:id="@+id/ad_media"
