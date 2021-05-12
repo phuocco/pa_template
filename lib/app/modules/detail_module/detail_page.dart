@@ -110,6 +110,10 @@ class DetailPage extends StatelessWidget {
             Column(
               children: [
                 Obx(() => Text(controller.progress.value.toString())),
+                Obx(() => Text("downloading: " +
+                    controller.isDownloading.value.toString())),
+                Obx(() => Text(
+                    "downloaded: " + controller.isDownloaded.value.toString())),
                 Obx(
                   () => GestureDetector(
                     onTap: () async => downloadInstallAddon(addonsItem.fileUrl),
@@ -185,33 +189,30 @@ class DetailPage extends StatelessWidget {
   }
 
   downloadInstallAddon(String link) async {
-    print("is downloading :" + controller.isDownloading.value.toString());
-    if (!controller.isDownloading.value) {
-      controller.installAddon(link).then((value) async {
-        return GetPlatform.isAndroid
+    print('token:'+ controller.cancelToken.isCancelled.toString());
+    print("is downloaded :" + controller.isDownloaded.value.toString());
+    if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
+      controller.installAddon(link).then((value){
+        print('downloaded');
+        GetPlatform.isAndroid
             ? dialogAskImport()
             : controller.importToMinecraft(controller.finalPath.value);
       });
-
     } else {
-      print(controller.cancelToken.isCancelled);
-      if(!controller.cancelToken.isCancelled){
+      print("token " + controller.cancelToken.isCancelled.toString());
+      if (!controller.cancelToken.isCancelled) {
+        controller.dio.close();
         controller.cancelToken.cancel();
+        controller.progress.value = 0;
+        controller.isDownloading.value = false;
+        controller.isDownloaded.value = false;
 
-        // controller.cancelToken.whenCancel.then((value) {
-        //   controller.isDownloading.value = false;
-        // });
       }
-      // controller.randomAccessFile.close().then((value) {
-      //   print('close write');
-      // });
-      controller.isDownloading.value = false;
-      controller.isDownloaded.value = false;
     }
   }
 
   dialogAskImport() {
-    print('aa');
+
     if (controller.isDownloaded.value) {
       // Get.back();
       Get.dialog(

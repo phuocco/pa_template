@@ -30,10 +30,10 @@ class DetailController extends GetxController {
   final finalPath = ''.obs;
   final filePathDownload = ''.obs;
   final dirPath = ''.obs;
-  var dio = new Dio();
   final isDownloaded = false.obs;
   final isDownloading = false.obs;
   final progress = 0.0.obs;
+  var dio;
   CancelToken cancelToken = CancelToken();
   RandomAccessFile randomAccessFile;
 
@@ -89,7 +89,7 @@ class DetailController extends GetxController {
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
-    var response = await dio.get(
+    var response = await new Dio().get(
       newLink,
       cancelToken: cancelToken,
       options: Options(
@@ -109,36 +109,47 @@ class DetailController extends GetxController {
   }
 
   installAddon(String link) async {
+    print('install');
     isDownloaded.value = false;
     isDownloading.value = true;
     fileName.value = link.split('/').last;
     fileNameNoExt.value = fileName.value.split('.').first;
     finalPath.value = '$basePath' + '/' + fileNameNoExt.value + '.mcaddon';
 
-    var response = await dio
-        .download(
-      link,
-      finalPath.value,
-      onReceiveProgress: showDownloadProgress,
-      cancelToken: cancelToken,
-      options: Options(
-          responseType: ResponseType.bytes,
-          followRedirects: false,
-          validateStatus: (status) {
-            return status < 500;
-          }),
-    )
-        .whenComplete(() {
-      cancelToken.isCancelled ? isDownloaded.value = false : isDownloaded.value = true;
-    }).catchError((e) {
-      if (CancelToken.isCancel(e)) {
-        print('canceledd: $e');
-        isDownloaded.value = false;
-      }
-    });
-    dio.close();
-    isDownloading.value = false;
-    return response;
+    dio = new Dio();
+    if(cancelToken.isCancelled){
+      cancelToken =  new CancelToken();
+    }
+    // var response;
+    // if(response == null){
+     var response = await dio
+          .download(
+        link,
+        finalPath.value,
+        onReceiveProgress: showDownloadProgress,
+        cancelToken: cancelToken,
+        options: Options(
+            responseType: ResponseType.bytes,
+            followRedirects: false,
+            validateStatus: (status) {
+              return status < 500;
+            }),
+      )
+          .whenComplete(() {
+        print('complete');
+        cancelToken.isCancelled
+            ? isDownloaded.value = false
+            : isDownloaded.value = true;
+      }).catchError((e) {
+        if (CancelToken.isCancel(e)) {
+          print('canceledd: $e');
+          isDownloaded.value = false;
+        }
+      });
+      dio.close();
+      isDownloading.value = false;
+      return response;
+
   }
 
   installMapSeed(String link) async {
@@ -160,7 +171,7 @@ class DetailController extends GetxController {
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
-    var response = await dio.get(
+    var response = await new Dio().get(
       link,
       cancelToken: cancelToken,
       options: Options(
@@ -238,7 +249,7 @@ class DetailController extends GetxController {
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
-    var response = await dio.get(
+    var response = await new Dio().get(
       link,
       cancelToken: cancelToken,
       options: Options(
@@ -319,7 +330,7 @@ class DetailController extends GetxController {
     CancelToken cancelToken = CancelToken();
     ProgressDialog pd = ProgressDialog(context: Get.context);
     pd.show(max: 100, msg: 'File Downloading...');
-    var response = await dio.get(
+    var response = await new Dio().get(
       link,
       cancelToken: cancelToken,
       options: Options(
