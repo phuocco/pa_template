@@ -7,6 +7,7 @@ import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
+import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/widgets/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/custom_dialog.dart';
@@ -98,10 +99,11 @@ class HomePage extends StatelessWidget{
         Padding(
           padding: const EdgeInsets.only(right: 20, left: 5),
           child: GestureDetector(
-            onTap: () {
+            onTap: () async {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-              print(nativeHomeAdControllerNew.listAds.length);
+              List<DownloadedItemModel> a = await GetStorage().read("LIST_DOWNLOADED");
+              print(a[1].id + " : " + a[1].pathFile);
             },
             child: Image.asset(
               kMoreIcon,

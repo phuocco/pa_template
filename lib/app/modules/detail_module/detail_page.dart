@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
+import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
@@ -18,6 +19,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 class DetailPage extends StatelessWidget {
   final controller = Get.put(DetailController());
   final AdsController adsController = Get.find();
+  final HomeController homeController = Get.find();
   final AddonsItem addonsItem;
 
   DetailPage({this.addonsItem});
@@ -194,6 +196,7 @@ class DetailPage extends StatelessWidget {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       controller.installAddon(link).then((value){
         print('downloaded');
+        homeController.savePrefDownloadedItem(addonsItem.itemId, controller.finalPath.value);
         GetPlatform.isAndroid
             ? dialogAskImport()
             : controller.importToMinecraft(controller.finalPath.value);

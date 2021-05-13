@@ -13,13 +13,13 @@ import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/functions/util_functions.dart';
+import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
 import 'package:pa_template/utils/services/remove_config_service.dart';
 import 'package:package_info/package_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import 'home_page.dart';
-
 
 class HomeController extends GetxController {
   final HomeRepository repository;
@@ -34,6 +34,7 @@ class HomeController extends GetxController {
   void closeDrawer() {
     scaffoldKey.currentState.openEndDrawer();
   }
+
   final box = GetStorage();
 
   final cardDetail = defaultCard.obs;
@@ -64,7 +65,6 @@ class HomeController extends GetxController {
   }
 
   void initPages() {
-
     list.value.addAll([
       {'page': MainPage(), 'title': 'Main Screen'},
       {'page': LanguagePage(), 'title': 'Language Screen'},
@@ -85,12 +85,21 @@ class HomeController extends GetxController {
   void changeText() => text.value = "bbb";
 
   final listHistory = <HistoryCardModel>[].obs;
-
   getPref() async {
     if (box.hasData('LIST_HISTORY')) {
       List<HistoryCardModel> tempReport =
           historyCardFromJson(jsonEncode(box.read('LIST_HISTORY')));
       listHistory.assignAll(tempReport);
+    }
+  }
+
+  final listDownloaded = <DownloadedItemModel>[].obs;
+
+  getPrefDownloaded() async {
+    if (box.hasData('LIST_DOWNLOADED')) {
+      List<DownloadedItemModel> tempDownload =
+          downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
+      listDownloaded.assignAll(tempDownload);
     }
   }
 
@@ -101,7 +110,6 @@ class HomeController extends GetxController {
     getPref();
     countOpen();
     // checkUpdate();
-
   }
 
   checkUpdate() async {
@@ -109,15 +117,16 @@ class HomeController extends GetxController {
     var versionInApp = packageInfo.buildNumber;
     var versionRemote = "";
     Map<String, RemoteConfigValue> maps =
-    await RemoteConfigService.getConfigAppVersion();
+        await RemoteConfigService.getConfigAppVersion();
     GetPlatform.isAndroid
         ? versionRemote = maps["versionCode"].asString()
         : versionRemote = maps["build_code_ios"].asString();
-    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp),  packageInfo.packageName, packageName);
+    PACoreGetX().checkUpdate(int.parse(versionRemote), int.parse(versionInApp),
+        packageInfo.packageName, packageName);
   }
 
   String packageName;
-  countOpen() async  {
+  countOpen() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     if (GetPlatform.isAndroid) {
@@ -130,7 +139,13 @@ class HomeController extends GetxController {
         // LaunchReview.launch(iOSAppId: packageName, writeReview: true);
       });
     }
+  }
+  DownloadedItemModel downloadedItemModel;
 
+  savePrefDownloadedItem(String id, String pathFile) async {
+    downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
+    listDownloaded.add(downloadedItemModel);
+    box.write("LIST_DOWNLOADED", listDownloaded);
   }
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
@@ -151,8 +166,8 @@ class HomeController extends GetxController {
       cardDetail.value.cardImg = value[0];
       cardDetail.value.thumbUrl = value[1];
       int id = DateTime.now().millisecondsSinceEpoch;
-      historyCard.value =
-          HistoryCardModel(card: cardDetail.value, isUploaded: false, id: id.toString());
+      historyCard.value = HistoryCardModel(
+          card: cardDetail.value, isUploaded: false, id: id.toString());
       HistoryCardModel tempCard =
           HistoryCardModel.fromJson(historyCard.toJson());
 
@@ -162,5 +177,3 @@ class HomeController extends GetxController {
     });
   }
 }
-
-

@@ -448,9 +448,11 @@ packages:
   pa_core_flutter:
     dependency: "direct main"
     description:
-      path: "/Users/phuocnguyen/IdeaProjects/pa_core_flutter"
-      relative: false
-    source: path
+      path: "."
+      ref: getx
+      resolved-ref: "258431d906194cfdfb2b31a1948e097e21add84a"
+      url: "https://github.com/pamobilevn/PACoreFlutter.git"
+    source: git
     version: "0.0.1"
   package_config:
     dependency: transitive
