@@ -22,12 +22,14 @@ class DetailPage extends StatelessWidget {
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
   final AddonsItem addonsItem;
-
-  DetailPage({this.addonsItem});
+  final int indexDownload;
+  DetailPage({this.addonsItem,this.indexDownload});
 
   @override
   Widget build(BuildContext context) {
-    var indexDownload = mainController.listDownloaded.indexWhere((element) => element.id == addonsItem.itemId);
+    !controller.isDownloaded.value && indexDownload == -1 ? controller.textButton.value = "DOWNLOAD" : controller.textButton.value = 'OPEN';
+    print(!controller.isDownloaded.value);
+    print(indexDownload.toString());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -121,7 +123,8 @@ class DetailPage extends StatelessWidget {
                 Obx(
                   () => GestureDetector(
                     onTap: () async {
-                      indexDownload == -1 ? downloadInstallAddon(addonsItem): controller.importToMinecraft(mainController.listDownloaded[indexDownload].pathFile);
+
+                      controller.textButton.value == 'DOWNLOAD'  ? downloadInstallAddon(addonsItem): controller.importToMinecraft(mainController.listDownloaded[indexDownload].pathFile);
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),
@@ -148,7 +151,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           Center(
                             child: Text(
-                            indexDownload == -1 ? "DOWNLOAD": "OPEN",
+                             controller.textButton.value,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: controller.isDownloading.value
@@ -194,6 +197,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 
+
   downloadInstallAddon(AddonsItem addonsItem) async {
     print('token:'+ controller.cancelToken.isCancelled.toString());
     print("is downloaded :" + controller.isDownloaded.value.toString());
@@ -201,6 +205,8 @@ class DetailPage extends StatelessWidget {
       controller.installAddon(addonsItem.fileUrl).then((value){
         print('downloaded');
         mainController.savePrefDownloadedItem(addonsItem.itemId, controller.finalPath.value);
+        controller.isDownloaded.value = true;
+        controller.textButton.value = "OPEN";
         GetPlatform.isAndroid
             ? dialogAskImport()
             : controller.importToMinecraft(controller.finalPath.value);

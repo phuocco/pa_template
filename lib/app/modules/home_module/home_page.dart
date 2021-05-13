@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
@@ -24,6 +25,7 @@ GlobalKey imageCardKey = new GlobalKey();
 class HomePage extends StatelessWidget{
   final HomeController controller = Get.find();
   final AdsController adsController = Get.find();
+  final MainController mainController = Get.find();
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController;
@@ -88,6 +90,7 @@ class HomePage extends StatelessWidget{
                   if(searchController!=null) {
                     //todo search
                    // searchItem(context, searchController.text);
+
                   }
                 },
               ),
@@ -102,7 +105,7 @@ class HomePage extends StatelessWidget{
             onTap: () async {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-
+              print(mainController.listDownloaded.length);
             },
             child: Image.asset(
               kMoreIcon,

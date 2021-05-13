@@ -47,7 +47,7 @@ class MainPage extends StatelessWidget {
                   // var indexDownload =  controller.listDownloaded.where((value) => controller.listAddon[index].itemId == value.id);
                   print('index: '+ indexDownload.toString());
                   return GestureDetector(
-                    onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],)),
+                    onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],indexDownload: indexDownload,)),
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),

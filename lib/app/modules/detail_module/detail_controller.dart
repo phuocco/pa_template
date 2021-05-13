@@ -32,6 +32,7 @@ class DetailController extends GetxController {
   final dirPath = ''.obs;
   final isDownloaded = false.obs;
   final isDownloading = false.obs;
+  final textButton = ''.obs;
   final progress = 0.0.obs;
   var dio;
   CancelToken cancelToken = CancelToken();
@@ -73,6 +74,7 @@ class DetailController extends GetxController {
     nativeDetailAdControllerNew.requestAds();
     nativeHomeAdControllerNew.requestAds();
     print('dispose');
+    isDownloaded.value = false;
     super.onClose();
   }
 
