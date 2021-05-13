@@ -102,8 +102,7 @@ class HomePage extends StatelessWidget{
             onTap: () async {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-              List<DownloadedItemModel> a = await GetStorage().read("LIST_DOWNLOADED");
-              print(a[1].id + " : " + a[1].pathFile);
+             
             },
             child: Image.asset(
               kMoreIcon,

@@ -5,6 +5,7 @@ import 'package:pa_template/app/data/provider/home_provider.dart';
 import 'package:pa_template/app/data/provider/main_provider.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:pa_template/app/data/repository/main_repository.dart';
+import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/language_module/language_controller.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
@@ -25,6 +26,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => LanguageController());
     Get.lazyPut(() => TutorialController());
     Get.lazyPut(() => NativeAdControllerNew());
+    Get.lazyPut(() => DetailController());
 
     // Get.lazyPut(() => GalleryItemController(repository: GalleryItemRepository(provider: GalleryItemProvider())));
     // Get.lazyPut(() => DialogCardController(repository: DialogCardRepository(provider: DialogCardProvider())));

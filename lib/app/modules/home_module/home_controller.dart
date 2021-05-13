@@ -93,21 +93,14 @@ class HomeController extends GetxController {
     }
   }
 
-  final listDownloaded = <DownloadedItemModel>[].obs;
 
-  getPrefDownloaded() async {
-    if (box.hasData('LIST_DOWNLOADED')) {
-      List<DownloadedItemModel> tempDownload =
-          downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
-      listDownloaded.assignAll(tempDownload);
-    }
-  }
 
 // called after the widget is rendered on screen
   @override
   void onReady() {
     super.onReady();
     getPref();
+
     countOpen();
     // checkUpdate();
   }
@@ -140,13 +133,7 @@ class HomeController extends GetxController {
       });
     }
   }
-  DownloadedItemModel downloadedItemModel;
 
-  savePrefDownloadedItem(String id, String pathFile) async {
-    downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
-    listDownloaded.add(downloadedItemModel);
-    box.write("LIST_DOWNLOADED", listDownloaded);
-  }
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
 

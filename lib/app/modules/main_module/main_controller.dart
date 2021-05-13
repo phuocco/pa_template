@@ -1,10 +1,14 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:pa_template/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/models/addons_item.dart';
+import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 
@@ -13,7 +17,7 @@ class MainController extends GetxController{
   final MainRepository repository;
 
   MainController({this.repository});
-
+  final box = GetStorage();
   var _obj = ''.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
@@ -43,5 +47,23 @@ class MainController extends GetxController{
     // TODO: implement onInit
     super.onInit();
     getItems(Get.context);
+    getPrefDownloaded();
+  }
+
+  final listDownloaded = <DownloadedItemModel>[].obs;
+
+  getPrefDownloaded() async {
+    if (box.hasData('LIST_DOWNLOADED')) {
+      List<DownloadedItemModel> tempDownload =
+      downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
+      listDownloaded.assignAll(tempDownload);
+    }
+  }
+  DownloadedItemModel downloadedItemModel;
+
+  savePrefDownloadedItem(String id, String pathFile) async {
+    downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
+    listDownloaded.add(downloadedItemModel);
+    box.write("LIST_DOWNLOADED", listDownloaded);
   }
 }

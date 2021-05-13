@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
+import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
@@ -19,7 +20,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 class DetailPage extends StatelessWidget {
   final controller = Get.put(DetailController());
   final AdsController adsController = Get.find();
-  final HomeController homeController = Get.find();
+  final MainController mainController = Get.find();
   final AddonsItem addonsItem;
 
   DetailPage({this.addonsItem});
@@ -118,7 +119,7 @@ class DetailPage extends StatelessWidget {
                     "downloaded: " + controller.isDownloaded.value.toString())),
                 Obx(
                   () => GestureDetector(
-                    onTap: () async => downloadInstallAddon(addonsItem.fileUrl),
+                    onTap: () async => downloadInstallAddon(addonsItem),
                     child: Container(
                       margin: EdgeInsets.all(10),
                       width: Get.width,
@@ -190,13 +191,13 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  downloadInstallAddon(String link) async {
+  downloadInstallAddon(AddonsItem addonsItem) async {
     print('token:'+ controller.cancelToken.isCancelled.toString());
     print("is downloaded :" + controller.isDownloaded.value.toString());
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
-      controller.installAddon(link).then((value){
+      controller.installAddon(addonsItem.fileUrl).then((value){
         print('downloaded');
-        homeController.savePrefDownloadedItem(addonsItem.itemId, controller.finalPath.value);
+        mainController.savePrefDownloadedItem(addonsItem.itemId, controller.finalPath.value);
         GetPlatform.isAndroid
             ? dialogAskImport()
             : controller.importToMinecraft(controller.finalPath.value);
