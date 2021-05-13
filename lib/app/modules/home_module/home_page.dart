@@ -102,7 +102,7 @@ class HomePage extends StatelessWidget{
             onTap: () async {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
-             
+
             },
             child: Image.asset(
               kMoreIcon,

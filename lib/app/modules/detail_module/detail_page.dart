@@ -27,6 +27,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var indexDownload = mainController.listDownloaded.indexWhere((element) => element.id == addonsItem.itemId);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -119,7 +120,9 @@ class DetailPage extends StatelessWidget {
                     "downloaded: " + controller.isDownloaded.value.toString())),
                 Obx(
                   () => GestureDetector(
-                    onTap: () async => downloadInstallAddon(addonsItem),
+                    onTap: () async {
+                      indexDownload == -1 ? downloadInstallAddon(addonsItem): controller.importToMinecraft(mainController.listDownloaded[indexDownload].pathFile);
+                    },
                     child: Container(
                       margin: EdgeInsets.all(10),
                       width: Get.width,
@@ -145,7 +148,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           Center(
                             child: Text(
-                              'DOWNLOAD',
+                            indexDownload == -1 ? "DOWNLOAD": "OPEN",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: controller.isDownloading.value
