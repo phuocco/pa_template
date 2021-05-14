@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:pa_template/app/modules/about_module/about_page.dart';
 import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
+import 'package:pa_template/app/modules/more_apps_module/more_apps_page.dart';
 import 'package:pa_template/app/modules/question_module/question_page.dart';
 import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
@@ -39,6 +40,7 @@ class HomeController extends GetxController {
 
   final cardDetail = defaultCard.obs;
   final selectingPage = 0.obs;
+  final selectingPageNew = Object().obs;
   final fileName = ''.obs;
   Offset center = Offset(0, 0);
   double radius = 30.0;
@@ -72,6 +74,8 @@ class HomeController extends GetxController {
       {'page': QuestionPage(), 'title': 'Question Screen'},
       {'page': SubmitPage(), 'title': 'Submit Screen'},
       {'page': AboutPage(), 'title': 'About Screen'},
+      {'page': MoreAppsPage(), 'title': 'More App Screen'},
+
       // {'page': GalleryPage(), 'title': 'Gallery Screen'},
       // {'page': HistoryPage(), 'title': 'History Screen'},
     ]);
@@ -79,6 +83,11 @@ class HomeController extends GetxController {
 
   void selectPage(int id) {
     selectingPage.value = id;
+    update();
+  }
+
+  void selectPageNew(Object object){
+    selectingPageNew.value = object;
     update();
   }
 

@@ -17,4 +17,5 @@ abstract class Routes {
   static const LANGUAGE = '/language'; // Language page
   static const TUTORIAL = '/tutorial'; // Tutorial page
   static const QUESTION = '/question'; // Question page
+  static const MORE_APPS = '/more_apps'; // MoreApps page
 }

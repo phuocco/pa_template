@@ -106,6 +106,7 @@ class HomePage extends StatelessWidget{
               //todo more app
              // provider.selectPage('MoreAppsScreen');
               print(mainController.listDownloaded.length);
+              controller.selectPage(6);
             },
             child: Image.asset(
               kMoreIcon,
