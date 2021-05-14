@@ -66,4 +66,9 @@ class MainController extends GetxController{
     listDownloaded.add(downloadedItemModel);
     box.write("LIST_DOWNLOADED", listDownloaded);
   }
+
+  updateAddonItemInList(int index, String pathUrl){
+    listAddon[index].isDownloaded = true;
+    listAddon[index].pathUrl = pathUrl;
+  }
 }

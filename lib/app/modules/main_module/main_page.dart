@@ -30,7 +30,6 @@ class MainPage extends StatelessWidget {
           ? ListView.builder (
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-
                 if(controller.listAddon[index] == 'Ads'){
                   return Card(
                     shape: RoundedRectangleBorder(
@@ -44,6 +43,7 @@ class MainPage extends StatelessWidget {
                   );
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere((element) => element.id == controller.listAddon[index].itemId);
+                  if(indexDownload != -1)controller.listAddon[index].isDownloaded = true;
                   // var indexDownload =  controller.listDownloaded.where((value) => controller.listAddon[index].itemId == value.id);
                   print('index: '+ indexDownload.toString());
                   return GestureDetector(
@@ -93,26 +93,33 @@ class MainPage extends StatelessWidget {
                                           alignment: Alignment.centerLeft,
                                           width: Get.width * 0.64,
                                           height: 60,
-                                          child: Text(
-                                            controller.listAddon[index].itemName,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w700,
+                                          child: GestureDetector(
+                                            onTap: () => print(controller.listAddon[index].isDownloaded),
+                                            child: Text(
+                                              controller.listAddon[index].itemName,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontSize: 22,
+                                                fontWeight: FontWeight.w700,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                              maxLines: 2,
                                             ),
-                                            textAlign: TextAlign.left,
-                                            maxLines: 2,
                                           )),
                                       SizedBox(
                                         width: Get.width * 0.64,
-                                        child: Text(
-                                          controller.listAddon[index].authorName,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Color(0xff000000),
+                                        child: GestureDetector(
+                                          onTap: () => print(controller.listAddon[index].pathUrl),
+
+                                          child: Text(
+                                            controller.listAddon[index].authorName,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Color(0xff000000),
+                                            ),
+                                            textAlign: TextAlign.left,
                                           ),
-                                          textAlign: TextAlign.left,
                                         ),
                                       ),
                                     ],
@@ -125,14 +132,15 @@ class MainPage extends StatelessWidget {
                                     children: [
                                       TextButton(
                                         onPressed: () async {
-                                          indexDownload == -1 ? DetailPage().downloadInstallAddon(controller.listAddon[index]):
-                                          detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                          indexDownload == -1 ? DetailPage().downloadInstallAddon(controller.listAddon[index],isDetail: false, index: index):
+                                          // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                          print(controller.listDownloaded[indexDownload].pathFile);
                                         },
-                                        child: Text(
-                                          indexDownload == -1 ? "DOWNLOAD": "OPEN",
+                                        child: Obx(() => Text(
+                                          controller.listAddon[index].isDownloaded.toString(),
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
-                                        ),
+                                        )),
                                         style: ButtonStyle(
                                           foregroundColor:
                                           MaterialStateProperty.all<Color>(

@@ -23,13 +23,14 @@ class DetailPage extends StatelessWidget {
   final MainController mainController = Get.find();
   final AddonsItem addonsItem;
   final int indexDownload;
-  DetailPage({this.addonsItem,this.indexDownload});
+  DetailPage({this.addonsItem, this.indexDownload});
 
   @override
   Widget build(BuildContext context) {
-    !controller.isDownloaded.value && indexDownload == -1 ? controller.textButton.value = "DOWNLOAD" : controller.textButton.value = 'OPEN';
+    controller.textButton.value = addonsItem.isDownloaded ? "OPEN" : "DOWNLOAD";
     print(!controller.isDownloaded.value);
     print(indexDownload.toString());
+    print(addonsItem.pathUrl);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -123,8 +124,12 @@ class DetailPage extends StatelessWidget {
                 Obx(
                   () => GestureDetector(
                     onTap: () async {
-
-                      controller.textButton.value == 'DOWNLOAD'  ? downloadInstallAddon(addonsItem): controller.importToMinecraft(mainController.listDownloaded[indexDownload].pathFile);
+                      !addonsItem.isDownloaded ||
+                              controller.textButton.value == "DOWNLOAD"
+                          ? downloadInstallAddon(addonsItem)
+                          // : controller.importToMinecraft(mainController
+                          //     .listDownloaded[indexDownload].pathFile);
+                      : print(addonsItem.pathUrl);
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),
@@ -151,7 +156,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           Center(
                             child: Text(
-                             controller.textButton.value,
+                              controller.textButton.value,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: controller.isDownloading.value
@@ -197,16 +202,26 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-
-  downloadInstallAddon(AddonsItem addonsItem) async {
-    print('token:'+ controller.cancelToken.isCancelled.toString());
+  downloadInstallAddon(AddonsItem item,{bool isDetail, int index}) async {
+    print('token:' + controller.cancelToken.isCancelled.toString());
     print("is downloaded :" + controller.isDownloaded.value.toString());
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
-      controller.installAddon(addonsItem.fileUrl).then((value){
+      controller.installAddon(item.fileUrl).then((value) {
         print('downloaded');
-        mainController.savePrefDownloadedItem(addonsItem.itemId, controller.finalPath.value);
-        controller.isDownloaded.value = true;
-        controller.textButton.value = "OPEN";
+        mainController.savePrefDownloadedItem(
+            item.itemId, controller.finalPath.value);
+        if(isDetail){
+          addonsItem.isDownloaded = true;
+          addonsItem.pathUrl = controller.finalPath.value;
+          controller.textButton.value = "OPEN";
+        } else {
+          print(index);
+          mainController.listAddon.refresh();
+          mainController.updateAddonItemInList(index, controller.finalPath.value);
+          // mainController.listAddon[index].isDownloaded = true;
+          // mainController.listAddon[index].pathUrl = controller.finalPath.value;
+
+        }
         GetPlatform.isAndroid
             ? dialogAskImport()
             : controller.importToMinecraft(controller.finalPath.value);
@@ -219,13 +234,11 @@ class DetailPage extends StatelessWidget {
         controller.progress.value = 0;
         controller.isDownloading.value = false;
         controller.isDownloaded.value = false;
-
       }
     }
   }
 
   dialogAskImport() {
-
     if (controller.isDownloaded.value) {
       // Get.back();
       Get.dialog(

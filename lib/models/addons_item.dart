@@ -31,6 +31,8 @@ class AddonsItem {
     this.isVerify,
     this.createTime,
     this.price,
+    this.isDownloaded,
+    this.pathUrl
   });
 
   String itemId;
@@ -52,6 +54,8 @@ class AddonsItem {
   String isVerify;
   DateTime createTime;
   String price;
+  bool isDownloaded;
+  String pathUrl;
 
   factory AddonsItem.fromJson(Map<String, dynamic> json) => AddonsItem(
     itemId: json["item_id"],
@@ -73,6 +77,9 @@ class AddonsItem {
     isVerify: json["is_verify"],
     createTime: DateTime.parse(json["create_time"]),
     price: json["price"],
+    isDownloaded: false,
+    pathUrl: null,
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -95,5 +102,7 @@ class AddonsItem {
     "is_verify": isVerify,
     "create_time": createTime.toIso8601String(),
     "price": price,
+    "isDownloaded": isDownloaded,
+    "pathUrl": pathUrl,
   };
 }

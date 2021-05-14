@@ -150,6 +150,7 @@ class DetailController extends GetxController {
       });
       dio.close();
       isDownloading.value = false;
+      print(finalPath);
       return response;
 
   }
