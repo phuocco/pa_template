@@ -336,10 +336,10 @@ class MainPage extends StatelessWidget {
                                                       isDetail: false, isTablet: false,
                                                       index: index)
                                               :
-                                              // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                                              print(controller
-                                                  .listDownloaded[indexDownload]
-                                                  .pathFile);
+                                              detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                              // print(controller
+                                              //     .listDownloaded[indexDownload]
+                                              //     .pathFile);
                                         },
                                         child: Text(
                                           !controller
@@ -536,9 +536,8 @@ class MainPage extends StatelessWidget {
                                       addonsItem,
                                       isTablet: true,
                                       isDetail: false)
-                                  // : controller.importToMinecraft(mainController
-                                  //     .listDownloaded[indexDownload].pathFile);
-                                  : print(addonsItem.pathUrl);
+                                  : detailController.importToMinecraft(addonsItem.pathUrl);
+                                  // : print(addonsItem.pathUrl);
                             },
                             child: Text(
                               detailController.textButton.value,

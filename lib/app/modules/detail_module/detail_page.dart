@@ -126,9 +126,9 @@ class DetailPage extends StatelessWidget {
                     onTap: () async {
                       !addonsItem.isDownloaded
                           ? downloadInstallAddon(addonsItem, isDetail: true)
-                          // : controller.importToMinecraft(mainController
-                          //     .listDownloaded[indexDownload].pathFile);
-                      : print(addonsItem.pathUrl);
+                          : controller.importToMinecraft(mainController
+                              .listDownloaded[indexDownload].pathFile);
+                      // : print(addonsItem.pathUrl);
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),
