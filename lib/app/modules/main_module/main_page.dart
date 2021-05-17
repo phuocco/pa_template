@@ -525,32 +525,81 @@ class MainPage extends StatelessWidget {
                             onPressed: () =>
                                 print(addonsItem.isDownloaded.toString()),
                             child: Text('a')),
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          width: Get.width,
-                          height: 45,
-                          child: TextButton(
-                            onPressed: () async {
+                        Obx(
+                              () => GestureDetector(
+                            onTap: () async {
                               !addonsItem.isDownloaded
                                   ? DetailPage().downloadInstallAddon(
-                                      addonsItem,
-                                      isTablet: true,
-                                      isDetail: false)
+                                  addonsItem,
+                                  isTablet: true,
+                                  isDetail: false)
                                   : detailController.importToMinecraft(addonsItem.pathUrl);
-                                  // : print(addonsItem.pathUrl);
+                              // : print(addonsItem.pathUrl);
                             },
-                            child: Text(
-                              detailController.textButton.value,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  kColorDownloadButtonForeground),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  kColorDownloadButtonBackground),
+                            child: Container(
+                              margin: EdgeInsets.all(10),
+                              width: Get.width,
+                              height: 45,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(
+                                    color: kColorDownloadButtonBackground,
+                                    width: 1,
+                                  )),
+                              child: Stack(
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: AnimatedContainer(
+                                      color: kColorDownloadButtonBackground,
+                                      width: detailController.isDownloading.value
+                                          ? detailController.progress.value * Get.width
+                                          : Get.width,
+                                      duration: Duration(milliseconds: 50),
+                                      curve: Curves.fastOutSlowIn,
+                                    ),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      detailController.textButton.value,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: detailController.isDownloading.value
+                                              ? Colors.black
+                                              : Colors.white),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
+                        // Container(
+                        //   margin: EdgeInsets.all(10),
+                        //   width: Get.width,
+                        //   height: 45,
+                        //   child: TextButton(
+                        //     onPressed: () async {
+                        //       !addonsItem.isDownloaded
+                        //           ? DetailPage().downloadInstallAddon(
+                        //               addonsItem,
+                        //               isTablet: true,
+                        //               isDetail: false)
+                        //           : detailController.importToMinecraft(addonsItem.pathUrl);
+                        //           // : print(addonsItem.pathUrl);
+                        //     },
+                        //     child: Text(
+                        //       detailController.textButton.value,
+                        //       style: TextStyle(fontWeight: FontWeight.bold),
+                        //     ),
+                        //     style: ButtonStyle(
+                        //       foregroundColor: MaterialStateProperty.all<Color>(
+                        //           kColorDownloadButtonForeground),
+                        //       backgroundColor: MaterialStateProperty.all<Color>(
+                        //           kColorDownloadButtonBackground),
+                        //     ),
+                        //   ),
+                        // ),
                         Padding(
                           padding: EdgeInsets.only(left: 10, bottom: 5),
                           child: Align(

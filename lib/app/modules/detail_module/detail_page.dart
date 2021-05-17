@@ -13,6 +13,7 @@ import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
 import 'package:pa_template/widgets/native_ad_detail_widget.dart';
 import 'package:pa_template/widgets/native_ad_home_widget.dart';
+import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
@@ -31,6 +32,7 @@ class DetailPage extends StatelessWidget {
     print(!controller.isDownloaded.value);
     print(indexDownload.toString());
     print(addonsItem.pathUrl);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -204,7 +206,14 @@ class DetailPage extends StatelessWidget {
   downloadInstallAddon(AddonsItem item,{bool isDetail, int index, bool isTablet}) async {
 
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
+      ProgressDialog pr;
+     if(!isDetail && !isTablet){
+
+       pr = new ProgressDialog(context: Get.context);
+       pr.show(max: 100, msg: "Downloading");
+     }
       controller.installAddon(item.fileUrl).then((value) {
+
         print('downloaded');
         mainController.savePrefDownloadedItem(
             item.itemId, controller.finalPath.value);
@@ -223,6 +232,7 @@ class DetailPage extends StatelessWidget {
         }
         else {
           print(index);
+          pr.close();
           mainController.listAddon.refresh();
           mainController.updateAddonItemInList(index, controller.finalPath.value);
           // mainController.listAddon[index].isDownloaded = true;
