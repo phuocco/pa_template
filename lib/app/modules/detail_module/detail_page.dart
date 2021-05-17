@@ -219,6 +219,7 @@ class DetailPage extends StatelessWidget {
           controller.textButton.value = "open".tr;
           item.pathUrl = controller.finalPath.value;
           print("tablet "+ controller.finalPath.value);
+
         }
         else {
           print(index);
