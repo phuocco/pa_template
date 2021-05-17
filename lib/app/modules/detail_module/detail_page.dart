@@ -124,9 +124,8 @@ class DetailPage extends StatelessWidget {
                 Obx(
                   () => GestureDetector(
                     onTap: () async {
-                      !addonsItem.isDownloaded ||
-                              controller.textButton.value == "DOWNLOAD"
-                          ? downloadInstallAddon(addonsItem)
+                      !addonsItem.isDownloaded
+                          ? downloadInstallAddon(addonsItem, isDetail: true)
                           // : controller.importToMinecraft(mainController
                           //     .listDownloaded[indexDownload].pathFile);
                       : print(addonsItem.pathUrl);
@@ -203,24 +202,23 @@ class DetailPage extends StatelessWidget {
   }
 
   downloadInstallAddon(AddonsItem item,{bool isDetail, int index}) async {
-    print('token:' + controller.cancelToken.isCancelled.toString());
-    print("is downloaded :" + controller.isDownloaded.value.toString());
+
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       controller.installAddon(item.fileUrl).then((value) {
         print('downloaded');
         mainController.savePrefDownloadedItem(
             item.itemId, controller.finalPath.value);
         if(isDetail){
+          controller.isDownloaded.value = true;
           addonsItem.isDownloaded = true;
           addonsItem.pathUrl = controller.finalPath.value;
-          controller.textButton.value = "OPEN";
+          controller.textButton.value = "open".tr;
         } else {
           print(index);
           mainController.listAddon.refresh();
           mainController.updateAddonItemInList(index, controller.finalPath.value);
           // mainController.listAddon[index].isDownloaded = true;
           // mainController.listAddon[index].pathUrl = controller.finalPath.value;
-
         }
         GetPlatform.isAndroid
             ? dialogAskImport()

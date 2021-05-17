@@ -44,8 +44,8 @@ class MainPage extends StatelessWidget {
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere((element) => element.id == controller.listAddon[index].itemId);
                   if(indexDownload != -1)controller.listAddon[index].isDownloaded = true;
-                  // var indexDownload =  controller.listDownloaded.where((value) => controller.listAddon[index].itemId == value.id);
-                  print('index: '+ indexDownload.toString());
+
+
                   return GestureDetector(
                     onTap: () => Get.to(() => DetailPage(addonsItem: controller.listAddon[index],indexDownload: indexDownload,)),
                     child: Card(
@@ -137,7 +137,7 @@ class MainPage extends StatelessWidget {
                                           print(controller.listDownloaded[indexDownload].pathFile);
                                         },
                                         child: Obx(() => Text(
-                                          controller.listAddon[index].isDownloaded.toString(),
+                                          !controller.listAddon[index].isDownloaded ? 'download'.tr: 'open'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         )),

@@ -351,7 +351,7 @@ final Map<String, String> esEs = {
   "hint_nutrition": "Nutrición del efecto",
   "hint_effect": "Seleccione el tipo de efecto de la lista",
   "New": "Nuevo",
-  "open": "Abierto",
+  "open": "ABIERTO",
   "rate_app": "Calificar aplicacion",
   "language": "Idioma",
   "save": "SALVAR",

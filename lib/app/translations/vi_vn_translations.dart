@@ -353,7 +353,7 @@ final Map<String, String> viVn = {
   "hint_nutrition": "Dinh dưỡng của hiệu ứng",
   "hint_effect": "Chọn hiệu ứng từ danh sách",
   "New": "Mới",
-  "open": "Mở",
+  "open": "MỞ",
   "rate_app": "Đánh giá App",
   "language": "Ngôn ngữ",
   "save": "LƯU",

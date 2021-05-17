@@ -395,7 +395,7 @@ final Map<String, String> enUs = {
   "export": "Export",
   "add": "ADD",
   "New": "New",
-  "open": "Open",
+  "open": "OPEN",
   "rate_app": "Rate App",
   "language": "Language",
   "save": "SAVE",
@@ -620,6 +620,6 @@ final Map<String, String> enUs = {
   "tutorial_skin_ios": "<p><strong>INSTALL REQUIREMENT</strong></p>\n<ul>\n<li>\n<p>Minecraft Pocket Edition official version (MCPE) installed, unofficial version may work incorrectly!</p>\n</li>\n</ul>\n<p><strong>HOW TO INSTALL SKIN<br /></strong></p>\n<ul >\n<li>Open Mod for MCPE app</li>\n<li>There are a bunch of skins to choose from, jsut select any of your favorite skins.<br />\n<p><img src=\"assets/images/tutorial_image/android/guide_android_12.jpg\" /></p>\n</li>\n<li>\n<p>Then press INSTALL to start the download and select OPEN GAME.</p>\n<strong><img src=\"assets/images/tutorial_image/android/guide_ios_1.png\" /></strong></li>\n<li>Open Minecraft and choose \"Profile\" option.<br /><img src=\"assets/images/tutorial_image/android/guide_android_14.png\" /></li>\n<li>Press \"Edit Character. <br><img src=\"assets/images/tutorial_image/android/guide_android_15.png\" /></li>\n<li>Press \"Owned\", then your new skin will appear in this option, just select and go back main menu.<br /><img src=\"assets/images/tutorial_image/android/guide_android_16.png\" /></li>\n<li>Your new Skin has applied in-game, enjoy it!</li>\n</ul>\n",
 
   "dialog_open_youtube": "Confirm",
-  "dialog_open_youtube1": "Do you want to open YouTube to watch this video?"
-  
+  "dialog_open_youtube1": "Do you want to open YouTube to watch this video?",
+
 };

@@ -351,7 +351,7 @@ final Map<String, String> ptPt = {
   "hint_nutrition": "Nutrição do efeito",
   "hint_effect": "Selecione o tipo de efeito na lista",
   "New": "Novo",
-  "open": "Abrir",
+  "open": "ABRIR",
   "rate_app": "Rate App",
   "language": "Língua",
   "save": "SAVE",
