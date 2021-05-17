@@ -19,7 +19,8 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
   final AdsController adsController = Get.find();
-  final DetailController detailController = Get.find();
+  // final DetailController detailController = Get.find();
+  final detailController = Get.put(DetailController());
   final NativeAdControllerNew nativeAdControllerNew = Get.find();
 
   @override
@@ -183,8 +184,6 @@ class MainPage extends StatelessWidget {
                     ),
                   );
                 }
-
-
               })
           :
           //fixme: tablet
@@ -207,140 +206,146 @@ class MainPage extends StatelessWidget {
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     semanticContainer: false,
                   );
-                }
-
-                return GestureDetector(
-                  onTap:() => showDetailDialog(controller.listAddon[index]),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: Container(
-                      child: Column(
-                        children: [
-                          Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                              child: AspectRatio(
-                                aspectRatio: 16 / 9,
-                                child: CachedNetworkImage(
-                                  imageUrl: controller.listAddon[index].imageUrl,
-                                  fit: BoxFit.cover,
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere((element) => element.id == controller.listAddon[index].itemId);
+                  if(indexDownload != -1)controller.listAddon[index].isDownloaded = true;
+                  return GestureDetector(
+                    onTap:() => showDetailDialog(addonsItem: controller.listAddon[index] ,indexDownload: indexDownload),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Stack(children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                                child: AspectRatio(
+                                  aspectRatio: 16 / 9,
+                                  child: CachedNetworkImage(
+                                    imageUrl: controller.listAddon[index].imageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                                top: 15,
-                                right: 15,
-                                child: SvgPicture.asset(
-                                  'assets/images/icons/heart_black.svg',
-                                  color: kColorLikeIcon,
-                                )),
-                          ]),
-                          Container(
-                            padding: EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              color: kColorBottomItem,
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        alignment: Alignment.centerLeft,
+                              Positioned(
+                                  top: 15,
+                                  right: 15,
+                                  child: SvgPicture.asset(
+                                    'assets/images/icons/heart_black.svg',
+                                    color: kColorLikeIcon,
+                                  )),
+                            ]),
+                            Container(
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: kColorBottomItem,
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          alignment: Alignment.centerLeft,
+                                          width: Get.width * 0.30,
+                                          height: 60,
+                                          child: Text(
+                                            controller.listAddon[index].itemName,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                            textAlign: TextAlign.left,
+                                            maxLines: 2,
+                                          )),
+                                      SizedBox(
                                         width: Get.width * 0.30,
-                                        height: 60,
                                         child: Text(
-                                          controller.listAddon[index].itemName,
+                                          controller.listAddon[index].authorName,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Color(0xff000000),
                                           ),
                                           textAlign: TextAlign.left,
-                                          maxLines: 2,
-                                        )),
-                                    SizedBox(
-                                      width: Get.width * 0.30,
-                                      child: Text(
-                                        controller.listAddon[index].authorName,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Color(0xff000000),
                                         ),
-                                        textAlign: TextAlign.left,
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
 
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextButton(
-                                      // onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
-                                      child: Text(
-                                        'DOWNLOAD',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      style: ButtonStyle(
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                kColorDownloadButtonForeground),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                kColorDownloadButtonBackground),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          controller
-                                              .listAddon[index].downloadCount,
-                                          style: TextStyle(fontSize: 14),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                    children: [
+                                      TextButton(
+                                        // onPressed: () async => DetailPage().downloadInstallAddon(controller.listAddon[index].fileUrl),
+                                        child: Text(
+                                          'DOWNLOAD',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        SizedBox(
-                                          width: 5,
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              kColorDownloadButtonForeground),
+                                          backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              kColorDownloadButtonBackground),
                                         ),
-                                        SvgPicture.asset(
-                                            'assets/images/icons/download.svg'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            controller
+                                                .listAddon[index].downloadCount,
+                                            style: TextStyle(fontSize: 14),
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          SvgPicture.asset(
+                                              'assets/images/icons/download.svg'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
 
-                        ],
+                          ],
+                        ),
                       ),
+                      elevation: 5,
+                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                      semanticContainer: false,
                     ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    semanticContainer: false,
-                  ),
-                );
+                  );
+                }
+
+
               }),
     );
   }
 
-  showDetailDialog(AddonsItem addonsItem){
+  showDetailDialog({AddonsItem addonsItem, int indexDownload}){
+    detailController.textButton.value = addonsItem.isDownloaded ? 'open'.tr : 'download'.tr;
+
     return Get.dialog(Dialog(
       insetPadding: EdgeInsets.all(150),
       child: SingleChildScrollView(
@@ -438,17 +443,24 @@ class MainPage extends StatelessWidget {
             //todo: ad dialog
             NativeAdDetailWidget(
                 adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
+            Obx(() => Text(detailController.progress.value.toString())),
             Column(
               children: [
+                TextButton(onPressed: () => print(addonsItem.isDownloaded.toString()), child: Text('a')),
                 Container(
                   margin: EdgeInsets.all(10),
                   width: Get.width,
                   height: 45,
                   child: TextButton(
-
-                    // onPressed: () async => DetailPage().downloadInstallAddon(addonsItem.fileUrl),
+                    onPressed: () async {
+                      !addonsItem.isDownloaded
+                          ? DetailPage().downloadInstallAddon(addonsItem, isTablet: true, isDetail:false)
+                      // : controller.importToMinecraft(mainController
+                      //     .listDownloaded[indexDownload].pathFile);
+                          : print(addonsItem.pathUrl);
+                    },
                     child: Text(
-                      'DOWNLOAD',
+                      detailController.textButton.value,
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     style: ButtonStyle(
@@ -487,31 +499,5 @@ class MainPage extends StatelessWidget {
       nativeHomeAdControllerNew.requestAds();
     });
   }
-  // downloadInstallAddon(String link) async {
-  //   detailController.installAddon(link).then((value) {
-  //     return GetPlatform.isAndroid
-  //         ? dialogAskImport()
-  //         : detailController
-  //             .importToMinecraft(detailController.finalPath.value);
-  //   });
-  // }
 
-  // dialogAskImport() {
-  //   if (detailController.isDownloaded.value) {
-  //     Get.back();
-  //     Get.dialog(
-  //         AlertDialog(
-  //           title: Text('File downloaded'),
-  //           content: Text('Do you want to install now?'),
-  //           actions: [
-  //             TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
-  //             TextButton(
-  //                 onPressed: () => detailController
-  //                     .importToMinecraft(detailController.finalPath.value),
-  //                 child: Text('Install skin')),
-  //           ],
-  //         ),
-  //         barrierDismissible: false);
-  //   }
-  // }
 }

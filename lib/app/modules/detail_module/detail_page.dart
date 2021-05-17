@@ -27,7 +27,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.textButton.value = addonsItem.isDownloaded ? "OPEN" : "DOWNLOAD";
+    controller.textButton.value = addonsItem.isDownloaded ? 'open'.tr : 'download'.tr;
     print(!controller.isDownloaded.value);
     print(indexDownload.toString());
     print(addonsItem.pathUrl);
@@ -201,7 +201,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  downloadInstallAddon(AddonsItem item,{bool isDetail, int index}) async {
+  downloadInstallAddon(AddonsItem item,{bool isDetail, int index, bool isTablet}) async {
 
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       controller.installAddon(item.fileUrl).then((value) {
@@ -213,7 +213,14 @@ class DetailPage extends StatelessWidget {
           addonsItem.isDownloaded = true;
           addonsItem.pathUrl = controller.finalPath.value;
           controller.textButton.value = "open".tr;
-        } else {
+        } else if(isTablet){
+          item.isDownloaded = true;
+          controller.isDownloaded.value = true;
+          controller.textButton.value = "open".tr;
+          item.pathUrl = controller.finalPath.value;
+          print("tablet "+ controller.finalPath.value);
+        }
+        else {
           print(index);
           mainController.listAddon.refresh();
           mainController.updateAddonItemInList(index, controller.finalPath.value);

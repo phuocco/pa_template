@@ -46,7 +46,7 @@ class NativeAdDetailWidget extends StatelessWidget {
                   color: kNativeAdBackground
               ),
               width: double.infinity,
-              height: context.isPhone ? 365: 420,
+              height: context.isPhone ? 365: 370,
               // color: kNativeAdBackground,
               child: child,
             );
