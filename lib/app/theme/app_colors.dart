@@ -14,7 +14,7 @@ const kColorMoreAppIcon = Colors.white;
 
 const kColorAppbar = Color(0xff3fabaf);
 const kColorDownloadButtonBackground = Color(0xff2c8f92);
-const kColorInstallButtonBackground = Color(0xffFFD3B6);
+const kColorInstallButtonBackground = Color(0xff0077FF);
 
 const kColorDownloadButtonForeground = Colors.white;
 

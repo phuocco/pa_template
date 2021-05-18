@@ -1,20 +1,24 @@
 import 'dart:io';
 import 'package:archive/archive_io.dart' as archive;
 import 'package:device_info/device_info.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_archive/flutter_archive.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pa_template/app/data/repository/detail_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/models/addons_item.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailController extends GetxController {
   final DetailRepository repository;
@@ -393,31 +397,50 @@ class DetailController extends GetxController {
   }
 
   importToMinecraft(String filePath) async {
-    if (GetPlatform.isAndroid) {
-      await platform.invokeMethod('install', filePath);
-    } else if (GetPlatform.isIOS) {
-      var isInstalled = await platform.invokeMethod('install', filePath);
-      var is1131 = await platform.invokeMethod('check1331');
-      if (isInstalled) {
-        IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
-        var version = iosInfo.systemVersion;
-        var arr = version.split(".");
-        var currentVersion = arr[0];
-        if (is1131) {
-          OpenFile.open(filePath, uti: "com.mojang.minecraftpe");
-          // return true;
-        } else {
-          if (num.parse(currentVersion) >= 13) {
-            //return "true";
-          } else {
+    if(await canLaunch('minecraft://')){
+      if (GetPlatform.isAndroid) {
+        await platform.invokeMethod('install', filePath);
+      } else if (GetPlatform.isIOS) {
+        var isInstalled = await platform.invokeMethod('install', filePath);
+        var is1131 = await platform.invokeMethod('check1331');
+        if (isInstalled) {
+          IosDeviceInfo iosInfo = await DeviceInfoPlugin().iosInfo;
+          var version = iosInfo.systemVersion;
+          var arr = version.split(".");
+          var currentVersion = arr[0];
+          if (is1131) {
             OpenFile.open(filePath, uti: "com.mojang.minecraftpe");
-            //  return true;
+            // return true;
+          } else {
+            if (num.parse(currentVersion) >= 13) {
+              //return "true";
+            } else {
+              OpenFile.open(filePath, uti: "com.mojang.minecraftpe");
+              //  return true;
+            }
           }
+        } else {
+          // return false;
         }
-      } else {
-        // return false;
       }
+      Get.back();
+    } else {
+      Get.dialog(AlertDialog(
+        title: Text('install_mc'.tr),
+        content: Text('message_install_minecraft1'.tr),
+        actions: [
+          TextButton(onPressed: () => Get.back(), child: Text('cancel'.tr.toUpperCase())),
+          TextButton(onPressed: () {
+            Get.back();
+            LaunchReview.launch(
+                androidAppId: mcpeBundleId,
+                iOSAppId: mcpeAppId,
+                writeReview: false);
+
+          }, child: Text('download'.tr.toUpperCase())),
+
+        ],
+      ));
     }
-    Get.back();
   }
 }

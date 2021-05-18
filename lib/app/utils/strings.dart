@@ -39,3 +39,6 @@ const kEmailIcon = "assets/images/icons_about/ic_email.jpg";
 //* icon appbar
 const kShareIcon = "assets/images/icons/ic_action_share.png";
 const kMoreIcon = "assets/images/icons/ic_more.png";
+
+const  mcpeBundleId = "com.mojang.minecraftpe";
+const  mcpeAppId = "479516143";

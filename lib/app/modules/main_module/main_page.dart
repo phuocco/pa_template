@@ -145,6 +145,7 @@ class MainPage extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
+                                      //todo: phone button
                                       TextButton(
                                         onPressed: () async {
                                           indexDownload == -1
@@ -155,10 +156,11 @@ class MainPage extends StatelessWidget {
                                                       isDetail: false,isTablet: false,
                                                       index: index)
                                               :
+                                              DetailPage().dialogAskInstall(controller.listDownloaded[indexDownload].pathFile);
                                               // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                                              print(controller
-                                                  .listDownloaded[indexDownload]
-                                                  .pathFile);
+                                              // print(controller
+                                              //     .listDownloaded[indexDownload]
+                                              //     .pathFile);
                                         },
                                         child: Obx(() => Text(
                                               !controller.listAddon[index]

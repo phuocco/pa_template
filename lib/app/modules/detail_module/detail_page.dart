@@ -281,8 +281,11 @@ class DetailPage extends StatelessWidget {
           actions: [
             TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
             TextButton(
-                onPressed: () =>
-                    controller.importToMinecraft(path),
+                onPressed: () {
+                  controller.importToMinecraft(path);
+                  Get.back();
+                }
+                    ,
                 child: Text('Open')),
           ],
         ),
