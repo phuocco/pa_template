@@ -128,7 +128,9 @@ class DetailPage extends StatelessWidget {
                     onTap: () async {
                       !addonsItem.isDownloaded
                           ? downloadInstallAddon(addonsItem, isDetail: true)
-                          : controller.importToMinecraft(mainController
+                          // : controller.importToMinecraft(mainController
+                          //     .listDownloaded[indexDownload].pathFile);
+                      : dialogAskInstall(mainController
                               .listDownloaded[indexDownload].pathFile);
                       // : print(addonsItem.pathUrl);
                     },
@@ -265,10 +267,25 @@ class DetailPage extends StatelessWidget {
               TextButton(
                   onPressed: () =>
                       controller.importToMinecraft(controller.finalPath.value),
-                  child: Text('Install skin')),
+                  child: Text('Install addon')),
             ],
           ),
           barrierDismissible: false);
     }
+  }
+  dialogAskInstall(String path){
+    Get.dialog(
+        AlertDialog(
+          title: Text('File installed'),
+          content: Text('Do you want to open game now?'),
+          actions: [
+            TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+            TextButton(
+                onPressed: () =>
+                    controller.importToMinecraft(path),
+                child: Text('Open')),
+          ],
+        ),
+        barrierDismissible: false);
   }
 }

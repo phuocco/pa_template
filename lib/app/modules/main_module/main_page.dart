@@ -336,7 +336,8 @@ class MainPage extends StatelessWidget {
                                                       isDetail: false, isTablet: false,
                                                       index: index)
                                               :
-                                              detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                              // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                          DetailPage().dialogAskInstall(controller.listDownloaded[indexDownload].pathFile);
                                               // print(controller
                                               //     .listDownloaded[indexDownload]
                                               //     .pathFile);
@@ -530,7 +531,8 @@ class MainPage extends StatelessWidget {
                                   addonsItem,
                                   isTablet: true,
                                   isDetail: false)
-                                  : detailController.importToMinecraft(addonsItem.pathUrl);
+                                  // : detailController.importToMinecraft(addonsItem.pathUrl);
+                              : DetailPage().dialogAskInstall(addonsItem.pathUrl);
                               // : print(addonsItem.pathUrl);
                             },
                             child: Container(
