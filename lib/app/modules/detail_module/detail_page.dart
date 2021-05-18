@@ -28,7 +28,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.textButton.value = addonsItem.isDownloaded ? 'open'.tr : 'download'.tr;
+    controller.textButton.value = addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
     print(!controller.isDownloaded.value);
     print(indexDownload.toString());
     print(addonsItem.pathUrl);
@@ -139,7 +139,7 @@ class DetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: kColorDownloadButtonBackground,
+                            color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
                             width: 1,
                           )),
                       child: Stack(
@@ -147,7 +147,7 @@ class DetailPage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: AnimatedContainer(
-                              color: kColorDownloadButtonBackground,
+                              color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
                               width: controller.isDownloading.value
                                   ? controller.progress.value * Get.width
                                   : Get.width,
@@ -220,11 +220,11 @@ class DetailPage extends StatelessWidget {
             controller.isDownloaded.value = true;
             addonsItem.isDownloaded = true;
             addonsItem.pathUrl = controller.finalPath.value;
-            controller.textButton.value = "open".tr;
+            controller.textButton.value = 'install'.tr;
           } else if(isTablet){
             item.isDownloaded = true;
             controller.isDownloaded.value = true;
-            controller.textButton.value = "open".tr;
+            controller.textButton.value = 'install'.tr;
             item.pathUrl = controller.finalPath.value;
             print("tablet "+ controller.finalPath.value);
           }

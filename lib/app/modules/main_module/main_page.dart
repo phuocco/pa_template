@@ -164,7 +164,7 @@ class MainPage extends StatelessWidget {
                                               !controller.listAddon[index]
                                                       .isDownloaded
                                                   ? 'download'.tr
-                                                  : 'open'.tr,
+                                                  : 'install'.tr,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             )),
@@ -174,7 +174,7 @@ class MainPage extends StatelessWidget {
                                                   kColorDownloadButtonForeground),
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
-                                                  kColorDownloadButtonBackground),
+                                                controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
                                         ),
                                       ),
                                       SizedBox(
@@ -345,7 +345,7 @@ class MainPage extends StatelessWidget {
                                           !controller
                                                   .listAddon[index].isDownloaded
                                               ? 'download'.tr
-                                              : 'open'.tr,
+                                              : 'install'.tr,
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -355,7 +355,7 @@ class MainPage extends StatelessWidget {
                                                   kColorDownloadButtonForeground),
                                           backgroundColor:
                                               MaterialStateProperty.all<Color>(
-                                                  kColorDownloadButtonBackground),
+                                                  controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
                                         ),
                                       ),
                                       SizedBox(
@@ -397,7 +397,7 @@ class MainPage extends StatelessWidget {
 
   showDetailDialog({AddonsItem addonsItem, int indexDownload}) {
     detailController.textButton.value =
-        addonsItem.isDownloaded ? 'open'.tr : 'download'.tr;
+        addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
     return Get.dialog(
             Dialog(
               insetPadding: EdgeInsets.all(150),
@@ -518,13 +518,10 @@ class MainPage extends StatelessWidget {
                     NativeAdDetailWidget(
                         adItem: nativeDetailAdControllerNew
                             .getAdsByIncreaseIndex()),
-                    Obx(() => Text(detailController.progress.value.toString())),
+                    // Obx(() => Text(detailController.progress.value.toString())),
                     Column(
                       children: [
-                        TextButton(
-                            onPressed: () =>
-                                print(addonsItem.isDownloaded.toString()),
-                            child: Text('a')),
+
                         Obx(
                               () => GestureDetector(
                             onTap: () async {
@@ -543,7 +540,7 @@ class MainPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: kColorDownloadButtonBackground,
+                                    color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
                                     width: 1,
                                   )),
                               child: Stack(
@@ -551,7 +548,7 @@ class MainPage extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
                                     child: AnimatedContainer(
-                                      color: kColorDownloadButtonBackground,
+                                      color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
                                       width: detailController.isDownloading.value
                                           ? detailController.progress.value * Get.width
                                           : Get.width,
