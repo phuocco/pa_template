@@ -172,7 +172,7 @@ class NativeAdControllerNew  extends GetxController{
     // if(_listAds.length>0 && !addItem){
     //   _listAds.removeAt(0);
     // }
-    if (listAds.length > 0){
+    if (listAds.length == _maxCountAds){
       listAds.removeAt(0);
     }
     "length ${listAds.length}".adsData;

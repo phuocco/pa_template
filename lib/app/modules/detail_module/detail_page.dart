@@ -118,11 +118,11 @@ class DetailPage extends StatelessWidget {
                 adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
-                Obx(() => Text(controller.progress.value.toString())),
-                Obx(() => Text("downloading: " +
-                    controller.isDownloading.value.toString())),
-                Obx(() => Text(
-                    "downloaded: " + controller.isDownloaded.value.toString())),
+                // Obx(() => Text(controller.progress.value.toString())),
+                // Obx(() => Text("downloading: " +
+                //     controller.isDownloading.value.toString())),
+                // Obx(() => Text(
+                //     "downloaded: " + controller.isDownloaded.value.toString())),
                 Obx(
                   () => GestureDetector(
                     onTap: () async {
@@ -208,39 +208,38 @@ class DetailPage extends StatelessWidget {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       ProgressDialog pr;
      if(!isDetail && !isTablet){
-
        pr = new ProgressDialog(context: Get.context);
-       pr.show(max: 100, msg: "Downloading");
+       pr.show(max: 100, msg: "Downloading", barrierDismissible: false);
      }
       controller.installAddon(item.fileUrl).then((value) {
-
-        print('downloaded');
-        mainController.savePrefDownloadedItem(
-            item.itemId, controller.finalPath.value);
-        if(isDetail){
-          controller.isDownloaded.value = true;
-          addonsItem.isDownloaded = true;
-          addonsItem.pathUrl = controller.finalPath.value;
-          controller.textButton.value = "open".tr;
-        } else if(isTablet){
-          item.isDownloaded = true;
-          controller.isDownloaded.value = true;
-          controller.textButton.value = "open".tr;
-          item.pathUrl = controller.finalPath.value;
-          print("tablet "+ controller.finalPath.value);
-
+        if(controller.isDownloaded.value){
+          print('downloaded');
+          mainController.savePrefDownloadedItem(
+              item.itemId, controller.finalPath.value);
+          if(isDetail){
+            controller.isDownloaded.value = true;
+            addonsItem.isDownloaded = true;
+            addonsItem.pathUrl = controller.finalPath.value;
+            controller.textButton.value = "open".tr;
+          } else if(isTablet){
+            item.isDownloaded = true;
+            controller.isDownloaded.value = true;
+            controller.textButton.value = "open".tr;
+            item.pathUrl = controller.finalPath.value;
+            print("tablet "+ controller.finalPath.value);
+          }
+          else {
+            print(index);
+            pr.close();
+            mainController.listAddon.refresh();
+            mainController.updateAddonItemInList(index, controller.finalPath.value);
+            // mainController.listAddon[index].isDownloaded = true;
+            // mainController.listAddon[index].pathUrl = controller.finalPath.value;
+          }
+          GetPlatform.isAndroid
+              ? dialogAskImport()
+              : controller.importToMinecraft(controller.finalPath.value);
         }
-        else {
-          print(index);
-          pr.close();
-          mainController.listAddon.refresh();
-          mainController.updateAddonItemInList(index, controller.finalPath.value);
-          // mainController.listAddon[index].isDownloaded = true;
-          // mainController.listAddon[index].pathUrl = controller.finalPath.value;
-        }
-        GetPlatform.isAndroid
-            ? dialogAskImport()
-            : controller.importToMinecraft(controller.finalPath.value);
       });
     } else {
       print("token " + controller.cancelToken.isCancelled.toString());
