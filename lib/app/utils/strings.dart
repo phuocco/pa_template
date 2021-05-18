@@ -40,5 +40,9 @@ const kEmailIcon = "assets/images/icons_about/ic_email.jpg";
 const kShareIcon = "assets/images/icons/ic_action_share.png";
 const kMoreIcon = "assets/images/icons/ic_more.png";
 
-const  mcpeBundleId = "com.mojang.minecraftpe";
-const  mcpeAppId = "479516143";
+const  kMcpeBundleId = "com.mojang.minecraftpe";
+const  kMcpeAppId = "479516143";
+
+const kHeartAround = 'assets/images/icons/heart_black.svg';
+const kHeartFull = 'assets/images/icons/heart_red.svg';
+

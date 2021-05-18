@@ -32,7 +32,8 @@ class AddonsItem {
     this.createTime,
     this.price,
     this.isDownloaded,
-    this.pathUrl
+    this.pathUrl,
+    this.isFavorite
   });
 
   String itemId;
@@ -56,6 +57,7 @@ class AddonsItem {
   String price;
   bool isDownloaded;
   String pathUrl;
+  bool isFavorite;
 
   factory AddonsItem.fromJson(Map<String, dynamic> json) => AddonsItem(
     itemId: json["item_id"],
@@ -79,6 +81,7 @@ class AddonsItem {
     price: json["price"],
     isDownloaded: false,
     pathUrl: null,
+    isFavorite: false,
 
   );
 
@@ -104,5 +107,6 @@ class AddonsItem {
     "price": price,
     "isDownloaded": isDownloaded,
     "pathUrl": pathUrl,
+    "isFavorite": isFavorite,
   };
 }

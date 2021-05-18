@@ -48,6 +48,7 @@ class MainController extends GetxController{
     super.onInit();
     getItems(Get.context);
     getPrefDownloaded();
+    getPrefFavorite();
   }
 
   final listDownloaded = <DownloadedItemModel>[].obs;
@@ -65,6 +66,25 @@ class MainController extends GetxController{
     downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
     listDownloaded.add(downloadedItemModel);
     box.write("LIST_DOWNLOADED", listDownloaded);
+  }
+
+  final listFavorite = <dynamic>[].obs;
+
+  getPrefFavorite() async {
+    if(box.hasData('LIST_FAVORITE')){
+      var a = jsonDecode(jsonEncode(box.read('LIST_FAVORITE')));
+      List<dynamic> tempFavorite = a;
+      listFavorite.assignAll(tempFavorite);
+      print("list: "+ listFavorite.toString());
+    }
+  }
+  savePrefFavoriteItem(String id){
+    if(listFavorite.contains(id)){
+      listFavorite.remove(id);
+    } else {
+      listFavorite.add(id);
+    }
+    box.write('LIST_FAVORITE', listFavorite);
   }
 
   updateAddonItemInList(int index, String pathUrl){

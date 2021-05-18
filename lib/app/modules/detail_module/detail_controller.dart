@@ -433,8 +433,8 @@ class DetailController extends GetxController {
           TextButton(onPressed: () {
             Get.back();
             LaunchReview.launch(
-                androidAppId: mcpeBundleId,
-                iOSAppId: mcpeAppId,
+                androidAppId: kMcpeBundleId,
+                iOSAppId: kMcpeAppId,
                 writeReview: false);
 
           }, child: Text('download'.tr.toUpperCase())),

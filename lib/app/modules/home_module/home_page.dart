@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -100,13 +101,14 @@ class HomePage extends StatelessWidget{
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 20, left: 5),
+          padding: const EdgeInsets.only(right: 10, left: 0),
           child: GestureDetector(
             onTap: () async {
               //todo more app
              // provider.selectPage('MoreAppsScreen');
               print(mainController.listDownloaded.length);
               controller.selectPage(6);
+             //  GetStorage().remove('LIST_FAVORITE');
             },
             child: Image.asset(
               kMoreIcon,
@@ -115,8 +117,19 @@ class HomePage extends StatelessWidget{
               color: kColorMoreAppIcon,
             ),
           ),
-        )
-
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right:10),
+          child: GestureDetector(
+            onTap: () {
+              print(GetStorage().read('LIST_FAVORITE'));
+            },
+            child: SvgPicture.asset(
+              'assets/images/icons/heart_red.svg',
+              color: kColorLikeIcon,
+            ),
+          ),
+        ),
       ],
     );
 

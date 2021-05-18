@@ -9,6 +9,7 @@ import 'package:pa_template/app/modules/detail_module/detail_page.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
+import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
@@ -33,6 +34,7 @@ class MainPage extends StatelessWidget {
               itemBuilder: (context, index) {
                 if (controller.listAddon[index] == 'Ads') {
                   return Card(
+                    // key: ValueKey<int>(index),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -50,12 +52,24 @@ class MainPage extends StatelessWidget {
                   if (indexDownload != -1)
                     controller.listAddon[index].isDownloaded = true;
 
+                  // var indexFavorite = controller.listFavorite.indexWhere(
+                  //         (element) =>
+                  //     element == controller.listAddon[index].itemId);
+                  // if (indexFavorite != -1)
+                  //   controller.listAddon[index].isFavorite = true;
+
+                  if(controller.listFavorite.contains(controller.listAddon[index].itemId)){
+                    controller.listAddon[index].isFavorite = true;
+                  }
+
                   return GestureDetector(
+                    // key: ValueKey<int>(index),
                     onTap: () => Get.to(() => DetailPage(
                           addonsItem: controller.listAddon[index],
                           indexDownload: indexDownload,
                         )),
                     child: Card(
+
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),
@@ -77,12 +91,21 @@ class MainPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                              //phone
                               Positioned(
                                   top: 15,
                                   right: 15,
-                                  child: SvgPicture.asset(
-                                    'assets/images/icons/heart_black.svg',
-                                    color: kColorLikeIcon,
+                                  child: GestureDetector(
+                                    onTap: ()  {
+                                    controller.savePrefFavoriteItem(controller.listAddon[index].itemId);
+                                    controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
+                                    controller.listAddon.refresh();
+                                    },
+                                    // onTap: () => print(controller.listAddon[index].itemId),
+                                    child: SvgPicture.asset(
+                                      controller.listAddon[index].isFavorite ? kHeartFull : kHeartAround,
+                                      color: kColorLikeIcon,
+                                    ),
                                   )),
                             ]),
                             Container(

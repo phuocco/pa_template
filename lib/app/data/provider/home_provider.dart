@@ -18,12 +18,11 @@ class HomeProvider extends GetConnect {
   fetchAppInfo(String packageName) async {
     final response = await httpClient.get('http://itunes.apple.com/lookup?bundleId=' + packageName);
 
-    print('a');
     if (response.statusCode == 200) {
       print(response.statusCode);
       return IosAppInfo.fromJson(jsonDecode(response.bodyString));
     } else {
-      throw Exception('Failed to load post');
+      throw Exception('Failed to load app');
     }
   }
 }

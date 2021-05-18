@@ -31,7 +31,6 @@ class MainProvider extends GetConnect {
 
   getItem({bool isFetchNewData = false}) async {
 
-
     try {
       //404
       Response<String> response = await dio.get<String>(
