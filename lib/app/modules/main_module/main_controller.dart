@@ -72,11 +72,15 @@ class MainController extends GetxController{
   }
 
   final listFavorite = <AddonsItem>[].obs;
-
+  final listFavoriteWithAds = <dynamic>[].obs;
   getPrefFavorite() async {
     if(box.hasData('LIST_FAVORITE')){
       List<AddonsItem> tempFavorite = addonsItemFromJson(jsonEncode(box.read('LIST_FAVORITE')));
       listFavorite.assignAll(tempFavorite);
+      listFavoriteWithAds.assignAll(tempFavorite);
+      for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
+        listFavoriteWithAds.insert(i, 'Ads');
+      }
     }
   }
   savePrefFavoriteItem(AddonsItem addonsItem){
@@ -85,6 +89,11 @@ class MainController extends GetxController{
     } else {
       listFavorite.add(addonsItem);
     }
+    listFavoriteWithAds.assignAll(listFavorite);
+    for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
+      listFavoriteWithAds.insert(i, 'Ads');
+    }
+    listFavoriteWithAds.refresh();
     box.write('LIST_FAVORITE', listFavorite);
 
   }
