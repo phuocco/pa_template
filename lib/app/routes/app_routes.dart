@@ -18,4 +18,5 @@ abstract class Routes {
   static const TUTORIAL = '/tutorial'; // Tutorial page
   static const QUESTION = '/question'; // Question page
   static const MORE_APPS = '/more_apps'; // MoreApps page
+  static const FAVORITE = '/favorite'; // Favorite page
 }

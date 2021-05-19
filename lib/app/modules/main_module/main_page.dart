@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/detail_module/detail_page.dart';
+import 'package:pa_template/app/modules/favorite_module/favorite_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
@@ -23,6 +24,7 @@ class MainPage extends StatelessWidget {
   // final DetailController detailController = Get.find();
   final detailController = Get.put(DetailController());
   final NativeAdControllerNew nativeAdControllerNew = Get.find();
+  final FavoriteController favoriteController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class MainPage extends StatelessWidget {
           ? ListView.builder(
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
+
                 if (controller.listAddon[index] == 'Ads') {
                   return Card(
                     // key: ValueKey<int>(index),
@@ -52,13 +55,8 @@ class MainPage extends StatelessWidget {
                   if (indexDownload != -1)
                     controller.listAddon[index].isDownloaded = true;
 
-                  // var indexFavorite = controller.listFavorite.indexWhere(
-                  //         (element) =>
-                  //     element == controller.listAddon[index].itemId);
-                  // if (indexFavorite != -1)
-                  //   controller.listAddon[index].isFavorite = true;
-
-                  if(controller.listFavorite.contains(controller.listAddon[index].itemId)){
+                  var indexFavorite = controller.listFavorite.indexWhere((element) => element.itemId == controller.listAddon[index].itemId);
+                  if(indexFavorite != -1){
                     controller.listAddon[index].isFavorite = true;
                   }
 
@@ -97,9 +95,11 @@ class MainPage extends StatelessWidget {
                                   right: 15,
                                   child: GestureDetector(
                                     onTap: ()  {
-                                    controller.savePrefFavoriteItem(controller.listAddon[index].itemId);
-                                    controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
+                                      controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
+                                    controller.savePrefFavoriteItem(controller.listAddon[index]);
+                                    // favoriteController.addFavoriteItem(controller.listAddon[index]);
                                     controller.listAddon.refresh();
+
                                     },
                                     // onTap: () => print(controller.listAddon[index].itemId),
                                     child: SvgPicture.asset(

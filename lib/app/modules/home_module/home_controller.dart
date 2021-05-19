@@ -6,6 +6,7 @@ import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/about_module/about_page.dart';
+import 'package:pa_template/app/modules/favorite_module/favorite_page.dart';
 import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/app/modules/more_apps_module/more_apps_page.dart';
@@ -75,6 +76,7 @@ class HomeController extends GetxController {
       {'page': SubmitPage(), 'title': 'Submit Screen'},
       {'page': AboutPage(), 'title': 'About Screen'},
       {'page': MoreAppsPage(), 'title': 'More App Screen'},
+      {'page': FavoritePage(), 'title': 'Favorite Screen'},
 
       // {'page': GalleryPage(), 'title': 'Gallery Screen'},
       // {'page': HistoryPage(), 'title': 'History Screen'},

@@ -1,3 +1,5 @@
+import '../../app/modules/favorite_module/favorite_page.dart';
+import '../../app/modules/favorite_module/favorite_bindings.dart';
 import '../../app/modules/more_apps_module/more_apps_page.dart';
 import '../../app/modules/more_apps_module/more_apps_bindings.dart';
 import '../../app/modules/question_module/question_page.dart';
@@ -88,6 +90,11 @@ abstract class AppPages {
       name: Routes.MORE_APPS,
       page: () => MoreAppsPage(),
       binding: MoreAppsBinding(),
+    ),
+    GetPage(
+      name: Routes.FAVORITE,
+      page: () => FavoritePage(),
+      binding: FavoriteBinding(),
     ),
   ];
 }

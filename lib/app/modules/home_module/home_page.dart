@@ -107,7 +107,7 @@ class HomePage extends StatelessWidget{
               //todo more app
              // provider.selectPage('MoreAppsScreen');
               print(mainController.listDownloaded.length);
-              controller.selectPage(6);
+              controller.selectPage(7);
              //  GetStorage().remove('LIST_FAVORITE');
             },
             child: Image.asset(
