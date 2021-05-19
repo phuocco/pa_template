@@ -22,7 +22,7 @@ class MainController extends GetxController{
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
   final listAddon = <dynamic>[].obs;
-  
+
 
   final adsWidget = NativeAdHomeWidget().obs;
   final isFavoritePage = false.obs;

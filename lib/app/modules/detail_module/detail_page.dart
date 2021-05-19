@@ -23,14 +23,14 @@ class DetailPage extends StatelessWidget {
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
   final AddonsItem addonsItem;
-  final int indexDownload;
-  DetailPage({this.addonsItem, this.indexDownload});
+  final String pathFile;
+  DetailPage({this.addonsItem, this.pathFile});
 
   @override
   Widget build(BuildContext context) {
     controller.textButton.value = addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
     print(!controller.isDownloaded.value);
-    print(indexDownload.toString());
+    print(pathFile);
     print(addonsItem.pathUrl);
 
     return Scaffold(
@@ -130,8 +130,7 @@ class DetailPage extends StatelessWidget {
                           ? downloadInstallAddon(addonsItem, isDetail: true)
                           // : controller.importToMinecraft(mainController
                           //     .listDownloaded[indexDownload].pathFile);
-                      : dialogAskInstall(mainController
-                              .listDownloaded[indexDownload].pathFile);
+                      : dialogAskInstall(pathFile);
                       // : print(addonsItem.pathUrl);
                     },
                     child: Container(
@@ -223,11 +222,13 @@ class DetailPage extends StatelessWidget {
             addonsItem.isDownloaded = true;
             addonsItem.pathUrl = controller.finalPath.value;
             controller.textButton.value = 'install'.tr;
+            mainController.listAddon.refresh();
           } else if(isTablet){
             item.isDownloaded = true;
             controller.isDownloaded.value = true;
             controller.textButton.value = 'install'.tr;
             item.pathUrl = controller.finalPath.value;
+            mainController.listAddon.refresh();
             print("tablet "+ controller.finalPath.value);
           }
           else {
@@ -282,7 +283,8 @@ class DetailPage extends StatelessWidget {
             TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
             TextButton(
                 onPressed: () {
-                  controller.importToMinecraft(path);
+                  // print(path);
+                 controller.importToMinecraft(path);
                   Get.back();
                 }
                     ,

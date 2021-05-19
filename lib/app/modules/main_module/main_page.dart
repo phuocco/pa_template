@@ -52,189 +52,19 @@ class MainPage extends StatelessWidget {
                   var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
                           element.id == controller.listAddon[index].itemId);
+                  String pathFile = '';
                   if (indexDownload != -1)
-                    controller.listAddon[index].isDownloaded = true;
+                    {
+                      controller.listAddon[index].isDownloaded = true;
+                      pathFile = controller.listDownloaded[indexDownload].pathFile;
+                    }
 
                   var indexFavorite = controller.listFavorite.indexWhere((element) => element.itemId == controller.listAddon[index].itemId);
                   if(indexFavorite != -1){
                     controller.listAddon[index].isFavorite = true;
                   }
 
-                  return GestureDetector(
-                    // key: ValueKey<int>(index),
-                    onTap: () => Get.to(() => DetailPage(
-                          addonsItem: controller.listAddon[index],
-                          indexDownload: indexDownload,
-                        )),
-                    child: Card(
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Stack(children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                                child: AspectRatio(
-                                  aspectRatio: 16 / 9,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        controller.listAddon[index].imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              //phone
-                              Positioned(
-                                  top: 15,
-                                  right: 15,
-                                  child: GestureDetector(
-                                    onTap: ()  {
-                                      controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
-                                    controller.savePrefFavoriteItem(controller.listAddon[index]);
-                                    // favoriteController.addFavoriteItem(controller.listAddon[index]);
-                                    controller.listAddon.refresh();
-
-                                    },
-                                    // onTap: () => print(controller.listAddon[index].itemId),
-                                    child: SvgPicture.asset(
-                                      controller.listAddon[index].isFavorite ? kHeartFull : kHeartAround,
-                                      color: kColorLikeIcon,
-                                    ),
-                                  )),
-                            ]),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: kColorBottomItem,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          alignment: Alignment.centerLeft,
-                                          width: Get.width * 0.64,
-                                          height: 60,
-                                          child: GestureDetector(
-                                            onTap: () => print(controller
-                                                .listAddon[index].isDownloaded),
-                                            child: Text(
-                                              controller
-                                                  .listAddon[index].itemName,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.w700,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                              maxLines: 2,
-                                            ),
-                                          )),
-                                      SizedBox(
-                                        width: Get.width * 0.64,
-                                        child: GestureDetector(
-                                          onTap: () => print(controller
-                                              .listAddon[index].pathUrl),
-                                          child: Text(
-                                            controller
-                                                .listAddon[index].authorName,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              color: Color(0xff000000),
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      //todo: phone button
-                                      TextButton(
-                                        onPressed: () async {
-                                          indexDownload == -1
-                                              ? DetailPage()
-                                                  .downloadInstallAddon(
-                                                      controller
-                                                          .listAddon[index],
-                                                      isDetail: false,isTablet: false,
-                                                      index: index)
-                                              :
-                                              DetailPage().dialogAskInstall(controller.listDownloaded[indexDownload].pathFile);
-                                              // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                                              // print(controller
-                                              //     .listDownloaded[indexDownload]
-                                              //     .pathFile);
-                                        },
-                                        child: Obx(() => Text(
-                                              !controller.listAddon[index]
-                                                      .isDownloaded
-                                                  ? 'download'.tr
-                                                  : 'install'.tr,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            )),
-                                        style: ButtonStyle(
-                                          foregroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  kColorDownloadButtonForeground),
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            controller
-                                                .listAddon[index].downloadCount,
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          SvgPicture.asset(
-                                              'assets/images/icons/download.svg'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      elevation: 5,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      semanticContainer: false,
-                    ),
-                  );
+                  return BuildPhone(controller: controller, pathFile: pathFile, index: index);
                 }
               })
           :
@@ -261,167 +91,26 @@ class MainPage extends StatelessWidget {
                   );
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddon[index].itemId);
+                          (element) =>
+                      element.id == controller.listAddon[index].itemId);
+                  String pathFile = '';
                   if (indexDownload != -1)
+                  {
                     controller.listAddon[index].isDownloaded = true;
-                  return GestureDetector(
-                    onTap: () => showDetailDialog(
-                        addonsItem: controller.listAddon[index],
-                        indexDownload: indexDownload),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Stack(children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                                child: AspectRatio(
-                                  aspectRatio: 16 / 9,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        controller.listAddon[index].imageUrl,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                  top: 15,
-                                  right: 15,
-                                  child: SvgPicture.asset(
-                                    'assets/images/icons/heart_black.svg',
-                                    color: kColorLikeIcon,
-                                  )),
-                            ]),
-                            Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
-                                color: kColorBottomItem,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          alignment: Alignment.centerLeft,
-                                          width: Get.width * 0.30,
-                                          height: 60,
-                                          child: Text(
-                                            controller
-                                                .listAddon[index].itemName,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                            textAlign: TextAlign.left,
-                                            maxLines: 2,
-                                          )),
-                                      SizedBox(
-                                        width: Get.width * 0.30,
-                                        child: Text(
-                                          controller
-                                              .listAddon[index].authorName,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Color(0xff000000),
-                                          ),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () async {
-                                          indexDownload == -1
-                                              ? DetailPage()
-                                                  .downloadInstallAddon(
-                                                      controller
-                                                          .listAddon[index],
-                                                      isDetail: false, isTablet: false,
-                                                      index: index)
-                                              :
-                                              // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                                          DetailPage().dialogAskInstall(controller.listDownloaded[indexDownload].pathFile);
-                                              // print(controller
-                                              //     .listDownloaded[indexDownload]
-                                              //     .pathFile);
-                                        },
-                                        child: Text(
-                                          !controller
-                                                  .listAddon[index].isDownloaded
-                                              ? 'download'.tr
-                                              : 'install'.tr,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        style: ButtonStyle(
-                                          foregroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  kColorDownloadButtonForeground),
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            controller
-                                                .listAddon[index].downloadCount,
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          SvgPicture.asset(
-                                              'assets/images/icons/download.svg'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      elevation: 5,
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                      semanticContainer: false,
-                    ),
-                  );
+                    pathFile = controller.listDownloaded[indexDownload].pathFile;
+                  }
+
+                  var indexFavorite = controller.listFavorite.indexWhere((element) => element.itemId == controller.listAddon[index].itemId);
+                  if(indexFavorite != -1){
+                    controller.listAddon[index].isFavorite = true;
+                  }
+                  return BuildTablet(controller: controller, pathFile: pathFile, index: index);
                 }
               }),
     );
   }
 
-  showDetailDialog({AddonsItem addonsItem, int indexDownload}) {
+  showDetailDialog({AddonsItem addonsItem, String pathFile}) {
     detailController.textButton.value =
         addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
     return Get.dialog(
@@ -653,5 +342,358 @@ class MainPage extends StatelessWidget {
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
     });
+  }
+}
+
+class BuildPhone extends StatelessWidget {
+  const BuildPhone({
+    Key key,
+    @required this.controller,
+    @required this.pathFile,
+    @required this.index
+  }) : super(key: key);
+
+  final MainController controller;
+  final String pathFile;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      // key: ValueKey<int>(index),
+      onTap: () => Get.to(() => DetailPage(
+            addonsItem: controller.listAddon[index],
+        pathFile: pathFile,
+          )),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Container(
+          child: Column(
+            children: [
+              Stack(children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          controller.listAddon[index].imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                //phone
+                Positioned(
+                    top: 15,
+                    right: 15,
+                    child: GestureDetector(
+                      onTap: ()  {
+                        controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
+                      controller.savePrefFavoriteItem(controller.listAddon[index]);
+                      controller.listAddon.refresh();
+                      },
+                      child: SvgPicture.asset(
+                        controller.listAddon[index].isFavorite ? kHeartFull : kHeartAround,
+                        color: kColorLikeIcon,
+                      ),
+                    )),
+              ]),
+              Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: kColorBottomItem,
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            width: Get.width * 0.64,
+                            height: 60,
+                            child: GestureDetector(
+                              onTap: () => print(controller
+                                  .listAddon[index].isDownloaded),
+                              child: Text(
+                                controller
+                                    .listAddon[index].itemName,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                textAlign: TextAlign.left,
+                                maxLines: 2,
+                              ),
+                            )),
+                        SizedBox(
+                          width: Get.width * 0.64,
+                          child: GestureDetector(
+                            onTap: () => print(controller
+                                .listAddon[index].pathUrl),
+                            child: Text(
+                              controller
+                                  .listAddon[index].authorName,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xff000000),
+                              ),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment:
+                          CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment:
+                          MainAxisAlignment.spaceAround,
+                      children: [
+                        //todo: phone button
+                        TextButton(
+                          onPressed: () async {
+                            pathFile.isEmpty
+                                ? DetailPage()
+                                    .downloadInstallAddon(
+                                        controller
+                                            .listAddon[index],
+                                        isDetail: false,isTablet: false,
+                                        index: index)
+                                :
+                                DetailPage().dialogAskInstall(pathFile);
+
+                          },
+                          child: Obx(() => Text(
+                                !controller.listAddon[index]
+                                        .isDownloaded
+                                    ? 'download'.tr
+                                    : 'install'.tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              )),
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(
+                                    kColorDownloadButtonForeground),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(
+                                  controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              controller
+                                  .listAddon[index].downloadCount,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            SvgPicture.asset(
+                                'assets/images/icons/download.svg'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        elevation: 5,
+        margin:
+            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        semanticContainer: false,
+      ),
+    );
+  }
+}
+
+class BuildTablet extends StatelessWidget {
+  const BuildTablet({
+    Key key,
+    @required this.controller,
+    @required this.pathFile,
+    @required this.index
+  }) : super(key: key);
+
+  final MainController controller;
+  final String pathFile;
+  final int index;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => MainPage().showDetailDialog(
+          addonsItem: controller.listAddon[index],
+        pathFile: pathFile,
+      ),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Container(
+          child: Column(
+            children: [
+              Stack(children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: CachedNetworkImage(
+                      imageUrl:
+                      controller.listAddon[index].imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Positioned(
+                    top: 15,
+                    right: 15,
+                    child: SvgPicture.asset(
+                      'assets/images/icons/heart_black.svg',
+                      color: kColorLikeIcon,
+                    )),
+              ]),
+              Container(
+                padding: EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: kColorBottomItem,
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            width: Get.width * 0.30,
+                            height: 60,
+                            child: Text(
+                              controller
+                                  .listAddon[index].itemName,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              textAlign: TextAlign.left,
+                              maxLines: 2,
+                            )),
+                        SizedBox(
+                          width: Get.width * 0.30,
+                          child: Text(
+                            controller
+                                .listAddon[index].authorName,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Color(0xff000000),
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment:
+                      CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                          onPressed: () async {
+                            pathFile.isEmpty
+                                ? DetailPage()
+                                .downloadInstallAddon(
+                                controller
+                                    .listAddon[index],
+                                isDetail: false, isTablet: false,
+                                index: index)
+                                :
+                            // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                            DetailPage().dialogAskInstall(pathFile);
+                            // print(controller
+                            //     .listDownloaded[indexDownload]
+                            //     .pathFile);
+                          },
+                          child: Text(
+                            !controller
+                                .listAddon[index].isDownloaded
+                                ? 'download'.tr
+                                : 'install'.tr,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ButtonStyle(
+                            foregroundColor:
+                            MaterialStateProperty.all<Color>(
+                                kColorDownloadButtonForeground),
+                            backgroundColor:
+                            MaterialStateProperty.all<Color>(
+                                controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              controller
+                                  .listAddon[index].downloadCount,
+                              style: TextStyle(fontSize: 14),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            SvgPicture.asset(
+                                'assets/images/icons/download.svg'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        elevation: 5,
+        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        semanticContainer: false,
+      ),
+    );
   }
 }
