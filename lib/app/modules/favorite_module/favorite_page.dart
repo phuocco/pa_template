@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pa_template/app/modules/favorite_module/favorite_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
+import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/widgets/native_ad_home_widget.dart';
 /**
@@ -31,42 +32,30 @@ class FavoritePage extends StatelessWidget {
                   semanticContainer: false,
                 );
               } else {
-                return Card(
-                  child: Column(
-                    children: [
-                      Text(mainController.listFavoriteWithAds[index].itemId),
-                      Text("name " + mainController.listFavoriteWithAds[index].itemName),
-                      Text("favorite " +
-                          mainController.listFavoriteWithAds[index].isFavorite
-                              .toString()),
-                      Text("downloaded " +
-                          mainController.listFavoriteWithAds[index].isDownloaded
-                              .toString()),
-                      TextButton(
-                        onPressed: () {
-                          mainController.listFavoriteWithAds[index].isFavorite = false;
-                          int inn = mainController.listAddon.indexOf(mainController.listFavoriteWithAds[index]);
-                          mainController.listAddon[inn].isFavorite = false;
-                          mainController.savePrefFavoriteItem(
-                              mainController.listFavoriteWithAds[index]);
-                          mainController.listAddon.refresh();
-                        },
-                        child: Text('favorite'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                         //print(mainController.listFavoriteWithAds[index].itemId);
+                var indexDownload = mainController.listDownloaded.indexWhere(
+                        (element) =>
+                    element.id == mainController.listAddon[index].itemId);
+                String pathFile = '';
+                if (indexDownload != -1) {
+                  mainController.listAddon[index].isDownloaded = true;
+                  pathFile =
+                      mainController.listDownloaded[indexDownload].pathFile;
+                }
 
-                        //print(ind);
-                        },
-                        child: Text('print'),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
+                var indexFavorite = mainController.listFavorite.indexWhere(
+                        (element) =>
+                    element.itemId == mainController.listAddon[index].itemId);
+                if (indexFavorite != -1) {
+                  mainController.listAddon[index].isFavorite = true;
+                }
+                return BuildPhone(
+                  controller: mainController,
+                  pathFile: pathFile,
+                  index: index,
+                  isFavoritePage: true ,
+                  addonsItem: mainController.listFavoriteWithAds[index],
                 );
+
               }
             })
         : Text('tablet'));

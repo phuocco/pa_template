@@ -20,6 +20,7 @@ import 'package:pa_template/widgets/native_ad_home_widget.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
+
   final AdsController adsController = Get.find();
   // final DetailController detailController = Get.find();
   final detailController = Get.put(DetailController());
@@ -29,12 +30,12 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    controller.onStart();
     return Obx(
       () => context.isPhone
           ? ListView.builder(
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
-
                 if (controller.listAddon[index] == 'Ads') {
                   return Card(
                     // key: ValueKey<int>(index),
@@ -53,18 +54,26 @@ class MainPage extends StatelessWidget {
                       (element) =>
                           element.id == controller.listAddon[index].itemId);
                   String pathFile = '';
-                  if (indexDownload != -1)
-                    {
-                      controller.listAddon[index].isDownloaded = true;
-                      pathFile = controller.listDownloaded[indexDownload].pathFile;
-                    }
+                  if (indexDownload != -1) {
+                    controller.listAddon[index].isDownloaded = true;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
 
-                  var indexFavorite = controller.listFavorite.indexWhere((element) => element.itemId == controller.listAddon[index].itemId);
-                  if(indexFavorite != -1){
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId == controller.listAddon[index].itemId);
+                  if (indexFavorite != -1) {
                     controller.listAddon[index].isFavorite = true;
                   }
 
-                  return BuildPhone(controller: controller, pathFile: pathFile, index: index);
+                  return BuildPhone(
+                    controller: controller,
+                    pathFile: pathFile,
+                    index: index,
+                    isFavoritePage: false ,
+                    addonsItem: controller.listAddon[index],
+                  );
                 }
               })
           :
@@ -91,20 +100,23 @@ class MainPage extends StatelessWidget {
                   );
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
-                          (element) =>
-                      element.id == controller.listAddon[index].itemId);
+                      (element) =>
+                          element.id == controller.listAddon[index].itemId);
                   String pathFile = '';
-                  if (indexDownload != -1)
-                  {
+                  if (indexDownload != -1) {
                     controller.listAddon[index].isDownloaded = true;
-                    pathFile = controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
                   }
 
-                  var indexFavorite = controller.listFavorite.indexWhere((element) => element.itemId == controller.listAddon[index].itemId);
-                  if(indexFavorite != -1){
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId == controller.listAddon[index].itemId);
+                  if (indexFavorite != -1) {
                     controller.listAddon[index].isFavorite = true;
                   }
-                  return BuildTablet(controller: controller, pathFile: pathFile, index: index);
+                  return BuildTablet(
+                      controller: controller, pathFile: pathFile, index: index);
                 }
               }),
     );
@@ -236,17 +248,17 @@ class MainPage extends StatelessWidget {
                     // Obx(() => Text(detailController.progress.value.toString())),
                     Column(
                       children: [
-
                         Obx(
-                              () => GestureDetector(
+                          () => GestureDetector(
                             onTap: () async {
                               !addonsItem.isDownloaded
                                   ? DetailPage().downloadInstallAddon(
-                                  addonsItem,
-                                  isTablet: true,
-                                  isDetail: false)
+                                      addonsItem,
+                                      isTablet: true,
+                                      isDetail: false)
                                   // : detailController.importToMinecraft(addonsItem.pathUrl);
-                              : DetailPage().dialogAskInstall(addonsItem.pathUrl);
+                                  : DetailPage()
+                                      .dialogAskInstall(addonsItem.pathUrl);
                               // : print(addonsItem.pathUrl);
                             },
                             child: Container(
@@ -256,7 +268,9 @@ class MainPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
+                                    color: addonsItem.isDownloaded
+                                        ? kColorInstallButtonBackground
+                                        : kColorDownloadButtonBackground,
                                     width: 1,
                                   )),
                               child: Stack(
@@ -264,9 +278,13 @@ class MainPage extends StatelessWidget {
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
                                     child: AnimatedContainer(
-                                      color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
-                                      width: detailController.isDownloading.value
-                                          ? detailController.progress.value * Get.width
+                                      color: addonsItem.isDownloaded
+                                          ? kColorInstallButtonBackground
+                                          : kColorDownloadButtonBackground,
+                                      width: detailController
+                                              .isDownloading.value
+                                          ? detailController.progress.value *
+                                              Get.width
                                           : Get.width,
                                       duration: Duration(milliseconds: 50),
                                       curve: Curves.fastOutSlowIn,
@@ -277,7 +295,8 @@ class MainPage extends StatelessWidget {
                                       detailController.textButton.value,
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: detailController.isDownloading.value
+                                          color: detailController
+                                                  .isDownloading.value
                                               ? Colors.black
                                               : Colors.white),
                                     ),
@@ -350,21 +369,26 @@ class BuildPhone extends StatelessWidget {
     Key key,
     @required this.controller,
     @required this.pathFile,
-    @required this.index
+    @required this.index,
+    @required this.isFavoritePage,
+    @required this.addonsItem,
   }) : super(key: key);
 
   final MainController controller;
   final String pathFile;
   final int index;
+  final bool isFavoritePage;
+  final AddonsItem addonsItem;
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       // key: ValueKey<int>(index),
       onTap: () => Get.to(() => DetailPage(
-            addonsItem: controller.listAddon[index],
+        addonsItem: addonsItem,
         pathFile: pathFile,
-          )),
+      )),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -381,8 +405,7 @@ class BuildPhone extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: CachedNetworkImage(
-                      imageUrl:
-                          controller.listAddon[index].imageUrl,
+                      imageUrl: addonsItem.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -392,13 +415,24 @@ class BuildPhone extends StatelessWidget {
                     top: 15,
                     right: 15,
                     child: GestureDetector(
-                      onTap: ()  {
-                        controller.listAddon[index].isFavorite = !controller.listAddon[index].isFavorite;
-                      controller.savePrefFavoriteItem(controller.listAddon[index]);
-                      controller.listAddon.refresh();
+                      onTap: (){
+                        if(isFavoritePage){
+                          addonsItem.isFavorite = false;
+                          int inn = controller.listAddon.indexOf(addonsItem);
+                          controller.listAddon[inn].isFavorite = false;
+                          controller.savePrefFavoriteItem(
+                              addonsItem);
+                          controller.listAddon.refresh();
+                        } else {
+                          addonsItem.isFavorite =
+                          !addonsItem.isFavorite;
+                          controller
+                              .savePrefFavoriteItem(controller.listAddon[index]);
+                          controller.listAddon.refresh();
+                        }
                       },
                       child: SvgPicture.asset(
-                        controller.listAddon[index].isFavorite ? kHeartFull : kHeartAround,
+                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
                         color: kColorLikeIcon,
                       ),
                     )),
@@ -407,27 +441,22 @@ class BuildPhone extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   color: kColorBottomItem,
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Row(
-                  mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
                             width: Get.width * 0.64,
                             height: 60,
                             child: GestureDetector(
-                              onTap: () => print(controller
-                                  .listAddon[index].isDownloaded),
+                              onTap: () => print(addonsItem.isFavorite),
                               child: Text(
-                                controller
-                                    .listAddon[index].itemName,
+                                addonsItem.itemName,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 22,
@@ -440,11 +469,10 @@ class BuildPhone extends StatelessWidget {
                         SizedBox(
                           width: Get.width * 0.64,
                           child: GestureDetector(
-                            onTap: () => print(controller
-                                .listAddon[index].pathUrl),
+                            onTap: () =>
+                                print(addonsItem.pathUrl),
                             child: Text(
-                              controller
-                                  .listAddon[index].authorName,
+                              addonsItem.authorName,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 16,
@@ -457,53 +485,44 @@ class BuildPhone extends StatelessWidget {
                       ],
                     ),
                     Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         //todo: phone button
                         TextButton(
                           onPressed: () async {
                             pathFile.isEmpty
-                                ? DetailPage()
-                                    .downloadInstallAddon(
-                                        controller
-                                            .listAddon[index],
-                                        isDetail: false,isTablet: false,
-                                        index: index)
-                                :
-                                DetailPage().dialogAskInstall(pathFile);
-
+                                ? DetailPage().downloadInstallAddon(
+                                addonsItem,
+                                    isDetail: false,
+                                    isTablet: false,
+                                    index: index)
+                                : DetailPage().dialogAskInstall(pathFile);
                           },
-                          child: Obx(() => Text(
-                                !controller.listAddon[index]
-                                        .isDownloaded
+                          child: Text(
+                                !addonsItem.isDownloaded
                                     ? 'download'.tr
                                     : 'install'.tr,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              )),
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
                           style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all<Color>(
-                                    kColorDownloadButtonForeground),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(
-                                  controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
+                            foregroundColor: MaterialStateProperty.all<Color>(
+                                kColorDownloadButtonForeground),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                addonsItem.isDownloaded
+                                    ? kColorInstallButtonBackground
+                                    : kColorDownloadButtonBackground),
                           ),
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              controller
-                                  .listAddon[index].downloadCount,
+                              addonsItem.downloadCount,
                               style: TextStyle(fontSize: 14),
                             ),
                             SizedBox(
@@ -522,8 +541,7 @@ class BuildPhone extends StatelessWidget {
           ),
         ),
         elevation: 5,
-        margin:
-            EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         semanticContainer: false,
       ),
     );
@@ -531,12 +549,12 @@ class BuildPhone extends StatelessWidget {
 }
 
 class BuildTablet extends StatelessWidget {
-  const BuildTablet({
-    Key key,
-    @required this.controller,
-    @required this.pathFile,
-    @required this.index
-  }) : super(key: key);
+  const BuildTablet(
+      {Key key,
+      @required this.controller,
+      @required this.pathFile,
+      @required this.index})
+      : super(key: key);
 
   final MainController controller;
   final String pathFile;
@@ -545,7 +563,7 @@ class BuildTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => MainPage().showDetailDialog(
-          addonsItem: controller.listAddon[index],
+        addonsItem: controller.listAddon[index],
         pathFile: pathFile,
       ),
       child: Card(
@@ -564,8 +582,7 @@ class BuildTablet extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: CachedNetworkImage(
-                      imageUrl:
-                      controller.listAddon[index].imageUrl,
+                      imageUrl: controller.listAddon[index].imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -582,24 +599,20 @@ class BuildTablet extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
                   color: kColorBottomItem,
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(10)),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
                             width: Get.width * 0.30,
                             height: 60,
                             child: Text(
-                              controller
-                                  .listAddon[index].itemName,
+                              controller.listAddon[index].itemName,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 22,
@@ -611,8 +624,7 @@ class BuildTablet extends StatelessWidget {
                         SizedBox(
                           width: Get.width * 0.30,
                           child: Text(
-                            controller
-                                .listAddon[index].authorName,
+                            controller.listAddon[index].authorName,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 16,
@@ -624,55 +636,48 @@ class BuildTablet extends StatelessWidget {
                       ],
                     ),
                     Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                           onPressed: () async {
                             pathFile.isEmpty
-                                ? DetailPage()
-                                .downloadInstallAddon(
-                                controller
-                                    .listAddon[index],
-                                isDetail: false, isTablet: false,
-                                index: index)
+                                ? DetailPage().downloadInstallAddon(
+                                    controller.listAddon[index],
+                                    isDetail: false,
+                                    isTablet: false,
+                                    index: index)
                                 :
-                            // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                            DetailPage().dialogAskInstall(pathFile);
+                                // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
+                                DetailPage().dialogAskInstall(pathFile);
                             // print(controller
                             //     .listDownloaded[indexDownload]
                             //     .pathFile);
                           },
                           child: Text(
-                            !controller
-                                .listAddon[index].isDownloaded
+                            !controller.listAddon[index].isDownloaded
                                 ? 'download'.tr
                                 : 'install'.tr,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           style: ButtonStyle(
-                            foregroundColor:
-                            MaterialStateProperty.all<Color>(
+                            foregroundColor: MaterialStateProperty.all<Color>(
                                 kColorDownloadButtonForeground),
-                            backgroundColor:
-                            MaterialStateProperty.all<Color>(
-                                controller.listAddon[index].isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                controller.listAddon[index].isDownloaded
+                                    ? kColorInstallButtonBackground
+                                    : kColorDownloadButtonBackground),
                           ),
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              controller
-                                  .listAddon[index].downloadCount,
+                              controller.listAddon[index].downloadCount,
                               style: TextStyle(fontSize: 14),
                             ),
                             SizedBox(
