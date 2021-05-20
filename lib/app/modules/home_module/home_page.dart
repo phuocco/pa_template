@@ -139,7 +139,7 @@ class HomePage extends StatelessWidget{
           padding: const EdgeInsets.only(right:10),
           child: GestureDetector(
             onTap: () {
-              controller.selectPage(7);
+              controller.selectPageNew('Favorite Page');
             },
             child: SvgPicture.asset(
               'assets/images/icons/heart_red.svg',

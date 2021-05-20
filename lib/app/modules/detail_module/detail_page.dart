@@ -8,6 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
+import 'package:pa_template/app/modules/search_module/search_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
@@ -22,6 +23,7 @@ class DetailPage extends StatelessWidget {
   final controller = Get.put(DetailController());
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
+  final SearchController searchController = Get.find();
   final AddonsItem addonsItem;
   final String pathFile;
   DetailPage({this.addonsItem, this.pathFile});
@@ -235,6 +237,7 @@ class DetailPage extends StatelessWidget {
             print(index);
             pr.close();
             mainController.listAddon.refresh();
+            searchController.listAddon.refresh();
             mainController.updateAddonItemInList(index, controller.finalPath.value);
             // mainController.listAddon[index].isDownloaded = true;
             // mainController.listAddon[index].pathUrl = controller.finalPath.value;

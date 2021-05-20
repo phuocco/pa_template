@@ -52,7 +52,14 @@ class FavoritePage extends StatelessWidget {
                   controller: mainController,
                   pathFile: pathFile,
                   index: index,
-                  isFavoritePage: true ,
+                  isFavoritePage: () {
+                    mainController.listFavoriteWithAds[index].isFavorite = false;
+                    int inn = mainController.listAddon.indexOf(mainController.listFavoriteWithAds[index]);
+                    mainController.listAddon[inn].isFavorite = false;
+                    mainController.savePrefFavoriteItem(
+                        mainController.listFavoriteWithAds[index]);
+                    mainController.listAddon.refresh();
+                  },
                   addonsItem: mainController.listFavoriteWithAds[index],
                 );
 

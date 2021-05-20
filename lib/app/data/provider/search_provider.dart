@@ -29,7 +29,7 @@ class SearchProvider extends GetConnect {
     try {
       //404
       Response<String> response = await dio.get<String>(
-        baseUrl + "?search_keyword=$searchText&limit_count=3",
+        baseUrl + "?search_keyword=$searchText&limit_count=0",
         options: buildCacheOptions(Duration(days: 5),
             maxStale: Duration(days: 10),
             forceRefresh: isFetchNewData),

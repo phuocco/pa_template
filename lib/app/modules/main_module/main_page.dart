@@ -71,7 +71,13 @@ class MainPage extends StatelessWidget {
                     controller: controller,
                     pathFile: pathFile,
                     index: index,
-                    isFavoritePage: false ,
+                    isFavoritePage: () {
+                    controller.listAddon[index].isFavorite =
+                    !controller.listAddon[index].isFavorite;
+                    controller
+                        .savePrefFavoriteItem(controller.listAddon[index]);
+                    controller.listAddon.refresh();
+                  },
                     addonsItem: controller.listAddon[index],
                   );
                 }
@@ -377,7 +383,7 @@ class BuildPhone extends StatelessWidget {
   final MainController controller;
   final String pathFile;
   final int index;
-  final bool isFavoritePage;
+  final Function isFavoritePage;
   final AddonsItem addonsItem;
 
   @override
@@ -415,22 +421,7 @@ class BuildPhone extends StatelessWidget {
                     top: 15,
                     right: 15,
                     child: GestureDetector(
-                      onTap: (){
-                        if(isFavoritePage){
-                          addonsItem.isFavorite = false;
-                          int inn = controller.listAddon.indexOf(addonsItem);
-                          controller.listAddon[inn].isFavorite = false;
-                          controller.savePrefFavoriteItem(
-                              addonsItem);
-                          controller.listAddon.refresh();
-                        } else {
-                          addonsItem.isFavorite =
-                          !addonsItem.isFavorite;
-                          controller
-                              .savePrefFavoriteItem(controller.listAddon[index]);
-                          controller.listAddon.refresh();
-                        }
-                      },
+                      onTap: isFavoritePage,
                       child: SvgPicture.asset(
                         addonsItem.isFavorite ? kHeartFull : kHeartAround,
                         color: kColorLikeIcon,
