@@ -9,12 +9,6 @@ class SearchRepository {
 
   SearchRepository({@required this.provider}) : assert(provider != null);
 
-  getUser(id) {
-    return provider.getUser(id);
-  }
-
-  postUser(Map data) {
-    return provider.postUser(data);
-  }
+  getSearchItems(String searchText, {bool isFetchNewData = false}) => provider.getSearchItems(searchText,isFetchNewData:isFetchNewData);
 
 }

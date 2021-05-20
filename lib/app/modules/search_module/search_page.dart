@@ -9,9 +9,15 @@ class SearchPage extends StatelessWidget {
   final controller = Get.put(SearchController());
   @override
   Widget build(BuildContext context) {
-    return  Container(
-        child: Obx(()=>Container(child: Text(controller.searchText),)),
-
-    );
+    controller.getSearchItems(context, controller.searchText);
+    return  Obx(() => ListView.builder(itemCount:controller.listAddon.length ,itemBuilder: (context, index){
+        return Card(
+          child: Column(
+            children: [
+              Text(controller.listAddon[index].itemName),
+            ],
+          ),
+        );
+    }));
   }
 }

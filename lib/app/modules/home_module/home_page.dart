@@ -32,24 +32,31 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     // var scaffoldKey = GlobalKey<ScaffoldState>();
-
+    FocusScopeNode currentFocus = FocusScope.of(context);
     final appBar = AppBar(
       elevation: 0,
       backgroundColor: kColorAppbar,
+      titleSpacing: 0,
       leading: IconButton(
           color: kColorPrimaryDark,
           icon: Obx(() => Icon(
             controller.selectingPageNew.value == 'Main Page' ? Icons.menu : Icons.arrow_back_ios,
           ),),
           onPressed: () {
-            controller.selectingPageNew.value == 'Main Page'
-                ? controller.openDrawer()
-                : controller.selectPageNew('Main Page');
+            if(controller.selectingPageNew.value == 'Main Page'){
+              controller.openDrawer();
+            }
+              else  {
+              searchController.listAddon.clear();
+              controller.selectPageNew('Main Page');
+
+            }
           }),
       title: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
         color: kColorTextFieldAppBar,
         height: AppBar().preferredSize.height * 0.64,
+        width: double.infinity,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -57,17 +64,20 @@ class HomePage extends StatelessWidget{
             Expanded(
               child: TextField(
                 autofocus: false,
-                controller: controller.searchController,
+                controller: controller.searchTextEditingController,
                 cursorColor: Colors.lightBlueAccent,
                 style: TextStyle(color: Colors.black),
                 onSubmitted: (text) {
-                  //todo: search
-                  // searchItem(context, text);
+                  //todo search
+                  searchController.searchText = text;
+                  controller.selectPageNew('Search Page');
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
                 },
 
                 decoration: InputDecoration(
                   border: InputBorder.none,
-
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -92,12 +102,13 @@ class HomePage extends StatelessWidget{
                 icon: Icon(Icons.search, color: kColorTextDrawer),
                 onPressed: () {
 
-                  if(controller.searchController!=null) {
+                  if(controller.searchTextEditingController!=null) {
                     //todo search
-                   // searchItem(context, searchController.text);
-                    searchController.searchText = controller.searchController.text;
-                    // Get.to(() => SearchPage());
+                    searchController.searchText = controller.searchTextEditingController.text;
                     controller.selectPageNew('Search Page');
+                    if (!currentFocus.hasPrimaryFocus) {
+                      currentFocus.unfocus();
+                    }
                   }
                 },
               ),
@@ -107,7 +118,7 @@ class HomePage extends StatelessWidget{
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 10, left: 0),
+          padding: const EdgeInsets.only(right: 10, left: 10),
           child: GestureDetector(
             onTap: () async {
               //todo more app

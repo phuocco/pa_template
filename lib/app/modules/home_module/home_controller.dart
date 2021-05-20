@@ -11,6 +11,7 @@ import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/app/modules/more_apps_module/more_apps_page.dart';
 import 'package:pa_template/app/modules/question_module/question_page.dart';
+import 'package:pa_template/app/modules/search_module/search_controller.dart';
 import 'package:pa_template/app/modules/search_module/search_page.dart';
 import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
@@ -26,10 +27,10 @@ import 'home_page.dart';
 
 class HomeController extends GetxController {
   final HomeRepository repository;
-
   HomeController({this.repository});
+  SearchController searchController;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController searchController;
+  TextEditingController searchTextEditingController;
   void openDrawer() {
     scaffoldKey.currentState.openDrawer();
   }
@@ -43,6 +44,9 @@ class HomeController extends GetxController {
   final cardDetail = defaultCard.obs;
   final selectingPage = 0.obs;
   final selectingPageNew = 'Main Page'.obs;
+
+
+
   final fileName = ''.obs;
   Offset center = Offset(0, 0);
   double radius = 30.0;
@@ -57,7 +61,7 @@ class HomeController extends GetxController {
     // TODO: implement onInit
     initPages();
     super.onInit();
-    searchController = TextEditingController();
+    searchTextEditingController = TextEditingController();
   }
 
   @override
