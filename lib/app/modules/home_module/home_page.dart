@@ -5,6 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
+import 'package:pa_template/app/modules/search_module/search_controller.dart';
+import 'package:pa_template/app/modules/search_module/search_page.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
@@ -16,9 +18,7 @@ import 'package:pa_template/functions/custom_dialog.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
+
 
 GlobalKey cardKey = new GlobalKey();
 GlobalKey imageCardKey = new GlobalKey();
@@ -27,9 +27,10 @@ class HomePage extends StatelessWidget{
   final HomeController controller = Get.find();
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
+  final SearchController searchController = Get.find();
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController;
+
     // var scaffoldKey = GlobalKey<ScaffoldState>();
 
     final appBar = AppBar(
@@ -38,12 +39,12 @@ class HomePage extends StatelessWidget{
       leading: IconButton(
           color: kColorPrimaryDark,
           icon: Obx(() => Icon(
-            controller.selectingPage.value == 0 ? Icons.menu : Icons.arrow_back_ios,
+            controller.selectingPageNew.value == 'Main Page' ? Icons.menu : Icons.arrow_back_ios,
           ),),
           onPressed: () {
-            controller.selectingPage.value == 0
+            controller.selectingPageNew.value == 'Main Page'
                 ? controller.openDrawer()
-                : controller.selectPage(0);
+                : controller.selectPageNew('Main Page');
           }),
       title: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -56,15 +57,17 @@ class HomePage extends StatelessWidget{
             Expanded(
               child: TextField(
                 autofocus: false,
-                controller: searchController,
+                controller: controller.searchController,
                 cursorColor: Colors.lightBlueAccent,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
                 onSubmitted: (text) {
                   //todo: search
                   // searchItem(context, text);
                 },
+
                 decoration: InputDecoration(
                   border: InputBorder.none,
+
                   focusedBorder: InputBorder.none,
                   enabledBorder: InputBorder.none,
                   errorBorder: InputBorder.none,
@@ -88,10 +91,13 @@ class HomePage extends StatelessWidget{
                 padding: EdgeInsets.all(1),
                 icon: Icon(Icons.search, color: kColorTextDrawer),
                 onPressed: () {
-                  if(searchController!=null) {
+
+                  if(controller.searchController!=null) {
                     //todo search
                    // searchItem(context, searchController.text);
-
+                    searchController.searchText = controller.searchController.text;
+                    // Get.to(() => SearchPage());
+                    controller.selectPageNew('Search Page');
                   }
                 },
               ),
@@ -107,7 +113,7 @@ class HomePage extends StatelessWidget{
               //todo more app
              // provider.selectPage('MoreAppsScreen');
               print(mainController.listDownloaded.length);
-              controller.selectPage(7);
+              controller.selectPageNew('More App Page');
              //  GetStorage().remove('LIST_FAVORITE');
             },
             child: Image.asset(
@@ -122,7 +128,7 @@ class HomePage extends StatelessWidget{
           padding: const EdgeInsets.only(right:10),
           child: GestureDetector(
             onTap: () {
-              print(GetStorage().read('LIST_FAVORITE'));
+              controller.selectPage(7);
             },
             child: SvgPicture.asset(
               'assets/images/icons/heart_red.svg',
@@ -149,7 +155,7 @@ class HomePage extends StatelessWidget{
         body: GetX<HomeController>(
           init: HomeController(),
           builder: (_) {
-            return _.list.value[_.selectingPage.value]['page'];
+            return _.listPages[_.selectingPageNew];
           },
         ),
         // floatingActionButton: FloatingActionButton(

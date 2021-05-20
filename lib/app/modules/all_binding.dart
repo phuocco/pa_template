@@ -3,12 +3,15 @@
 import 'package:get/get.dart';
 import 'package:pa_template/app/data/provider/home_provider.dart';
 import 'package:pa_template/app/data/provider/main_provider.dart';
+import 'package:pa_template/app/data/provider/search_provider.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:pa_template/app/data/repository/main_repository.dart';
+import 'package:pa_template/app/data/repository/search_repository.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
 import 'package:pa_template/app/modules/favorite_module/favorite_controller.dart';
 import 'package:pa_template/app/modules/language_module/language_controller.dart';
 import 'package:pa_template/app/modules/more_apps_module/more_apps_controller.dart';
+import 'package:pa_template/app/modules/search_module/search_controller.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
@@ -31,6 +34,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => DetailController());
     Get.lazyPut(() => MoreAppsController());
     Get.lazyPut(() => FavoriteController());
+    Get.lazyPut(() => SearchController(repository: SearchRepository(provider: SearchProvider())));
 
 
     // Get.lazyPut(() => GalleryItemController(repository: GalleryItemRepository(provider: GalleryItemProvider())));

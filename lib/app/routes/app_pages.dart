@@ -1,3 +1,5 @@
+import '../../app/modules/search_module/search_page.dart';
+import '../../app/modules/search_module/search_bindings.dart';
 import '../../app/modules/favorite_module/favorite_page.dart';
 import '../../app/modules/favorite_module/favorite_bindings.dart';
 import '../../app/modules/more_apps_module/more_apps_page.dart';
@@ -95,6 +97,11 @@ abstract class AppPages {
       name: Routes.FAVORITE,
       page: () => FavoritePage(),
       binding: FavoriteBinding(),
+    ),
+    GetPage(
+      name: Routes.SEARCH,
+      page: () => SearchPage(),
+      binding: SearchBinding(),
     ),
   ];
 }

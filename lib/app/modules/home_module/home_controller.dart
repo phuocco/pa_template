@@ -11,6 +11,7 @@ import 'package:pa_template/app/modules/language_module/language_page.dart';
 import 'package:pa_template/app/modules/main_module/main_page.dart';
 import 'package:pa_template/app/modules/more_apps_module/more_apps_page.dart';
 import 'package:pa_template/app/modules/question_module/question_page.dart';
+import 'package:pa_template/app/modules/search_module/search_page.dart';
 import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
@@ -28,7 +29,7 @@ class HomeController extends GetxController {
 
   HomeController({this.repository});
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
+  TextEditingController searchController;
   void openDrawer() {
     scaffoldKey.currentState.openDrawer();
   }
@@ -41,15 +42,13 @@ class HomeController extends GetxController {
 
   final cardDetail = defaultCard.obs;
   final selectingPage = 0.obs;
-  final selectingPageNew = Object().obs;
+  final selectingPageNew = 'Main Page'.obs;
   final fileName = ''.obs;
   Offset center = Offset(0, 0);
   double radius = 30.0;
   bool enabled = false;
   Widget description = Container();
-
-  List<Map<String, Object>> pages;
-  final text = "aaa".obs;
+  final listPages = <String, Object>{}.obs;
 
   final list = Rx<List<Map<String, Object>>>([]);
 
@@ -57,8 +56,8 @@ class HomeController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     initPages();
-
     super.onInit();
+    searchController = TextEditingController();
   }
 
   @override
@@ -77,10 +76,18 @@ class HomeController extends GetxController {
       {'page': AboutPage(), 'title': 'About Screen'},
       {'page': MoreAppsPage(), 'title': 'More App Screen'},
       {'page': FavoritePage(), 'title': 'Favorite Screen'},
-
-      // {'page': GalleryPage(), 'title': 'Gallery Screen'},
-      // {'page': HistoryPage(), 'title': 'History Screen'},
     ]);
+    listPages.addAll({
+      'Main Page': MainPage(),
+      'Language Page': LanguagePage(),
+      'Tutorial Page': TutorialPage(),
+      'Question Page': QuestionPage(),
+      'Submit Page': SubmitPage(),
+      'About Page': AboutPage(),
+      'More App Page': MoreAppsPage(),
+      'Favorite Page': FavoritePage(),
+      'Search Page' :SearchPage(),
+    });
   }
 
   void selectPage(int id) {
@@ -88,12 +95,10 @@ class HomeController extends GetxController {
     update();
   }
 
-  void selectPageNew(Object object){
-    selectingPageNew.value = object;
+  void selectPageNew(String string) {
+    selectingPageNew.value = string;
     update();
   }
-
-  void changeText() => text.value = "bbb";
 
   final listHistory = <HistoryCardModel>[].obs;
   getPref() async {
@@ -103,8 +108,6 @@ class HomeController extends GetxController {
       listHistory.assignAll(tempReport);
     }
   }
-
-
 
 // called after the widget is rendered on screen
   @override
@@ -144,7 +147,6 @@ class HomeController extends GetxController {
       });
     }
   }
-
 
   final historyCard = HistoryCardModel(card: defaultCard).obs;
 
