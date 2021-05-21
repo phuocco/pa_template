@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget{
               controller.openDrawer();
             }
               else  {
-              searchController.listAddonSearch.clear();
+              searchController.listAddonSearchWithAds.clear();
               controller.selectPageNew('Main Page');
 
             }

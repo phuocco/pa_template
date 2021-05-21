@@ -35,11 +35,11 @@ class SearchPage extends StatelessWidget {
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
                     (element) =>
-                        element.id == controller.listAddonSearch[index].itemId);
+                        element.id == controller.listAddonSearchWithAds[index].itemId);
                 String pathFile = '';
                 if (indexDownload != -1) {
-                  controller.listAddonSearch[index].isDownloaded = true;
-                  controller.listAddonSearch[index].pathUrl =
+                  controller.listAddonSearchWithAds[index].isDownloaded = true;
+                  controller.listAddonSearchWithAds[index].pathUrl =
                       mainController.listDownloaded[indexDownload].pathFile;
                   pathFile =
                       mainController.listDownloaded[indexDownload].pathFile;
@@ -48,9 +48,9 @@ class SearchPage extends StatelessWidget {
                 var indexFavorite = mainController.listFavorite.indexWhere(
                     (element) =>
                         element.itemId ==
-                        controller.listAddonSearch[index].itemId);
+                        controller.listAddonSearchWithAds[index].itemId);
                 if (indexFavorite != -1) {
-                  controller.listAddonSearch[index].isFavorite = true;
+                  controller.listAddonSearchWithAds[index].isFavorite = true;
                 }
                 return BuildPhone(
                   controller: mainController,
