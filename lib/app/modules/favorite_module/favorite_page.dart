@@ -33,8 +33,8 @@ class FavoritePage extends StatelessWidget {
                 );
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
-                        (element) =>
-                    element.id == mainController.listAddon[index].itemId);
+                    (element) =>
+                        element.id == mainController.listAddon[index].itemId);
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listAddon[index].isDownloaded = true;
@@ -43,8 +43,9 @@ class FavoritePage extends StatelessWidget {
                 }
 
                 var indexFavorite = mainController.listFavorite.indexWhere(
-                        (element) =>
-                    element.itemId == mainController.listAddon[index].itemId);
+                    (element) =>
+                        element.itemId ==
+                        mainController.listAddon[index].itemId);
                 if (indexFavorite != -1) {
                   mainController.listAddon[index].isFavorite = true;
                 }
@@ -52,9 +53,11 @@ class FavoritePage extends StatelessWidget {
                   controller: mainController,
                   pathFile: pathFile,
                   index: index,
-                  isFavoritePage: () {
-                    mainController.listFavoriteWithAds[index].isFavorite = false;
-                    int inn = mainController.listAddon.indexOf(mainController.listFavoriteWithAds[index]);
+                  onFavoriteTap: () {
+                    mainController.listFavoriteWithAds[index].isFavorite =
+                        false;
+                    int inn = mainController.listAddon
+                        .indexOf(mainController.listFavoriteWithAds[index]);
                     mainController.listAddon[inn].isFavorite = false;
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
@@ -62,9 +65,63 @@ class FavoritePage extends StatelessWidget {
                   },
                   addonsItem: mainController.listFavoriteWithAds[index],
                 );
-
               }
             })
-        : Text('tablet'));
+        : GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 40 / 33,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5),
+            itemCount: mainController.listFavoriteWithAds.length,
+            itemBuilder: (context, index) {
+              if (mainController.listFavoriteWithAds[index] == 'Ads') {
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: NativeAdHomeWidget(
+                      adItem:
+                          nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                  elevation: 5,
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  semanticContainer: false,
+                );
+              } else {
+                var indexDownload = mainController.listDownloaded.indexWhere(
+                    (element) =>
+                        element.id == mainController.listAddon[index].itemId);
+                String pathFile = '';
+                if (indexDownload != -1) {
+                  mainController.listAddon[index].isDownloaded = true;
+                  pathFile =
+                      mainController.listDownloaded[indexDownload].pathFile;
+                }
+
+                var indexFavorite = mainController.listFavorite.indexWhere(
+                    (element) =>
+                        element.itemId ==
+                        mainController.listAddon[index].itemId);
+                if (indexFavorite != -1) {
+                  mainController.listAddon[index].isFavorite = true;
+                }
+                return BuildTablet(
+                    controller: mainController,
+                    pathFile: pathFile,
+                    index: index,
+                    onFavoriteTap: () {
+                      mainController.listFavoriteWithAds[index].isFavorite =
+                          false;
+                      int inn = mainController.listAddon
+                          .indexOf(mainController.listFavoriteWithAds[index]);
+                      mainController.listAddon[inn].isFavorite = false;
+                      mainController.savePrefFavoriteItem(
+                          mainController.listFavoriteWithAds[index]);
+                      mainController.listAddon.refresh();
+                    },
+                    addonsItem: mainController.listFavoriteWithAds[index]);
+              }
+            },
+          ));
   }
 }

@@ -237,7 +237,7 @@ class DetailPage extends StatelessWidget {
             print(index);
             pr.close();
             mainController.listAddon.refresh();
-            searchController.listAddon.refresh();
+            searchController.listAddonSearch.refresh();
             mainController.updateAddonItemInList(index, controller.finalPath.value);
             // mainController.listAddon[index].isDownloaded = true;
             // mainController.listAddon[index].pathUrl = controller.finalPath.value;

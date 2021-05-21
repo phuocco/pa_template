@@ -18,25 +18,28 @@ class SearchController extends GetxController{
 
 
 
-  final listAddon = <AddonsItem>[].obs;
+  final listAddonSearch = <AddonsItem>[].obs;
+  final listAddonSearchWithAds = <dynamic>[].obs;
 
 
   getSearchItems(BuildContext context, String searchText) async {
     print(searchText);
     if(context.isPhone){
       return repository.getSearchItems(searchText).then((value){
-        listAddon.assignAll(value);
-        // for (var i = 2; i < listAddon.length; i += 5) {
-        //   listAddon.insert(i, 'Ads');
-        // }
+        listAddonSearch.assignAll(value);
+        listAddonSearchWithAds.assignAll(value);
+        for (var i = 2; i < listAddonSearchWithAds.length; i += 5) {
+          listAddonSearchWithAds.insert(i, 'Ads');
+        }
       });
     } else {
       return repository.getSearchItems(searchText).then((value){
-        listAddon.assignAll(value);
+        listAddonSearch.assignAll(value);
+        listAddonSearchWithAds.assignAll(value);
 
-        // for (var i = 2; i < listAddon.length; i += 11) {
-        //   listAddon.insert(i, 'Ads');
-        // }
+        for (var i = 2; i < listAddonSearchWithAds.length; i += 11) {
+          listAddonSearchWithAds.insert(i, 'Ads');
+        }
       });
     }
   }

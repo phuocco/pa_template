@@ -59,7 +59,6 @@ class MainPage extends StatelessWidget {
                     pathFile =
                         controller.listDownloaded[indexDownload].pathFile;
                   }
-
                   var indexFavorite = controller.listFavorite.indexWhere(
                       (element) =>
                           element.itemId == controller.listAddon[index].itemId);
@@ -71,13 +70,13 @@ class MainPage extends StatelessWidget {
                     controller: controller,
                     pathFile: pathFile,
                     index: index,
-                    isFavoritePage: () {
-                    controller.listAddon[index].isFavorite =
-                    !controller.listAddon[index].isFavorite;
-                    controller
-                        .savePrefFavoriteItem(controller.listAddon[index]);
-                    controller.listAddon.refresh();
-                  },
+                    onFavoriteTap: () {
+                      controller.listAddon[index].isFavorite =
+                          !controller.listAddon[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddon[index]);
+                      controller.listAddon.refresh();
+                    },
                     addonsItem: controller.listAddon[index],
                   );
                 }
@@ -122,7 +121,18 @@ class MainPage extends StatelessWidget {
                     controller.listAddon[index].isFavorite = true;
                   }
                   return BuildTablet(
-                      controller: controller, pathFile: pathFile, index: index);
+                    controller: controller,
+                    pathFile: pathFile,
+                    index: index,
+                    addonsItem: controller.listAddon[index],
+                    onFavoriteTap: (){
+                      controller.listAddon[index].isFavorite =
+                      !controller.listAddon[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddon[index]);
+                      controller.listAddon.refresh();
+                    },
+                  );
                 }
               }),
     );
@@ -376,25 +386,24 @@ class BuildPhone extends StatelessWidget {
     @required this.controller,
     @required this.pathFile,
     @required this.index,
-    @required this.isFavoritePage,
+    @required this.onFavoriteTap,
     @required this.addonsItem,
   }) : super(key: key);
 
   final MainController controller;
   final String pathFile;
   final int index;
-  final Function isFavoritePage;
+  final Function onFavoriteTap;
   final AddonsItem addonsItem;
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       // key: ValueKey<int>(index),
       onTap: () => Get.to(() => DetailPage(
-        addonsItem: addonsItem,
-        pathFile: pathFile,
-      )),
+            addonsItem: addonsItem,
+            pathFile: pathFile,
+          )),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -421,7 +430,7 @@ class BuildPhone extends StatelessWidget {
                     top: 15,
                     right: 15,
                     child: GestureDetector(
-                      onTap: isFavoritePage,
+                      onTap: onFavoriteTap,
                       child: SvgPicture.asset(
                         addonsItem.isFavorite ? kHeartFull : kHeartAround,
                         color: kColorLikeIcon,
@@ -460,8 +469,7 @@ class BuildPhone extends StatelessWidget {
                         SizedBox(
                           width: Get.width * 0.64,
                           child: GestureDetector(
-                            onTap: () =>
-                                print(addonsItem.pathUrl),
+                            onTap: () => print(addonsItem.pathUrl),
                             child: Text(
                               addonsItem.authorName,
                               overflow: TextOverflow.ellipsis,
@@ -484,19 +492,18 @@ class BuildPhone extends StatelessWidget {
                         TextButton(
                           onPressed: () async {
                             pathFile.isEmpty
-                                ? DetailPage().downloadInstallAddon(
-                                addonsItem,
+                                ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,
                                     index: index)
                                 : DetailPage().dialogAskInstall(pathFile);
                           },
                           child: Text(
-                                !addonsItem.isDownloaded
-                                    ? 'download'.tr
-                                    : 'install'.tr,
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
+                            !addonsItem.isDownloaded
+                                ? 'download'.tr
+                                : 'install'.tr,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           style: ButtonStyle(
                             foregroundColor: MaterialStateProperty.all<Color>(
                                 kColorDownloadButtonForeground),
@@ -544,17 +551,22 @@ class BuildTablet extends StatelessWidget {
       {Key key,
       @required this.controller,
       @required this.pathFile,
-      @required this.index})
+      @required this.index,
+      @required this.onFavoriteTap,
+      @required this.addonsItem})
       : super(key: key);
 
   final MainController controller;
   final String pathFile;
   final int index;
+  final Function onFavoriteTap;
+  final AddonsItem addonsItem;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => MainPage().showDetailDialog(
-        addonsItem: controller.listAddon[index],
+        addonsItem: addonsItem,
         pathFile: pathFile,
       ),
       child: Card(
@@ -573,7 +585,7 @@ class BuildTablet extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
                     child: CachedNetworkImage(
-                      imageUrl: controller.listAddon[index].imageUrl,
+                      imageUrl: addonsItem.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -581,9 +593,12 @@ class BuildTablet extends StatelessWidget {
                 Positioned(
                     top: 15,
                     right: 15,
-                    child: SvgPicture.asset(
-                      'assets/images/icons/heart_black.svg',
-                      color: kColorLikeIcon,
+                    child: GestureDetector(
+                      onTap: onFavoriteTap,
+                      child: SvgPicture.asset(
+                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        color: kColorLikeIcon,
+                      ),
                     )),
               ]),
               Container(
@@ -603,7 +618,7 @@ class BuildTablet extends StatelessWidget {
                             width: Get.width * 0.30,
                             height: 60,
                             child: Text(
-                              controller.listAddon[index].itemName,
+                              addonsItem.itemName,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 22,
@@ -615,7 +630,7 @@ class BuildTablet extends StatelessWidget {
                         SizedBox(
                           width: Get.width * 0.30,
                           child: Text(
-                            controller.listAddon[index].authorName,
+                            addonsItem.authorName,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                               fontSize: 16,
@@ -634,20 +649,14 @@ class BuildTablet extends StatelessWidget {
                         TextButton(
                           onPressed: () async {
                             pathFile.isEmpty
-                                ? DetailPage().downloadInstallAddon(
-                                    controller.listAddon[index],
+                                ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,
                                     index: index)
-                                :
-                                // detailController.importToMinecraft(controller.listDownloaded[indexDownload].pathFile);
-                                DetailPage().dialogAskInstall(pathFile);
-                            // print(controller
-                            //     .listDownloaded[indexDownload]
-                            //     .pathFile);
+                                : DetailPage().dialogAskInstall(pathFile);
                           },
                           child: Text(
-                            !controller.listAddon[index].isDownloaded
+                            !addonsItem.isDownloaded
                                 ? 'download'.tr
                                 : 'install'.tr,
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -656,7 +665,7 @@ class BuildTablet extends StatelessWidget {
                             foregroundColor: MaterialStateProperty.all<Color>(
                                 kColorDownloadButtonForeground),
                             backgroundColor: MaterialStateProperty.all<Color>(
-                                controller.listAddon[index].isDownloaded
+                                addonsItem.isDownloaded
                                     ? kColorInstallButtonBackground
                                     : kColorDownloadButtonBackground),
                           ),
@@ -668,7 +677,7 @@ class BuildTablet extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              controller.listAddon[index].downloadCount,
+                              addonsItem.downloadCount,
                               style: TextStyle(fontSize: 14),
                             ),
                             SizedBox(
