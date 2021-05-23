@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
@@ -366,6 +367,7 @@ class MainPage extends StatelessWidget {
                       margin: EdgeInsets.all(10),
                       height: 400,
                       color: Colors.blue.withOpacity(0.5),
+                      child: addonsItem.htmlDescription.isEmpty ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
                     ),
                   ],
                 ),
