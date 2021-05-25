@@ -11,6 +11,7 @@ import 'package:launch_review/launch_review.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pa_template/app/data/repository/detail_repository.dart';
 import 'package:get/get.dart';
+import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
@@ -38,9 +39,30 @@ class DetailController extends GetxController {
   final isDownloading = false.obs;
   final textButton = ''.obs;
   final progress = 0.0.obs;
+
+  var addonsItem = AddonsItem().obs;
+
+  // var _addonsItem = AddonsItem().obs;
+  // set addonsItem(value) => _addonsItem.value = value;
+  // get addonsItem  => _addonsItem.value;
+
   var dio;
   CancelToken cancelToken = CancelToken();
   RandomAccessFile randomAccessFile;
+
+  // updateFavoriteItem(){
+  //
+  //     if(addonsItem.value.isFavorite){
+  //       addonsItem.value.isFavorite = false;
+  //       // addonsItem.isFavorite = false;
+  //     } else {
+  //       addonsItem.value.isFavorite = true;
+  //       // addonsItem.isFavorite = true;
+  //     }
+  //     addonsItem
+      // controller.addonsItem.refresh();
+
+  // }
 
   initBasePath() async {
     if (GetPlatform.isAndroid) {
@@ -73,11 +95,13 @@ class DetailController extends GetxController {
   //   });
   // }
 
+
   @override
   void onClose() {
+    print('delete controller');
     nativeDetailAdControllerNew.requestAds();
     nativeHomeAdControllerNew.requestAds();
-    print('dispose');
+    MainController().listAddon.refresh();
     isDownloaded.value = false;
     super.onClose();
   }

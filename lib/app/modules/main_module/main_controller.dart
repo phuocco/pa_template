@@ -88,11 +88,23 @@ class MainController extends GetxController{
     }
   }
   savePrefFavoriteItem(AddonsItem addonsItem){
-    if(listFavorite.contains(addonsItem)){
+    // if(listFavorite.contains(addonsItem)){
+    //   listFavorite.remove(addonsItem);
+    // } else {
+    //   listFavorite.add(addonsItem);
+    // }
+    int count=0;
+    listFavorite.forEach((element) {
+      if(element.itemId == addonsItem.itemId)
+        count++;
+    });
+    if(count>0){
       listFavorite.remove(addonsItem);
     } else {
       listFavorite.add(addonsItem);
     }
+
+
     listFavoriteWithAds.assignAll(listFavorite);
     for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
       listFavoriteWithAds.insert(i, 'Ads');

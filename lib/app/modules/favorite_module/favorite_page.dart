@@ -56,12 +56,20 @@ class FavoritePage extends StatelessWidget {
                   onFavoriteTap: () {
                     mainController.listFavoriteWithAds[index].isFavorite =
                         false;
-                    int inn = mainController.listAddon
-                        .indexOf(mainController.listFavoriteWithAds[index]);
-                    mainController.listAddon[inn].isFavorite = false;
+                    // int inn = mainController.listAddon
+                    //     .indexOf(mainController.listFavoriteWithAds[index]);
+                    int indexItem =   mainController.listAddon.indexWhere((element) {
+                      if(element != 'Ads'){
+                        return element.itemId == mainController.listFavoriteWithAds[index].itemId;
+                      } else {
+                        return false;
+                      }
+                    });
+                    mainController.listAddon[indexItem].isFavorite = false;
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
-                    mainController.listAddon.refresh();
+                    // mainController.listAddon.refresh();
+
                   },
                   addonsItem: mainController.listFavoriteWithAds[index],
                 );

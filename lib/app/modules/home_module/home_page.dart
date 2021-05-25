@@ -36,6 +36,7 @@ class HomePage extends StatelessWidget{
     final appBar = AppBar(
       elevation: 0,
       backgroundColor: kColorAppbar,
+      brightness: Brightness.dark,
       titleSpacing: 0,
       leading: IconButton(
           color: kColorPrimaryDark,

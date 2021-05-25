@@ -11,6 +11,7 @@ import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/search_module/search_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
+import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/models/addons_item.dart';
 import 'package:pa_template/widgets/native_ad_detail_widget.dart';
@@ -21,7 +22,7 @@ import 'package:sn_progress_dialog/sn_progress_dialog.dart';
  * */
 
 class DetailPage extends StatelessWidget {
-  final controller = Get.put(DetailController());
+  final DetailController controller = Get.find();
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
   final SearchController searchController = Get.find();
@@ -31,11 +32,12 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.textButton.value = addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
+    controller.textButton.value =
+        addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
     print(!controller.isDownloaded.value);
     print(pathFile);
     print(addonsItem.pathUrl);
-
+    controller.addonsItem.value = addonsItem;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -95,7 +97,30 @@ class DetailPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SvgPicture.asset('assets/images/icons/heart_black.svg'),
+                      Obx(
+                        () => GestureDetector(
+                          onTap: () {
+                            if(controller.addonsItem.value.isFavorite){
+                              controller.addonsItem.value.isFavorite = false;
+                              addonsItem.isFavorite = false;
+                            } else {
+                              controller.addonsItem.value.isFavorite = true;
+                              addonsItem.isFavorite = true;
+                            }
+                            mainController.savePrefFavoriteItem(addonsItem);
+
+                            controller.addonsItem.refresh();
+                            print(controller.addonsItem.value.isFavorite);
+                          },
+                          child: SvgPicture.asset(
+                            controller.addonsItem.value.isFavorite
+                                ? kHeartFull
+                                : kHeartAround,
+                            color: kColorLikeIcon,
+                          ),
+                        ),
+                      ),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -121,7 +146,6 @@ class DetailPage extends StatelessWidget {
                 adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
             Column(
               children: [
-
                 Obx(
                   () => GestureDetector(
                     onTap: () async {
@@ -129,7 +153,7 @@ class DetailPage extends StatelessWidget {
                           ? downloadInstallAddon(addonsItem, isDetail: true)
                           // : controller.importToMinecraft(mainController
                           //     .listDownloaded[indexDownload].pathFile);
-                      : dialogAskInstall(pathFile);
+                          : dialogAskInstall(pathFile);
                       // : print(addonsItem.pathUrl);
                     },
                     child: Container(
@@ -139,7 +163,9 @@ class DetailPage extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
+                            color: addonsItem.isDownloaded
+                                ? kColorInstallButtonBackground
+                                : kColorDownloadButtonBackground,
                             width: 1,
                           )),
                       child: Stack(
@@ -147,7 +173,9 @@ class DetailPage extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: AnimatedContainer(
-                              color: addonsItem.isDownloaded ?kColorInstallButtonBackground :kColorDownloadButtonBackground,
+                              color: addonsItem.isDownloaded
+                                  ? kColorInstallButtonBackground
+                                  : kColorDownloadButtonBackground,
                               width: controller.isDownloading.value
                                   ? controller.progress.value * Get.width
                                   : Get.width,
@@ -196,7 +224,9 @@ class DetailPage extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.blue.withOpacity(0.01),
               // child: Text(addonsItem.description),
-              child: addonsItem.htmlDescription == '' ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
+              child: addonsItem.htmlDescription == ''
+                  ? Text(addonsItem.description)
+                  : HtmlWidget(addonsItem.htmlDescription),
             ),
           ],
         ),
@@ -204,39 +234,39 @@ class DetailPage extends StatelessWidget {
     );
   }
 
-  downloadInstallAddon(AddonsItem item,{bool isDetail, int index, bool isTablet}) async {
-
+  downloadInstallAddon(AddonsItem item,
+      {bool isDetail, int index, bool isTablet}) async {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       ProgressDialog pr;
-     if(!isDetail && !isTablet){
-       pr = new ProgressDialog(context: Get.context);
-       pr.show(max: 100, msg: "Downloading", barrierDismissible: false);
-     }
+      if (!isDetail && !isTablet) {
+        pr = new ProgressDialog(context: Get.context);
+        pr.show(max: 100, msg: "Downloading", barrierDismissible: false);
+      }
       controller.installAddon(item.fileUrl).then((value) {
-        if(controller.isDownloaded.value){
+        if (controller.isDownloaded.value) {
           print('downloaded');
           mainController.savePrefDownloadedItem(
               item.itemId, controller.finalPath.value);
-          if(isDetail){
+          if (isDetail) {
             controller.isDownloaded.value = true;
             addonsItem.isDownloaded = true;
             addonsItem.pathUrl = controller.finalPath.value;
             controller.textButton.value = 'install'.tr;
             mainController.listAddon.refresh();
-          } else if(isTablet){
+          } else if (isTablet) {
             item.isDownloaded = true;
             controller.isDownloaded.value = true;
             controller.textButton.value = 'install'.tr;
             item.pathUrl = controller.finalPath.value;
             mainController.listAddon.refresh();
-            print("tablet "+ controller.finalPath.value);
-          }
-          else {
+            print("tablet " + controller.finalPath.value);
+          } else {
             print(index);
             pr.close();
             mainController.listAddon.refresh();
             searchController.listAddonSearch.refresh();
-            mainController.updateAddonItemInList(index, controller.finalPath.value);
+            mainController.updateAddonItemInList(
+                index, controller.finalPath.value);
             // mainController.listAddon[index].isDownloaded = true;
             // mainController.listAddon[index].pathUrl = controller.finalPath.value;
           }
@@ -275,7 +305,8 @@ class DetailPage extends StatelessWidget {
           barrierDismissible: false);
     }
   }
-  dialogAskInstall(String path){
+
+  dialogAskInstall(String path) {
     Get.dialog(
         AlertDialog(
           title: Text('File installed'),
@@ -285,10 +316,9 @@ class DetailPage extends StatelessWidget {
             TextButton(
                 onPressed: () {
                   // print(path);
-                 controller.importToMinecraft(path);
+                  controller.importToMinecraft(path);
                   Get.back();
-                }
-                    ,
+                },
                 child: Text('Open')),
           ],
         ),
