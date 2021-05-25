@@ -365,9 +365,9 @@ class MainPage extends StatelessWidget {
                     // Image.asset('assets/images/ads.png'),
                     Container(
                       margin: EdgeInsets.all(10),
-                      height: 400,
-                      color: Colors.blue.withOpacity(0.5),
-                      child: addonsItem.htmlDescription.isEmpty ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
+
+                      color: Colors.blue.withOpacity(0.01),
+                      child: addonsItem.htmlDescription == '' ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
                     ),
                   ],
                 ),

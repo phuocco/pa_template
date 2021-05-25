@@ -110,3 +110,5 @@ class AddonsItem {
     "isFavorite": isFavorite,
   };
 }
+
+

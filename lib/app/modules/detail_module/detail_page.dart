@@ -194,9 +194,9 @@ class DetailPage extends StatelessWidget {
 
             Container(
               margin: EdgeInsets.all(10),
-              height: 400,
-              color: Colors.blue.withOpacity(0.5),
-              child: addonsItem.htmlDescription.isEmpty ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
+              color: Colors.blue.withOpacity(0.01),
+              // child: Text(addonsItem.description),
+              child: addonsItem.htmlDescription == '' ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
             ),
           ],
         ),

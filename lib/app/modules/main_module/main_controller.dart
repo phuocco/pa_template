@@ -30,6 +30,9 @@ class MainController extends GetxController{
   getItems(BuildContext context) async {
     if(context.isPhone){
       return repository.getItem().then((value){
+
+        value.sort((a, b) => int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
+
         listAddon.assignAll(value);
         for (var i = 2; i < listAddon.length; i += 5) {
           listAddon.insert(i, 'Ads');
@@ -37,6 +40,7 @@ class MainController extends GetxController{
       });
     } else {
       return repository.getItem().then((value){
+        value.sort((a, b) => int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
         listAddon.assignAll(value);
         for (var i = 2; i < listAddon.length; i += 11) {
           listAddon.insert(i, 'Ads');
