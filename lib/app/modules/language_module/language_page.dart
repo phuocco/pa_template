@@ -20,7 +20,10 @@ class LanguagePage extends GetWidget<LanguageController> {
                     itemCount: controller.localeCodeList.length,
                     itemBuilder: (context, index){
                       return GestureDetector(
-                        onTap: () => Get.updateLocale(controller.localeCodeList[index]),
+                        onTap: () {
+                          Get.updateLocale(controller.localeCodeList[index]);
+                          Get.find<HomeController>().selectPageNew('Main Page');
+                        },
                         child: Container(
                           padding: EdgeInsets.all(12.0),
                           decoration: BoxDecoration(

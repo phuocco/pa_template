@@ -44,7 +44,6 @@ class SearchPage extends StatelessWidget {
                   pathFile =
                       mainController.listDownloaded[indexDownload].pathFile;
                 }
-
                 var indexFavorite = mainController.listFavorite.indexWhere(
                     (element) =>
                         element.itemId ==

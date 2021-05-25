@@ -263,10 +263,15 @@ class DetailPage extends StatelessWidget {
           } else {
             print(index);
             pr.close();
-            mainController.listAddon.refresh();
-            searchController.listAddonSearch.refresh();
+
             mainController.updateAddonItemInList(
                 index, controller.finalPath.value);
+            searchController.listAddonSearchWithAds[index].pathUrl = controller.finalPath.value;
+            mainController.listFavoriteWithAds[index].pathUrl = controller.finalPath.value;
+            mainController.listAddon.refresh();
+            searchController.listAddonSearch.refresh();
+            mainController.listFavoriteWithAds.refresh();
+
             // mainController.listAddon[index].isDownloaded = true;
             // mainController.listAddon[index].pathUrl = controller.finalPath.value;
           }

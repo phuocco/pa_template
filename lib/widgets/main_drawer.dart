@@ -17,15 +17,15 @@ class MainDrawer extends GetView<HomeController> {
   Widget build(BuildContext context) {
     List<Widget> items = [
       drawerItem(kHomeIcon, 'nav_items_home'.tr, () {
-        Get.find<HomeController>().selectPage(0);
+        Get.find<HomeController>().selectPageNew('Main Page');
         Get.back();
       }),
       drawerItem(kGuideIcon, 'nav_items_guide'.tr, () {
-        Get.find<HomeController>().selectPage(2);
+        Get.find<HomeController>().selectPageNew('Tutorial Page');
         Get.back();
       }),
       drawerItem(kQuestionIcon, 'nav_items_question'.tr, () {
-        Get.find<HomeController>().selectPage(3);
+        Get.find<HomeController>().selectPageNew('Question Page');
         Get.back();
       }),
       drawerItem(kReviewIcon, 'nav_items_review'.tr, () async {
@@ -44,12 +44,12 @@ class MainDrawer extends GetView<HomeController> {
 
         GetStorage().write('OPEN_TIMES', 1);
       }),
-      drawerItem(kSubmitIcon, 'nav_items_submit'.tr, () {
-        Get.find<HomeController>().selectPage(4);
-        Get.back();
-      }),
+      // drawerItem(kSubmitIcon, 'nav_items_submit'.tr, () {
+      //   Get.find<HomeController>().selectPage(4);
+      //   Get.back();
+      // }),
       drawerItem(kLanguageIcon, 'nav_items_language'.tr, () {
-        Get.find<HomeController>().selectPage(1);
+        Get.find<HomeController>().selectPageNew('Language Page');
         Get.back();
       }),
       drawerItem(kPrivacyIcon, 'nav_items_policy'.tr, () {
@@ -58,7 +58,7 @@ class MainDrawer extends GetView<HomeController> {
 
       }),
       drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
-        Get.find<HomeController>().selectPage(5);
+        Get.find<HomeController>().selectPageNew('About Page');
         Get.back();
       }),
     ];
