@@ -235,7 +235,7 @@ class DetailPage extends StatelessWidget {
   }
 
   downloadInstallAddon(AddonsItem item,
-      {bool isDetail, int index, bool isTablet}) async {
+      {bool isDetail, int index, bool isTablet, String page}) async {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       ProgressDialog pr;
       if (!isDetail && !isTablet) {
@@ -260,20 +260,27 @@ class DetailPage extends StatelessWidget {
             item.pathUrl = controller.finalPath.value;
             mainController.listAddon.refresh();
             print("tablet " + controller.finalPath.value);
+          } else if(page == 'Search') {
+            print(index);
+            pr.close();
+            searchController.listAddonSearchWithAds[index].pathUrl = controller.finalPath.value;
+            // searchController.listAddonSearchWithAds[index].isDownloaded = true;
+            searchController.listAddonSearchWithAds.refresh();
+
+          } else  if(page == 'Favorite'){
+            print(index);
+            pr.close();
+            mainController.listFavoriteWithAds[index].pathUrl = controller.finalPath.value;
+            // mainController.listFavoriteWithAds[index].isDownloaded = true;
+            mainController.listFavoriteWithAds.refresh();
+            print('a');
           } else {
             print(index);
             pr.close();
-
             mainController.updateAddonItemInList(
                 index, controller.finalPath.value);
-            searchController.listAddonSearchWithAds[index].pathUrl = controller.finalPath.value;
-            mainController.listFavoriteWithAds[index].pathUrl = controller.finalPath.value;
             mainController.listAddon.refresh();
-            searchController.listAddonSearch.refresh();
-            mainController.listFavoriteWithAds.refresh();
 
-            // mainController.listAddon[index].isDownloaded = true;
-            // mainController.listAddon[index].pathUrl = controller.finalPath.value;
           }
           GetPlatform.isAndroid
               ? dialogAskImport()

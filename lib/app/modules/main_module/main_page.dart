@@ -126,9 +126,9 @@ class MainPage extends StatelessWidget {
                     pathFile: pathFile,
                     index: index,
                     addonsItem: controller.listAddon[index],
-                    onFavoriteTap: (){
+                    onFavoriteTap: () {
                       controller.listAddon[index].isFavorite =
-                      !controller.listAddon[index].isFavorite;
+                          !controller.listAddon[index].isFavorite;
                       controller
                           .savePrefFavoriteItem(controller.listAddon[index]);
                       controller.listAddon.refresh();
@@ -365,9 +365,10 @@ class MainPage extends StatelessWidget {
                     // Image.asset('assets/images/ads.png'),
                     Container(
                       margin: EdgeInsets.all(10),
-
                       color: Colors.blue.withOpacity(0.01),
-                      child: addonsItem.htmlDescription == '' ? Text(addonsItem.description): HtmlWidget(addonsItem.htmlDescription),
+                      child: addonsItem.htmlDescription == ''
+                          ? Text(addonsItem.description)
+                          : HtmlWidget(addonsItem.htmlDescription),
                     ),
                   ],
                 ),
@@ -383,20 +384,22 @@ class MainPage extends StatelessWidget {
 }
 
 class BuildPhone extends StatelessWidget {
-  const BuildPhone({
-    Key key,
-    @required this.controller,
-    @required this.pathFile,
-    @required this.index,
-    @required this.onFavoriteTap,
-    @required this.addonsItem,
-  }) : super(key: key);
+  const BuildPhone(
+      {Key key,
+      @required this.controller,
+      @required this.pathFile,
+      @required this.index,
+      @required this.onFavoriteTap,
+      @required this.addonsItem,
+      this.page})
+      : super(key: key);
 
   final MainController controller;
   final String pathFile;
   final int index;
   final Function onFavoriteTap;
   final AddonsItem addonsItem;
+  final String page;
 
   @override
   Widget build(BuildContext context) {
@@ -497,6 +500,7 @@ class BuildPhone extends StatelessWidget {
                                 ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,
+                                    page: page,
                                     index: index)
                                 : DetailPage().dialogAskInstall(pathFile);
                           },
@@ -555,7 +559,8 @@ class BuildTablet extends StatelessWidget {
       @required this.pathFile,
       @required this.index,
       @required this.onFavoriteTap,
-      @required this.addonsItem})
+      @required this.addonsItem,
+      this.page})
       : super(key: key);
 
   final MainController controller;
@@ -563,6 +568,7 @@ class BuildTablet extends StatelessWidget {
   final int index;
   final Function onFavoriteTap;
   final AddonsItem addonsItem;
+  final String page;
 
   @override
   Widget build(BuildContext context) {
@@ -654,6 +660,7 @@ class BuildTablet extends StatelessWidget {
                                 ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,
+                                    page: page,
                                     index: index)
                                 : DetailPage().dialogAskInstall(pathFile);
                           },

@@ -55,6 +55,7 @@ class SearchPage extends StatelessWidget {
                   controller: mainController,
                   pathFile: pathFile,
                   index: index,
+                  page: 'Search',
                   onFavoriteTap: () {
                     controller.listAddonSearchWithAds[index].isFavorite =
                         !controller.listAddonSearchWithAds[index].isFavorite;
@@ -110,6 +111,7 @@ class SearchPage extends StatelessWidget {
                     controller: mainController,
                     pathFile: pathFile,
                     index: index,
+                    page: 'Search',
                     onFavoriteTap: () {
                       controller.listAddonSearchWithAds[index].isFavorite =
                           !controller.listAddonSearchWithAds[index].isFavorite;

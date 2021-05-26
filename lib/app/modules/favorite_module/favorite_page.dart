@@ -53,6 +53,7 @@ class FavoritePage extends StatelessWidget {
                   controller: mainController,
                   pathFile: pathFile,
                   index: index,
+                  page: 'Favorite',
                   onFavoriteTap: () {
                     mainController.listFavoriteWithAds[index].isFavorite =
                         false;
@@ -115,6 +116,7 @@ class FavoritePage extends StatelessWidget {
                     controller: mainController,
                     pathFile: pathFile,
                     index: index,
+                    page: 'Favorite',
                     onFavoriteTap: () {
                       mainController.listFavoriteWithAds[index].isFavorite =
                       false;
