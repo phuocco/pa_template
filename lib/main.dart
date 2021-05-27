@@ -12,8 +12,8 @@ import 'app/theme/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  MobileAds.instance.initialize();
   await Firebase.initializeApp();
+  MobileAds.instance.initialize();
   await GetStorage.init();
   runApp(MyApp());
   SystemChrome.setPreferredOrientations([
