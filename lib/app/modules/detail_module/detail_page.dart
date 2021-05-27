@@ -41,6 +41,7 @@ class DetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
+        brightness: Brightness.dark,
         title: Text(addonsItem.itemName),
       ),
       body: SingleChildScrollView(
@@ -100,7 +101,7 @@ class DetailPage extends StatelessWidget {
                       Obx(
                         () => GestureDetector(
                           onTap: () {
-                            if(controller.addonsItem.value.isFavorite){
+                            if (controller.addonsItem.value.isFavorite) {
                               controller.addonsItem.value.isFavorite = false;
                               addonsItem.isFavorite = false;
                             } else {
@@ -108,7 +109,7 @@ class DetailPage extends StatelessWidget {
                               addonsItem.isFavorite = true;
                             }
                             mainController.savePrefFavoriteItem(addonsItem);
-
+                            mainController.listAddon.refresh();
                             controller.addonsItem.refresh();
                             print(controller.addonsItem.value.isFavorite);
                           },
@@ -120,7 +121,6 @@ class DetailPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       SizedBox(
                         height: 20,
                       ),
@@ -224,7 +224,7 @@ class DetailPage extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.blue.withOpacity(0.01),
               // child: Text(addonsItem.description),
-              child: addonsItem.htmlDescription == ''
+              child: addonsItem.htmlDescription.isBlank
                   ? Text(addonsItem.description)
                   : HtmlWidget(addonsItem.htmlDescription),
             ),
@@ -260,17 +260,18 @@ class DetailPage extends StatelessWidget {
             item.pathUrl = controller.finalPath.value;
             mainController.listAddon.refresh();
             print("tablet " + controller.finalPath.value);
-          } else if(page == 'Search') {
+          } else if (page == 'Search') {
             print(index);
             pr.close();
-            searchController.listAddonSearchWithAds[index].pathUrl = controller.finalPath.value;
+            searchController.listAddonSearchWithAds[index].pathUrl =
+                controller.finalPath.value;
             // searchController.listAddonSearchWithAds[index].isDownloaded = true;
             searchController.listAddonSearchWithAds.refresh();
-
-          } else  if(page == 'Favorite'){
+          } else if (page == 'Favorite') {
             print(index);
             pr.close();
-            mainController.listFavoriteWithAds[index].pathUrl = controller.finalPath.value;
+            mainController.listFavoriteWithAds[index].pathUrl =
+                controller.finalPath.value;
             // mainController.listFavoriteWithAds[index].isDownloaded = true;
             mainController.listFavoriteWithAds.refresh();
             print('a');
@@ -280,11 +281,13 @@ class DetailPage extends StatelessWidget {
             mainController.updateAddonItemInList(
                 index, controller.finalPath.value);
             mainController.listAddon.refresh();
-
           }
-          GetPlatform.isAndroid
-              ? dialogAskImport()
-              : controller.importToMinecraft(controller.finalPath.value);
+          //Dialog ask only on android
+          // GetPlatform.isAndroid
+          //     ? dialogAskImport()
+          //     : controller.importToMinecraft(controller.finalPath.value);
+          //both android ios
+          dialogAskImport();
         }
       });
     } else {
@@ -307,10 +310,14 @@ class DetailPage extends StatelessWidget {
             title: Text('File downloaded'),
             content: Text('Do you want to install now?'),
             actions: [
-              TextButton(onPressed: () => Get.back(), child: Text('Cancel'.toUpperCase())),
               TextButton(
-                  onPressed: () =>
-                      controller.importToMinecraft(controller.finalPath.value),
+                  onPressed: () => Get.back(),
+                  child: Text('Cancel'.toUpperCase())),
+              TextButton(
+                  onPressed: () {
+                    controller.importToMinecraft(controller.finalPath.value);
+                    Get.back();
+                  },
                   child: Text('Install addon'.toUpperCase())),
             ],
           ),
@@ -324,7 +331,9 @@ class DetailPage extends StatelessWidget {
           title: Text('File installed'),
           content: Text('Do you want to open game now?'),
           actions: [
-            TextButton(onPressed: () => Get.back(), child: Text('Cancel'.toUpperCase())),
+            TextButton(
+                onPressed: () => Get.back(),
+                child: Text('Cancel'.toUpperCase())),
             TextButton(
                 onPressed: () {
                   // print(path);

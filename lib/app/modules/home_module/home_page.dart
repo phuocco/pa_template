@@ -49,7 +49,10 @@ class HomePage extends StatelessWidget{
             }
               else  {
               searchController.listAddonSearchWithAds.clear();
+              currentFocus.unfocus();
+              controller.searchTextEditingController.text = '';
               controller.selectPageNew('Main Page');
+
 
             }
           }),

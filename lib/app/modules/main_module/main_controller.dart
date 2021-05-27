@@ -32,9 +32,8 @@ class MainController extends GetxController{
       return repository.getItem().then((value){
 
         value.sort((a, b) => int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
-
         listAddon.assignAll(value);
-        for (var i = 2; i < listAddon.length; i += 5) {
+        for (var i = 3; i < listAddon.length; i += 5) {
           listAddon.insert(i, 'Ads');
         }
       });
