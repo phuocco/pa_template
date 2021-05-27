@@ -99,10 +99,10 @@ class DetailController extends GetxController {
   @override
   void onClose() {
     print('delete controller');
-    nativeDetailAdControllerNew.requestAds();
-    nativeHomeAdControllerNew.requestAds();
-    MainController().listAddon.refresh();
-    isDownloaded.value = false;
+    // nativeDetailAdControllerNew.requestAds();
+    // nativeHomeAdControllerNew.requestAds();
+    // MainController().listAddon.refresh();
+    // isDownloaded.value = false;
     super.onClose();
   }
 

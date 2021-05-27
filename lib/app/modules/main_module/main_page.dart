@@ -23,8 +23,8 @@ class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
 
   final AdsController adsController = Get.find();
-  // final DetailController detailController = Get.find();
-  final detailController = Get.put(DetailController());
+  final DetailController detailController = Get.find();
+  // final detailController = Get.put(DetailController());
   final NativeAdControllerNew nativeAdControllerNew = Get.find();
   final FavoriteController favoriteController = Get.find();
 
@@ -408,7 +408,13 @@ class BuildPhone extends StatelessWidget {
       onTap: () => Get.to(() => DetailPage(
             addonsItem: addonsItem,
             pathFile: pathFile,
-          )),
+          )).whenComplete(() {
+            print('dispose detail');
+        nativeDetailAdControllerNew.requestAds();
+        nativeHomeAdControllerNew.requestAds();
+        MainController().listAddon.refresh();
+        DetailController().isDownloaded.value = false;
+      }),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
