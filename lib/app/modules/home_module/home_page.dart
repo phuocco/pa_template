@@ -180,7 +180,7 @@ class HomePage extends StatelessWidget{
         //   child: Icon(Icons.ac_unit),
         // ),
         bottomNavigationBar: Container(
-          height: 90,
+          height: UtilFunctions().getHeightBanner(),
           width: Get.width,
           color: kBottomColor,
           child: BaseBanner(),

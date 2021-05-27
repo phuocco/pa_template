@@ -662,7 +662,7 @@ class BuildTablet extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () async {
-                            pathFile.isEmpty
+                            addonsItem.pathUrl.isNullOrBlank
                                 ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,
