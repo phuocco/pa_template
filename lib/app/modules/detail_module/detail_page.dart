@@ -307,11 +307,11 @@ class DetailPage extends StatelessWidget {
             title: Text('File downloaded'),
             content: Text('Do you want to install now?'),
             actions: [
-              TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+              TextButton(onPressed: () => Get.back(), child: Text('Cancel'.toUpperCase())),
               TextButton(
                   onPressed: () =>
                       controller.importToMinecraft(controller.finalPath.value),
-                  child: Text('Install addon')),
+                  child: Text('Install addon'.toUpperCase())),
             ],
           ),
           barrierDismissible: false);
@@ -324,14 +324,14 @@ class DetailPage extends StatelessWidget {
           title: Text('File installed'),
           content: Text('Do you want to open game now?'),
           actions: [
-            TextButton(onPressed: () => Get.back(), child: Text('Cancel')),
+            TextButton(onPressed: () => Get.back(), child: Text('Cancel'.toUpperCase())),
             TextButton(
                 onPressed: () {
                   // print(path);
                   controller.importToMinecraft(path);
                   Get.back();
                 },
-                child: Text('Open')),
+                child: Text('Open'.toUpperCase())),
           ],
         ),
         barrierDismissible: false);
