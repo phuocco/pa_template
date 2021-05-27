@@ -37,7 +37,7 @@ class FavoritePage extends StatelessWidget {
                         element.id == mainController.listAddon[index].itemId);
                 String pathFile = '';
                 if (indexDownload != -1) {
-                  mainController.listAddon[index].isDownloaded = true;
+                  // mainController.listAddon[index].isDownloaded = true;
                   pathFile =
                       mainController.listDownloaded[indexDownload].pathFile;
                 }
@@ -51,7 +51,7 @@ class FavoritePage extends StatelessWidget {
                 }
                 return BuildPhone(
                   controller: mainController,
-                  pathFile: pathFile,
+                  pathFile: mainController.listFavoriteWithAds[index].pathUrl,
                   index: index,
                   page: 'Favorite',
                   onFavoriteTap: () {
@@ -96,8 +96,8 @@ class FavoritePage extends StatelessWidget {
                 );
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
-                    (element) =>
-                        element.id == mainController.listAddon[index].itemId);
+                        (element) =>
+                    element.id == mainController.listAddon[index].itemId);
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listAddon[index].isDownloaded = true;
@@ -106,15 +106,15 @@ class FavoritePage extends StatelessWidget {
                 }
 
                 var indexFavorite = mainController.listFavorite.indexWhere(
-                    (element) =>
-                        element.itemId ==
+                        (element) =>
+                    element.itemId ==
                         mainController.listAddon[index].itemId);
                 if (indexFavorite != -1) {
                   mainController.listAddon[index].isFavorite = true;
                 }
                 return BuildTablet(
                     controller: mainController,
-                    pathFile: pathFile,
+                    pathFile: mainController.listFavoriteWithAds[index].pathUrl,
                     index: index,
                     page: 'Favorite',
                     onFavoriteTap: () {

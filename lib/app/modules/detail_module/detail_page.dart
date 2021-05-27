@@ -265,14 +265,14 @@ class DetailPage extends StatelessWidget {
             pr.close();
             searchController.listAddonSearchWithAds[index].pathUrl =
                 controller.finalPath.value;
-            // searchController.listAddonSearchWithAds[index].isDownloaded = true;
+            searchController.listAddonSearchWithAds[index].isDownloaded = true;
             searchController.listAddonSearchWithAds.refresh();
           } else if (page == 'Favorite') {
             print(index);
             pr.close();
             mainController.listFavoriteWithAds[index].pathUrl =
                 controller.finalPath.value;
-            // mainController.listFavoriteWithAds[index].isDownloaded = true;
+            mainController.listFavoriteWithAds[index].isDownloaded = true;
             mainController.listFavoriteWithAds.refresh();
             print('a');
           } else {
@@ -315,6 +315,7 @@ class DetailPage extends StatelessWidget {
                   child: Text('Cancel'.toUpperCase())),
               TextButton(
                   onPressed: () {
+                    print(controller.finalPath.value);
                     controller.importToMinecraft(controller.finalPath.value);
                     Get.back();
                   },
@@ -336,7 +337,7 @@ class DetailPage extends StatelessWidget {
                 child: Text('Cancel'.toUpperCase())),
             TextButton(
                 onPressed: () {
-                  // print(path);
+                  print(path);
                   controller.importToMinecraft(path);
                   Get.back();
                 },

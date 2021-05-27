@@ -69,7 +69,7 @@ class MainPage extends StatelessWidget {
 
                   return BuildPhone(
                     controller: controller,
-                    pathFile: pathFile,
+                    pathFile: controller.listAddon[index].pathUrl,
                     index: index,
                     onFavoriteTap: () {
                       controller.listAddon[index].isFavorite =
@@ -123,12 +123,12 @@ class MainPage extends StatelessWidget {
                   }
                   return BuildTablet(
                     controller: controller,
-                    pathFile: pathFile,
+                    pathFile: controller.listAddon[index].pathUrl,
                     index: index,
                     addonsItem: controller.listAddon[index],
                     onFavoriteTap: () {
                       controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
+                      !controller.listAddon[index].isFavorite;
                       controller
                           .savePrefFavoriteItem(controller.listAddon[index]);
                       controller.listAddon.refresh();
@@ -496,7 +496,7 @@ class BuildPhone extends StatelessWidget {
                         //todo: phone button
                         TextButton(
                           onPressed: () async {
-                            pathFile.isEmpty
+                            addonsItem.pathUrl == null
                                 ? DetailPage().downloadInstallAddon(addonsItem,
                                     isDetail: false,
                                     isTablet: false,

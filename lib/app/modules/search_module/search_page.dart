@@ -53,7 +53,7 @@ class SearchPage extends StatelessWidget {
                 }
                 return BuildPhone(
                   controller: mainController,
-                  pathFile: pathFile,
+                  pathFile: controller.listAddonSearchWithAds[index].pathUrl,
                   index: index,
                   page: 'Search',
                   onFavoriteTap: () {
@@ -109,7 +109,7 @@ class SearchPage extends StatelessWidget {
                 }
                 return BuildTablet(
                     controller: mainController,
-                    pathFile: pathFile,
+                    pathFile: controller.listAddonSearchWithAds[index].pathUrl,
                     index: index,
                     page: 'Search',
                     onFavoriteTap: () {
