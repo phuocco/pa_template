@@ -660,29 +660,32 @@ class BuildTablet extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        TextButton(
-                          onPressed: () async {
-                            addonsItem.pathUrl.isNullOrBlank
-                                ? DetailPage().downloadInstallAddon(addonsItem,
-                                    isDetail: false,
-                                    isTablet: false,
-                                    page: page,
-                                    index: index)
-                                : DetailPage().dialogAskInstall(pathFile);
-                          },
-                          child: Text(
-                            !addonsItem.isDownloaded
-                                ? 'download'.tr
-                                : 'install'.tr,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                kColorDownloadButtonForeground),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                addonsItem.isDownloaded
-                                    ? kColorInstallButtonBackground
-                                    : kColorDownloadButtonBackground),
+                        Container(
+                          width: 110,
+                          child: TextButton(
+                            onPressed: () async {
+                              addonsItem.pathUrl.isNullOrBlank
+                                  ? DetailPage().downloadInstallAddon(addonsItem,
+                                      isDetail: false,
+                                      isTablet: false,
+                                      page: page,
+                                      index: index)
+                                  : DetailPage().dialogAskInstall(pathFile);
+                            },
+                            child: Text(
+                              !addonsItem.isDownloaded
+                                  ? 'download'.tr
+                                  : 'install'.tr,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  kColorDownloadButtonForeground),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  addonsItem.isDownloaded
+                                      ? kColorInstallButtonBackground
+                                      : kColorDownloadButtonBackground),
+                            ),
                           ),
                         ),
                         SizedBox(
