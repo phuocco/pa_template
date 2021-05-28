@@ -76,7 +76,8 @@ class HomePage extends StatelessWidget{
                 onSubmitted: (text) {
                   //todo search
                   searchController.searchText = text;
-                  controller.selectPageNew('Search Page');
+
+                  if(!text.isBlank) controller.selectPageNew('Search Page');
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
@@ -111,7 +112,7 @@ class HomePage extends StatelessWidget{
                   if(controller.searchTextEditingController!=null) {
                     //todo search
                     searchController.searchText = controller.searchTextEditingController.text;
-                    controller.selectPageNew('Search Page');
+                    if(!controller.searchTextEditingController.text.isBlank) controller.selectPageNew('Search Page');
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
