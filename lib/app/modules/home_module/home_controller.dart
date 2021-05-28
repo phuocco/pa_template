@@ -22,6 +22,7 @@ import 'package:pa_template/models/history_card_model.dart';
 import 'package:pa_template/utils/services/remove_config_service.dart';
 import 'package:package_info/package_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_page.dart';
 
@@ -59,11 +60,16 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    initPages();
-    super.onInit();
-    searchTextEditingController = TextEditingController();
-  }
 
+    super.onInit();
+    initPages();
+    searchTextEditingController = TextEditingController();
+
+  }
+  saveKeyToSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('IS_NOT_FIRST', true);
+  }
   @override
   void onClose() {
     // TODO: implement onClose
@@ -117,10 +123,10 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    saveKeyToSharedPref();
     getPref();
-
     countOpen();
-    // checkUpdate();
+    checkUpdate();
   }
 
   checkUpdate() async {

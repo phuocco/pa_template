@@ -20,7 +20,7 @@ import Firebase
     
     var appOpenAd:GADAppOpenAd?
     var loadTime:Date?
-    var premium:Bool = false;
+    var isNotFirst:Bool = false;
     
     
   override func application(
@@ -133,7 +133,9 @@ import Firebase
     //app open ad
     override func applicationDidBecomeActive(_ application: UIApplication) {
         super.applicationDidBecomeActive(application);
-         if(!isPremium() && isNotFirstTime()){
+        
+         if(isNotFirstTime()){
+            print("show ad test");
             self.tryToPresentAd();
         }
     }
@@ -153,7 +155,7 @@ import Firebase
             self.appOpenAd?.fullScreenContentDelegate = self;
             self.loadTime = Date()
             
-            if(appOpenAd != nil && showAd && !self.isPremium() && self.isNotFirstTime()){
+            if(appOpenAd != nil && showAd && self.isNotFirstTime()){
                 let rootController = self.window.rootViewController!
                 appOpenAd?.present(fromRootViewController: rootController)
             }
@@ -173,7 +175,7 @@ import Firebase
     func tryToPresentAd(){
         let ad:GADAppOpenAd? = self.appOpenAd;
         self.appOpenAd = nil;
-        if (ad != nil && wasLoadTimeLessThanNHoursAgo(n: 1) && !self.isPremium() && self.isNotFirstTime()) {
+        if (ad != nil && wasLoadTimeLessThanNHoursAgo(n: 1) && self.isNotFirstTime()) {
             let rootController = self.window.rootViewController!
             ad?.present(fromRootViewController: rootController)
           } else {
@@ -181,14 +183,12 @@ import Firebase
             self.requestAppOpenAd(true);
           }
     }
-    func isPremium() -> Bool{
-        premium = UserDefaults.standard.bool(forKey: "flutter.IS_PREMIUM");
-        return premium;
-    }
+   
     
     
     func isNotFirstTime() -> Bool{
-        return  UserDefaults.standard.bool(forKey: "flutter.IS_VERIFY_AGE");
+        print(UserDefaults.standard.bool(forKey: "flutter.IS_NOT_FIRST"),"aaaaa");
+        return  UserDefaults.standard.bool(forKey: "flutter.IS_NOT_FIRST");
     }
     
     func showPickerView()  {

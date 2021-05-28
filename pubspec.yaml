@@ -57,6 +57,7 @@ dependencies:
   url_launcher: ^5.7.10
   dio_http_cache: ^0.2.11
   flutter_svg: ^0.19.3
+  shared_preferences: ^2.0.6
 
 dependency_overrides:
   get_storage: ^1.4.0
@@ -69,7 +70,7 @@ dependency_overrides:
   share: ^0.6.5+4
   path: ^1.7.0
   open_file: ^3.0.3
-
+  shared_preferences: ^0.5.12+4
 
 dev_dependencies:
   flutter_test:
