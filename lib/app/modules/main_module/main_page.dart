@@ -409,7 +409,8 @@ class BuildPhone extends StatelessWidget {
         controller.countInterAd++;
         if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
-          Get.put(AdsController()).showIntersAds();
+          Get.find<AdsController>().showIntersAds();
+
         }
         Get.to(() => DetailPage(
               addonsItem: addonsItem,
@@ -594,7 +595,8 @@ class BuildTablet extends StatelessWidget {
         controller.countInterAd++;
         if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
-          Get.put(AdsController()).showIntersAds();
+          Get.find<AdsController>().showIntersAds();
+
         }
         MainPage().showDetailDialog(
           addonsItem: addonsItem,

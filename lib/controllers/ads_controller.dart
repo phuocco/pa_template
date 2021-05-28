@@ -186,7 +186,6 @@ class AdsController extends GetxController {
       return;
     }
 
-
     initBannerAds();
     MobileAds.instance.initialize().then((InitializationStatus status) {
       print('Init ads done: ${status.adapterStatuses}');
@@ -196,7 +195,7 @@ class AdsController extends GetxController {
                   TagForChildDirectedTreatment.unspecified))
           .then((value) {
         createInterstitialAd();
-        createRewardedAd();
+        // createRewardedAd();
       });
     });
 
