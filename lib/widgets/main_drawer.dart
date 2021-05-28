@@ -9,6 +9,7 @@ import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:package_info/package_info.dart';
 
@@ -59,6 +60,10 @@ class MainDrawer extends GetView<HomeController> {
       }),
       drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
         Get.find<HomeController>().selectPageNew('About Page');
+        Get.back();
+      }),
+      drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
+        Get.find<AdsController>().showIntersAds();
         Get.back();
       }),
     ];

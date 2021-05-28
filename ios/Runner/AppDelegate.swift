@@ -130,6 +130,67 @@ import Firebase
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     
+    //app open ad
+    override func applicationDidBecomeActive(_ application: UIApplication) {
+        super.applicationDidBecomeActive(application);
+         if(!isPremium() && isNotFirstTime()){
+            self.tryToPresentAd();
+        }
+    }
+    
+    func wasLoadTimeLessThanNHoursAgo(n:Double) ->Bool{
+        let now = Date()
+        let timeIntervalBetweenNowAndLoadTime = now.timeIntervalSince(self.loadTime!)
+        let secondsPerHour = 3600.0;
+        let intervalInHours = timeIntervalBetweenNowAndLoadTime / secondsPerHour;
+        return intervalInHours < n;
+    }
+    
+    func requestAppOpenAd(_ showAd:Bool = false){
+        self.appOpenAd = nil;
+        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-9131188183332364/6787658646", request: GADRequest(), orientation: UIInterfaceOrientation.portrait) { (appOpenAd: GADAppOpenAd?, error: Error?) in
+            self.appOpenAd = appOpenAd;
+            self.appOpenAd?.fullScreenContentDelegate = self;
+            self.loadTime = Date()
+            
+            if(appOpenAd != nil && showAd && !self.isPremium() && self.isNotFirstTime()){
+                let rootController = self.window.rootViewController!
+                appOpenAd?.present(fromRootViewController: rootController)
+            }
+        }
+    }
+    
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        self.requestAppOpenAd()
+    }
+    func adDidPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("adDidPresentFullScreenContent")
+    }
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        self.requestAppOpenAd()
+    }
+    
+    func tryToPresentAd(){
+        let ad:GADAppOpenAd? = self.appOpenAd;
+        self.appOpenAd = nil;
+        if (ad != nil && wasLoadTimeLessThanNHoursAgo(n: 1) && !self.isPremium() && self.isNotFirstTime()) {
+            let rootController = self.window.rootViewController!
+            ad?.present(fromRootViewController: rootController)
+          } else {
+            // If you don't have an ad ready, request one.
+            self.requestAppOpenAd(true);
+          }
+    }
+    func isPremium() -> Bool{
+        premium = UserDefaults.standard.bool(forKey: "flutter.IS_PREMIUM");
+        return premium;
+    }
+    
+    
+    func isNotFirstTime() -> Bool{
+        return  UserDefaults.standard.bool(forKey: "flutter.IS_VERIFY_AGE");
+    }
+    
     func showPickerView()  {
         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
         do {
