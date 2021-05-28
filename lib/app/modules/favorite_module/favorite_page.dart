@@ -42,10 +42,15 @@ class FavoritePage extends StatelessWidget {
                       mainController.listDownloaded[indexDownload].pathFile;
                 }
 
-                var indexFavorite = mainController.listFavorite.indexWhere(
-                    (element) =>
-                        element.itemId ==
-                        mainController.listAddon[index].itemId);
+                var indexFavorite =
+                    mainController.listFavorite.indexWhere((element) {
+                  if (mainController.listAddon[index] != 'Ads') {
+                    return element.itemId ==
+                        mainController.listAddon[index].itemId;
+                  } else {
+                    return false;
+                  }
+                });
                 if (indexFavorite != -1) {
                   mainController.listAddon[index].isFavorite = true;
                 }
@@ -57,9 +62,11 @@ class FavoritePage extends StatelessWidget {
                   onFavoriteTap: () {
                     mainController.listFavoriteWithAds[index].isFavorite =
                         false;
-                    int indexItem =   mainController.listAddon.indexWhere((element) {
-                      if(element != 'Ads'){
-                        return element.itemId == mainController.listFavoriteWithAds[index].itemId;
+                    int indexItem =
+                        mainController.listAddon.indexWhere((element) {
+                      if (element != 'Ads') {
+                        return element.itemId ==
+                            mainController.listFavoriteWithAds[index].itemId;
                       } else {
                         return false;
                       }
@@ -68,7 +75,6 @@ class FavoritePage extends StatelessWidget {
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
                     mainController.listAddon.refresh();
-
                   },
                   addonsItem: mainController.listFavoriteWithAds[index],
                 );
@@ -96,8 +102,8 @@ class FavoritePage extends StatelessWidget {
                 );
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
-                        (element) =>
-                    element.id == mainController.listAddon[index].itemId);
+                    (element) =>
+                        element.id == mainController.listAddon[index].itemId);
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listAddon[index].isDownloaded = true;
@@ -106,8 +112,8 @@ class FavoritePage extends StatelessWidget {
                 }
 
                 var indexFavorite = mainController.listFavorite.indexWhere(
-                        (element) =>
-                    element.itemId ==
+                    (element) =>
+                        element.itemId ==
                         mainController.listAddon[index].itemId);
                 if (indexFavorite != -1) {
                   mainController.listAddon[index].isFavorite = true;
@@ -119,10 +125,12 @@ class FavoritePage extends StatelessWidget {
                     page: 'Favorite',
                     onFavoriteTap: () {
                       mainController.listFavoriteWithAds[index].isFavorite =
-                      false;
-                      int indexItem =   mainController.listAddon.indexWhere((element) {
-                        if(element != 'Ads'){
-                          return element.itemId == mainController.listFavoriteWithAds[index].itemId;
+                          false;
+                      int indexItem =
+                          mainController.listAddon.indexWhere((element) {
+                        if (element != 'Ads') {
+                          return element.itemId ==
+                              mainController.listFavoriteWithAds[index].itemId;
                         } else {
                           return false;
                         }
