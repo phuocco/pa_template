@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -18,19 +19,18 @@ import 'package:pa_template/functions/custom_dialog.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
-
+import 'package:pa_template/widgets/native_ad_detail_widget.dart';
 
 GlobalKey cardKey = new GlobalKey();
 GlobalKey imageCardKey = new GlobalKey();
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatelessWidget {
   final HomeController controller = Get.find();
   final AdsController adsController = Get.find();
   final MainController mainController = Get.find();
   final SearchController searchController = Get.find();
   @override
   Widget build(BuildContext context) {
-
     // var scaffoldKey = GlobalKey<ScaffoldState>();
     FocusScopeNode currentFocus = FocusScope.of(context);
     final appBar = AppBar(
@@ -40,22 +40,23 @@ class HomePage extends StatelessWidget{
       titleSpacing: 0,
       leading: IconButton(
           color: kColorPrimaryDark,
-          icon: Obx(() => Icon(
-            controller.selectingPageNew.value == 'Main Page' ? Icons.menu : Icons.arrow_back_ios,
-          ),),
+          icon: Obx(
+            () => Icon(
+              controller.selectingPageNew.value == 'Main Page'
+                  ? Icons.menu
+                  : Icons.arrow_back_ios,
+            ),
+          ),
           onPressed: () {
-            if(controller.selectingPageNew.value == 'Main Page'){
+            if (controller.selectingPageNew.value == 'Main Page') {
               controller.openDrawer();
-            }
-              else  {
+            } else {
               searchController.listAddonSearchWithAds.clear();
               if (!currentFocus.hasPrimaryFocus) {
                 currentFocus.unfocus();
               }
               controller.searchTextEditingController.text = '';
               controller.selectPageNew('Main Page');
-
-
             }
           }),
       title: Container(
@@ -77,12 +78,11 @@ class HomePage extends StatelessWidget{
                   //todo search
                   searchController.searchText = text;
 
-                  if(!text.isBlank) controller.selectPageNew('Search Page');
+                  if (!text.isBlank) controller.selectPageNew('Search Page');
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
                 },
-
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget{
                   isDense: true,
                   hintStyle: TextStyle(color: kColorTextDrawer, fontSize: 12),
                   contentPadding:
-                  EdgeInsets.only(left: 10, bottom: 13, top: 10, right: 10),
+                      EdgeInsets.only(left: 10, bottom: 13, top: 10, right: 10),
                 ),
               ),
             ),
@@ -108,11 +108,12 @@ class HomePage extends StatelessWidget{
                 padding: EdgeInsets.all(1),
                 icon: Icon(Icons.search, color: kColorTextDrawer),
                 onPressed: () {
-
-                  if(controller.searchTextEditingController!=null) {
+                  if (controller.searchTextEditingController != null) {
                     //todo search
-                    searchController.searchText = controller.searchTextEditingController.text;
-                    if(!controller.searchTextEditingController.text.isBlank) controller.selectPageNew('Search Page');
+                    searchController.searchText =
+                        controller.searchTextEditingController.text;
+                    if (!controller.searchTextEditingController.text.isBlank)
+                      controller.selectPageNew('Search Page');
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
@@ -129,10 +130,10 @@ class HomePage extends StatelessWidget{
           child: GestureDetector(
             onTap: () async {
               //todo more app
-             // provider.selectPage('MoreAppsScreen');
+              // provider.selectPage('MoreAppsScreen');
               print(mainController.listDownloaded.length);
               controller.selectPageNew('More App Page');
-             //  GetStorage().remove('LIST_FAVORITE');
+              //  GetStorage().remove('LIST_FAVORITE');
             },
             child: Image.asset(
               kMoreIcon,
@@ -143,7 +144,7 @@ class HomePage extends StatelessWidget{
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right:10),
+          padding: const EdgeInsets.only(right: 10),
           child: GestureDetector(
             onTap: () {
               controller.selectPageNew('Favorite Page');
@@ -170,24 +171,114 @@ class HomePage extends StatelessWidget{
           data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
           child: MainDrawer(),
         ),
-        body: GetX<HomeController>(
-          init: HomeController(),
-          builder: (_) {
-            return _.listPages[_.selectingPageNew];
-          },
-        ),
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () => adsController.requestPurchase(adsController.items[0]),
-        //   child: Icon(Icons.ac_unit),
-        // ),
+        body: WillPopScope(
+            child: GetX<HomeController>(
+              init: HomeController(),
+              builder: (_) {
+                return _.listPages[_.selectingPageNew];
+              },
+            ),
+            onWillPop: () async {
+              if (controller.selectingPageNew.value == 'Main Page') {
+                return Get.dialog(
+                    Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5)),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.4),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              height: 70,
+                              child: Center(
+                                child: Text(
+                                  'Do you want to exit?',
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Container(
+                                height: 50,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    InkWell(
+                                      onTap: () => Get.back(),
+                                      child: Container(
+                                        height: 35,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        child: Center(
+                                            child: Text('CANCEL',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () => SystemNavigator.pop(),
+                                      child: Container(
+                                        height: 35,
+                                        width: 80,
+                                        decoration: BoxDecoration(
+                                          color: kColorAppbar,
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        child: Center(
+                                            child: Text('OK',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.bold))),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            Container(
+                              color: Colors.black.withOpacity(0.05),
+                              child: NativeAdDetailWidget(
+                                  adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    barrierDismissible: false);
+              } else {
+                Get.find<HomeController>().selectPageNew('Main Page');
+                return false;
+              }
+            }),
+
         bottomNavigationBar: Container(
           height: UtilFunctions().getHeightBanner(),
           width: Get.width,
           color: kBottomColor,
           child: BaseBanner(),
         ),
-
-
       ),
     );
   }

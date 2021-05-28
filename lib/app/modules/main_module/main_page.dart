@@ -410,7 +410,6 @@ class BuildPhone extends StatelessWidget {
         if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
-
         }
         Get.to(() => DetailPage(
               addonsItem: addonsItem,
@@ -421,6 +420,13 @@ class BuildPhone extends StatelessWidget {
           nativeHomeAdControllerNew.requestAds();
           MainController().listAddon.refresh();
           DetailController().isDownloaded.value = false;
+          nativeDetailAdControllerNew.listAds.forEach((element) {
+            print("detail " + element.hashCode.toString());
+          });
+          nativeHomeAdControllerNew.listAds.forEach((element) {
+            print("home " + element.hashCode.toString());
+          });
+
         });
       },
       child: Card(

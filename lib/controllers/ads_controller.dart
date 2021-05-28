@@ -15,13 +15,12 @@ import 'native_ad_controller_new.dart';
 
 NativeAdControllerNew nativeDetailAdControllerNew;
 NativeAdControllerNew nativeHomeAdControllerNew;
+
 class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
   final box = GetStorage();
   final isLoaded = false.obs;
-
-
 
   //region purchase
   StreamSubscription purchaseUpdatedSubscription;
@@ -148,33 +147,32 @@ class AdsController extends GetxController {
 
   //endregion
 
-
-  initDetailAds(){
-    if(nativeDetailAdControllerNew == null){
+  initDetailAds() {
+    if (nativeDetailAdControllerNew == null) {
       nativeDetailAdControllerNew = NativeAdControllerNew();
       nativeDetailAdControllerNew.initAds(
-          maxCountAds: 1,
-          maxCallRequest:3,
+          initNumberAds: 1,
+          maxCountAds: 2,
+          maxCallRequest: 3,
           forceRefresh: false,
           adUnitId: AdManager.nativeAdUnitId,
           options: new NativeAdsOption(type: 'NativeAdDetail'));
     }
   }
-  initHomeAds(){
-    if(nativeHomeAdControllerNew == null){
+
+  initHomeAds() {
+    if (nativeHomeAdControllerNew == null) {
       nativeHomeAdControllerNew = NativeAdControllerNew();
       nativeHomeAdControllerNew.initAds(
           initNumberAds: 2,
           maxCountAds: 3,
-          maxCallRequest:3,
+          maxCallRequest: 3,
           forceRefresh: false,
           adUnitId: AdManager.nativeAdUnitId,
           options: new NativeAdsOption(type: 'NativeAdHome'));
-      print(nativeHomeAdControllerNew.listAds.length.toString() +'abcdef');
+      print(nativeHomeAdControllerNew.listAds.length.toString() + 'abcdef');
     }
   }
-
-
 
   @override
   void onInit() {
@@ -227,9 +225,6 @@ class AdsController extends GetxController {
       box.write('IS_PREMIUM', isPremium.value);
     }
   }
-
-
-
 
 //region list detail
   // initNativeAdsDetail(int numAds, NativeAdsOption option) {
@@ -285,6 +280,7 @@ class AdsController extends GetxController {
 
     myBanner.load().then((value) => isLoaded.value = true);
   }
+
 //region purchase
   Future<void> initPlatformState() async {
     String platformVersion;

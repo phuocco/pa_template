@@ -19,7 +19,7 @@ const kColorInstallButtonBackground = Color(0xff0077FF);
 const kColorDownloadButtonForeground = Colors.white;
 
 const kBackgroundTopDrawer = Colors.red;
-const kColorLikeIcon = Colors.yellow;
+const kColorLikeIcon = Colors.red;
 const kColorBottomItem =Color(0xf7efe5);
 const kColorTextDrawer = Colors.black;
 const kBottomDetailColor = Color(0x70D9D8D5);

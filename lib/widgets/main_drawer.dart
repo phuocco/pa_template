@@ -62,10 +62,7 @@ class MainDrawer extends GetView<HomeController> {
         Get.find<HomeController>().selectPageNew('About Page');
         Get.back();
       }),
-      drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
-        Get.find<AdsController>().showIntersAds();
-        Get.back();
-      }),
+     
     ];
     return Drawer(
       child: Column(

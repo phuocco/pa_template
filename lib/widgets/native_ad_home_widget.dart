@@ -30,13 +30,13 @@ class NativeAdHomeWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child = Text('loading');
+                child = Text('Loading ad');
                 break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child = Text('error');
+                  child = Text('Failed to load');
                 }
             }
             return Container(

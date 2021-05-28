@@ -30,21 +30,16 @@ class NativeAdDetailWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child = Text('loading');
+                child = Text('Loading Ad');
                 break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child = Text('error');
+                  child = Text('Failed to load');
                 }
             }
             return Container(
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: kNativeAdBackground
-              ),
               width: double.infinity,
               height: context.isPhone ? 355: 370,
               // color: kNativeAdBackground,
