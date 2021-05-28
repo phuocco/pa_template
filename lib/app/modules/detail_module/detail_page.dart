@@ -224,7 +224,7 @@ class DetailPage extends StatelessWidget {
               margin: EdgeInsets.all(10),
               color: Colors.blue.withOpacity(0.01),
               // child: Text(addonsItem.description),
-              child: addonsItem.htmlDescription.isBlank
+              child: addonsItem.htmlDescription.isNullOrBlank
                   ? Text(addonsItem.description)
                   : HtmlWidget(addonsItem.htmlDescription),
             ),
@@ -237,6 +237,7 @@ class DetailPage extends StatelessWidget {
   downloadInstallAddon(AddonsItem item,
       {bool isDetail, int index, bool isTablet, String page}) async {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
+      adsController.showIntersAds();
       ProgressDialog pr;
       if (!isDetail && !isTablet) {
         pr = new ProgressDialog(context: Get.context);

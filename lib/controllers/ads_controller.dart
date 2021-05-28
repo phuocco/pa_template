@@ -21,6 +21,8 @@ class AdsController extends GetxController {
   final box = GetStorage();
   final isLoaded = false.obs;
 
+
+
   //region purchase
   StreamSubscription purchaseUpdatedSubscription;
   StreamSubscription purchaseErrorSubscription;

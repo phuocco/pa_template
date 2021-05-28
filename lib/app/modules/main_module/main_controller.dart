@@ -18,9 +18,15 @@ class MainController extends GetxController{
   final MainRepository repository;
   MainController({this.repository});
   final box = GetStorage();
+
   var _obj = ''.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
+
+  var _countInterAd = 0.obs;
+  get countInterAd => _countInterAd.value;
+  set countInterAd(value) => _countInterAd.value = value;
+
   final listAddon = <dynamic>[].obs;
 
 

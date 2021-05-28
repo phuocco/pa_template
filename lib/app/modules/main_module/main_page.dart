@@ -128,7 +128,7 @@ class MainPage extends StatelessWidget {
                     addonsItem: controller.listAddon[index],
                     onFavoriteTap: () {
                       controller.listAddon[index].isFavorite =
-                      !controller.listAddon[index].isFavorite;
+                          !controller.listAddon[index].isFavorite;
                       controller
                           .savePrefFavoriteItem(controller.listAddon[index]);
                       controller.listAddon.refresh();
@@ -366,7 +366,7 @@ class MainPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.all(10),
                       color: Colors.blue.withOpacity(0.01),
-                      child: addonsItem.htmlDescription == ''
+                      child: addonsItem.htmlDescription.isNullOrBlank
                           ? Text(addonsItem.description)
                           : HtmlWidget(addonsItem.htmlDescription),
                     ),
@@ -405,16 +405,23 @@ class BuildPhone extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       // key: ValueKey<int>(index),
-      onTap: () => Get.to(() => DetailPage(
-            addonsItem: addonsItem,
-            pathFile: pathFile,
-          )).whenComplete(() {
-            print('dispose detail');
-        nativeDetailAdControllerNew.requestAds();
-        nativeHomeAdControllerNew.requestAds();
-        MainController().listAddon.refresh();
-        DetailController().isDownloaded.value = false;
-      }),
+      onTap: () {
+        controller.countInterAd++;
+        if (controller.countInterAd == 3) {
+          controller.countInterAd = 0;
+          Get.put(AdsController()).showIntersAds();
+        }
+        Get.to(() => DetailPage(
+              addonsItem: addonsItem,
+              pathFile: pathFile,
+            )).whenComplete(() {
+          print('dispose detail');
+          nativeDetailAdControllerNew.requestAds();
+          nativeHomeAdControllerNew.requestAds();
+          MainController().listAddon.refresh();
+          DetailController().isDownloaded.value = false;
+        });
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -500,29 +507,33 @@ class BuildPhone extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         //todo: phone button
-                        TextButton(
-                          onPressed: () async {
-                            addonsItem.pathUrl == null
-                                ? DetailPage().downloadInstallAddon(addonsItem,
-                                    isDetail: false,
-                                    isTablet: false,
-                                    page: page,
-                                    index: index)
-                                : DetailPage().dialogAskInstall(pathFile);
-                          },
-                          child: Text(
-                            !addonsItem.isDownloaded
-                                ? 'download'.tr
-                                : 'install'.tr,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(
-                                kColorDownloadButtonForeground),
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                addonsItem.isDownloaded
-                                    ? kColorInstallButtonBackground
-                                    : kColorDownloadButtonBackground),
+                        Container(
+                          width: 110,
+                          child: TextButton(
+                            onPressed: () async {
+                              addonsItem.pathUrl == null
+                                  ? DetailPage().downloadInstallAddon(
+                                      addonsItem,
+                                      isDetail: false,
+                                      isTablet: false,
+                                      page: page,
+                                      index: index)
+                                  : DetailPage().dialogAskInstall(pathFile);
+                            },
+                            child: Text(
+                              !addonsItem.isDownloaded
+                                  ? 'download'.tr
+                                  : 'install'.tr,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all<Color>(
+                                  kColorDownloadButtonForeground),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  addonsItem.isDownloaded
+                                      ? kColorInstallButtonBackground
+                                      : kColorDownloadButtonBackground),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -579,10 +590,17 @@ class BuildTablet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => MainPage().showDetailDialog(
-        addonsItem: addonsItem,
-        pathFile: pathFile,
-      ),
+      onTap: () {
+        controller.countInterAd++;
+        if (controller.countInterAd == 3) {
+          controller.countInterAd = 0;
+          Get.put(AdsController()).showIntersAds();
+        }
+        MainPage().showDetailDialog(
+          addonsItem: addonsItem,
+          pathFile: pathFile,
+        );
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -665,7 +683,8 @@ class BuildTablet extends StatelessWidget {
                           child: TextButton(
                             onPressed: () async {
                               addonsItem.pathUrl.isNullOrBlank
-                                  ? DetailPage().downloadInstallAddon(addonsItem,
+                                  ? DetailPage().downloadInstallAddon(
+                                      addonsItem,
                                       isDetail: false,
                                       isTablet: false,
                                       page: page,
