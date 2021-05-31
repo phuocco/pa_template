@@ -8,6 +8,7 @@ import 'package:flutter_inapp_purchase/modules.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/constants/const_url.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 
@@ -15,7 +16,7 @@ import 'native_ad_controller_new.dart';
 
 NativeAdControllerNew nativeDetailAdControllerNew;
 NativeAdControllerNew nativeHomeAdControllerNew;
-
+AdsController adsCtrl;
 class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
@@ -55,10 +56,7 @@ class AdsController extends GetxController {
     '4A50245291F2A618FEA096DE31D72C62'
   ]);
 
-  BannerAd myBanner;
-  final bannerCompleter = Completer<BannerAd>().obs;
 
-  loadBanner() => myBanner.load();
 
   // NativeAd myNativeAd;
   // Completer nativeAdCompleter;
@@ -174,30 +172,12 @@ class AdsController extends GetxController {
     }
   }
 
+
   @override
   void onInit() {
-    // initPlatformState();
-    initDetailAds();
-    initHomeAds();
-    if (box.read('IS_PREMIUM') == true) {
-      isPremium.value = true;
-      return;
-    }
-
-    initBannerAds();
-    MobileAds.instance.initialize().then((InitializationStatus status) {
-      print('Init ads done: ${status.adapterStatuses}');
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-              tagForChildDirectedTreatment:
-                  TagForChildDirectedTreatment.unspecified))
-          .then((value) {
-        createInterstitialAd();
-        // createRewardedAd();
-      });
-    });
 
     super.onInit();
+
   }
 
   @override
@@ -216,6 +196,24 @@ class AdsController extends GetxController {
   @override
   void onReady() {
     print('ready');
+    PACoreShowDialog.pickYearDialog(Get.context).then((value) =>
+        MobileAds.instance.initialize().then((InitializationStatus status) {
+          print('Init ads done: ${status.adapterStatuses}');
+          MobileAds.instance
+              .updateRequestConfiguration(RequestConfiguration(
+            maxAdContentRating: box.read("MAX_AD_CONTENT"),
+              tagForChildDirectedTreatment:
+              TagForChildDirectedTreatment.unspecified))
+              .then((value) {
+            initDetailAds();
+            initHomeAds();
+            initBannerAds();
+            createInterstitialAd();
+            // isLoaded.value = true;
+            // createRewardedAd();
+          });
+        })
+    );
   }
 
   purchased() {
@@ -226,38 +224,12 @@ class AdsController extends GetxController {
     }
   }
 
-//region list detail
-  // initNativeAdsDetail(int numAds, NativeAdsOption option) {
-  //   for (int i = 0; i < numAds; i++) {
-  //     var nativeAdCompleter = Completer<NativeAd>();
-  //     var myNativeAd = NativeAd(
-  //       adUnitId: AdManager.nativeAdUnitId,
-  //       request: adRequest,
-  //       factoryId: 'adFactoryId',
-  //       customOptions: option.toJson(),
-  //       listener: AdListener(
-  //         onAdLoaded: (Ad ad) {
-  //           print('$NativeAd loaded..');
-  //           nativeAdCompleter.complete(ad as NativeAd);
-  //           listNativeAdsDetailController
-  //               .add(new NativeAdsController(nativeAdCompleter, ad: ad));
-  //         },
-  //         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-  //           print('$NativeAd failedToLoad: $error');
-  //           nativeAdCompleter.completeError(null);
-  //         },
-  //         onAdOpened: (Ad ad) => print('$NativeAd onAdOpened.'),
-  //         onAdClosed: (Ad ad) => print('$NativeAd onAdClosed.'),
-  //         onApplicationExit: (Ad ad) => print('$NativeAd onApplicationExit.'),
-  //       ),
-  //     );
-  //     Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
-  //     isLoaded.value = true;
-  //   }
-  //   // loadNative();
-  // }
-  //endregion
 
+  Completer completerItemAds = Completer<BannerAd>();
+  BannerAd myBanner;
+  var list = <BannerAd>[].obs;
+
+  loadBanner() => myBanner.load();
   initBannerAds() {
     myBanner = BannerAd(
       adUnitId: AdManager.bannerAdUnitId,
@@ -265,12 +237,11 @@ class AdsController extends GetxController {
       request: adRequest,
       listener: AdListener(
         onAdLoaded: (Ad ad) {
-          print('bannerAd loaded.');
-          bannerCompleter.value.complete(ad as BannerAd);
+          list.assignAll([ad as BannerAd]);
+          print('ad type: '+ box.read("MAX_AD_CONTENT"));
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Ad failed to load: $error');
-          bannerCompleter.value.completeError(null);
         },
         onAdOpened: (Ad ad) => print('Ad opened.'),
         onAdClosed: (Ad ad) => print('Ad closed.'),
@@ -278,8 +249,11 @@ class AdsController extends GetxController {
       ),
     );
 
-    myBanner.load().then((value) => isLoaded.value = true);
+    myBanner.load();
+
+
   }
+
 
 //region purchase
   Future<void> initPlatformState() async {

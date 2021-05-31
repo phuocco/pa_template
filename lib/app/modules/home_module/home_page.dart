@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/modules/home_module/home_controller.dart';
 import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/app/modules/search_module/search_controller.dart';
@@ -12,11 +15,11 @@ import 'package:pa_template/app/theme/app_colors.dart';
 import 'package:pa_template/app/utils/strings.dart';
 import 'package:pa_template/constants/const_drawer.dart';
 import 'package:pa_template/controllers/native_ad_controller_new.dart';
+import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/widgets/base_banner.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/custom_dialog.dart';
-import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/widgets/base_app_bar.dart';
 import 'package:pa_template/widgets/main_drawer.dart';
 import 'package:pa_template/widgets/native_ad_detail_widget.dart';
@@ -31,7 +34,6 @@ class HomePage extends StatelessWidget {
   final SearchController searchController = Get.find();
   @override
   Widget build(BuildContext context) {
-    // var scaffoldKey = GlobalKey<ScaffoldState>();
     FocusScopeNode currentFocus = FocusScope.of(context);
     final appBar = AppBar(
       elevation: 0,
@@ -157,7 +159,6 @@ class HomePage extends StatelessWidget {
         ),
       ],
     );
-
     print('init home');
     return SafeArea(
       top: false,
@@ -260,7 +261,8 @@ class HomePage extends StatelessWidget {
                             Container(
                               color: Colors.black.withOpacity(0.05),
                               child: NativeAdDetailWidget(
-                                  adItem: nativeDetailAdControllerNew.getAdsByIncreaseIndex()),
+                                  adItem: nativeDetailAdControllerNew
+                                      .getAdsByIncreaseIndex()),
                             ),
                           ],
                         ),
@@ -272,13 +274,10 @@ class HomePage extends StatelessWidget {
                 return false;
               }
             }),
-
-        bottomNavigationBar: Container(
-          height: UtilFunctions().getHeightBanner(),
-          width: Get.width,
-          color: kBottomColor,
-          child: BaseBanner(),
-        ),
+        // bottomNavigationBar: Obx(() => adsController.list.length == 0
+        //     ? Text(adsController.list.length.toString())
+        //     :Text(adsController.list.length.toString()),)
+        bottomNavigationBar: BaseBanner(),
       ),
     );
   }

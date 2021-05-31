@@ -7,26 +7,21 @@ import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
 
 class BaseBanner extends StatelessWidget {
-
   final AdsController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    AdWidget ads =  AdWidget(ad: controller.myBanner);
-    print('build new object');
-    return  GetBuilder<AdsController>(
-      initState: (state){
-        Get.find<AdsController>().initBannerAds();
-      },
-      builder: (controller) {
-        print("count 1 rebuild");
-        return Obx(() => controller.isLoaded.value ? Container(
-          width: double.infinity,
-          height: controller.isPremium.value == false ? UtilFunctions().getHeightBanner() : 0,
-          child: ads,
-          color: kBackgroundContainerBannerAds,
-        ): Container());
-      },
-    );
+    return Obx(() => controller.list.length == 0
+        ? Container(
+            height: 0,
+            width: double.infinity,
+            color: Colors.transparent,
+          )
+        : Container(
+            width: double.infinity,
+            height: UtilFunctions().getHeightBanner(),
+            child: AdWidget(ad: controller.list[0]),
+            color: kBackgroundContainerBannerAds,
+          ));
   }
 }

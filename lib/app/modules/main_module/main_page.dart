@@ -476,7 +476,7 @@ class BuildPhone extends StatelessWidget {
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            width: Get.width * 0.64,
+                            width: Get.width * 0.60,
                             height: 60,
                             child: GestureDetector(
                               onTap: () => print(addonsItem.isFavorite),
@@ -492,7 +492,7 @@ class BuildPhone extends StatelessWidget {
                               ),
                             )),
                         SizedBox(
-                          width: Get.width * 0.64,
+                          width: Get.width * 0.60,
                           child: GestureDetector(
                             onTap: () => print(addonsItem.pathUrl),
                             child: Text(

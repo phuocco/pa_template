@@ -24,10 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   pa_core_flutter:
- #   path: /Users/phuocnguyen/IdeaProjects/pa_core_flutter
-    git:
-      url: https://github.com/pamobilevn/PACoreFlutter.git
-      ref: getx
+    path: D:\Projects\PACoreFlutter
+#    git:
+#      url: https://github.com/pamobilevn/PACoreFlutter.git
+#      ref: getx
   cupertino_icons: ^1.0.2
   get: ^3.26.0
   google_mobile_ads: ^0.11.0+2

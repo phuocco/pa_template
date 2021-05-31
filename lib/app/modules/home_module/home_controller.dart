@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:pa_template/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ import 'package:pa_template/app/modules/search_module/search_page.dart';
 import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
+import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
@@ -127,7 +129,9 @@ class HomeController extends GetxController {
     getPref();
     countOpen();
     checkUpdate();
+
   }
+
 
   checkUpdate() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -145,7 +149,6 @@ class HomeController extends GetxController {
   String packageName;
   countOpen() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
     if (GetPlatform.isAndroid) {
       packageName = packageInfo.packageName;
       PACoreGetX().countOpen(packageName);
