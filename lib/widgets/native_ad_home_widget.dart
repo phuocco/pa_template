@@ -23,7 +23,7 @@ class NativeAdHomeWidget extends StatelessWidget {
     return GetBuilder<AdsController>(
       builder: (controller) {
         return FutureBuilder<NativeAd>(
-          future: adItem.future,
+          future: adItem == null ? null : adItem.future,
           builder: (BuildContext context, AsyncSnapshot<NativeAd> snapshot) {
             Widget child;
             switch (snapshot.connectionState) {

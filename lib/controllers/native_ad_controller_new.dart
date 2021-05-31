@@ -3,10 +3,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
 import 'package:get/get.dart';
 class NativeAdControllerNew  extends GetxController{
   NativeAdControllerNew();
+  final MainController mainController = Get.find();
 
   int _maxCountAds;
   int _maxCountRequest;
@@ -40,6 +42,7 @@ class NativeAdControllerNew  extends GetxController{
     _optionsAds = options;
     print('_maxCountAds $_maxCountAds');
     _getAds(options);
+
   }
 
 //region getAd
@@ -143,6 +146,7 @@ class NativeAdControllerNew  extends GetxController{
       Future<void>.delayed(Duration(seconds: 1), () => myNativeAd?.load());
       listAds.add(completerItemAds);
     }
+    mainController.listAddon.refresh();
   }
 
   _getItemAds(NativeAdsOption options, {bool addItem = false}) {

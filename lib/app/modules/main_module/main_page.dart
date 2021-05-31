@@ -24,7 +24,6 @@ class MainPage extends StatelessWidget {
 
   final AdsController adsController = Get.find();
   final DetailController detailController = Get.find();
-  // final detailController = Get.put(DetailController());
   final NativeAdControllerNew nativeAdControllerNew = Get.find();
   final FavoriteController favoriteController = Get.find();
 
@@ -45,7 +44,7 @@ class MainPage extends StatelessWidget {
                     ),
                     child: NativeAdHomeWidget(
                         adItem:
-                            nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                        nativeHomeAdControllerNew == null ? null : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),),
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     semanticContainer: false,
@@ -99,7 +98,7 @@ class MainPage extends StatelessWidget {
                     ),
                     child: NativeAdHomeWidget(
                         adItem:
-                            nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                            nativeHomeAdControllerNew == null ? null : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),),
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     semanticContainer: false,
@@ -259,9 +258,13 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                     //todo: ad dialog
-                    NativeAdDetailWidget(
-                        adItem: nativeDetailAdControllerNew
-                            .getAdsByIncreaseIndex()),
+                    Container(
+                      margin: EdgeInsets.all(10),
+
+                      child: NativeAdDetailWidget(
+                          adItem: nativeDetailAdControllerNew
+                              .getAdsByIncreaseIndex()),
+                    ),
                     // Obx(() => Text(detailController.progress.value.toString())),
                     Column(
                       children: [
@@ -323,32 +326,6 @@ class MainPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.all(10),
-                        //   width: Get.width,
-                        //   height: 45,
-                        //   child: TextButton(
-                        //     onPressed: () async {
-                        //       !addonsItem.isDownloaded
-                        //           ? DetailPage().downloadInstallAddon(
-                        //               addonsItem,
-                        //               isTablet: true,
-                        //               isDetail: false)
-                        //           : detailController.importToMinecraft(addonsItem.pathUrl);
-                        //           // : print(addonsItem.pathUrl);
-                        //     },
-                        //     child: Text(
-                        //       detailController.textButton.value,
-                        //       style: TextStyle(fontWeight: FontWeight.bold),
-                        //     ),
-                        //     style: ButtonStyle(
-                        //       foregroundColor: MaterialStateProperty.all<Color>(
-                        //           kColorDownloadButtonForeground),
-                        //       backgroundColor: MaterialStateProperty.all<Color>(
-                        //           kColorDownloadButtonBackground),
-                        //     ),
-                        //   ),
-                        // ),
                         Padding(
                           padding: EdgeInsets.only(left: 10, bottom: 5),
                           child: Align(
@@ -361,12 +338,10 @@ class MainPage extends StatelessWidget {
                         ),
                       ],
                     ),
-
-                    // Image.asset('assets/images/ads.png'),
                     Container(
                       margin: EdgeInsets.all(10),
                       color: Colors.blue.withOpacity(0.01),
-                      child: addonsItem.htmlDescription.isNullOrBlank
+                      child: addonsItem.htmlDescription.isBlank || addonsItem.htmlDescription == ''
                           ? Text(addonsItem.description)
                           : HtmlWidget(addonsItem.htmlDescription),
                     ),

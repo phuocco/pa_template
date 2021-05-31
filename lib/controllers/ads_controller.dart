@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
+import 'package:pa_template/app/modules/main_module/main_controller.dart';
 import 'package:pa_template/constants/const_url.dart';
 import 'package:pa_template/utils/ad_manager.dart';
 
@@ -17,6 +18,7 @@ import 'native_ad_controller_new.dart';
 NativeAdControllerNew nativeDetailAdControllerNew;
 NativeAdControllerNew nativeHomeAdControllerNew;
 AdsController adsCtrl;
+
 class AdsController extends GetxController {
   final isPremium = false.obs;
   static bool initPurchase = false;
@@ -55,8 +57,6 @@ class AdsController extends GetxController {
     'DA8D0C15BC39C0492A0E36ABA922EDC2',
     '4A50245291F2A618FEA096DE31D72C62'
   ]);
-
-
 
   // NativeAd myNativeAd;
   // Completer nativeAdCompleter;
@@ -172,12 +172,9 @@ class AdsController extends GetxController {
     }
   }
 
-
   @override
   void onInit() {
-
     super.onInit();
-
   }
 
   @override
@@ -194,26 +191,22 @@ class AdsController extends GetxController {
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     print('ready');
-    PACoreShowDialog.pickYearDialog(Get.context).then((value) =>
-        MobileAds.instance.initialize().then((InitializationStatus status) {
-          print('Init ads done: ${status.adapterStatuses}');
-          MobileAds.instance
-              .updateRequestConfiguration(RequestConfiguration(
+    if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
+    MobileAds.instance
+        .updateRequestConfiguration(RequestConfiguration(
             maxAdContentRating: box.read("MAX_AD_CONTENT"),
-              tagForChildDirectedTreatment:
-              TagForChildDirectedTreatment.unspecified))
-              .then((value) {
-            initDetailAds();
-            initHomeAds();
-            initBannerAds();
-            createInterstitialAd();
-            // isLoaded.value = true;
-            // createRewardedAd();
-          });
-        })
-    );
+            tagForChildDirectedTreatment:
+                TagForChildDirectedTreatment.unspecified))
+        .whenComplete(() {
+      initDetailAds();
+      initHomeAds();
+      initBannerAds();
+      createInterstitialAd();
+      // createRewardedAd();
+
+    });
   }
 
   purchased() {
@@ -223,7 +216,6 @@ class AdsController extends GetxController {
       box.write('IS_PREMIUM', isPremium.value);
     }
   }
-
 
   Completer completerItemAds = Completer<BannerAd>();
   BannerAd myBanner;
@@ -238,7 +230,7 @@ class AdsController extends GetxController {
       listener: AdListener(
         onAdLoaded: (Ad ad) {
           list.assignAll([ad as BannerAd]);
-          print('ad type: '+ box.read("MAX_AD_CONTENT"));
+          print('ad type: ' + box.read("MAX_AD_CONTENT"));
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('Ad failed to load: $error');
@@ -250,10 +242,7 @@ class AdsController extends GetxController {
     );
 
     myBanner.load();
-
-
   }
-
 
 //region purchase
   Future<void> initPlatformState() async {

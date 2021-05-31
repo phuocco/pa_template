@@ -18,6 +18,7 @@ import 'package:pa_template/app/modules/submit_module/submit_page.dart';
 import 'package:pa_template/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:pa_template/constants/default_card.dart';
 import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:pa_template/controllers/native_ad_controller_new.dart';
 import 'package:pa_template/functions/util_functions.dart';
 import 'package:pa_template/models/downloaded_item_model.dart';
 import 'package:pa_template/models/history_card_model.dart';
@@ -127,8 +128,8 @@ class HomeController extends GetxController {
     super.onReady();
     saveKeyToSharedPref();
     getPref();
-    countOpen();
-    checkUpdate();
+    // countOpen();
+    // checkUpdate();
 
   }
 
