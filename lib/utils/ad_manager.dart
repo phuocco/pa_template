@@ -3,9 +3,9 @@ import 'dart:io';
 class AdManager {
   static String get appId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364~7111164996";
+      return "ca-app-pub-9131188183332364~8777747685";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-9131188183332364~9179694368";
+      return "ca-app-pub-9131188183332364~7111164996";
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -13,9 +13,9 @@ class AdManager {
 
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/9864486692";
+      return "ca-app-pub-9131188183332364/4838502675";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-9131188183332364/7511389471";
+      return "ca-app-pub-9131188183332364/9864486692";
     } else {
       throw new UnsupportedError("Unsupported platform");
     }
@@ -23,9 +23,9 @@ class AdManager {
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/8087482543";
+      return "ca-app-pub-9131188183332364/7273094329";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-9131188183332364/5240449357";
+      return "ca-app-pub-9131188183332364/8087482543";
     } else {
       throw new UnsupportedError("Unsupported platform");
     }
@@ -33,9 +33,9 @@ class AdManager {
 
   static String get nativeAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/7512767476";
+      return "ca-app-pub-9131188183332364/3333849314";
     } else if (Platform.isIOS) {
-      return "ca-app-pub-9131188183332364/8632899458";
+      return "ca-app-pub-9131188183332364/7512767476";
     } else {
       throw new UnsupportedError("Unsupported platform");
     }

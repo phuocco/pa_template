@@ -150,7 +150,7 @@ import Firebase
     
     func requestAppOpenAd(_ showAd:Bool = false){
         self.appOpenAd = nil;
-        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-9131188183332364/6787658646", request: GADRequest(), orientation: UIInterfaceOrientation.portrait) { (appOpenAd: GADAppOpenAd?, error: Error?) in
+        GADAppOpenAd.load(withAdUnitID: "ca-app-pub-9131188183332364/6021730010", request: GADRequest(), orientation: UIInterfaceOrientation.portrait) { (appOpenAd: GADAppOpenAd?, error: Error?) in
             self.appOpenAd = appOpenAd;
             self.appOpenAd?.fullScreenContentDelegate = self;
             self.loadTime = Date()
