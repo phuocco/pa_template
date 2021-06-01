@@ -24,7 +24,9 @@ import static androidx.lifecycle.Lifecycle.Event.ON_START;
 /** Prefetches App Open Ads. */
 public class AppOpenManager implements LifecycleObserver, Application.ActivityLifecycleCallbacks {
     private static final String LOG_TAG = "AppOpenManager";
-    private static final String AD_UNIT_ID = "ca-app-pub-9131188183332364/6976372665";
+    private static final String AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"; //test
+//        private static final String AD_UNIT_ID = "ca-app-pub-9131188183332364/6021730010"; //real
+
     private AppOpenAd appOpenAd = null;
     private Activity currentActivity;
     private AppOpenAd.AppOpenAdLoadCallback loadCallback;
@@ -70,6 +72,8 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
 
 
             if(isFirstTime()){
+                Log.e("testAd","show ad");
+
                 return;
             }
             if(!isPremium()){
@@ -138,6 +142,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                                         }
                                     };
                             if(isFirstTime()){
+                                Log.e("testAd", "fetch ad");
                                 return;
                             }
                             if(!isPremium()){
@@ -156,6 +161,7 @@ public class AppOpenManager implements LifecycleObserver, Application.ActivityLi
                     @Override
                     public void onAppOpenAdFailedToLoad(LoadAdError loadAdError) {
                         // Handle the error.
+                        Log.e("testAd", loadAdError.toString());
                     }
 
                 };

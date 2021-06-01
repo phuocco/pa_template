@@ -193,7 +193,12 @@ class AdsController extends GetxController {
   @override
   void onReady() async {
     print('ready');
-    if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
+
+    print('data: '+ box.hasData('MAX_AD_CONTENT').toString());
+
+    if(!box.hasData('MAX_AD_CONTENT')){
+      if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
+    }
     MobileAds.instance
         .updateRequestConfiguration(RequestConfiguration(
             maxAdContentRating: box.read("MAX_AD_CONTENT"),

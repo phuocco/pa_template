@@ -3,7 +3,7 @@ import 'dart:io';
 class AdManager {
   static String get appId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364~2316564131";
+      return "ca-app-pub-9131188183332364~7111164996";
     } else if (Platform.isIOS) {
       return "ca-app-pub-9131188183332364~9179694368";
     } else {
@@ -13,7 +13,7 @@ class AdManager {
 
   static String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/3793297339";
+      return "ca-app-pub-9131188183332364/9864486692";
     } else if (Platform.isIOS) {
       return "ca-app-pub-9131188183332364/7511389471";
     } else {
@@ -21,10 +21,9 @@ class AdManager {
     }
   }
 
-
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/5270030536";
+      return "ca-app-pub-9131188183332364/8087482543";
     } else if (Platform.isIOS) {
       return "ca-app-pub-9131188183332364/5240449357";
     } else {
@@ -34,7 +33,7 @@ class AdManager {
 
   static String get nativeAdUnitId {
     if (Platform.isAndroid) {
-      return "ca-app-pub-9131188183332364/2295206911";
+      return "ca-app-pub-9131188183332364/7512767476";
     } else if (Platform.isIOS) {
       return "ca-app-pub-9131188183332364/8632899458";
     } else {

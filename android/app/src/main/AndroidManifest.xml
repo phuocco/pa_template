@@ -15,7 +15,7 @@
     </queries>
 
     <application
-        android:name=".MyApplication"
+        android:name="co.pamobile.mcpe.mods.guns.MyApplication"
         android:icon="@mipmap/ic_gun"
         android:label="Free Gun Mods - Weapon Addons for MCPE"
         android:largeHeap="true"
@@ -48,7 +48,6 @@
             android:theme="@style/LaunchTheme"
             android:windowSoftInputMode="adjustResize">
 
-
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme" />
@@ -73,7 +72,7 @@
             android:resource="@xml/network_security_config" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9131188183332364~2316564131" />
+            android:value="ca-app-pub-9131188183332364~7111164996" />
     </application>
 
 </manifest>
