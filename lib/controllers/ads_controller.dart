@@ -45,6 +45,10 @@ class AdsController extends GetxController {
   String a = "test";
 
   final count = 0.obs;
+  var countInterAdRequest = 0.obs;
+  var countBannerAdRequest = 0.obs;
+  var countNativeAdRequest = 0.obs;
+  var countRewardedAdRequest = 0.obs;
 
   AdRequest adRequest = AdRequest(testDevices: [
     'C53C9F562E282082EAFCDB42BF360BC1', //may 3
@@ -89,8 +93,12 @@ class AdsController extends GetxController {
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
           print('${ad.runtimeType} failed to load: $error.');
           ad.dispose();
-          _interstitialAd = null;
-          createInterstitialAd();
+          countInterAdRequest.value++;
+          if(countInterAdRequest.value > 3) return;
+          Future.delayed(Duration(seconds: 60),(){
+            _interstitialAd = null;
+            createInterstitialAd();
+          });
         },
         onAdOpened: (Ad ad) => print('${ad.runtimeType} onAdOpened.'),
         onAdClosed: (Ad ad) {
@@ -123,8 +131,13 @@ class AdsController extends GetxController {
           onAdFailedToLoad: (Ad ad, LoadAdError error) {
             print('${ad.runtimeType} failed to load: $error');
             ad.dispose();
-            _rewardedAd = null;
-            createRewardedAd();
+            countRewardedAdRequest.value++;
+            if(countRewardedAdRequest.value > 3) return;
+            Future.delayed(Duration(seconds: 60),(){
+              _rewardedAd = null;
+              createRewardedAd();
+            });
+
           },
           onAdOpened: (Ad ad) => print('${ad.runtimeType} onAdOpened.'),
           onAdClosed: (Ad ad) {
@@ -199,19 +212,33 @@ class AdsController extends GetxController {
     if(!box.hasData('MAX_AD_CONTENT')){
       if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
     }
-    MobileAds.instance
-        .updateRequestConfiguration(RequestConfiguration(
-            maxAdContentRating: box.read("MAX_AD_CONTENT"),
-            tagForChildDirectedTreatment:
-                TagForChildDirectedTreatment.unspecified))
-        .whenComplete(() {
-      initDetailAds();
-      initHomeAds();
-      initBannerAds();
-      createInterstitialAd();
-      // createRewardedAd();
+    if(GetPlatform.isAndroid){
+      MobileAds.instance
+          .updateRequestConfiguration(RequestConfiguration(
+          maxAdContentRating: box.read("MAX_AD_CONTENT"),
+          tagForChildDirectedTreatment:
+          TagForChildDirectedTreatment.unspecified))
+          .whenComplete(() {
+        initDetailAds();
+        initHomeAds();
+        initBannerAds();
+        createInterstitialAd();
+        // createRewardedAd();
+      });
+    } else {
+      MobileAds.instance
+          .updateRequestConfiguration(RequestConfiguration(
+          tagForChildDirectedTreatment:
+          TagForChildDirectedTreatment.unspecified))
+          .whenComplete(() {
+        initDetailAds();
+        initHomeAds();
+        initBannerAds();
+        createInterstitialAd();
+        // createRewardedAd();
+      });
+    }
 
-    });
   }
 
   purchased() {
@@ -238,7 +265,7 @@ class AdsController extends GetxController {
           print('ad type: ' + box.read("MAX_AD_CONTENT"));
         },
         onAdFailedToLoad: (Ad ad, LoadAdError error) {
-          print('Ad failed to load: $error');
+          print('BannerAd failed to load: $error');
         },
         onAdOpened: (Ad ad) => print('Ad opened.'),
         onAdClosed: (Ad ad) => print('Ad closed.'),

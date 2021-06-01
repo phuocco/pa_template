@@ -65,6 +65,7 @@ class HomeController extends GetxController {
     // TODO: implement onInit
 
     super.onInit();
+    saveKeyToSharedPref();
     initPages();
     searchTextEditingController = TextEditingController();
 
@@ -126,7 +127,7 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    saveKeyToSharedPref();
+
     getPref();
     // countOpen();
     // checkUpdate();
