@@ -577,12 +577,32 @@ class BuildTablet extends StatelessWidget {
         if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
-
         }
-        MainPage().showDetailDialog(
-          addonsItem: addonsItem,
-          pathFile: pathFile,
-        );
+        if(GetPlatform.isAndroid){
+          Get.to(() => DetailPage(
+            addonsItem: addonsItem,
+            pathFile: pathFile,
+          )).whenComplete(() {
+            print('dispose detail');
+            nativeDetailAdControllerNew.requestAds();
+            nativeHomeAdControllerNew.requestAds();
+            MainController().listAddon.refresh();
+            DetailController().isDownloaded.value = false;
+            nativeDetailAdControllerNew.listAds.forEach((element) {
+              print("detail " + element.hashCode.toString());
+            });
+            nativeHomeAdControllerNew.listAds.forEach((element) {
+              print("home " + element.hashCode.toString());
+            });
+
+          });
+        } else {
+          MainPage().showDetailDialog(
+            addonsItem: addonsItem,
+            pathFile: pathFile,
+          );
+        }
+
       },
       child: Card(
         shape: RoundedRectangleBorder(
