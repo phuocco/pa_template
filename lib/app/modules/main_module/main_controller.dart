@@ -3,14 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:pa_template/app/data/repository/main_repository.dart';
+import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/app/modules/favorite_module/favorite_controller.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/controllers/native_ad_controller_new.dart';
-import 'package:pa_template/models/addons_item.dart';
-import 'package:pa_template/models/downloaded_item_model.dart';
-import 'package:pa_template/widgets/native_ad_home_widget.dart';
+import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
+import 'package:mods_guns/controllers/native_ad_controller_new.dart';
+import 'package:mods_guns/models/addons_item.dart';
+import 'package:mods_guns/models/downloaded_item_model.dart';
+import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 
 
 class MainController extends GetxController{

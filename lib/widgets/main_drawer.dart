@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
-import 'package:pa_template/app/data/provider/home_provider.dart';
-import 'package:pa_template/app/data/repository/home_repository.dart';
-import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/app/theme/app_colors.dart';
-import 'package:pa_template/app/utils/strings.dart';
-import 'package:pa_template/constants/const_drawer.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/functions/util_functions.dart';
+import 'package:mods_guns/app/data/provider/home_provider.dart';
+import 'package:mods_guns/app/data/repository/home_repository.dart';
+import 'package:mods_guns/app/modules/home_module/home_controller.dart';
+import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/app/utils/strings.dart';
+import 'package:mods_guns/constants/const_drawer.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
+import 'package:mods_guns/functions/util_functions.dart';
 import 'package:package_info/package_info.dart';
 
 class MainDrawer extends GetView<HomeController> {

@@ -2,12 +2,12 @@
 import 'dart:ui';
 
 import 'package:get/get.dart';
-import 'package:pa_template/app/translations/ja_japan_translations.dart';
-import 'package:pa_template/app/translations/ko_korean_translations.dart';
-import 'package:pa_template/app/translations/pt_portugues_translations.dart';
-import 'package:pa_template/app/translations/ru_rusian_translations.dart';
-import 'package:pa_template/app/translations/th_thai_translations.dart';
-import 'package:pa_template/app/translations/tr_turkish_translations.dart';
+import 'package:mods_guns/app/translations/ja_japan_translations.dart';
+import 'package:mods_guns/app/translations/ko_korean_translations.dart';
+import 'package:mods_guns/app/translations/pt_portugues_translations.dart';
+import 'package:mods_guns/app/translations/ru_rusian_translations.dart';
+import 'package:mods_guns/app/translations/th_thai_translations.dart';
+import 'package:mods_guns/app/translations/tr_turkish_translations.dart';
 
 import 'de_germany_translations.dart';
 import 'en_us_translations.dart';

@@ -1,4 +1,4 @@
-import 'package:pa_template/models/card_detail_model.dart';
+import 'package:mods_guns/models/card_detail_model.dart';
 
 CardDetailModel defaultCard = CardDetailModel(
   arrLink: [],

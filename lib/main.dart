@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/routes/app_pages.dart';
-import 'package:pa_template/app/translations/app_translations.dart';
+import 'package:mods_guns/app/routes/app_pages.dart';
+import 'package:mods_guns/app/translations/app_translations.dart';
 
 import 'app/modules/all_binding.dart';
 import 'app/theme/app_theme.dart';
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Free Gun Mods - Weapon Addons for MCPE',
       debugShowCheckedModeBanner: false,
       locale: AppTranslation.locale,
       fallbackLocale: AppTranslation.fallbackLocale,

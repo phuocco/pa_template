@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pa_template/app/data/repository/search_repository.dart';
+import 'package:mods_guns/app/data/repository/search_repository.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/models/addons_item.dart';
+import 'package:mods_guns/models/addons_item.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

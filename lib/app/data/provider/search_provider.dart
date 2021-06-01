@@ -1,7 +1,7 @@
 import 'package:get/get_connect/connect.dart' hide Response;
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:pa_template/models/addons_item.dart';
+import 'package:mods_guns/models/addons_item.dart';
 
 const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3';
 const base = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3';

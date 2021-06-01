@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pa_template/app/data/repository/tutorial_repository.dart';
+import 'package:mods_guns/app/data/repository/tutorial_repository.dart';
 import 'package:get/get.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99

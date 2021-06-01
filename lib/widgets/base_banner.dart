@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/constants/const_drawer.dart';
+import 'package:mods_guns/app/modules/home_module/home_controller.dart';
+import 'package:mods_guns/constants/const_drawer.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';

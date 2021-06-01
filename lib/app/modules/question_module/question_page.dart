@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/app/modules/question_module/question_controller.dart';
-import 'package:pa_template/app/utils/strings.dart';
+import 'package:mods_guns/app/modules/question_module/question_controller.dart';
+import 'package:mods_guns/app/utils/strings.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class QuestionPage extends GetWidget<QuestionController> {

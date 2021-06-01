@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:pa_template/models/card_detail_model.dart';
-import 'package:pa_template/models/base_card.dart';
+import 'package:mods_guns/models/card_detail_model.dart';
+import 'package:mods_guns/models/base_card.dart';
 
 import 'base_gallery_card.dart';
 import 'card_detail_model.dart';

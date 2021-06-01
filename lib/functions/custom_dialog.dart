@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/constants/const_drawer.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:mods_guns/app/modules/home_module/home_controller.dart';
+import 'package:mods_guns/constants/const_drawer.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
 
 class CustomDialog {
   static inputNameDialog(

@@ -7,7 +7,7 @@ class RemoteConfigService{
     final RemoteConfig remoteConfig = await RemoteConfig.instance;
     await remoteConfig.fetch();
     await remoteConfig.activateFetched();
-    String strJson = remoteConfig.getString('moreApps');
+    String strJson = remoteConfig.getString('more_apps');
     return strJson;
   }
   //More App IOS

@@ -7,16 +7,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/modules/detail_module/detail_controller.dart';
-import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/app/modules/main_module/main_controller.dart';
-import 'package:pa_template/app/modules/search_module/search_controller.dart';
-import 'package:pa_template/app/theme/app_colors.dart';
-import 'package:pa_template/app/utils/strings.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/models/addons_item.dart';
-import 'package:pa_template/widgets/native_ad_detail_widget.dart';
-import 'package:pa_template/widgets/native_ad_home_widget.dart';
+import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
+import 'package:mods_guns/app/modules/home_module/home_controller.dart';
+import 'package:mods_guns/app/modules/main_module/main_controller.dart';
+import 'package:mods_guns/app/modules/search_module/search_controller.dart';
+import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/app/utils/strings.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
+import 'package:mods_guns/models/addons_item.dart';
+import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
+import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 import 'package:sn_progress_dialog/sn_progress_dialog.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99

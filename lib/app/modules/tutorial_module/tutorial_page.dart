@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/app/modules/tutorial_module/tutorial_controller.dart';
+import 'package:mods_guns/app/modules/tutorial_module/tutorial_controller.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

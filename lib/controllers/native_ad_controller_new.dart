@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/modules/main_module/main_controller.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
+import 'package:mods_guns/app/modules/main_module/main_controller.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:get/get.dart';
 class NativeAdControllerNew  extends GetxController{
   NativeAdControllerNew();

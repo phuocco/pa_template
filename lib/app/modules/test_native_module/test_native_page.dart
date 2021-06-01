@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/purchase_screen.dart';
+import 'package:mods_guns/purchase_screen.dart';
 class TestNativePage extends StatefulWidget {
   @override
   _TestNativePageState createState() => _TestNativePageState();

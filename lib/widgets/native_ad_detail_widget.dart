@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/theme/app_colors.dart';
-import 'package:pa_template/constants/const_drawer.dart';
-import 'package:pa_template/controllers/native_ad_controller_new.dart';
+import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/constants/const_drawer.dart';
+import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';

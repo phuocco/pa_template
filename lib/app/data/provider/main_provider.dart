@@ -1,6 +1,6 @@
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get_connect/connect.dart' hide Response;
-import 'package:pa_template/models/addons_item.dart';
+import 'package:mods_guns/models/addons_item.dart';
 import 'package:dio/dio.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99

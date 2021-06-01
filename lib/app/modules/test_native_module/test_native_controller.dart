@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pa_template/app/data/repository/test_native_repository.dart';
+import 'package:mods_guns/app/data/repository/test_native_repository.dart';
 import 'package:get/get.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99

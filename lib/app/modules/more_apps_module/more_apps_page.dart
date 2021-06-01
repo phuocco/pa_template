@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:launch_review/launch_review.dart';
-import 'package:pa_template/app/data/provider/home_provider.dart';
-import 'package:pa_template/app/data/repository/home_repository.dart';
-import 'package:pa_template/app/modules/home_module/home_controller.dart';
-import 'package:pa_template/app/modules/more_apps_module/more_apps_controller.dart';
+import 'package:mods_guns/app/data/provider/home_provider.dart';
+import 'package:mods_guns/app/data/repository/home_repository.dart';
+import 'package:mods_guns/app/modules/home_module/home_controller.dart';
+import 'package:mods_guns/app/modules/more_apps_module/more_apps_controller.dart';
 
 
 class MoreAppsPage extends StatelessWidget {

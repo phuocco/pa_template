@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:get/get_connect/connect.dart';
-import 'package:pa_template/models/more_apps.dart';
+import 'package:mods_guns/models/more_apps.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

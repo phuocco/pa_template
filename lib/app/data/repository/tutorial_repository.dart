@@ -1,4 +1,4 @@
-import 'package:pa_template/app/data/provider/tutorial_provider.dart';
+import 'package:mods_guns/app/data/provider/tutorial_provider.dart';
 import 'package:flutter/cupertino.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99

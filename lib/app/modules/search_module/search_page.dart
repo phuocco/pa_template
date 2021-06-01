@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/app/modules/main_module/main_controller.dart';
-import 'package:pa_template/app/modules/main_module/main_page.dart';
-import 'package:pa_template/app/modules/search_module/search_controller.dart';
-import 'package:pa_template/controllers/ads_controller.dart';
-import 'package:pa_template/widgets/native_ad_home_widget.dart';
+import 'package:mods_guns/app/modules/main_module/main_controller.dart';
+import 'package:mods_guns/app/modules/main_module/main_page.dart';
+import 'package:mods_guns/app/modules/search_module/search_controller.dart';
+import 'package:mods_guns/controllers/ads_controller.dart';
+import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

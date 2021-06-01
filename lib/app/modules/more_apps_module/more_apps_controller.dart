@@ -1,7 +1,7 @@
-import 'package:pa_template/app/data/repository/more_apps_repository.dart';
+import 'package:mods_guns/app/data/repository/more_apps_repository.dart';
 import 'package:get/get.dart';
-import 'package:pa_template/models/more_apps.dart';
-import 'package:pa_template/utils/services/remove_config_service.dart';
+import 'package:mods_guns/models/more_apps.dart';
+import 'package:mods_guns/utils/services/remote_config_service.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */

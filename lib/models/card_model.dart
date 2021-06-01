@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:pa_template/models/card_detail_model.dart';
+import 'package:mods_guns/models/card_detail_model.dart';
 
 import 'base_card.dart';
 

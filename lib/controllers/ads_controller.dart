@@ -9,9 +9,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
-import 'package:pa_template/app/modules/main_module/main_controller.dart';
-import 'package:pa_template/constants/const_url.dart';
-import 'package:pa_template/utils/ad_manager.dart';
+import 'package:mods_guns/app/modules/main_module/main_controller.dart';
+import 'package:mods_guns/constants/const_url.dart';
+import 'package:mods_guns/utils/ad_manager.dart';
 
 import 'native_ad_controller_new.dart';
 
