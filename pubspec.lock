@@ -42,7 +42,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.6.1"
+    version: "2.5.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -147,7 +147,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   dart_style:
     dependency: transitive
     description:
@@ -448,9 +448,11 @@ packages:
   pa_core_flutter:
     dependency: "direct main"
     description:
-      path: "D:\\Projects\\PACoreFlutter"
-      relative: false
-    source: path
+      path: "."
+      ref: getx
+      resolved-ref: e225b2b34b0ff9d2d1e414f12586c0bbab4e909b
+      url: "https://github.com/pamobilevn/PACoreFlutter.git"
+    source: git
     version: "0.0.1"
   package_config:
     dependency: transitive
@@ -577,7 +579,7 @@ packages:
       name: pull_to_refresh
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.4"
+    version: "1.6.5"
   quiver:
     dependency: transitive
     description:
@@ -666,7 +668,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.0"
   sqflite:
     dependency: transitive
     description:
@@ -722,7 +724,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.2.19"
   typed_data:
     dependency: transitive
     description:
