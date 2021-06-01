@@ -1,4 +1,4 @@
-package co.pamobile.yugioh.cardmaker;
+package co.pamobile.mcpe.mods.guns;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;

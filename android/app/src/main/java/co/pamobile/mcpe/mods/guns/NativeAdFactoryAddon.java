@@ -1,4 +1,4 @@
-package co.pamobile.yugioh.cardmaker;
+package co.pamobile.mcpe.mods.guns;
 
 import android.graphics.Color;
 import android.util.Log;

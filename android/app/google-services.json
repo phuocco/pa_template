@@ -1,35 +1,41 @@
 {
   "project_info": {
-    "project_number": "368606661743",
-    "firebase_url": "https://yugioh-card-maker.firebaseio.com",
-    "project_id": "yugioh-card-maker",
-    "storage_bucket": "yugioh-card-maker.appspot.com"
+    "project_number": "210206896259",
+    "project_id": "minecraft-gun-mods",
+    "storage_bucket": "minecraft-gun-mods.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:368606661743:android:c8859aa01c3a0501",
+        "mobilesdk_app_id": "1:210206896259:android:e06334c702f43643296bb6",
         "android_client_info": {
-          "package_name": "co.pamobile.yugioh.cardmaker"
+          "package_name": "co.pamobile.mcpe.mods.guns"
         }
       },
       "oauth_client": [
         {
-          "client_id": "368606661743-qq82f93gvbtf9p4qjhkc07bcdf19nacd.apps.googleusercontent.com",
+          "client_id": "210206896259-54crpqfp9bvj24vap1j0d6754ogdtgnv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-prWtaF9AsyvkIHsn5NRLGIIifWDB2VQ"
+          "current_key": "AIzaSyDvpEq2UWyUMB-wsOpvRvdx0PMVbcQklNo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "368606661743-qq82f93gvbtf9p4qjhkc07bcdf19nacd.apps.googleusercontent.com",
+              "client_id": "210206896259-54crpqfp9bvj24vap1j0d6754ogdtgnv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "210206896259-051d2hs2dkc8tnsnta78q8f35hcetcub.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.pamobile.mcpe.mods.guns"
+              }
             }
           ]
         }
