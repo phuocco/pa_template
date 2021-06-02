@@ -6,6 +6,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/constants/const_drawer.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
+import 'package:mods_guns/widgets/loading_native_ad_widget.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
@@ -30,13 +31,14 @@ class NativeAdDetailWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child = Text('Loading Ad');
-                break;
+                child =  LoadingNativeAdWidget(adType: "Detail",);
+
+            break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child = Text('Failed to load');
+                  child = LoadingNativeAdWidget(adType: "Detail",);
                 }
             }
             return Container(

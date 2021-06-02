@@ -16,6 +16,7 @@ import 'package:mods_guns/constants/const_drawer.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/models/addons_item.dart';
+import 'package:mods_guns/widgets/loading_native_ad_widget.dart';
 import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
 import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 
@@ -96,9 +97,12 @@ class MainPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
+
                     child: NativeAdHomeWidget(
-                        adItem:
-                            nativeHomeAdControllerNew == null ? null : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),),
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     semanticContainer: false,
@@ -260,7 +264,6 @@ class MainPage extends StatelessWidget {
                     //todo: ad dialog
                     Container(
                       margin: EdgeInsets.all(10),
-
                       child: NativeAdDetailWidget(
                           adItem: nativeDetailAdControllerNew
                               .getAdsByIncreaseIndex()),
@@ -341,7 +344,8 @@ class MainPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.all(10),
                       color: Colors.blue.withOpacity(0.01),
-                      child: addonsItem.htmlDescription.isBlank || addonsItem.htmlDescription == ''
+                      child: addonsItem.htmlDescription.isBlank ||
+                              addonsItem.htmlDescription == ''
                           ? Text(addonsItem.description)
                           : HtmlWidget(addonsItem.htmlDescription),
                     ),
@@ -401,7 +405,6 @@ class BuildPhone extends StatelessWidget {
           nativeHomeAdControllerNew.listAds.forEach((element) {
             print("home " + element.hashCode.toString());
           });
-
         });
       },
       child: Card(
@@ -578,11 +581,11 @@ class BuildTablet extends StatelessWidget {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
         }
-        if(GetPlatform.isAndroid){
+        if (GetPlatform.isAndroid) {
           Get.to(() => DetailPage(
-            addonsItem: addonsItem,
-            pathFile: pathFile,
-          )).whenComplete(() {
+                addonsItem: addonsItem,
+                pathFile: pathFile,
+              )).whenComplete(() {
             print('dispose detail');
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
@@ -594,7 +597,6 @@ class BuildTablet extends StatelessWidget {
             nativeHomeAdControllerNew.listAds.forEach((element) {
               print("home " + element.hashCode.toString());
             });
-
           });
         } else {
           MainPage().showDetailDialog(
@@ -602,7 +604,6 @@ class BuildTablet extends StatelessWidget {
             pathFile: pathFile,
           );
         }
-
       },
       child: Card(
         shape: RoundedRectangleBorder(

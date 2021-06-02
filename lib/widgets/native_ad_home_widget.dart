@@ -7,6 +7,7 @@ import 'package:mods_guns/app/theme/app_colors.dart';
 
 import '../controllers/ads_controller.dart';
 import '../functions/util_functions.dart';
+import 'loading_native_ad_widget.dart';
 
 class NativeAdHomeWidget extends StatelessWidget {
   final AdsController controller = Get.find();
@@ -29,13 +30,13 @@ class NativeAdHomeWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child = Text('Loading ad');
-                break;
+                child = LoadingNativeAdWidget(adType: "Home");
+            break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child = Text('Failed to load');
+                  child = LoadingNativeAdWidget(adType: "Home");
                 }
             }
             return Container(

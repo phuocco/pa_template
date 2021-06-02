@@ -133,9 +133,8 @@ class HomePage extends StatelessWidget {
             onTap: () async {
               //todo more app
               // provider.selectPage('MoreAppsScreen');
-              print(mainController.listDownloaded.length);
               controller.selectPageNew('More App Page');
-              //  GetStorage().remove('LIST_FAVORITE');
+              print(GetStorage().read('OPEN_TIMES'));
             },
             child: Image.asset(
               kMoreIcon,

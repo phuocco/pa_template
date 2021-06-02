@@ -7,13 +7,17 @@ class MoreApp {
   String icon;
   String name;
   String packageName;
-
-  MoreApp(this.icon, this.name, this.packageName);
+  String banner;
+  String description;
+  MoreApp(this.icon, this.name, this.packageName, this.banner, this.description);
 
   MoreApp.fromJson(Map<String, dynamic> json)
-      : icon = json['icon'],
-        name = json['name'],
-        packageName = json['packageName'];
+      : icon = json['icon']??"",
+        name = json['name']??"",
+        packageName = json['packageName']??"",
+        banner = json['banner']??"",
+        description = json['description']??"";
+
 }
 
 class IosAppInfo {

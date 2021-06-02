@@ -65,6 +65,8 @@ class HomeController extends GetxController {
     // TODO: implement onInit
 
     super.onInit();
+    countOpen();
+    checkUpdate();
     saveKeyToSharedPref();
     initPages();
     searchTextEditingController = TextEditingController();
@@ -129,8 +131,7 @@ class HomeController extends GetxController {
     super.onReady();
 
     getPref();
-    // countOpen();
-    // checkUpdate();
+
 
   }
 
@@ -157,9 +158,9 @@ class HomeController extends GetxController {
     } else {
       repository.fetchAppInfo(packageInfo.packageName).then((value) {
         packageName = value.results[0].trackId.toString();
-        PACoreGetX().countOpen(packageName);
         // LaunchReview.launch(iOSAppId: packageName, writeReview: true);
       });
+     PACoreGetX().countOpen(packageName);
     }
   }
 

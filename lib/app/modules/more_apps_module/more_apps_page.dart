@@ -39,7 +39,7 @@ class MoreAppsPage extends StatelessWidget {
                                 androidAppId: controller.listMoreApp[index].packageName,
                                 writeReview: false);
                           } else {
-                            HomeRepository(provider: HomeProvider()).fetchAppInfo(controller.listMoreApp[index].packageName).then((value) {
+                            HomeProvider().fetchAppInfo(controller.listMoreApp[index].packageName).then((value) {
                               LaunchReview.launch(
                                   iOSAppId: "${value.results[0].trackId}",
                                   writeReview: false);
