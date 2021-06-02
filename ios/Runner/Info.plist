@@ -24,6 +24,15 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-9131188183332364~7111164996</string>
+    <key>SKAdNetworkItems</key>
+        <array>
+            <dict>
+                <key>SKAdNetworkIdentifier</key>
+                <string>cstr6suwn9.skadnetwork</string>
+            </dict>
+        </array>
+        <key>NSUserTrackingUsageDescription</key>
+            <string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>https</string>

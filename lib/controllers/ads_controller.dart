@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_inapp_purchase/flutter_inapp_purchase.dart';
@@ -210,6 +212,17 @@ class AdsController extends GetxController {
     print('ready');
 
     print('data: '+ box.hasData('MAX_AD_CONTENT').toString());
+    try {
+      DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      IosDeviceInfo info = await deviceInfoPlugin.iosInfo;
+      if (GetPlatform.isIOS &&
+          double.parse(info.systemVersion.split(".").first) >= 14.0) {
+        await AppTrackingTransparency.requestTrackingAuthorization()
+            .then((value) => print('appTrackingTransparency: $value'));
+      }
+    } catch (e) {
+      print('requestTrackingAuthorization ios 14 or higher');
+    }
 
     if(!box.hasData('MAX_AD_CONTENT')){
       if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
@@ -230,6 +243,7 @@ class AdsController extends GetxController {
     } else {
       MobileAds.instance
           .updateRequestConfiguration(RequestConfiguration(
+        maxAdContentRating: 'MAX_AD_CONTENT_RATING_MA',
           tagForChildDirectedTreatment:
           TagForChildDirectedTreatment.unspecified))
           .whenComplete(() {
