@@ -578,5 +578,10 @@ final Map<String, String> ptPt = {
   "tutorial_skin_ios": "<p><strong>INSTALL REQUIREMENT</strong></p>\n<ul>\n<li>\n<p>Minecraft Pocket Edition official version (MCPE) installed, unofficial version may work incorrectly!</p>\n</li>\n</ul>\n<p><strong>HOW TO INSTALL SKIN<br /></strong></p>\n<ul >\n<li>Open Mod for MCPE app</li>\n<li>There are a bunch of skins to choose from, jsut select any of your favorite skins.<br />\n<p><img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /></p>\n</li>\n<li>\n<p>Then press INSTALL to start the download and select OPEN GAME.</p>\n<strong><img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /></strong></li>\n<li>Open Minecraft and choose \"Profile\" option.<br /><img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /></li>\n<li>Press \"Edit Character. <br><img src = \"assets/images/tutorial_image/android/guide_android_15.png\" /></li>\n<li>Press \"Owned\", then your new skin will appear in this option, just select and go back main menu.<br /><img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /></li>\n<li>Your new Skin has applied in-game, enjoy it!</li>\n</ul>",
 
   "dialog_open_youtube": "Confirmar",
-  "dialog_open_youtube1": "Deseja abrir o YouTube para assistir ao vídeo?"
+  "dialog_open_youtube1": "Deseja abrir o YouTube para assistir ao vídeo?",
+
+  "file_downloaded": "Arquivo baixado",
+  "ask_install_now" : "Você quer instalar agora?",
+  "file_installed" : "Arquivo instalado",
+  "ask_open": "Você quer abrir o jogo agora?"
 };

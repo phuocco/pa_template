@@ -622,4 +622,8 @@ final Map<String, String> enUs = {
   "dialog_open_youtube": "Confirm",
   "dialog_open_youtube1": "Do you want to open YouTube to watch this video?",
 
+  "file_downloaded": "File downloaded",
+  "ask_install_now" : "Do you want to install now?",
+  "file_installed" : "File installed",
+  "ask_open": "Do you want to open game now?"
 };

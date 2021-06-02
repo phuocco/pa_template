@@ -579,5 +579,10 @@ final Map<String, String> ruRu = {
   "tutorial_skin_ios": "<p> <strong> ТРЕБОВАНИЯ К УСТАНОВКЕ </strong> </p>\n<ul>\n<li>\n<p> Установлена \u200B\u200Bофициальная версия Minecraft Pocket Edition (MCPE), неофициальная версия может работать некорректно! </p>\n</li>\n</ul>\n<p> <strong> КАК УСТАНОВИТЬ СКИН <br /> </strong> </p>\n<ul>\n<li> Открыть мод для приложения MCPE </li>\n<li> Есть множество скинов на выбор, просто выберите любую из ваших любимых скинов. <br />\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </p>\n</li>\n<li>\n<p> Затем нажмите INSTALL, чтобы начать загрузку, и выберите OPEN GAME. </p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /> </strong> </li>\n<li> Откройте Minecraft и выберите параметр «Профиль». <br /> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </li>\n<li> Нажмите \"Изменить персонаж\". <br> <img src = \"assets/images/tutorial_image/android/guide_android_15.png\" /> </li>\n<li> Нажмите «Принадлежит», и ваш новый скин появится в этом параметре, просто выберите и вернитесь в главное меню. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> < / li>\n<li> Ваш новый скин применен в игре, наслаждайтесь! </li>\n</ul>",
 
   "dialog_open_youtube": "Подтвердить",
-  "dialog_open_youtube1": "Вы хотите открыть YouTube для просмотра видео?"
+  "dialog_open_youtube1": "Вы хотите открыть YouTube для просмотра видео?",
+
+  "file_downloaded": "Файл загружен",
+  "ask_install_now": "Вы хотите установить сейчас?",
+  "file_installed": "Файл установлен",
+  "ask_open": "Хотите открыть игру сейчас?"
 };

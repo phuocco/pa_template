@@ -579,5 +579,10 @@ final Map<String, String> koKo = {
   "tutorial_skin_ios": "\n<p><strong>INSTALL REQUIREMENT</strong></p>\n<ul>\n<li>\n<p>Minecraft Pocket Edition official version (MCPE) installed, unofficial version may work incorrectly!</p>\n</li>\n</ul>\n<p><strong>HOW TO INSTALL SKIN<br /></strong></p>\n<ul >\n<li>Open Mod for MCPE app</li>\n<li>There are a bunch of skins to choose from, jsut select any of your favorite skins.<br />\n<p><img src=\"assets/images/tutorial_image/android/guide_android_12.jpg\" /></p>\n</li>\n<li>\n<p>Then press INSTALL to start the download and select OPEN GAME.</p>\n<strong><img src=\"assets/images/tutorial_image/android/guide_ios_1.png\" /></strong></li>\n<li>Open Minecraft and choose \"Profile\" option.<br /><img src=\"assets/images/tutorial_image/android/guide_android_14.png\" /></li>\n<li>Press \"Edit Character. <br><img src=\"assets/images/tutorial_image/android/guide_android_15.png\" /></li>\n<li>Press \"Owned\", then your new skin will appear in this option, just select and go back main menu.<br /><img src=\"assets/images/tutorial_image/android/guide_android_16.png\" /></li>\n<li>Your new Skin has applied in-game, enjoy it!</li>\n</ul>",
 
   "dialog_open_youtube": "확인",
-  "dialog_open_youtube1": "동영상을보기 위해 YouTube를여시겠습니까?"
+  "dialog_open_youtube1": "동영상을보기 위해 YouTube를여시겠습니까?",
+
+  "file_downloaded": "다운로드 된 파일",
+  "ask_install_now" : "지금 설치 하시겠습니까?",
+  "file_installed" : "설치된 파일",
+  "ask_open": "지금 게임을 열시겠습니까?"
 };

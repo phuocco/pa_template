@@ -574,5 +574,10 @@ final Map<String, String> jaJa = {
   "tutorial_skin_ios": "<p> <strong>インストール要件</ strong> </ p>\n<ul>\n<li>\n<p> Minecraft Pocket Editionの公式バージョン（MCPE）がインストールされているため、非公式バージョンが正しく機能しない可能性があります！</ p>\n</ li>\n</ ul>\n<p> <strong>スキンのインストール方法<br/> </ strong> </ p>\n<ul>\n<li> MCPEアプリのModを開く</ li>\n<li>選択できるスキンはたくさんあります。お気に入りのスキンを選択してください。<br/>\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </ p>\n</ li>\n<li>\n<p>次に、[インストール]を押してダウンロードを開始し、[ゲームを開く]を選択します。</ p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /> </ strong> </ li>\n<li> Minecraftを開き、[プロファイル]オプションを選択します。<br/> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </ li>\n<li> [文字の編集]を押します。<br> <img src = \"assets/images/tutorial_image/android/guide_android_15.png\" /> </ li>\n<li> [所有]を押すと、このオプションに新しいスキンが表示されます。メインメニューを選択して戻るだけです。<br/> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> < / li>\n<li>新しいスキンがゲーム内で適用されました。楽しんでください！</ li>\n</ ul>",
 
   "dialog_open_youtube": "確認",
-  "dialog_open_youtube1": "動画を表示するためにYouTubeを開きますか？"
+  "dialog_open_youtube1": "動画を表示するためにYouTubeを開きますか？",
+
+  "file_downloaded": "ダウンロードしたファイル",
+  "ask_install_now" : "今すぐインストールしますか?",
+  "file_installed" : "ファイルがインストールされました",
+  "ask_open": "今すぐゲームを開きますか?"
 };

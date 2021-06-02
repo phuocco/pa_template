@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/modules/home_module/home_controller.dart';
 import 'package:mods_guns/app/modules/language_module/language_controller.dart';
 
@@ -23,6 +24,7 @@ class LanguagePage extends GetWidget<LanguageController> {
                         onTap: () {
                           Get.updateLocale(controller.localeCodeList[index]);
                           Get.find<HomeController>().selectPageNew('Main Page');
+                          GetStorage().write("LOCALE",controller.localeCodeList[index]);
                         },
                         child: Container(
                           padding: EdgeInsets.all(12.0),

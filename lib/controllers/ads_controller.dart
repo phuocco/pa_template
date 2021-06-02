@@ -14,6 +14,7 @@ import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/constants/const_url.dart';
 import 'package:mods_guns/utils/ad_manager.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'native_ad_controller_new.dart';
 
@@ -218,7 +219,11 @@ class AdsController extends GetxController {
       if (GetPlatform.isIOS &&
           double.parse(info.systemVersion.split(".").first) >= 14.0) {
         await AppTrackingTransparency.requestTrackingAuthorization()
-            .then((value) => print('appTrackingTransparency: $value'));
+            .then((value) =>
+            Future.delayed(Duration(seconds: 5),(){
+              saveKeyToSharedPref();
+            })
+        );
       }
     } catch (e) {
       print('requestTrackingAuthorization ios 14 or higher');
@@ -227,34 +232,24 @@ class AdsController extends GetxController {
     if(!box.hasData('MAX_AD_CONTENT')){
       if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
     }
-    if(GetPlatform.isAndroid){
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-          maxAdContentRating: box.read("MAX_AD_CONTENT"),
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
-          .whenComplete(() {
-        initDetailAds();
-        initHomeAds();
-        initBannerAds();
-        createInterstitialAd();
-        // createRewardedAd();
-      });
-    } else {
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-        maxAdContentRating: 'MAX_AD_CONTENT_RATING_MA',
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
-          .whenComplete(() {
-        initDetailAds();
-        initHomeAds();
-        initBannerAds();
-        createInterstitialAd();
-        // createRewardedAd();
-      });
-    }
 
+      MobileAds.instance
+          .updateRequestConfiguration(RequestConfiguration(
+          maxAdContentRating: GetPlatform.isAndroid ? box.read("MAX_AD_CONTENT"): 'MAX_AD_CONTENT_RATING_MA',
+          tagForChildDirectedTreatment:
+          TagForChildDirectedTreatment.unspecified))
+          .whenComplete(() {
+        initDetailAds();
+        initHomeAds();
+        initBannerAds();
+        createInterstitialAd();
+        // createRewardedAd();
+      });
+
+  }
+  saveKeyToSharedPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('IS_NOT_FIRST', true);
   }
 
   purchased() {

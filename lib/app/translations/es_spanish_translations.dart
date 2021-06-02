@@ -577,5 +577,10 @@ final Map<String, String> esEs = {
   "tutorial_skin": "<p> <strong> REQUISITO DE INSTALACIÓN </strong> </p>\n<ul>\n<li>\n<p> La versión oficial de Minecraft Pocket Edition (MCPE) instalada, la versión no oficial puede funcionar incorrectamente. </p>\n</li>\n</ul>\n<strong> CÓMO INSTALAR SKIN <br /> </strong>\n<ul>\n<li> Abrir Mod para la aplicación MCPE </li>\n<li> Hay un montón de máscaras para elegir, solo seleccione cualquiera de sus máscaras favoritas. <br />\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </p>\n</li>\n<li>\n<p> Luego presione INSTALAR para iniciar la descarga y seleccione ABRIR JUEGO. </p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_android_13.png\" /> </strong> </li>\n<li> Abre Minecraft y elige la opción \"Perfil\". <br /> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </li>\n<li> Presiona \"Editar carácter. <br> <img src = \"assets/images/tutorial_image/android/guide_android_15.png\"/> </li>\n<li> Presione \"Propiedad\", luego su nueva máscara aparecerá en esta opción, solo seleccione y regrese al menú principal. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> </li>\n<li> Tu nueva máscara se ha aplicado en el juego, ¡disfrútala! </li>\n</ul>",
 
   "dialog_open_youtube": "Confirmar",
-  "dialog_open_youtube1": "¿Quieres abrir YouTube para ver el video?"
+  "dialog_open_youtube1": "¿Quieres abrir YouTube para ver el video?",
+
+  "file_downloaded": "Archivo descargado",
+  "ask_install_now" : "¿Quieres instalar ahora?",
+  "file_installed" : "Archivo instalado",
+  "ask_open": "¿Quieres abrir el juego ahora?"
 };

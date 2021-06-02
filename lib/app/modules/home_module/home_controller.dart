@@ -67,15 +67,12 @@ class HomeController extends GetxController {
     super.onInit();
     countOpen();
     checkUpdate();
-    saveKeyToSharedPref();
+
     initPages();
     searchTextEditingController = TextEditingController();
 
   }
-  saveKeyToSharedPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('IS_NOT_FIRST', true);
-  }
+
   @override
   void onClose() {
     // TODO: implement onClose

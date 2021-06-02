@@ -330,8 +330,8 @@ class DetailPage extends StatelessWidget {
       // Get.back();
       Get.dialog(
           AlertDialog(
-            title: Text('File downloaded'),
-            content: Text('Do you want to install now?'),
+            title: Text('file_downloaded'.tr),
+            content: Text('ask_install_now'.tr),
             actions: [
               TextButton(
                   onPressed: () => Get.back(),
@@ -352,8 +352,8 @@ class DetailPage extends StatelessWidget {
   dialogAskInstall(String path) {
     Get.dialog(
         AlertDialog(
-          title: Text('File installed'),
-          content: Text('Do you want to open game now?'),
+          title: Text('file_installed'.tr),
+          content: Text('ask_open'.tr),
           actions: [
             TextButton(
                 onPressed: () => Get.back(),

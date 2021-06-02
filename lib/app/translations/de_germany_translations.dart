@@ -578,5 +578,10 @@ final Map<String, String> deDe = {
   "tutorial_skin_ios": "<p> <strong> INSTALLIERUNGSANFORDERUNG </ strong> </ p>\n<ul>\n<li>\n<p> Die offizielle Version von Minecraft Pocket Edition (MCPE) wurde installiert. Die inoffizielle Version funktioniert möglicherweise nicht richtig! </ p>\n</ li> </ ul>\n</ ul>\n<p> <strong> SO INSTALLIEREN SIE DIE HAUT <br /> </ strong> </ p>\nul\n<li> Öffnen Sie Mod für MCPE App </ li>\n<li> Es stehen eine Reihe von Skins zur Auswahl. Wählen Sie jedoch eine Ihrer Lieblings-Skins aus. <br />\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </ p>\n</ li> </ ul>\n<li>\n<p> Drücken Sie dann INSTALL, um den Download zu starten und wählen Sie OPEN GAME. </ p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /> </ strong> </ li>\n<li> Öffnen Sie Minecraft und wählen Sie die Option \"Profil\". <br /> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </ li>\n<li> Drücken Sie auf \"Zeichen bearbeiten\". <br> <img src = \"assets/images/tutorial_image/android/guide_android_15.png\" /> </ li>\n<li> Drücken Sie \"Owned\", dann wird Ihr neuer Skin in dieser Option angezeigt. Wählen Sie einfach das Hauptmenü aus und gehen Sie zurück. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> </li>\n<li> Deine neue Haut wurde im Spiel angewendet, genieße es! </ li> </ ul>\n</ ul>",
 
   "dialog_open_youtube": "Bestätigen",
-  "dialog_open_youtube1": "Möchtest du YouTube öffnen, um Videos anzusehen?"
+  "dialog_open_youtube1": "Möchtest du YouTube öffnen, um Videos anzusehen?",
+
+"file_downloaded": "Datei heruntergeladen",
+"ask_install_now" : "Möchten Sie jetzt installieren?",
+"file_installed" : "Datei installiert",
+"ask_open": "Möchten Sie das Spiel jetzt öffnen?"
 };

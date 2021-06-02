@@ -573,5 +573,10 @@ final Map<String, String> thTh = {
   "tutorial_skin_ios": "<p> <strong> ความต้องการในการติดตั้ง </strong> </p>\n<ul>\n<li>\n<p> Minecraft Pocket Edition เวอร์ชันทางการ (MCPE) ที่ติดตั้งเวอร์ชันที่ไม่เป็นทางการอาจทำงานผิดพลาด! </p>\n</li>\n</ul>\n<p> <strong> วิธีการติดตั้งสกิน <br /> </strong> </p>\n<ul>\n<li> เปิด Mod สำหรับแอป MCPE </li>\n<li> มีสกินมากมายให้เลือก jsut เลือกสกินที่คุณชื่นชอบ <br />\n<p> <img src =\"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </p>\n</li>\n<li>\n<p> จากนั้นกด INSTALL เพื่อเริ่มการดาวน์โหลดและเลือก OPEN GAME </p>\n<strong> <img src =\"assets/images/tutorial_image/android/guide_ios_1.png\" /> </strong> </li>\n<li> เปิด Minecraft และเลือกตัวเลือก \"โปรไฟล์\" <br /> <img src =\"assets/images/tutorial_image/android/guide_android_14.png\" /> </li>\n<li> กด \"แก้ไขตัวละคร <br> <img src =\"assets/images/tutorial_image/android/guide_android_15.png\"/> </li>\n<li> กด \"เป็นเจ้าของ\" จากนั้นสกินใหม่ของคุณจะปรากฏในตัวเลือกนี้เพียงแค่เลือกและย้อนกลับเมนูหลัก <br /> <img src =\"assets/images/tutorial_image/android/guide_android_16.png\" /> </li>\n<li> สกินใหม่ของคุณถูกนำไปใช้ในเกมแล้วสนุกได้เลย! </li>\n</ul>",
 
   "dialog_open_youtube": "ยืนยัน",
-  "dialog_open_youtube1": "คุณต้องการเปิด YouTube เพื่อดูวิดีโอหรือไม่"
+  "dialog_open_youtube1": "คุณต้องการเปิด YouTube เพื่อดูวิดีโอหรือไม่",
+
+  "file_downloaded": "ไฟล์ที่ดาวน์โหลด",
+  "ask_install_now" : "ต้องการติดตั้งตอนนี้หรือไม่",
+  "file_installed" : "ไฟล์ที่ติดตั้งแล้ว",
+  "ask_open": "คุณต้องการเปิดเกมตอนนี้หรือไม่"
 };

@@ -575,5 +575,10 @@ final Map<String, String> trTr = {
   "tutorial_skin_ios": "<p> <strong> GEREKSİNİMİ YÜKLE </strong> </p>\n<ul>\n<li>\n<p> Minecraft Pocket Edition resmi sürümü (MCPE) yüklendi, resmi olmayan sürüm yanlış çalışabilir! </p>\n</li>\n</ul>\n<p> <strong> CİLT KURULUMU <br /> </strong> </p>\n<ul>\n<li> MCPE uygulaması için Mod'u açın </li>\n<li> Aralarından seçim yapabileceğiniz çok sayıda dış görünüm var, sadece en sevdiğiniz dış görünümlerden birini seçin. <br />\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </p>\n</li>\n<li>\n<p> Ardından indirmeyi başlatmak için YÜKLE'ye basın ve OYUNU AÇ'ı seçin. </p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /> </strong> </li>\n<li> Minecraft'ı açın ve \"Profil\" seçeneğini seçin. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </li>\n<li> \"Karakteri Düzenle'ye basın. <br> <img src =\"assets/images/tutorial_image/android/guide_android_15.png\"/> </li>\n<li> \"Sahipli\" ye basın, ardından yeni dış görünümünüz bu seçenekte görünecektir, sadece ana menüyü seçin ve geri gidin. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> </li>\n<li> Yeni Görünümünüz oyun içinde uygulandı, keyfini çıkarın! </li>\n</ul>",
 
   "dialog_open_youtube": "Onayla",
-  "dialog_open_youtube1": "Videoyu görüntülemek için YouTube'u açmak istiyor musunuz?"
+  "dialog_open_youtube1": "Videoyu görüntülemek için YouTube'u açmak istiyor musunuz?",
+
+  "file_downloaded": "Dosya indirildi",
+  "ask_install_now": "Şimdi yüklemek istiyor musunuz?",
+  "file_installed": "Dosya yüklendi",
+  "ask_open": "Oyunu şimdi açmak istiyor musunuz?"
 };

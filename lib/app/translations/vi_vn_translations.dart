@@ -574,5 +574,10 @@ final Map<String, String> viVn = {
   "tutorial_skin_ios": "<p> <strong> YÊU CẦU CÀI ĐẶT </strong> </p>\n<ul>\n<li>\n<p> Phiên bản chính thức của Minecraft Pocket Edition (MCPE) đã được cài đặt, phiên bản không chính thức có thể hoạt động không chính xác! </p>\n</li>\n</ul>\n<p> <strong> CÁCH CÀI ĐẶT DA <br /> </strong> </p>\n<ul>\n<li> Mở Mod cho ứng dụng MCPE </li>\n<li> Có rất nhiều giao diện để lựa chọn, hãy chọn bất kỳ giao diện nào bạn yêu thích. <br />\n<p> <img src = \"assets/images/tutorial_image/android/guide_android_12.jpg\" /> </p>\n</li>\n<li>\n<p> Sau đó, nhấn CÀI ĐẶT để bắt đầu tải xuống và chọn MỞ TRÒ CHƠI. </p>\n<strong> <img src = \"assets/images/tutorial_image/android/guide_ios_1.png\" /> </strong> </li>\n<li> Mở Minecraft và chọn tùy chọn \"Hồ sơ\". <br /> <img src = \"assets/images/tutorial_image/android/guide_android_14.png\" /> </li>\n<li> Nhấn \"Chỉnh sửa ký tự. <br> <img src =\"assets/images/tutorial_image/android/guide_android_15.png\"/> </li>\n<li> Nhấn \"Owned\", sau đó giao diện mới của bạn sẽ xuất hiện trong tùy chọn này, bạn chỉ cần chọn và quay lại menu chính. <br /> <img src = \"assets/images/tutorial_image/android/guide_android_16.png\" /> </li>\n<li> Giao diện mới của bạn đã được áp dụng trong trò chơi, hãy tận hưởng nó! </li>\n</ul>",
 
   "dialog_open_youtube": "Xác nhận",
-  "dialog_open_youtube1": "Bạn có muốn mở YouTube để xem video không?"
+  "dialog_open_youtube1": "Bạn có muốn mở YouTube để xem video không?",
+
+  "file_downloaded": "Đã tải xuống tệp",
+  "ask_install_now": "Bạn có muốn cài đặt ngay bây giờ không?",
+  "file_installed": "Đã cài đặt tệp",
+  "ask_open": "Bạn có muốn mở trò chơi ngay bây giờ không?"
 };
