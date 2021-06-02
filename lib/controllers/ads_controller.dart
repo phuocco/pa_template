@@ -64,7 +64,8 @@ class AdsController extends GetxController {
     'DA8D0C15BC39C0492A0E36ABA922EDC2',
     '4A50245291F2A618FEA096DE31D72C62',
     'f8323379feb22fa26dcceb6ffc9a3841',
-    '4ef4c95ec1b16bba8f690c014a724c08'
+    '4ef4c95ec1b16bba8f690c014a724c08',
+    '37383e7fb3ef7121f81cac2d25ddf8b5'
   ]);
 
   // NativeAd myNativeAd;
@@ -99,8 +100,8 @@ class AdsController extends GetxController {
           print('${ad.runtimeType} failed to load: $error.');
           ad.dispose();
           countInterAdRequest.value++;
-          if(countInterAdRequest.value > 3) return;
-          Future.delayed(Duration(seconds: 60),(){
+          if (countInterAdRequest.value > 3) return;
+          Future.delayed(Duration(seconds: 60), () {
             _interstitialAd = null;
             createInterstitialAd();
           });
@@ -137,12 +138,11 @@ class AdsController extends GetxController {
             print('${ad.runtimeType} failed to load: $error');
             ad.dispose();
             countRewardedAdRequest.value++;
-            if(countRewardedAdRequest.value > 3) return;
-            Future.delayed(Duration(seconds: 60),(){
+            if (countRewardedAdRequest.value > 3) return;
+            Future.delayed(Duration(seconds: 60), () {
               _rewardedAd = null;
               createRewardedAd();
             });
-
           },
           onAdOpened: (Ad ad) => print('${ad.runtimeType} onAdOpened.'),
           onAdClosed: (Ad ad) {
@@ -212,41 +212,43 @@ class AdsController extends GetxController {
   void onReady() async {
     print('ready');
 
-    print('data: '+ box.hasData('MAX_AD_CONTENT').toString());
+    print('data: ' + box.hasData('MAX_AD_CONTENT').toString());
     try {
       DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
       IosDeviceInfo info = await deviceInfoPlugin.iosInfo;
       if (GetPlatform.isIOS &&
           double.parse(info.systemVersion.split(".").first) >= 14.0) {
         await AppTrackingTransparency.requestTrackingAuthorization()
-            .then((value) =>
-            Future.delayed(Duration(seconds: 5),(){
-              saveKeyToSharedPref();
-            })
-        );
+            .then((value) {
+          saveKeyToSharedPref();
+          print('appTrackingTransparency: $value');
+        });
       }
     } catch (e) {
       print('requestTrackingAuthorization ios 14 or higher');
     }
 
-    if(!box.hasData('MAX_AD_CONTENT')){
-      if(GetPlatform.isAndroid) await PACoreShowDialog.pickYearDialog(Get.context);
+    if (!box.hasData('MAX_AD_CONTENT')) {
+      if (GetPlatform.isAndroid)
+        await PACoreShowDialog.pickYearDialog(Get.context);
     }
 
-      MobileAds.instance
-          .updateRequestConfiguration(RequestConfiguration(
-          maxAdContentRating: GetPlatform.isAndroid ? box.read("MAX_AD_CONTENT"): 'MAX_AD_CONTENT_RATING_MA',
-          tagForChildDirectedTreatment:
-          TagForChildDirectedTreatment.unspecified))
-          .whenComplete(() {
-        initDetailAds();
-        initHomeAds();
-        initBannerAds();
-        createInterstitialAd();
-        // createRewardedAd();
-      });
-
+    MobileAds.instance
+        .updateRequestConfiguration(RequestConfiguration(
+            maxAdContentRating: GetPlatform.isAndroid
+                ? box.read("MAX_AD_CONTENT")
+                : 'MAX_AD_CONTENT_RATING_MA',
+            tagForChildDirectedTreatment:
+                TagForChildDirectedTreatment.unspecified))
+        .whenComplete(() {
+      initDetailAds();
+      initHomeAds();
+      initBannerAds();
+      createInterstitialAd();
+      // createRewardedAd();
+    });
   }
+
   saveKeyToSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('IS_NOT_FIRST', true);
