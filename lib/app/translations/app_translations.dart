@@ -20,7 +20,7 @@ class AppTranslation extends Translations{
   static final locale = Get.deviceLocale;
 
 
-  static final fallbackLocale = GetStorage().hasData('LOCALE') ? GetStorage().read("LOCALE") :  Locale('en', 'US');
+  static final fallbackLocale = Locale('en', 'US');
   @override
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {

@@ -24,7 +24,8 @@ class LanguagePage extends GetWidget<LanguageController> {
                         onTap: () {
                           Get.updateLocale(controller.localeCodeList[index]);
                           Get.find<HomeController>().selectPageNew('Main Page');
-                          GetStorage().write("LOCALE",controller.localeCodeList[index]);
+                          GetStorage().write("LOCALE",controller.localeCodeList[index].toString());
+                          print(controller.localeCodeList[index].toLanguageTag());
                         },
                         child: Container(
                           padding: EdgeInsets.all(12.0),

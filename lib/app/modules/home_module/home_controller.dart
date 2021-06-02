@@ -63,14 +63,15 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-
     super.onInit();
     countOpen();
     checkUpdate();
 
     initPages();
     searchTextEditingController = TextEditingController();
-
+    if (box.hasData('LOCALE')) {
+      Get.updateLocale(Locale(box.read("LOCALE")));
+    }
   }
 
   @override

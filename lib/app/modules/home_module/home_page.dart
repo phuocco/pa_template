@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
               //todo more app
               // provider.selectPage('MoreAppsScreen');
               controller.selectPageNew('More App Page');
-              print(GetStorage().read('OPEN_TIMES'));
+              // print(GetStorage().read('LOCALE'));
             },
             child: Image.asset(
               kMoreIcon,
