@@ -32,17 +32,17 @@ class NativeAdDetailWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child =  LoadingNativeAdWidget(adType: location.isEmpty ? "Detail" : "Exit",);
+                child =  LoadingNativeAdWidget(adType: location != 'Exit' ? "Detail" : "Exit",);
 
             break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child =  LoadingNativeAdWidget(adType: location.isEmpty ? "Detail" : "Exit",);
+                  child =  LoadingNativeAdWidget(adType: location != 'Exit' ? "Detail" : "Exit",);
                 }
             }
-            if(location.isEmpty){
+            if(location != 'Exit'){
               return Container(
                 width: double.infinity,
                 height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
