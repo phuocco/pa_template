@@ -68,17 +68,21 @@ class MainDrawer extends GetView<HomeController> {
       child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(kBackgroundHorizontalImage),
-                  fit: BoxFit.cover),
-            ),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //       image: AssetImage(kBackgroundHorizontalImage),
+            //       fit: BoxFit.cover),
+            // ),
+            color: kColorAppbar,
             height: 190,
             child: Center(
-              child: Image.asset(
-                kLauncherImage,
-                height: 100,
-                width: 100,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(0),
+                child: Image.asset(
+                  kLauncherImage,
+                  height: 100,
+                  width: 100,
+                ),
               ),
             ),
           ),
@@ -107,7 +111,7 @@ class MainDrawer extends GetView<HomeController> {
 }
 
 Widget drawerItem(String icIcon, String text, Function onTapDrawerItem) {
-  return GestureDetector(
+  return InkWell(
     onTap: onTapDrawerItem,
     child: Row(
       children: [

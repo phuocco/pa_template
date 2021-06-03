@@ -5,7 +5,7 @@
 String home = 'Home';
 
 const kBackgroundHorizontalImage = "assets/images/bg_hor.png";
-const kLauncherImage = "assets/images/ic_logo.png";
+const kLauncherImage = "assets/images/ic_gun.jpg";
 
 //* icon drawer
 const kHomeIcon = "assets/images/icons/ic_home.png";
