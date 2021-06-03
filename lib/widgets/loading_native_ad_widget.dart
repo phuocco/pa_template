@@ -76,33 +76,46 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
       return Container(
         child: Column(
           children: [
-            Stack(children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
+            itemAd.banner == ''
+                ? AspectRatio(
+              aspectRatio: 35 / 18,
+              child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                  ? Image.asset(
+                itemAd.icon.trimLeft().trimRight(),
+                fit: BoxFit.cover,
+                filterQuality: FilterQuality.none,
+              )
+                  : CachedNetworkImage(
+                placeholder: (context, url) => Image.asset(
+                  "assets/images/card_holder.png",
+                  fit: BoxFit.fill,
+                  filterQuality: FilterQuality.none,
                 ),
-                child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child:
-                        itemAd.icon.trimLeft().trimRight().startsWith('assets/')
-                            ? Image.asset(
-                                itemAd.icon.trimLeft().trimRight(),
-                                fit: BoxFit.cover,
-                                filterQuality: FilterQuality.none,
-                              )
-                            : CachedNetworkImage(
-                                placeholder: (context, url) => Image.asset(
-                                  "assets/images/card_holder.png",
-                                  fit: BoxFit.cover,
-                                  filterQuality: FilterQuality.none,
-                                ),
-                                imageUrl: itemAd.icon.trimLeft().trimRight(),
-                                fit: BoxFit.cover,
-                                filterQuality: FilterQuality.none,
-                              )),
-              ),
-            ]),
+                imageUrl: itemAd.icon.trimLeft().trimRight(),
+                fit: BoxFit.contain,
+                filterQuality: FilterQuality.none,
+              ),)
+                : AspectRatio(
+                aspectRatio: 35 / 18,
+                child: itemAd.banner
+                    .trimLeft()
+                    .trimRight()
+                    .startsWith('assets/')
+                    ? Image.asset(
+                  itemAd.banner.trimLeft().trimRight(),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.none,
+                )
+                    : CachedNetworkImage(
+                  placeholder: (context, url) => Image.asset(
+                    "assets/images/card_holder.png",
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.none,
+                  ),
+                  imageUrl: itemAd.banner.trimLeft().trimRight(),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.none,
+                )),
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -117,7 +130,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     children: [
                       Container(
                           alignment: Alignment.centerLeft,
-                          width: Get.width * 0.30,
+                          width: Get.width * 0.60,
                           height: 60,
                           child: Text(
                             itemAd.name,
@@ -130,7 +143,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                             maxLines: 2,
                           )),
                       SizedBox(
-                        width: Get.width * 0.30,
+                        width: Get.width * 0.60,
                         child: Text(
                           itemAd.description,
                           overflow: TextOverflow.ellipsis,
@@ -181,7 +194,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                         ),
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 2,
                       ),
                     ],
                   ),
@@ -216,7 +229,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                                 filterQuality: FilterQuality.none,
                               ),
                               imageUrl: itemAd.icon.trimLeft().trimRight(),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                               filterQuality: FilterQuality.none,
                             ),
                 ),
@@ -235,11 +248,6 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                               fontSize: 15),
                         ),
                         // Spacer(),
-                        Text(
-                          itemAd.description ?? "",
-                          maxLines: 1,
-                          style: TextStyle(color: Colors.black26, fontSize: 12),
-                        ),
                       ],
                     ),
                   ),
@@ -252,7 +260,22 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
             itemAd.banner == ''
                 ? AspectRatio(
                     aspectRatio: 35 / 18,
-                    child: Image.asset("assets/images/card_holder.png"))
+                    child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                        ? Image.asset(
+                      itemAd.icon.trimLeft().trimRight(),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
+                    )
+                        : CachedNetworkImage(
+                      placeholder: (context, url) => Image.asset(
+                        "assets/images/card_holder.png",
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.none,
+                      ),
+                      imageUrl: itemAd.icon.trimLeft().trimRight(),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
+                    ),)
                 : AspectRatio(
                     aspectRatio: 35 / 18,
                     child: itemAd.banner
@@ -275,7 +298,15 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                             filterQuality: FilterQuality.none,
                           )),
             SizedBox(
-              height: 12,
+              height: 10,
+            ),
+            Container(
+              height: 30,
+              child: Text(
+                itemAd.description ?? "",
+                maxLines: 2,
+                style: TextStyle(color: Colors.black26, fontSize: 12),
+              ),
             ),
             Container(
               decoration: BoxDecoration(
