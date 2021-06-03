@@ -76,46 +76,62 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
       return Container(
         child: Column(
           children: [
-            itemAd.banner == ''
-                ? AspectRatio(
-              aspectRatio: 35 / 18,
-              child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
-                  ? Image.asset(
-                itemAd.icon.trimLeft().trimRight(),
-                fit: BoxFit.cover,
-                filterQuality: FilterQuality.none,
-              )
-                  : CachedNetworkImage(
-                placeholder: (context, url) => Image.asset(
-                  "assets/images/card_holder.png",
-                  fit: BoxFit.fill,
-                  filterQuality: FilterQuality.none,
-                ),
-                imageUrl: itemAd.icon.trimLeft().trimRight(),
-                fit: BoxFit.contain,
-                filterQuality: FilterQuality.none,
-              ),)
-                : AspectRatio(
-                aspectRatio: 35 / 18,
-                child: itemAd.banner
-                    .trimLeft()
-                    .trimRight()
-                    .startsWith('assets/')
-                    ? Image.asset(
-                  itemAd.banner.trimLeft().trimRight(),
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.none,
-                )
-                    : CachedNetworkImage(
-                  placeholder: (context, url) => Image.asset(
-                    "assets/images/card_holder.png",
+            Stack(
+              children: [
+                itemAd.banner == ''
+                    ? AspectRatio(
+                  aspectRatio: 35 / 18,
+                  child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                      ? Image.asset(
+                    itemAd.icon.trimLeft().trimRight(),
                     fit: BoxFit.cover,
                     filterQuality: FilterQuality.none,
+                  )
+                      : CachedNetworkImage(
+                    placeholder: (context, url) => Image.asset(
+                      "assets/images/card_holder.png",
+                      fit: BoxFit.fill,
+                      filterQuality: FilterQuality.none,
+                    ),
+                    imageUrl: itemAd.icon.trimLeft().trimRight(),
+                    fit: BoxFit.contain,
+                    filterQuality: FilterQuality.none,
+                  ),)
+                    : AspectRatio(
+                    aspectRatio: 35 / 18,
+                    child: itemAd.banner
+                        .trimLeft()
+                        .trimRight()
+                        .startsWith('assets/')
+                        ? Image.asset(
+                      itemAd.banner.trimLeft().trimRight(),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
+                    )
+                        : CachedNetworkImage(
+                      placeholder: (context, url) => Image.asset(
+                        "assets/images/card_holder.png",
+                        fit: BoxFit.cover,
+                        filterQuality: FilterQuality.none,
+                      ),
+                      imageUrl: itemAd.banner.trimLeft().trimRight(),
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
+                    )),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    height: 18,
+                    width: 18,
+                    color: kColorAppbar,
+                    child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Text('Ad', style: TextStyle(color: Colors.white),)),
                   ),
-                  imageUrl: itemAd.banner.trimLeft().trimRight(),
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.none,
-                )),
+                ),
+              ],
+            ),
             Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
@@ -208,7 +224,9 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
       return Container(
         color: kBackgroundNativeAdColor,
         child: Column(
+
           children: [
+
             Row(
               children: [
                 Container(
@@ -216,22 +234,38 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                   height: 50,
                   color: Colors.black.withOpacity(0.3),
                   child:
-                      itemAd.icon.trimLeft().trimRight().startsWith('assets/')
-                          ? Image.asset(
-                              itemAd.icon.trimLeft().trimRight(),
+                      Stack(
+                        children: [
+                          itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                              ? Image.asset(
+                            itemAd.icon.trimLeft().trimRight(),
+                            fit: BoxFit.fill,
+                            filterQuality: FilterQuality.none,
+                          )
+                              : CachedNetworkImage(
+                            placeholder: (context, url) => Image.asset(
+                              "assets/images/card_holder.png",
                               fit: BoxFit.fill,
                               filterQuality: FilterQuality.none,
-                            )
-                          : CachedNetworkImage(
-                              placeholder: (context, url) => Image.asset(
-                                "assets/images/card_holder.png",
-                                fit: BoxFit.fill,
-                                filterQuality: FilterQuality.none,
-                              ),
-                              imageUrl: itemAd.icon.trimLeft().trimRight(),
-                              fit: BoxFit.contain,
-                              filterQuality: FilterQuality.none,
                             ),
+                            imageUrl: itemAd.icon.trimLeft().trimRight(),
+                            fit: BoxFit.contain,
+                            filterQuality: FilterQuality.none,
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 0,
+                            child: Container(
+                              height: 18,
+                              width: 18,
+                              color: kColorAppbar,
+                              child: FittedBox(
+                                  fit: BoxFit.cover,
+                                  child: Text('Ad', style: TextStyle(color: Colors.white),)),
+                            ),
+                          ),
+                        ],
+                      ),
                 ),
                 Expanded(
                   child: Container(
