@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mods_guns/widgets/loading_native_ad_widget.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:mods_guns/app/modules/home_module/home_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
@@ -259,9 +260,10 @@ class HomePage extends StatelessWidget {
                                 )),
                             Container(
                               color: Colors.black.withOpacity(0.05),
+                              // child: LoadingNativeAdWidget(adType: "Detail",),
                               child: NativeAdDetailWidget(
                                   adItem: nativeDetailAdControllerNew
-                                      .getAdsByIncreaseIndex()),
+                                      .getAdsByIncreaseIndex(), location: "Exit",),
                             ),
                           ],
                         ),

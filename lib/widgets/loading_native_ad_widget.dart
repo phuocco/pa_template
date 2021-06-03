@@ -146,7 +146,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     children: [
                       Container(
                           alignment: Alignment.centerLeft,
-                          width: Get.width * 0.60,
+                          width: context.isPhone ? Get.width * 0.60 : Get.width * 0.30,
                           height: 60,
                           child: Text(
                             itemAd.name,
@@ -159,7 +159,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                             maxLines: 2,
                           )),
                       SizedBox(
-                        width: Get.width * 0.60,
+                        width: context.isPhone ? Get.width * 0.60 : Get.width * 0.30,
                         child: Text(
                           itemAd.description,
                           overflow: TextOverflow.ellipsis,
@@ -181,7 +181,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                         width: 110,
                         child: TextButton(
                           onPressed: () async {
-                           
+
                             if (GetPlatform.isAndroid) {
                               LaunchReview.launch(
                                   androidAppId: itemAd.packageName,
@@ -223,10 +223,9 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
     case "Detail":
       return Container(
         color: kBackgroundNativeAdColor,
+        height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
         child: Column(
-
           children: [
-
             Row(
               children: [
                 Container(
@@ -291,55 +290,224 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
             SizedBox(
               height: 3,
             ),
-            itemAd.banner == ''
-                ? AspectRatio(
-                    aspectRatio: 35 / 18,
-                    child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
-                        ? Image.asset(
-                      itemAd.icon.trimLeft().trimRight(),
+            Container(
+              height: 220,
+              color: Colors.blue,
+              child: itemAd.banner == ''
+                  ? AspectRatio(
+                aspectRatio: 35 / 18,
+                child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                    ? Image.asset(
+                  itemAd.icon.trimLeft().trimRight(),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.none,
+                )
+                    : CachedNetworkImage(
+                  placeholder: (context, url) => Image.asset(
+                    "assets/images/card_holder.png",
+                    fit: BoxFit.fill,
+                    filterQuality: FilterQuality.none,
+                  ),
+                  imageUrl: itemAd.icon.trimLeft().trimRight(),
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.none,
+                ),)
+                  : AspectRatio(
+                  aspectRatio: 35 / 18,
+                  child: itemAd.banner
+                      .trimLeft()
+                      .trimRight()
+                      .startsWith('assets/')
+                      ? Image.asset(
+                    itemAd.banner.trimLeft().trimRight(),
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.none,
+                  )
+                      : CachedNetworkImage(
+                    placeholder: (context, url) => Image.asset(
+                      "assets/images/card_holder.png",
                       fit: BoxFit.cover,
                       filterQuality: FilterQuality.none,
-                    )
-                        : CachedNetworkImage(
-                      placeholder: (context, url) => Image.asset(
-                        "assets/images/card_holder.png",
-                        fit: BoxFit.fill,
-                        filterQuality: FilterQuality.none,
-                      ),
-                      imageUrl: itemAd.icon.trimLeft().trimRight(),
-                      fit: BoxFit.cover,
-                      filterQuality: FilterQuality.none,
-                    ),)
-                : AspectRatio(
-                    aspectRatio: 35 / 18,
-                    child: itemAd.banner
-                            .trimLeft()
-                            .trimRight()
-                            .startsWith('assets/')
-                        ? Image.asset(
-                            itemAd.banner.trimLeft().trimRight(),
-                            fit: BoxFit.cover,
-                            filterQuality: FilterQuality.none,
-                          )
-                        : CachedNetworkImage(
-                            placeholder: (context, url) => Image.asset(
-                              "assets/images/card_holder.png",
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.none,
-                            ),
-                            imageUrl: itemAd.banner.trimLeft().trimRight(),
-                            fit: BoxFit.cover,
-                            filterQuality: FilterQuality.none,
-                          )),
+                    ),
+                    imageUrl: itemAd.banner.trimLeft().trimRight(),
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.none,
+                  )),
+            ),
             SizedBox(
               height: 10,
             ),
-            Container(
-              height: 30,
+            Expanded(
               child: Text(
                 itemAd.description ?? "",
                 maxLines: 2,
-                style: TextStyle(color: Colors.black26, fontSize: 12),
+                style: TextStyle(color: Colors.black54, fontSize: 12),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: kColorDownloadButtonBackground,
+                    width: 1,
+                  )),
+              width: Get.width,
+              height: 45,
+              child: TextButton(
+                onPressed: () async {
+                  if (GetPlatform.isAndroid) {
+                    LaunchReview.launch(
+                        androidAppId: itemAd.packageName,
+                        writeReview: false);
+                  } else {
+                    HomeProvider()
+                        .fetchAppInfo(itemAd.packageName)
+                        .then((value) => {
+                      LaunchReview.launch(
+                          iOSAppId:
+                          '${value.results[0].trackId}',
+                          writeReview: false),
+                    });
+                  }
+                },
+                child: Text(
+                  'download'.tr,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                      kColorDownloadButtonForeground),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      kColorDownloadButtonBackground),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    case "Exit":
+      return Container(
+        color: kBackgroundNativeAdColor,
+        height: context.isPhone || GetPlatform.isAndroid ? 300: 370,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  color: Colors.black.withOpacity(0.3),
+                  child:
+                  Stack(
+                    children: [
+                      itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                          ? Image.asset(
+                        itemAd.icon.trimLeft().trimRight(),
+                        fit: BoxFit.fill,
+                        filterQuality: FilterQuality.none,
+                      )
+                          : CachedNetworkImage(
+                        placeholder: (context, url) => Image.asset(
+                          "assets/images/card_holder.png",
+                          fit: BoxFit.fill,
+                          filterQuality: FilterQuality.none,
+                        ),
+                        imageUrl: itemAd.icon.trimLeft().trimRight(),
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.none,
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        child: Container(
+                          height: 18,
+                          width: 18,
+                          color: kColorAppbar,
+                          child: FittedBox(
+                              fit: BoxFit.cover,
+                              child: Text('Ad', style: TextStyle(color: Colors.white),)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          itemAd.name,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15),
+                        ),
+                        // Spacer(),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Container(
+              height: 170,
+              child: itemAd.banner == ''
+                  ? AspectRatio(
+                aspectRatio: 35 / 18,
+                child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
+                    ? Image.asset(
+                  itemAd.icon.trimLeft().trimRight(),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.none,
+                )
+                    : CachedNetworkImage(
+                  placeholder: (context, url) => Image.asset(
+                    "assets/images/card_holder.png",
+                    fit: BoxFit.fill,
+                    filterQuality: FilterQuality.none,
+                  ),
+                  imageUrl: itemAd.icon.trimLeft().trimRight(),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.none,
+                ),)
+                  : AspectRatio(
+                  aspectRatio: 35 / 18,
+                  child: itemAd.banner
+                      .trimLeft()
+                      .trimRight()
+                      .startsWith('assets/')
+                      ? Image.asset(
+                    itemAd.banner.trimLeft().trimRight(),
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.none,
+                  )
+                      : CachedNetworkImage(
+                    placeholder: (context, url) => Image.asset(
+                      "assets/images/card_holder.png",
+                      fit: BoxFit.cover,
+                      filterQuality: FilterQuality.none,
+                    ),
+                    imageUrl: itemAd.banner.trimLeft().trimRight(),
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.none,
+                  )),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Text(
+                itemAd.description ?? "",
+                maxLines: 2,
+                style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ),
             Container(

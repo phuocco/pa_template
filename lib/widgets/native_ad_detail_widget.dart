@@ -16,7 +16,8 @@ class NativeAdDetailWidget extends StatelessWidget {
 
   // final AdWidget adWidget;
   final Completer<NativeAd> adItem;
-  NativeAdDetailWidget({this.adItem});
+  final String location;
+  NativeAdDetailWidget({this.adItem, this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +32,31 @@ class NativeAdDetailWidget extends StatelessWidget {
               case ConnectionState.none:
               case ConnectionState.waiting:
               case ConnectionState.active:
-                child =  LoadingNativeAdWidget(adType: "Detail",);
+                child =  LoadingNativeAdWidget(adType: location.isEmpty ? "Detail" : "Exit",);
 
             break;
               case ConnectionState.done:
                 if (snapshot.hasData) {
                   child = AdWidget(ad: snapshot.data);
                 } else {
-                  child = LoadingNativeAdWidget(adType: "Detail",);
+                  child =  LoadingNativeAdWidget(adType: location.isEmpty ? "Detail" : "Exit",);
                 }
             }
-            return Container(
-              width: double.infinity,
-              height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
-              // color: kNativeAdBackground,
-              child: child,
-            );
+            if(location.isEmpty){
+              return Container(
+                width: double.infinity,
+                height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
+                // color: kNativeAdBackground,
+                child: child,
+              );
+            } else {
+              return Container(
+                width: double.infinity,
+                height: context.isPhone || GetPlatform.isAndroid ? 300: 370,
+                // color: kNativeAdBackground,
+                child: child,
+              );
+            }
           },
         );
       },
