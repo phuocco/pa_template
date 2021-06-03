@@ -249,7 +249,7 @@ class DetailPage extends StatelessWidget {
       ProgressDialog pr;
       if (!isDetail && !isTablet) {
         pr = new ProgressDialog(context: Get.context);
-        pr.show(max: 100, msg: "Downloading", barrierDismissible: false);
+        pr.show(max: 100, msg: "misc_download_message".tr, barrierDismissible: false);
       }
       controller.installAddon(item.fileUrl).then((value) {
         if (controller.isDownloaded.value) {
