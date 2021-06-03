@@ -226,6 +226,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
         height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
         child: Column(
           children: [
+
             Row(
               children: [
                 Container(
@@ -292,7 +293,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
             ),
             Container(
               height: 220,
-              color: Colors.blue,
+
               child: itemAd.banner == ''
                   ? AspectRatio(
                 aspectRatio: 35 / 18,
@@ -334,9 +335,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     filterQuality: FilterQuality.none,
                   )),
             ),
-            SizedBox(
-              height: 10,
-            ),
+           
             Expanded(
               child: Text(
                 itemAd.description ?? "",
@@ -500,9 +499,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     filterQuality: FilterQuality.none,
                   )),
             ),
-            SizedBox(
-              height: 10,
-            ),
+
             Expanded(
               child: Text(
                 itemAd.description ?? "",
