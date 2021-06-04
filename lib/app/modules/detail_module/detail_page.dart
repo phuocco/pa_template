@@ -246,10 +246,48 @@ class DetailPage extends StatelessWidget {
       {bool isDetail, int index, bool isTablet, String page}) async {
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       adsController.showIntersAds();
-      ProgressDialog pr;
+      // ProgressDialog pr;
       if (!isDetail && !isTablet) {
-        pr = new ProgressDialog(context: Get.context);
-        pr.show(max: 100, msg: "misc_download_message".tr, barrierDismissible: false);
+        // pr = new ProgressDialog(context: Get.context);
+        // pr.show(max: 100, msg: "misc_download_message".tr, barrierDismissible: true);
+        Get.dialog(WillPopScope(
+          onWillPop: () async {
+          if(controller.isDownloaded.value == false){
+            return false;
+          } else {
+            return true;
+          }
+          },
+          child: AlertDialog(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CircularProgressIndicator(),
+                Text('misc_download_message'.tr),
+                Obx(() => Text(controller.progress.value.toString()),),
+              ],
+            ),
+            actions: [
+              TextButton(onPressed: (){
+                controller.dio.close();
+                controller.cancelToken.cancel();
+                controller.progress.value = 0;
+                controller.isDownloading.value = false;
+                controller.isDownloaded.value = false;
+                Get.back();
+              }, child: Text('CANCEL'),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.grey
+                    ),
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white
+                    )
+                ),),
+            ],
+          ),
+        ),
+            barrierDismissible: false);
       }
       controller.installAddon(item.fileUrl).then((value) {
         if (controller.isDownloaded.value) {
@@ -271,7 +309,8 @@ class DetailPage extends StatelessWidget {
             print("tablet " + controller.finalPath.value);
           } else if (page == 'Search') {
             print(index);
-            pr.close();
+            // pr.close();
+            Get.back();
             searchController.listAddonSearchWithAds[index].pathUrl =
                 controller.finalPath.value;
             searchController.listAddonSearchWithAds[index].isDownloaded = true;
@@ -289,10 +328,10 @@ class DetailPage extends StatelessWidget {
               mainController.listFavoriteWithAds.refresh();
             }
 
-
           } else if (page == 'Favorite') {
             print(index);
-            pr.close();
+            // pr.close();
+            Get.back();
             mainController.listFavoriteWithAds[index].pathUrl =
                 controller.finalPath.value;
             mainController.listFavoriteWithAds[index].isDownloaded = true;
@@ -300,7 +339,8 @@ class DetailPage extends StatelessWidget {
             print('a');
           } else {
             print(index);
-            pr.close();
+            // pr.close();
+            Get.back();
             mainController.updateAddonItemInList(
                 index, controller.finalPath.value);
             mainController.listAddon.refresh();
