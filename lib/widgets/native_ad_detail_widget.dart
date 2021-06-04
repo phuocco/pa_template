@@ -45,14 +45,14 @@ class NativeAdDetailWidget extends StatelessWidget {
             if(location != 'Exit'){
               return Container(
                 width: double.infinity,
-                height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
+                height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
                 // color: kNativeAdBackground,
                 child: child,
               );
             } else {
               return Container(
                 width: double.infinity,
-                height: context.isPhone || GetPlatform.isAndroid ? 300: 370,
+                height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
                 // color: kNativeAdBackground,
                 child: child,
               );
