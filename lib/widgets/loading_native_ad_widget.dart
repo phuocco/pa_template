@@ -223,7 +223,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
     case "Detail":
       return Container(
         color: kBackgroundNativeAdColor,
-        height: context.isPhone || GetPlatform.isAndroid ? 355: 370,
+        height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
         child: Column(
           children: [
 
@@ -239,7 +239,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                           itemAd.icon.trimLeft().trimRight().startsWith('assets/')
                               ? Image.asset(
                             itemAd.icon.trimLeft().trimRight(),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.contain,
                             filterQuality: FilterQuality.none,
                           )
                               : CachedNetworkImage(
@@ -310,7 +310,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     filterQuality: FilterQuality.none,
                   ),
                   imageUrl: itemAd.icon.trimLeft().trimRight(),
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   filterQuality: FilterQuality.none,
                 ),)
                   : AspectRatio(
@@ -389,7 +389,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
     case "Exit":
       return Container(
         color: kBackgroundNativeAdColor,
-        height: context.isPhone || GetPlatform.isAndroid ? 300: 370,
+        height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
         child: Column(
           children: [
             Row(
@@ -457,7 +457,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               height: 3,
             ),
             Container(
-              height: 170,
+              height: 220,
               child: itemAd.banner == ''
                   ? AspectRatio(
                 aspectRatio: 35 / 18,
@@ -499,7 +499,6 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     filterQuality: FilterQuality.none,
                   )),
             ),
-
             Expanded(
               child: Text(
                 itemAd.description ?? "",
@@ -507,6 +506,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                 style: TextStyle(color: Colors.black54, fontSize: 12),
               ),
             ),
+
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
