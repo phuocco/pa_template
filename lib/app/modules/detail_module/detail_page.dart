@@ -275,15 +275,16 @@ class DetailPage extends StatelessWidget {
                 controller.isDownloading.value = false;
                 controller.isDownloaded.value = false;
                 Get.back();
-              }, child: Text('CANCEL'),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.grey
-                    ),
-                    foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.white
-                    )
-                ),),
+              }, child: Text('CANCEL', style: TextStyle(color: Colors.black),),
+                // style: ButtonStyle(
+                //     backgroundColor: MaterialStateProperty.all<Color>(
+                //         Colors.grey
+                //     ),
+                //     foregroundColor: MaterialStateProperty.all<Color>(
+                //         Colors.white
+                //     )
+                // ),
+              ),
             ],
           ),
         ),
