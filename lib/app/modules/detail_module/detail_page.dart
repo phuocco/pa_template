@@ -264,7 +264,7 @@ class DetailPage extends StatelessWidget {
               children: [
                 CircularProgressIndicator(),
                 Text('misc_download_message'.tr),
-                Obx(() => Text(controller.progress.value.toString()),),
+                // Obx(() => Text(controller.progress.value.toString()),),
               ],
             ),
             actions: [
