@@ -358,6 +358,13 @@ class MainPage extends StatelessWidget {
       nativeDetailAdControllerNew.requestAds();
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
+
+      DetailController().dio.close();
+      DetailController().cancelToken.cancel();
+      DetailController().progress.value = 0;
+      DetailController().isDownloading.value = false;
+      DetailController().isDownloaded.value = false;
+
     });
   }
 }
@@ -399,6 +406,13 @@ class BuildPhone extends StatelessWidget {
           nativeHomeAdControllerNew.requestAds();
           MainController().listAddon.refresh();
           DetailController().isDownloaded.value = false;
+
+          DetailController().dio.close();
+          DetailController().cancelToken.cancel();
+          DetailController().progress.value = 0;
+          DetailController().isDownloading.value = false;
+          // DetailController().isDownloaded.value = false;
+          
           nativeDetailAdControllerNew.listAds.forEach((element) {
             print("detail " + element.hashCode.toString());
           });
@@ -589,6 +603,13 @@ class BuildTablet extends StatelessWidget {
             print('dispose detail');
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
+
+            DetailController().dio.close();
+            DetailController().cancelToken.cancel();
+            DetailController().progress.value = 0;
+            DetailController().isDownloading.value = false;
+            // DetailController().isDownloaded.value = false;
+
             MainController().listAddon.refresh();
             DetailController().isDownloaded.value = false;
             nativeDetailAdControllerNew.listAds.forEach((element) {
