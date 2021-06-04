@@ -34,14 +34,15 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp">
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp">
 
             <ImageView
                 android:id="@+id/ad_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:adjustViewBounds="true"
+                android:scaleType="centerInside"
                 android:layout_marginEnd="5dp"/>
 
             <LinearLayout
@@ -56,6 +57,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
                     android:lines="1"
                     android:textColor="#000000"
                     android:textSize="18sp"
