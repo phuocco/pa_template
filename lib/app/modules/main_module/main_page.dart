@@ -358,12 +358,19 @@ class MainPage extends StatelessWidget {
       nativeDetailAdControllerNew.requestAds();
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
+
+      detailController.dio.close();
+      detailController.cancelToken.cancel();
+      detailController.progress.value = 0;
+      detailController.isDownloading.value = false;
+      detailController.isDownloaded.value = false;
+
     });
   }
 }
 
 class BuildPhone extends StatelessWidget {
-  const BuildPhone(
+   BuildPhone(
       {Key key,
       @required this.controller,
       @required this.pathFile,
@@ -372,7 +379,7 @@ class BuildPhone extends StatelessWidget {
       @required this.addonsItem,
       this.page})
       : super(key: key);
-
+   final DetailController detailController = Get.find();
   final MainController controller;
   final String pathFile;
   final int index;
@@ -398,7 +405,14 @@ class BuildPhone extends StatelessWidget {
           nativeDetailAdControllerNew.requestAds();
           nativeHomeAdControllerNew.requestAds();
           MainController().listAddon.refresh();
-          DetailController().isDownloaded.value = false;
+          detailController.isDownloaded.value = false;
+
+          detailController.dio.close();
+          detailController.cancelToken.cancel();
+          detailController.progress.value = 0;
+          detailController.isDownloading.value = false;
+          // DetailController().isDownloaded.value = false;
+          
           nativeDetailAdControllerNew.listAds.forEach((element) {
             print("detail " + element.hashCode.toString());
           });
@@ -555,7 +569,7 @@ class BuildPhone extends StatelessWidget {
 }
 
 class BuildTablet extends StatelessWidget {
-  const BuildTablet(
+   BuildTablet(
       {Key key,
       @required this.controller,
       @required this.pathFile,
@@ -564,7 +578,7 @@ class BuildTablet extends StatelessWidget {
       @required this.addonsItem,
       this.page})
       : super(key: key);
-
+    final DetailController detailController = Get.find();
   final MainController controller;
   final String pathFile;
   final int index;
@@ -589,8 +603,15 @@ class BuildTablet extends StatelessWidget {
             print('dispose detail');
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
+
+            detailController.dio.close();
+            detailController.cancelToken.cancel();
+            detailController.progress.value = 0;
+            detailController.isDownloading.value = false;
+            // DetailController().isDownloaded.value = false;
+
             MainController().listAddon.refresh();
-            DetailController().isDownloaded.value = false;
+            detailController.isDownloaded.value = false;
             nativeDetailAdControllerNew.listAds.forEach((element) {
               print("detail " + element.hashCode.toString());
             });
