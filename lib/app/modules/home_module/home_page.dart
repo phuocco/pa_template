@@ -222,7 +222,7 @@ class HomePage extends StatelessWidget {
                                       onTap: () => Get.back(),
                                       child: Container(
                                         height: 35,
-                                        width: 100,
+                                        width: 120,
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
@@ -258,7 +258,7 @@ class HomePage extends StatelessWidget {
                                       onTap: () => SystemNavigator.pop(),
                                       child: Container(
                                         height: 35,
-                                        width: 100,
+                                        width: 120,
                                         decoration: BoxDecoration(
                                           color: kColorAppbar,
                                           borderRadius:
