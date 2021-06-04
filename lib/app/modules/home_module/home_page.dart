@@ -222,7 +222,7 @@ class HomePage extends StatelessWidget {
                                       onTap: () => Get.back(),
                                       child: Container(
                                         height: 35,
-                                        width: 80,
+                                        width: 100,
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
@@ -234,14 +234,31 @@ class HomePage extends StatelessWidget {
                                                     color: Colors.white,
                                                     fontSize: 13,
                                                     fontWeight:
-                                                        FontWeight.bold))),
+                                                    FontWeight.bold))),
                                       ),
                                     ),
+                                    // TextButton(
+                                    //   onPressed: () => Get.back(),
+                                    //   child: Text('CANCEL',
+                                    //       style: TextStyle(
+                                    //           color: Colors.white,
+                                    //           fontSize: 13,
+                                    //           fontWeight: FontWeight.bold)),
+                                    //   style: ButtonStyle(
+                                    //     foregroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             kColorDownloadButtonForeground),
+                                    //     backgroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             Colors.grey),
+                                    //   ),
+                                    // ),
+
                                     InkWell(
                                       onTap: () => SystemNavigator.pop(),
                                       child: Container(
                                         height: 35,
-                                        width: 80,
+                                        width: 100,
                                         decoration: BoxDecoration(
                                           color: kColorAppbar,
                                           borderRadius:
@@ -258,12 +275,15 @@ class HomePage extends StatelessWidget {
                                     )
                                   ],
                                 )),
+
                             Container(
                               color: Colors.black.withOpacity(0.05),
                               // child: LoadingNativeAdWidget(adType: "Detail",),
                               child: NativeAdDetailWidget(
-                                  adItem: nativeDetailAdControllerNew
-                                      .getAdsByIncreaseIndex(), location: "Exit",),
+                                adItem: nativeDetailAdControllerNew
+                                    .getAdsByIncreaseIndex(),
+                                location: "Exit",
+                              ),
                             ),
                           ],
                         ),

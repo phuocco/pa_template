@@ -226,7 +226,6 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
         height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
         child: Column(
           children: [
-
             Row(
               children: [
                 Container(
@@ -321,7 +320,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                       .startsWith('assets/')
                       ? Image.asset(
                     itemAd.banner.trimLeft().trimRight(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                     filterQuality: FilterQuality.none,
                   )
                       : CachedNetworkImage(
@@ -331,7 +330,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                       filterQuality: FilterQuality.none,
                     ),
                     imageUrl: itemAd.banner.trimLeft().trimRight(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                     filterQuality: FilterQuality.none,
                   )),
             ),
@@ -395,8 +394,8 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
             Row(
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 45,
+                  height: 45,
                   color: Colors.black.withOpacity(0.3),
                   child:
                   Stack(
@@ -485,7 +484,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                       .startsWith('assets/')
                       ? Image.asset(
                     itemAd.banner.trimLeft().trimRight(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                     filterQuality: FilterQuality.none,
                   )
                       : CachedNetworkImage(
@@ -495,7 +494,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                       filterQuality: FilterQuality.none,
                     ),
                     imageUrl: itemAd.banner.trimLeft().trimRight(),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitWidth,
                     filterQuality: FilterQuality.none,
                   )),
             ),
