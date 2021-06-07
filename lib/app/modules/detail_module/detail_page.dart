@@ -161,7 +161,7 @@ class DetailPage extends StatelessWidget {
                           ? downloadInstallAddon(addonsItem, isDetail: true)
                           // : controller.importToMinecraft(mainController
                           //     .listDownloaded[indexDownload].pathFile);
-                          : dialogAskInstall(pathFile);
+                          : dialogAskInstall(addonsItem.pathUrl);
                       // : print(addonsItem.pathUrl);
                     },
                     child: Container(

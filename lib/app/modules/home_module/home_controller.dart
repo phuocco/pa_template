@@ -61,11 +61,11 @@ class HomeController extends GetxController {
   final list = Rx<List<Map<String, Object>>>([]);
 
   @override
-  void onInit() {
+  void onInit()  {
     // TODO: implement onInit
     super.onInit();
     countOpen();
-    checkUpdate();
+
 
     initPages();
     searchTextEditingController = TextEditingController();
@@ -125,11 +125,10 @@ class HomeController extends GetxController {
 
 // called after the widget is rendered on screen
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-
     getPref();
-
+    await checkUpdate();
 
   }
 
