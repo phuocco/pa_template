@@ -129,9 +129,14 @@ class HomeController extends GetxController {
     super.onReady();
     getPref();
     await checkUpdate();
+    await getTimeOpenInterAd();
 
   }
+  getTimeOpenInterAd() async {
+    String timeOpen = await RemoteConfigService.getTimeOpenInterAd();
+    if(timeOpen != '') box.write('TIME_OPEN', int.parse(timeOpen));
 
+  }
 
   checkUpdate() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
