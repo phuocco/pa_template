@@ -27,7 +27,7 @@ class QuestionPage extends GetWidget<QuestionController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  faqContainer('faq_q1'.tr,'faq_a1'.tr),
+                  /*faqContainer('faq_q1'.tr,'faq_a1'.tr),*/
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 5),
                     child: Column(

@@ -21,10 +21,10 @@ class MainDrawer extends GetView<HomeController> {
         Get.find<HomeController>().selectPageNew('Main Page');
         Get.back();
       }),
-      drawerItem(kGuideIcon, 'nav_items_guide'.tr, () {
+     /* drawerItem(kGuideIcon, 'nav_items_guide'.tr, () {
         Get.find<HomeController>().selectPageNew('Tutorial Page');
         Get.back();
-      }),
+      }),*/
       drawerItem(kQuestionIcon, 'nav_items_question'.tr, () {
         Get.find<HomeController>().selectPageNew('Question Page');
         Get.back();
@@ -58,10 +58,10 @@ class MainDrawer extends GetView<HomeController> {
         PACoreShowDialog.policyDialog(context, title: 'Privacy Policy',policyAcceptTime: '', funcOk: ()=> Get.back());
 
       }),
-      drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
+      /*drawerItem(kAboutIcon, 'nav_items_about'.tr, () {
         Get.find<HomeController>().selectPageNew('About Page');
         Get.back();
-      }),
+      }),*/
      
     ];
     return Drawer(
