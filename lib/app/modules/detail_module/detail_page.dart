@@ -391,6 +391,7 @@ class DetailPage extends StatelessWidget {
   }
 
   dialogAskInstall(String path) {
+    adsController.showIntersAds();
     Get.dialog(
         AlertDialog(
           title: Text('file_installed'.tr),
