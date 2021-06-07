@@ -517,7 +517,7 @@ class BuildPhone extends StatelessWidget {
                                       isTablet: false,
                                       page: page,
                                       index: index)
-                                  : DetailPage().dialogAskInstall(pathFile);
+                                  : DetailPage().dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
                               !addonsItem.isDownloaded
@@ -714,7 +714,7 @@ class BuildTablet extends StatelessWidget {
                                       isTablet: false,
                                       page: page,
                                       index: index)
-                                  : DetailPage().dialogAskInstall(pathFile);
+                                  : DetailPage().dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
                               !addonsItem.isDownloaded
