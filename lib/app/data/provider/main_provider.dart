@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
  * GetX Template Generator - fb.com/htngu.99
  * */
 
-const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=0';
+const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_by_type?search_keyword=gun&limit_count=0&type_id=1';
 
 class MainProvider extends GetConnect {
   static final MainProvider _singleton = MainProvider._internal();

@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:mods_guns/models/addons_item.dart';
 
-const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3';
+const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_by_type';
 const base = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3';
 
 class SearchProvider extends GetConnect {
@@ -29,7 +29,7 @@ class SearchProvider extends GetConnect {
     try {
       //404
       Response<String> response = await dio.get<String>(
-        baseUrl + "?search_keyword=$searchText&limit_count=0",
+        baseUrl + "?search_keyword=$searchText&limit_count=0&type_id=1",
         options: buildCacheOptions(Duration(days: 5),
             maxStale: Duration(days: 10),
             forceRefresh: isFetchNewData),
