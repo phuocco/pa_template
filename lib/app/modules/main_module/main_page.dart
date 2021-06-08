@@ -60,6 +60,7 @@ class MainPage extends StatelessWidget {
                   String pathFile = '';
                   if (indexDownload != -1) {
                     controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
                     pathFile =
                         controller.listDownloaded[indexDownload].pathFile;
                   }
@@ -116,6 +117,7 @@ class MainPage extends StatelessWidget {
                   String pathFile = '';
                   if (indexDownload != -1) {
                     controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
                     pathFile =
                         controller.listDownloaded[indexDownload].pathFile;
                   }
