@@ -26,6 +26,15 @@ class RemoteConfigService{
     Map<String, RemoteConfigValue> mapConfig = remoteConfig.getAll();
     return mapConfig;
   }
-
+  static Future<String> getTimeOpenInterAd() async {
+    final RemoteConfig remoteConfig = await RemoteConfig.instance;
+    remoteConfig.setDefaults(<String, dynamic>{
+      'adRequestInterstitial': '3',
+    });
+    await remoteConfig.fetch();
+    await remoteConfig.activateFetched();
+    String strJson = remoteConfig.getString('adRequestInterstitial');
+    return strJson;
+  }
 
 }

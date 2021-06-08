@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_page.dart';
@@ -44,8 +45,10 @@ class MainPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: NativeAdHomeWidget(
-                        adItem:
-                        nativeHomeAdControllerNew == null ? null : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),),
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     semanticContainer: false,
@@ -57,6 +60,7 @@ class MainPage extends StatelessWidget {
                   String pathFile = '';
                   if (indexDownload != -1) {
                     controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
                     pathFile =
                         controller.listDownloaded[indexDownload].pathFile;
                   }
@@ -97,7 +101,6 @@ class MainPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-
                     child: NativeAdHomeWidget(
                       adItem: nativeHomeAdControllerNew == null
                           ? null
@@ -114,6 +117,7 @@ class MainPage extends StatelessWidget {
                   String pathFile = '';
                   if (indexDownload != -1) {
                     controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
                     pathFile =
                         controller.listDownloaded[indexDownload].pathFile;
                   }
@@ -202,7 +206,7 @@ class MainPage extends StatelessWidget {
                             children: [
                               Container(
                                   alignment: Alignment.centerLeft,
-                                  width: (Get.width - 300) * 0.78,
+                                  width: (Get.width - 300) * 0.75,
                                   height: 60,
                                   child: Text(
                                     addonsItem.itemName,
@@ -215,7 +219,7 @@ class MainPage extends StatelessWidget {
                                     maxLines: 2,
                                   )),
                               SizedBox(
-                                width: (Get.width - 300) * 0.78,
+                                width: (Get.width - 300) * 0.75,
                                 child: Text(
                                   addonsItem.authorName,
                                   overflow: TextOverflow.ellipsis,
@@ -359,18 +363,19 @@ class MainPage extends StatelessWidget {
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
 
-      detailController.dio.close();
-      detailController.cancelToken.cancel();
+      if(detailController.cancelToken.isCancelled){
+        detailController.dio.close();
+        detailController.cancelToken.cancel();
+      }
       detailController.progress.value = 0;
       detailController.isDownloading.value = false;
       detailController.isDownloaded.value = false;
-
     });
   }
 }
 
 class BuildPhone extends StatelessWidget {
-   BuildPhone(
+  BuildPhone(
       {Key key,
       @required this.controller,
       @required this.pathFile,
@@ -379,7 +384,7 @@ class BuildPhone extends StatelessWidget {
       @required this.addonsItem,
       this.page})
       : super(key: key);
-   final DetailController detailController = Get.find();
+  final DetailController detailController = Get.find();
   final MainController controller;
   final String pathFile;
   final int index;
@@ -393,7 +398,12 @@ class BuildPhone extends StatelessWidget {
       // key: ValueKey<int>(index),
       onTap: () {
         controller.countInterAd++;
-        if (controller.countInterAd == 3) {
+        if (GetStorage().hasData('TIME_OPEN')) {
+          if (controller.countInterAd == GetStorage().read('TIME_OPEN')) {
+            controller.countInterAd = 0;
+            Get.find<AdsController>().showIntersAds();
+          }
+        } else if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
         }
@@ -407,12 +417,14 @@ class BuildPhone extends StatelessWidget {
           MainController().listAddon.refresh();
           detailController.isDownloaded.value = false;
 
-          detailController.dio.close();
-          detailController.cancelToken.cancel();
+          if(detailController.cancelToken.isCancelled){
+            detailController.dio.close();
+            detailController.cancelToken.cancel();
+          }
           detailController.progress.value = 0;
           detailController.isDownloading.value = false;
           // DetailController().isDownloaded.value = false;
-          
+
           nativeDetailAdControllerNew.listAds.forEach((element) {
             print("detail " + element.hashCode.toString());
           });
@@ -468,7 +480,7 @@ class BuildPhone extends StatelessWidget {
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            width: Get.width * 0.56,
+                            width: Get.width * 0.50,
                             height: 60,
                             child: GestureDetector(
                               onTap: () => print(addonsItem.isFavorite),
@@ -484,7 +496,7 @@ class BuildPhone extends StatelessWidget {
                               ),
                             )),
                         SizedBox(
-                          width: Get.width * 0.56,
+                          width: Get.width * 0.50,
                           child: GestureDetector(
                             onTap: () => print(addonsItem.pathUrl),
                             child: Text(
@@ -517,7 +529,8 @@ class BuildPhone extends StatelessWidget {
                                       isTablet: false,
                                       page: page,
                                       index: index)
-                                  : DetailPage().dialogAskInstall(addonsItem.pathUrl);
+                                  : DetailPage()
+                                      .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
                               !addonsItem.isDownloaded
@@ -569,7 +582,7 @@ class BuildPhone extends StatelessWidget {
 }
 
 class BuildTablet extends StatelessWidget {
-   BuildTablet(
+  BuildTablet(
       {Key key,
       @required this.controller,
       @required this.pathFile,
@@ -578,7 +591,7 @@ class BuildTablet extends StatelessWidget {
       @required this.addonsItem,
       this.page})
       : super(key: key);
-    final DetailController detailController = Get.find();
+  final DetailController detailController = Get.find();
   final MainController controller;
   final String pathFile;
   final int index;
@@ -591,7 +604,12 @@ class BuildTablet extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         controller.countInterAd++;
-        if (controller.countInterAd == 3) {
+        if (GetStorage().hasData('TIME_OPEN')) {
+          if (controller.countInterAd == GetStorage().read('TIME_OPEN')) {
+            controller.countInterAd = 0;
+            Get.find<AdsController>().showIntersAds();
+          }
+        } else if (controller.countInterAd == 3) {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
         }
@@ -604,8 +622,10 @@ class BuildTablet extends StatelessWidget {
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
 
-            detailController.dio.close();
-            detailController.cancelToken.cancel();
+            if(detailController.cancelToken.isCancelled){
+              detailController.dio.close();
+              detailController.cancelToken.cancel();
+            }
             detailController.progress.value = 0;
             detailController.isDownloading.value = false;
             // DetailController().isDownloaded.value = false;
@@ -672,7 +692,7 @@ class BuildTablet extends StatelessWidget {
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            width: Get.width * 0.28,
+                            width: Get.width * 0.25,
                             height: 60,
                             child: Text(
                               addonsItem.itemName,
@@ -685,7 +705,7 @@ class BuildTablet extends StatelessWidget {
                               maxLines: 2,
                             )),
                         SizedBox(
-                          width: Get.width * 0.28,
+                          width: Get.width * 0.25,
                           child: Text(
                             addonsItem.authorName,
                             overflow: TextOverflow.ellipsis,
@@ -714,7 +734,8 @@ class BuildTablet extends StatelessWidget {
                                       isTablet: false,
                                       page: page,
                                       index: index)
-                                  : DetailPage().dialogAskInstall(addonsItem.pathUrl);
+                                  : DetailPage()
+                                      .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
                               !addonsItem.isDownloaded

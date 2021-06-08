@@ -32,14 +32,19 @@ class FavoritePage extends StatelessWidget {
                   semanticContainer: false,
                 );
               } else {
-                var indexDownload = mainController.listDownloaded.indexWhere(
-                    (element) =>
-                        element.id == mainController.listAddon[index].itemId);
+                var indexDownload =
+                    mainController.listDownloaded.indexWhere((element) {
+                  if (mainController.listAddon[index] != 'Ads') {
+                    return element.id == mainController.listAddon[index].itemId;
+                  } else {
+                    return false;
+                  }
+                });
+                // element.id == mainController.listAddon[index].itemId
                 String pathFile = '';
                 if (indexDownload != -1) {
-                  // mainController.listAddon[index].isDownloaded = true;
-                  pathFile =
-                      mainController.listDownloaded[indexDownload].pathFile;
+                  mainController.listFavorite[index].isDownloaded = true;
+                  mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
                 }
 
                 var indexFavorite =
@@ -52,7 +57,7 @@ class FavoritePage extends StatelessWidget {
                   }
                 });
                 if (indexFavorite != -1) {
-                  mainController.listAddon[index].isFavorite = true;
+                  mainController.listFavorite[index].isFavorite = true;
                 }
                 return BuildPhone(
                   controller: mainController,
@@ -101,14 +106,19 @@ class FavoritePage extends StatelessWidget {
                   semanticContainer: false,
                 );
               } else {
-                var indexDownload = mainController.listDownloaded.indexWhere(
-                    (element) =>
-                        element.id == mainController.listAddon[index].itemId);
+                var indexDownload =
+                    mainController.listDownloaded.indexWhere((element) {
+                  if (mainController.listAddon[index] != 'Ads') {
+                    return element.id == mainController.listAddon[index].itemId;
+                  } else {
+                    return false;
+                  }
+                });
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listAddon[index].isDownloaded = true;
-                  pathFile =
-                      mainController.listDownloaded[indexDownload].pathFile;
+                  mainController.listFavorite[index].isDownloaded = true;
+                  mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
                 }
 
                 var indexFavorite = mainController.listFavorite.indexWhere(
@@ -116,7 +126,7 @@ class FavoritePage extends StatelessWidget {
                         element.itemId ==
                         mainController.listAddon[index].itemId);
                 if (indexFavorite != -1) {
-                  mainController.listAddon[index].isFavorite = true;
+                  mainController.listFavorite[index].isFavorite = true;
                 }
                 return BuildTablet(
                     controller: mainController,

@@ -46,7 +46,7 @@ class DetailController extends GetxController {
   // set addonsItem(value) => _addonsItem.value = value;
   // get addonsItem  => _addonsItem.value;
 
-  var dio;
+  Dio dio;
   CancelToken cancelToken = CancelToken();
   RandomAccessFile randomAccessFile;
 

@@ -80,7 +80,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               children: [
                 itemAd.banner == ''
                     ? AspectRatio(
-                  aspectRatio: 35 / 18,
+                  aspectRatio: Get.width <= 500 ? 31/14 : 35 / 18,
                   child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
                       ? Image.asset(
                     itemAd.icon.trimLeft().trimRight(),
@@ -146,8 +146,8 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     children: [
                       Container(
                           alignment: Alignment.centerLeft,
-                          width: context.isPhone ? Get.width * 0.56 : Get.width * 0.28,
-                          height: 60,
+                          width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
+                          height: 55,
                           child: Text(
                             itemAd.name,
                             overflow: TextOverflow.ellipsis,
@@ -159,9 +159,10 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                             maxLines: 2,
                           )),
                       SizedBox(
-                        width: context.isPhone ? Get.width * 0.56 : Get.width * 0.28,
+                        width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
                         child: Text(
                           itemAd.description,
+                          maxLines : Get.width <= 800  ? 2 : 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 16,
@@ -388,7 +389,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
     case "Exit":
       return Container(
         color: kBackgroundNativeAdColor,
-        height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
+        height: context.isPhone || GetPlatform.isAndroid ? 330: 370,
         child: Column(
           children: [
             Row(
@@ -456,7 +457,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               height: 3,
             ),
             Container(
-              height: 220,
+              height: Get.width <= 500 ? 200 : 220,
               child: itemAd.banner == ''
                   ? AspectRatio(
                 aspectRatio: 35 / 18,
