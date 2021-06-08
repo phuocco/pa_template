@@ -32,9 +32,15 @@ class FavoritePage extends StatelessWidget {
                   semanticContainer: false,
                 );
               } else {
-                var indexDownload = mainController.listDownloaded.indexWhere(
-                    (element) =>
-                        element.id == mainController.listAddon[index].itemId);
+                var indexDownload =
+                    mainController.listDownloaded.indexWhere((element) {
+                  if (mainController.listAddon[index] != 'Ads') {
+                    return element.id == mainController.listAddon[index].itemId;
+                  } else {
+                    return false;
+                  }
+                });
+                // element.id == mainController.listAddon[index].itemId
                 String pathFile = '';
                 if (indexDownload != -1) {
                   // mainController.listAddon[index].isDownloaded = true;
@@ -101,9 +107,14 @@ class FavoritePage extends StatelessWidget {
                   semanticContainer: false,
                 );
               } else {
-                var indexDownload = mainController.listDownloaded.indexWhere(
-                    (element) =>
-                        element.id == mainController.listAddon[index].itemId);
+                var indexDownload =
+                    mainController.listDownloaded.indexWhere((element) {
+                  if (mainController.listAddon[index] != 'Ads') {
+                    return element.id == mainController.listAddon[index].itemId;
+                  } else {
+                    return false;
+                  }
+                });
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listAddon[index].isDownloaded = true;
