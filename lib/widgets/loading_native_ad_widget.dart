@@ -80,7 +80,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               children: [
                 itemAd.banner == ''
                     ? AspectRatio(
-                  aspectRatio: 35 / 18,
+                  aspectRatio: Get.width <= 500 ? 31/14 : 35 / 18,
                   child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
                       ? Image.asset(
                     itemAd.icon.trimLeft().trimRight(),
@@ -147,7 +147,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                       Container(
                           alignment: Alignment.centerLeft,
                           width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
-                          height: 60,
+                          height: 55,
                           child: Text(
                             itemAd.name,
                             overflow: TextOverflow.ellipsis,
@@ -162,6 +162,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                         width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
                         child: Text(
                           itemAd.description,
+                          maxLines : Get.width <= 800  ? 2 : 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 16,
