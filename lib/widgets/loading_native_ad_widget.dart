@@ -146,7 +146,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     children: [
                       Container(
                           alignment: Alignment.centerLeft,
-                          width: context.isPhone ? Get.width * 0.56 : Get.width * 0.28,
+                          width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
                           height: 60,
                           child: Text(
                             itemAd.name,
@@ -159,7 +159,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                             maxLines: 2,
                           )),
                       SizedBox(
-                        width: context.isPhone ? Get.width * 0.56 : Get.width * 0.28,
+                        width: context.isPhone ? Get.width * 0.50 : Get.width * 0.25,
                         child: Text(
                           itemAd.description,
                           overflow: TextOverflow.ellipsis,
@@ -456,7 +456,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               height: 3,
             ),
             Container(
-              height: 220,
+              height: Get.width <= 500 ? 200 : 220,
               child: itemAd.banner == ''
                   ? AspectRatio(
                 aspectRatio: 35 / 18,
