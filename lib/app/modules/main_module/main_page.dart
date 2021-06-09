@@ -363,8 +363,10 @@ class MainPage extends StatelessWidget {
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
 
-      detailController.dio.close();
-      detailController.cancelToken.cancel();
+      if(!detailController.cancelToken.isCancelled){
+        detailController.dio.close();
+        detailController.cancelToken.cancel();
+      }
       detailController.progress.value = 0;
       detailController.isDownloading.value = false;
       detailController.isDownloaded.value = false;
@@ -415,8 +417,10 @@ class BuildPhone extends StatelessWidget {
           MainController().listAddon.refresh();
           detailController.isDownloaded.value = false;
 
-          detailController.dio.close();
-          detailController.cancelToken.cancel();
+          if(!detailController.cancelToken.isCancelled){
+            detailController.dio.close();
+            detailController.cancelToken.cancel();
+          }
           detailController.progress.value = 0;
           detailController.isDownloading.value = false;
           // DetailController().isDownloaded.value = false;
@@ -618,8 +622,10 @@ class BuildTablet extends StatelessWidget {
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
 
-            detailController.dio.close();
-            detailController.cancelToken.cancel();
+            if(!detailController.cancelToken.isCancelled){
+              detailController.dio.close();
+              detailController.cancelToken.cancel();
+            }
             detailController.progress.value = 0;
             detailController.isDownloading.value = false;
             // DetailController().isDownloaded.value = false;
