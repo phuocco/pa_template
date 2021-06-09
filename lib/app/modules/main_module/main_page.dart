@@ -206,7 +206,7 @@ class MainPage extends StatelessWidget {
                             children: [
                               Container(
                                   alignment: Alignment.centerLeft,
-                                  width: (Get.width - 300) * 0.78,
+                                  width: (Get.width - 300) * 0.75,
                                   height: 60,
                                   child: Text(
                                     addonsItem.itemName,
@@ -219,7 +219,7 @@ class MainPage extends StatelessWidget {
                                     maxLines: 2,
                                   )),
                               SizedBox(
-                                width: (Get.width - 300) * 0.78,
+                                width: (Get.width - 300) * 0.75,
                                 child: Text(
                                   addonsItem.authorName,
                                   overflow: TextOverflow.ellipsis,
@@ -480,7 +480,7 @@ class BuildPhone extends StatelessWidget {
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            width: Get.width * 0.56,
+                            width: Get.width * 0.50,
                             height: 60,
                             child: GestureDetector(
                               onTap: () => print(addonsItem.isFavorite),
@@ -496,7 +496,7 @@ class BuildPhone extends StatelessWidget {
                               ),
                             )),
                         SizedBox(
-                          width: Get.width * 0.56,
+                          width: Get.width * 0.50,
                           child: GestureDetector(
                             onTap: () => print(addonsItem.pathUrl),
                             child: Text(
@@ -692,7 +692,7 @@ class BuildTablet extends StatelessWidget {
                       children: [
                         Container(
                             alignment: Alignment.centerLeft,
-                            width: Get.width * 0.28,
+                            width: Get.width * 0.25,
                             height: 60,
                             child: Text(
                               addonsItem.itemName,
@@ -705,7 +705,7 @@ class BuildTablet extends StatelessWidget {
                               maxLines: 2,
                             )),
                         SizedBox(
-                          width: Get.width * 0.28,
+                          width: Get.width * 0.25,
                           child: Text(
                             addonsItem.authorName,
                             overflow: TextOverflow.ellipsis,

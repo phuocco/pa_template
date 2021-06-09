@@ -388,7 +388,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
     case "Exit":
       return Container(
         color: kBackgroundNativeAdColor,
-        height: context.isPhone || GetPlatform.isAndroid ? 350: 370,
+        height: context.isPhone || GetPlatform.isAndroid ? 330: 370,
         child: Column(
           children: [
             Row(
