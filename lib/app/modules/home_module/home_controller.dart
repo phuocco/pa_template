@@ -134,7 +134,7 @@ class HomeController extends GetxController {
   }
   getTimeOpenInterAd() async {
     String timeOpen = await RemoteConfigService.getTimeOpenInterAd();
-    if(timeOpen != '') box.write('TIME_OPEN', int.parse(timeOpen));
+   box.write('TIME_OPEN', int.parse(timeOpen));
 
   }
 
