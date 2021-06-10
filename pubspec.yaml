@@ -68,7 +68,7 @@ dependency_overrides:
   http: ^0.12.0+2
   gallery_saver:
     git:
-      url: https://github.com/phuocco/gallery_saver.git
+      url: https://github.com/pamobilevn/gallery_saver.git
       ref: master
   share: ^0.6.5+4
   path: ^1.7.0
