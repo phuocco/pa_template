@@ -73,6 +73,7 @@ class LoadingNativeAdWidget extends StatelessWidget {
 Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
   switch (adType) {
     case "Home":
+      print("width "+ Get.width.toString());
       return Container(
         child: Column(
           children: [
@@ -80,7 +81,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
               children: [
                 itemAd.banner == ''
                     ? AspectRatio(
-                  aspectRatio: Get.width <= 500 ? 31/14 : 35 / 18,
+                  aspectRatio: Get.width <= 500 ? 33/14 : 35 / 18,
                   child: itemAd.icon.trimLeft().trimRight().startsWith('assets/')
                       ? Image.asset(
                     itemAd.icon.trimLeft().trimRight(),
@@ -98,7 +99,7 @@ Widget containerLoadingAd(BuildContext context, MoreApp itemAd, String adType) {
                     filterQuality: FilterQuality.none,
                   ),)
                     : AspectRatio(
-                    aspectRatio: 35 / 18,
+                    aspectRatio: Get.width <= 500 ? 33/14 : 35 / 18,
                     child: itemAd.banner
                         .trimLeft()
                         .trimRight()
