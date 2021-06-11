@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Free Gun Mods - Weapon Addons for MCPE',
+      title: 'Guns Mod - Weapons Addon for MCPE',
       debugShowCheckedModeBanner: false,
       locale: AppTranslation.locale,
       fallbackLocale: AppTranslation.fallbackLocale,

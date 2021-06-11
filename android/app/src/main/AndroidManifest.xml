@@ -17,7 +17,7 @@
     <application
         android:name="co.pamobile.mcpe.mods.guns.MyApplication"
         android:icon="@mipmap/ic_gun"
-        android:label="Free Gun Mods - Weapon Addons for MCPE"
+        android:label="Guns Mod - Weapons Addon for MCPE"
         android:largeHeap="true"
         android:allowBackup="false"
         tools:replace="allowBackup"
