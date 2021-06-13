@@ -1,7 +1,10 @@
 
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
@@ -54,6 +57,7 @@ class MainController extends GetxController{
     }
   }
 
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -61,6 +65,52 @@ class MainController extends GetxController{
     getItems(Get.context);
     getPrefDownloaded();
     getPrefFavorite();
+    checkConnection();
+
+    connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+        isConnecting.value = true;
+        Fluttertoast.showToast(
+            msg: "connected",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      } else if (result == ConnectivityResult.none) {
+        Fluttertoast.showToast(
+            msg: "disconnected",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+        isConnecting.value = false;
+      }
+    });
+  }
+
+
+  @override
+  void onClose() {
+    super.onClose();
+    connectivitySubscription.cancel();
+  }
+
+  StreamSubscription<ConnectivityResult> connectivitySubscription;
+  var isConnecting = true.obs;
+
+  checkConnection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+      isConnecting.value = true;
+    } else if (connectivityResult == ConnectivityResult.none) {
+      isConnecting.value = false;
+    }
   }
 
   final listDownloaded = <DownloadedItemModel>[].obs;

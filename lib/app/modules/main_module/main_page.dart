@@ -33,117 +33,128 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     controller.onStart();
-    return Obx(
-      () => context.isPhone
-          ? ListView.builder(
-              itemCount: controller.listAddon.length,
-              itemBuilder: (context, index) {
-                if (controller.listAddon[index] == 'Ads') {
-                  return Card(
-                    // key: ValueKey<int>(index),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    semanticContainer: false,
-                  );
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddon[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddon[index].isDownloaded = true;
-                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
-                          element.itemId == controller.listAddon[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddon[index].isFavorite = true;
-                  }
+      return Obx(
+            () {
+              if(controller.listAddon.length == 0) {
+                //TODO: UI loading before get data
+                return Container(height: 500,width: 500,color: Colors.blue,child: Text('Edit hereeeee'),);
+              }
+             return context.isPhone
+                  ? ListView.builder(
+                  itemCount: controller.listAddon.length,
+                  itemBuilder: (context, index) {
 
-                  return BuildPhone(
-                    controller: controller,
-                    pathFile: controller.listAddon[index].pathUrl,
-                    index: index,
-                    onFavoriteTap: () {
-                      controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddon[index]);
-                      controller.listAddon.refresh();
-                    },
-                    addonsItem: controller.listAddon[index],
-                  );
-                }
-              })
-          :
-          //fixme: tablet
-          GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 40 / 33,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5),
-              itemCount: controller.listAddon.length,
-              itemBuilder: (context, index) {
-                if (controller.listAddon[index] == 'Ads') {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    semanticContainer: false,
-                  );
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
+                    //region phone
+                    if (controller.listAddon[index] == 'Ads') {
+                      return Card(
+                        // key: ValueKey<int>(index),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: NativeAdHomeWidget(
+                          adItem: nativeHomeAdControllerNew == null
+                              ? null
+                              : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                        ),
+                        elevation: 5,
+                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                        semanticContainer: false,
+                      );
+                    } else {
+                      var indexDownload = controller.listDownloaded.indexWhere(
+                              (element) =>
                           element.id == controller.listAddon[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddon[index].isDownloaded = true;
-                    controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
+                      String pathFile = '';
+                      if (indexDownload != -1) {
+                        controller.listAddon[index].isDownloaded = true;
+                        controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
+                        pathFile =
+                            controller.listDownloaded[indexDownload].pathFile;
+                      }
+                      var indexFavorite = controller.listFavorite.indexWhere(
+                              (element) =>
                           element.itemId == controller.listAddon[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddon[index].isFavorite = true;
-                  }
-                  return BuildTablet(
-                    controller: controller,
-                    pathFile: controller.listAddon[index].pathUrl,
-                    index: index,
-                    addonsItem: controller.listAddon[index],
-                    onFavoriteTap: () {
-                      controller.listAddon[index].isFavorite =
+                      if (indexFavorite != -1) {
+                        controller.listAddon[index].isFavorite = true;
+                      }
+                      return BuildPhone(
+                        controller: controller,
+                        pathFile: controller.listAddon[index].pathUrl,
+                        index: index,
+                        onFavoriteTap: () {
+                          controller.listAddon[index].isFavorite =
                           !controller.listAddon[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddon[index]);
-                      controller.listAddon.refresh();
-                    },
-                  );
-                }
-              }),
-    );
+                          controller
+                              .savePrefFavoriteItem(controller.listAddon[index]);
+                          controller.listAddon.refresh();
+                        },
+                        addonsItem: controller.listAddon[index],
+                      );
+                    }
+                  }
+                //endregion
+
+
+              )
+                  :
+              //fixme: tablet
+              GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 40 / 33,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5),
+                  itemCount: controller.listAddon.length,
+                  itemBuilder: (context, index) {
+                    if (controller.listAddon[index] == 'Ads') {
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: NativeAdHomeWidget(
+                          adItem: nativeHomeAdControllerNew == null
+                              ? null
+                              : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                        ),
+                        elevation: 5,
+                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                        semanticContainer: false,
+                      );
+                    } else {
+                      var indexDownload = controller.listDownloaded.indexWhere(
+                              (element) =>
+                          element.id == controller.listAddon[index].itemId);
+                      String pathFile = '';
+                      if (indexDownload != -1) {
+                        controller.listAddon[index].isDownloaded = true;
+                        controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
+                        pathFile =
+                            controller.listDownloaded[indexDownload].pathFile;
+                      }
+
+                      var indexFavorite = controller.listFavorite.indexWhere(
+                              (element) =>
+                          element.itemId == controller.listAddon[index].itemId);
+                      if (indexFavorite != -1) {
+                        controller.listAddon[index].isFavorite = true;
+                      }
+                      return BuildTablet(
+                        controller: controller,
+                        pathFile: controller.listAddon[index].pathUrl,
+                        index: index,
+                        addonsItem: controller.listAddon[index],
+                        onFavoriteTap: () {
+                          controller.listAddon[index].isFavorite =
+                          !controller.listAddon[index].isFavorite;
+                          controller
+                              .savePrefFavoriteItem(controller.listAddon[index]);
+                          controller.listAddon.refresh();
+                        },
+                      );
+                    }
+                  });
+            }
+      );
   }
 
   showDetailDialog({AddonsItem addonsItem, String pathFile}) {

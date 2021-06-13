@@ -61,6 +61,8 @@ dependencies:
   flutter_svg: ^0.19.3
   shared_preferences: ^2.0.6
   app_tracking_transparency: ^1.0.1+1
+  connectivity_plus: ^0.8.1
+  fluttertoast: ^7.1.8
 
 dependency_overrides:
   get_storage: ^1.4.0
