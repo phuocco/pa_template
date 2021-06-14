@@ -34,6 +34,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     controller.onStart();
+
       return Obx(
             () {
               if(controller.listAddon.length == 0) {
@@ -46,10 +47,11 @@ class MainPage extends StatelessWidget {
                     ),
                     child: AnimatedTextKit(
                       animatedTexts: [
-                        FadeAnimatedText('Loading', textStyle: TextStyle(color: Colors.red)),
-                        FadeAnimatedText('Loading data', textStyle: TextStyle(color: Colors.red)),
-                        FadeAnimatedText('Loading data ...', textStyle: TextStyle(color: Colors.red)),
+                        FadeAnimatedText('Loading', textStyle: TextStyle(color: kColorAppbar)),
+                        FadeAnimatedText('Loading data', textStyle: TextStyle(color: kColorAppbar)),
+                        FadeAnimatedText('Loading data ...', textStyle: TextStyle(color: kColorAppbar)),
                       ],
+                      repeatForever: true,
                     ),
                   ),
                 );

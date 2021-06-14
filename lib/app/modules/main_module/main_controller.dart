@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
+import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/models/addons_item.dart';
@@ -75,7 +76,7 @@ class MainController extends GetxController{
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 1,
-              backgroundColor: Colors.red,
+              backgroundColor: kColorAppbar,
               textColor: Colors.white,
               fontSize: 16.0
           );
