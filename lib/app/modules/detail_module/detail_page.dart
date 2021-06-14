@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
@@ -244,6 +245,18 @@ class DetailPage extends StatelessWidget {
 
   downloadInstallAddon(AddonsItem item,
       {bool isDetail, int index, bool isTablet, String page}) async {
+    if(mainController.isConnecting.value == false){
+      Fluttertoast.showToast(
+          msg: "You are not connected to the internet",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      return;
+    }
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       adsController.showIntersAds();
       // ProgressDialog pr;
