@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,21 @@ class MainPage extends StatelessWidget {
             () {
               if(controller.listAddon.length == 0) {
                 //TODO: UI loading before get data
-                return Container(height: 500,width: 500,color: Colors.blue,child: Text('Edit hereeeee'),);
+                return Center(
+                  child: DefaultTextStyle(
+                    style: const TextStyle(
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    child: AnimatedTextKit(
+                      animatedTexts: [
+                        FadeAnimatedText('Loading', textStyle: TextStyle(color: Colors.red)),
+                        FadeAnimatedText('Loading data', textStyle: TextStyle(color: Colors.red)),
+                        FadeAnimatedText('Loading data ...', textStyle: TextStyle(color: Colors.red)),
+                      ],
+                    ),
+                  ),
+                );
               }
              return context.isPhone
                   ? ListView.builder(

@@ -69,19 +69,21 @@ class MainController extends GetxController{
 
     connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
+        if(!isConnecting.value){
+          Fluttertoast.showToast(
+              msg: "You are connected to the internet",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+        }
         isConnecting.value = true;
-        Fluttertoast.showToast(
-            msg: "connected",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0
-        );
       } else if (result == ConnectivityResult.none) {
         Fluttertoast.showToast(
-            msg: "disconnected",
+            msg: "You are not connected to the internet",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
