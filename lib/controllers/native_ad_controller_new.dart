@@ -130,7 +130,7 @@ class NativeAdControllerNew  extends GetxController{
         customOptions: options.toJson(),
         listener: AdListener(
           onAdLoaded: (Ad ad) {
-            print('$NativeAd loaded.. purchase');
+            print('$NativeAd loaded..');
             completerItemAds.complete(ad as NativeAd);
             "New Ads: ${ad.hashCode}".adsData;
           },

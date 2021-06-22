@@ -96,7 +96,20 @@ flutter:
     - assets/images/tutorial_image/android/
     - assets/images/tutorial_image/mods/
     - assets/images/icons_about/
-  #   - images/a_dot_ham.jpeg
+    - 
+    - assets/mcpe/projectile/
+    - assets/mcpe/projectile/arrows/icons/
+    - assets/mcpe/projectile/arrows/skins/
+    - assets/mcpe/projectile/trident/icons/
+    - assets/mcpe/projectile/trident/skins/
+    - assets/mcpe/projectile/file/
+    - assets/mcpe/projectile/icons/
+    - assets/mcpe/projectile/shulker/
+    - assets/mcpe/projectile/shulker/skins/
+    - assets/mcpe/projectile/shulker/icons/
+    - assets/mcpe/projectile/skins/
+
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
