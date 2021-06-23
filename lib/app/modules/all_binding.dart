@@ -1,9 +1,11 @@
 
 
 import 'package:get/get.dart';
+import 'package:mods_guns/app/data/provider/creator_provider.dart';
 import 'package:mods_guns/app/data/provider/home_provider.dart';
 import 'package:mods_guns/app/data/provider/main_provider.dart';
 import 'package:mods_guns/app/data/provider/search_provider.dart';
+import 'package:mods_guns/app/data/repository/creator_repository.dart';
 import 'package:mods_guns/app/data/repository/home_repository.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:mods_guns/app/data/repository/search_repository.dart';
@@ -15,6 +17,7 @@ import 'package:mods_guns/app/modules/search_module/search_controller.dart';
 import 'package:mods_guns/app/modules/tutorial_module/tutorial_controller.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
+import 'creator_module/creator_controller.dart';
 import 'home_module/home_controller.dart';
 import 'main_module/main_controller.dart';
 
@@ -35,6 +38,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => MoreAppsController());
     Get.lazyPut(() => FavoriteController());
     Get.lazyPut(() => SearchController(repository: SearchRepository(provider: SearchProvider())));
+    Get.lazyPut(() => CreatorController(repository: CreatorRepository(provider: CreatorProvider())));
 
 
     // Get.lazyPut(() => GalleryItemController(repository: GalleryItemRepository(provider: GalleryItemProvider())));

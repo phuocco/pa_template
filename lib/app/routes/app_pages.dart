@@ -1,3 +1,5 @@
+import '../../app/modules/creator_module/creator_page.dart';
+import '../../app/modules/creator_module/creator_bindings.dart';
 import '../../app/modules/search_module/search_page.dart';
 import '../../app/modules/search_module/search_bindings.dart';
 import '../../app/modules/favorite_module/favorite_page.dart';
@@ -102,6 +104,11 @@ abstract class AppPages {
       name: Routes.SEARCH,
       page: () => SearchPage(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: Routes.CREATOR,
+      page: () => CreatorPage(),
+      binding: CreatorBinding(),
     ),
   ];
 }

@@ -20,4 +20,5 @@ abstract class Routes {
   static const MORE_APPS = '/more_apps'; // MoreApps page
   static const FAVORITE = '/favorite'; // Favorite page
   static const SEARCH = '/search'; // Search page
+  static const CREATOR = '/creator'; // Creator page
 }

@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       initialBinding: AllBinding(),
       initialRoute: '/home',
+      smartManagement: SmartManagement.keepFactory,
     );
   }
 }

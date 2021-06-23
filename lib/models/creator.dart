@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-ProjectItems projectItemsFromJson(String str) =>
-    ProjectItems.fromJson(json.decode(str));
+CreatorItem projectItemsFromJson(String str) =>
+    CreatorItem.fromJson(json.decode(str));
 
-String projectItemsToJson(ProjectItems data) => json.encode(data.toJson());
+String projectItemsToJson(CreatorItem data) => json.encode(data.toJson());
 
-List<Project> addonsFromJson(String str) =>
-    new List<Project>.from(json.decode(str).map((x) => Project.fromJson(x)));
+List<Creator> addonsFromJson(String str) =>
+    new List<Creator>.from(json.decode(str).map((x) => Creator.fromJson(x)));
 
-List<ProjectItems> parseProjectItems(String str) => new List<ProjectItems>.from(
-    json.decode(str).map((x) => ProjectItems.fromJson(x)));
+List<CreatorItem> parseProjectItems(String str) => new List<CreatorItem>.from(
+    json.decode(str).map((x) => CreatorItem.fromJson(x)));
 
-class Project {
-  List<ProjectItems> items;
+class Creator {
+  List<CreatorItem> items;
   String addonName;
   String authorName;
   String description;
@@ -21,7 +21,7 @@ class Project {
   String downloadUrl;
   String unique;
 
-  Project(this.unique,
+  Creator(this.unique,
       {this.items,
         this.addonName,
         this.authorName,
@@ -30,12 +30,12 @@ class Project {
         this.downloadUrl,
         this.mImageUrl});
 
-  factory Project.fromJson(Map<String, dynamic> json) => new Project(
+  factory Creator.fromJson(Map<String, dynamic> json) => new Creator(
     json["unique"] == null ? null : json["unique"],
     items: json["items"] == null
         ? null
         : (json['items'] as List)
-        .map((x) => ProjectItems.fromJson(x))
+        .map((x) => CreatorItem.fromJson(x))
         .toList(),
     addonName: json["addonName"] == null ? null : json["addonName"],
     authorName: json["authorName"] == null ? null : json["authorName"],
@@ -57,7 +57,7 @@ class Project {
   };
 }
 
-class ProjectItems {
+class CreatorItem {
   String itemName;
   String itemIcon;
   String itemTexture;
@@ -83,7 +83,7 @@ class ProjectItems {
   bool premium;
   bool isNewMob;
   String baseID;
-  ProjectItems(
+  CreatorItem(
       {this.itemName,
         this.itemIcon,
         this.itemTexture,
@@ -108,7 +108,7 @@ class ProjectItems {
         this.itemDesc,
         this.craftMap});
 
-  factory ProjectItems.fromJson(Map<String, dynamic> json) => new ProjectItems(
+  factory CreatorItem.fromJson(Map<String, dynamic> json) => new CreatorItem(
       itemName: json["item_name"] == null ? null : json["item_name"],
       itemIcon: json["item_icon"] == null ? null : json["item_icon"],
       itemTexture: json["item_texture"] == null ? null : json["item_texture"],
@@ -169,7 +169,7 @@ class ProjectItems {
 }
 
 class ItemDefault{
-  ProjectItems item;
+  CreatorItem item;
   bool isChangeData;
   ItemDefault({this.item,this.isChangeData = false});
 }
