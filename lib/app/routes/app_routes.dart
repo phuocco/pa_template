@@ -21,4 +21,5 @@ abstract class Routes {
   static const FAVORITE = '/favorite'; // Favorite page
   static const SEARCH = '/search'; // Search page
   static const CREATOR = '/creator'; // Creator page
+  static const ADD_ENTITY = '/add_entity'; // AddEntity page
 }

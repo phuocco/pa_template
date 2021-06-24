@@ -1,3 +1,5 @@
+import '../../app/modules/add_entity_module/add_entity_page.dart';
+import '../../app/modules/add_entity_module/add_entity_bindings.dart';
 import '../../app/modules/creator_module/creator_page.dart';
 import '../../app/modules/creator_module/creator_bindings.dart';
 import '../../app/modules/search_module/search_page.dart';
@@ -109,6 +111,11 @@ abstract class AppPages {
       name: Routes.CREATOR,
       page: () => CreatorPage(),
       binding: CreatorBinding(),
+    ),
+    GetPage(
+      name: Routes.ADD_ENTITY,
+      page: () => AddEntityPage(),
+      binding: AddEntityBinding(),
     ),
   ];
 }

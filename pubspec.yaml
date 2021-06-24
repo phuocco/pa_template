@@ -107,6 +107,7 @@ flutter:
     - assets/mcpe/projectile/shulker/skins/
     - assets/mcpe/projectile/shulker/icons/
     - assets/mcpe/projectile/skins/
+    - assets/mcpe/json/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
