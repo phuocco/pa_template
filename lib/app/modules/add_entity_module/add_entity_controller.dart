@@ -14,7 +14,7 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
   Animation animation;
   AnimationController animationController;
 
-
+  var isExpand = true.obs;
   var _obj = ''.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
@@ -24,21 +24,22 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
   void onInit() {
     super.onInit();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 1));
     animation = CurvedAnimation(
       parent: animationController,
-      curve: Curves.fastOutSlowIn,
+      curve: Curves.easeInOutCirc,
     );
     animationController.forward();
   }
 
   setExpand(bool value){
+    isExpand.value = !value;
     if (!value) {
       animationController.forward();
     } else {
       animationController.reverse();
     }
-    // update();
+    update();
   }
 
   @override
