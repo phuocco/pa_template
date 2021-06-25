@@ -24,10 +24,10 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
   void onInit() {
     super.onInit();
     animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     animation = CurvedAnimation(
       parent: animationController,
-      curve: Curves.easeInOutCirc,
+      curve: Curves.easeOutSine,
     );
     animationController.forward();
   }

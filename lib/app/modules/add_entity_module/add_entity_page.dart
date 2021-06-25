@@ -39,39 +39,53 @@ class AddEntityPage extends GetWidget<AddEntityController> {
               icon: Icon(Icons.save)),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: textCtrlName,
-            ),
-            TextField(
-              controller: textCtrlIcon,
-            ),
-            TextField(
-              controller: textCtrlSkin,
-            ),
-            SizedBox(height: 10),
-            AddEntityRowTextField(
-              property: 'Name',
-              textEditingController: textCtrlName,
-            ),
-            SizedBox(height: 10),
-            AddEntityRowSwitcher(
-              property: 'Name',
-              textEditingController: textCtrlIcon,
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 50,
-              width: Get.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              // TextField(
+              //   controller: textCtrlName,
+              // ),
+              // TextField(
+              //   controller: textCtrlIcon,
+              // ),
+              // TextField(
+              //   controller: textCtrlSkin,
+              // ),
+              SizedBox(height: 10),
+              AddEntityRowTextField(
+                property: 'Name',
+                textEditingController: textCtrlName,
               ),
-            ),
-          ],
+              SizedBox(height: 10),
+              AddEntityRowSwitcher(
+                property: 'Name',
+                childWidget: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AddEntityRowTextField(
+                      property: 'Icon',
+                      textEditingController: textCtrlIcon,
+                    ),
+                    AddEntityRowTextField(
+                      property: 'Skin',
+                      textEditingController: textCtrlSkin,
+                    ),
+                  ],
+                )
+              ),
+              SizedBox(height: 10),
+              Container(
+                height: 50,
+                width: Get.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       backgroundColor: kBackgroundColorAddEntity,
@@ -80,11 +94,10 @@ class AddEntityPage extends GetWidget<AddEntityController> {
 }
 
 class AddEntityRowSwitcher extends StatelessWidget {
-  final AddEntityController controller = Get.find();
+  final controller = Get.put(AddEntityController());
   final String property;
-
-  final TextEditingController textEditingController;
-  AddEntityRowSwitcher({this.property,this.textEditingController});
+  final Widget childWidget;
+  AddEntityRowSwitcher({this.property,this.childWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -95,53 +108,50 @@ class AddEntityRowSwitcher extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(5)),
             color: Colors.white,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Flexible(flex: 5, child: Text(property)),
-                    ),
-                    Flexible(
-                        flex: 2,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          child: SwitcherButton(
-                            onColor: Colors.blue,
-                            offColor: Colors.red,
-                            value: true,
-                            onChange: (value) {
-                              controller.setExpand(value);
-                            },
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: controller.isExpand.value,
-                child: SizeTransition(
-                  axisAlignment: 1.0,
-                  sizeFactor: controller.animation,
-                  child: Container(
-                    width: Get.width,
-                    height: 80,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.blue.withOpacity(0.5),
-                    ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                          flex: 5,
+                          fit: FlexFit.loose,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(property),
+                          )),
+                      Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            child: SwitcherButton(
+                              onColor: Colors.blue,
+                              offColor: Colors.red,
+                              value: true,
+                              onChange: (value) {
+                                controller.setExpand(value);
+                              },
+                            ),
+                          )),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                Visibility(
+                  visible: controller.isExpand.value,
+                  child: SizeTransition(
+                    axisAlignment: 1.0,
+                    sizeFactor: controller.animation,
+                    child: childWidget
+                  ),
+                ),
+              ],
+            ),
           ),
         ));
   }
