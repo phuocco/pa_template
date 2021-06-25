@@ -15,6 +15,8 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
   AnimationController animationController;
 
   var isExpand = true.obs;
+  var textId = ''.obs;
+
   var _obj = ''.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
@@ -32,7 +34,12 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
     animationController.forward();
   }
 
-  setExpand(bool value){
+  setTextId(String text){
+    textId.value = text;
+  }
+
+  setExpand(bool value, {String type}){
+    //todo more item, animation
     isExpand.value = !value;
     if (!value) {
       animationController.forward();
@@ -40,6 +47,20 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
       animationController.reverse();
     }
     update();
+  }
+
+  var teleport = true.obs;
+  var knockBack = true.obs;
+
+  setSwitch(String type, bool value){
+    print(!value);
+    switch (type){
+      case 'Teleport':
+        teleport.value = !value;
+        break;
+      case 'KnockBack':
+        knockBack.value = !value;
+    }
   }
 
   @override
