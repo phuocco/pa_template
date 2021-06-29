@@ -14,9 +14,16 @@ import 'package:mods_guns/models/new_creator.dart';
 class CreatorController extends GetxController{
 
   final CreatorRepository repository;
-
   CreatorController({this.repository});
 
+  static CreatorController instance;
+
+  static CreatorController getInstance() {
+    if (instance == null) {
+      instance = new CreatorController();
+    }
+    return instance;
+  }
 
   var listDataDefault = <CreatorItem>[].obs;
   var listDataProject = <CreatorItem>[].obs;
@@ -26,7 +33,7 @@ class CreatorController extends GetxController{
   var defaultCreator = Creator("aaa").obs;
 
   var newItemDefault = NewCreatorItem(itemName: "aaa", itemIcon: "bbb", itemSkin: "ccc").obs;
-  var newCreatorDefault = NewCreator(items: [], authorName: 'phuoc',addonName: 'gun').obs;
+  var newCreatorDefault = NewCreator().obs;
 
 
   var _obj = ''.obs;
@@ -37,6 +44,9 @@ class CreatorController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    newCreatorDefault.value.items = [];
+    newCreatorDefault.value.authorName = 'phuoc';
+    newCreatorDefault.value.addonName ='gun';
     getCreatorItem();
     initListDefault();
     setDefault();
@@ -68,9 +78,9 @@ class CreatorController extends GetxController{
     newCreatorDefault.refresh();
   }
 
-  Future<dynamic> getEntityDynamic(String src) async {
+  Future<dynamic> getEntityDynamic() async {
     try {
-      String jsonString = await rootBundle.loadString("assets/mcpe/$src");
+      String jsonString = await rootBundle.loadString("assets/mcpe/weapon/weapon.json");
       return json.decode(jsonString);
     } catch (e) {
       print(e);

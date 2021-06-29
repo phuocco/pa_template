@@ -9,10 +9,10 @@ import 'package:mods_guns/models/new_creator.dart';
  * GetX Template Generator - fb.com/htngu.99
  * */
 
-class CreatorPage extends GetWidget<CreatorController> {
+class CreatorPage extends GetWidget {
+  final CreatorController controller = Get.put(CreatorController());
   @override
   Widget build(BuildContext context) {
-    controller.onStart();
     return Scaffold(
       appBar: AppBar(
         title: Text('Creator Page'),
@@ -33,26 +33,36 @@ class CreatorPage extends GetWidget<CreatorController> {
       body: Obx(() => ListView.builder(
             itemCount: controller.newCreatorDefault.value.items.length,
             itemBuilder: (context, index) {
-              return InkResponse(
-                onTap: () => Get.to(() => AddEntityPage(
-                      newCreatorItem:
-                          controller.newCreatorDefault.value.items[index],
-                      index: index,
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Text(controller
-                          .newCreatorDefault.value.items[index].itemName),
-                      Text(controller
-                          .newCreatorDefault.value.items[index].itemIcon),
-                      Text(controller
-                          .newCreatorDefault.value.items[index].itemSkin)
-                    ],
+              if(index == 0){
+                return InkResponse(
+                  onTap: () {
+                    print(controller.listDataDefault[0].toJson());
+                    print('a');
+                  },
+                  child: Text('data'),
+                );
+              } else {
+                return InkResponse(
+                  onTap: () => Get.to(() => AddEntityPage(
+                    creatorItem:
+                    controller.listDataDefault[0],
+                    index: index,
+                  )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(controller
+                            .newCreatorDefault.value.items[index].itemName),
+                        Text(controller
+                            .newCreatorDefault.value.items[index].itemIcon),
+                        Text(controller
+                            .newCreatorDefault.value.items[index].itemSkin)
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             },
           )),
     );

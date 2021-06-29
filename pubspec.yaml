@@ -96,18 +96,9 @@ flutter:
     - assets/images/tutorial_image/android/
     - assets/images/tutorial_image/mods/
     - assets/images/icons_about/
-    - assets/mcpe/projectile/
-    - assets/mcpe/projectile/arrows/icons/
-    - assets/mcpe/projectile/arrows/skins/
-    - assets/mcpe/projectile/trident/icons/
-    - assets/mcpe/projectile/trident/skins/
-    - assets/mcpe/projectile/file/
-    - assets/mcpe/projectile/icons/
-    - assets/mcpe/projectile/shulker/
-    - assets/mcpe/projectile/shulker/skins/
-    - assets/mcpe/projectile/shulker/icons/
-    - assets/mcpe/projectile/skins/
     - assets/mcpe/json/
+    - assets/mcpe/weapon/
+    - assets/mcpe/weapon/armchairs/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

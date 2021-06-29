@@ -3,47 +3,34 @@ import 'package:get/get.dart';
 import 'package:mods_guns/app/modules/add_entity_module/add_entity_controller.dart';
 import 'package:mods_guns/app/modules/creator_module/creator_controller.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/models/creator.dart';
 import 'package:mods_guns/models/new_creator.dart';
 import 'package:mods_guns/widgets/switcher_button.dart';
 
-class AddEntityPage extends GetWidget<AddEntityController> {
+class AddEntityPage extends GetWidget {
+  final AddEntityController controller = Get.put(AddEntityController());
   final CreatorController creatorController = Get.find();
-  final NewCreatorItem newCreatorItem;
+  final CreatorItem creatorItem;
   final int index;
-  AddEntityPage({this.newCreatorItem, this.index});
+  AddEntityPage({this.creatorItem, this.index});
 
   @override
   Widget build(BuildContext context) {
-    var textCtrlName = TextEditingController();
-    var textCtrlIcon = TextEditingController();
-    var textCtrlSkin = TextEditingController();
-
-    textCtrlName.text = newCreatorItem.itemName;
-    textCtrlIcon.text = newCreatorItem.itemIcon;
-    textCtrlSkin.text = newCreatorItem.itemSkin;
-
-    var textCtrlId = TextEditingController();
-    var textCtrlPower = TextEditingController();
-    var textCtrlGravity = TextEditingController();
-    var textCtrlDamage = TextEditingController();
-    var textCtrlShotDelay = TextEditingController();
 
     //todo assign
-
-
-
     // controller.onStart();
+    controller.getData(creatorController,creatorItem);
     return Scaffold(
       appBar: AppBar(
         title: Text('AddEntity Page'),
         actions: [
           IconButton(
               onPressed: () {
-                newCreatorItem.itemName = textCtrlName.text;
-                newCreatorItem.itemIcon = textCtrlIcon.text;
-                newCreatorItem.itemSkin = textCtrlSkin.text;
-                creatorController.save(newCreatorItem, index);
-                Get.back();
+               //save
+               //  creatorController.save(newCreatorItem, index);
+                print(controller.isTeleport.value);
+                controller.isTeleport.value = !controller.isTeleport.value ;
+                // Get.back();
               },
               icon: Icon(Icons.save)),
         ],
@@ -83,7 +70,7 @@ class AddEntityPage extends GetWidget<AddEntityController> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 child: TextField(
-                                  controller: textCtrlId,
+                                  controller: controller.textCtrlId,
                                   onChanged: (value){
                                     controller.setTextId(value);
                                   },
@@ -113,58 +100,92 @@ class AddEntityPage extends GetWidget<AddEntityController> {
                       Obx(() => Text('Command /give @pamobile:' + controller.textId.value),),
                     ],
                   )),
-
               SizedBox(height: 10),
 
+              //fixme: name field
               AddEntityRowTextField(
-                property: 'Shot Delay',
-                textEditingController: textCtrlShotDelay,
-              ),
-              SizedBox(height: 10),
-
-              SizedBox(height: 10),
-
-              AddEntityRowSwitcher(
-                property: 'Test',
-                type: 'KnockBack',
+                property: 'Name',
+                textEditingController: controller.textCtrlName,
                 isChild: false,
               ),
               SizedBox(height: 10),
+
+              //fixme: power field
+              AddEntityRowTextField(
+                property: 'Power',
+                textEditingController: controller.textCtrlPower,
+                isChild: false,
+              ),
+
+              SizedBox(height: 10),
+              //fixme: gravity field
+              AddEntityRowTextField(
+                property: 'Gravity',
+                textEditingController: controller.textCtrlGravity,
+                isChild: false,
+              ),
+              SizedBox(height: 10),
+              //fixme shot delay
+              AddEntityRowTextField(
+                property: 'Shot Delay',
+                textEditingController: controller.textCtrlShotDelay,
+                isChild: false,
+              ),
+              SizedBox(height: 10),
+              //fixme knock back
+              AddEntityRowSwitcher(
+                property: 'Knock back',
+                type: 'KnockBack',
+                value: controller.isKnockBack.value,
+                isChild: false,
+              ),
+              SizedBox(height: 10),
+
+              //fixme catch fire
+              AddEntityRowSwitcher(
+                property: 'Catch Fire',
+                type: 'CatchFire',
+                value: controller.isCatchFire.value,
+                isChild: false,
+              ),
+              SizedBox(height: 10),
+
+              //fixme teleport
+              Obx(() =>AddEntityRowSwitcher(
+                property: 'Teleport',
+                type: 'Teleport',
+                value: controller.isTeleport.value,
+                isChild: false,
+              ),),
+
+
+              SizedBox(height: 10),
+              //fixme explode
               AddEntityRowExpand(
                 property: 'Explode',
                 expandHeight: 140,
                 childWidget: Container(
-                  color: Colors.blue,
                   height: 100,
                   width: Get.width,
                   child:  Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      AddEntityRowSwitcher(
-                        property: 'Abc',
-                        type: 'Teleport',
+                      AddEntityRowTextField(
+                        property: 'Power',
+                        textEditingController: controller.textCtrlExplodePower,
                         isChild: true,
                       ),
-                      AddEntityRowTextField(
-                        property: 'Shot Delay',
-                        textEditingController: textCtrlShotDelay,
+                      AddEntityRowSwitcher(
+                        property: 'Causes Fire',
+                        type: 'ExplodeCausesFire',
+                        value: controller.isExplodeCausesFire.value,
+                        isChild: true,
+                        isLast: true,
                       ),
                     ],
                   ),
                 ),
               ),
-
-          //region test
-              TextField(
-                controller: textCtrlName,
-              ),
-              TextField(
-                controller: textCtrlIcon,
-              ),
-              TextField(
-                controller: textCtrlSkin,
-              ),
-              //endregion
 
             ],
           ),
@@ -180,9 +201,11 @@ class AddEntityPage extends GetWidget<AddEntityController> {
 class AddEntityRowSwitcher extends StatelessWidget {
   final String property;
   final String type;
+  final bool value;
   final bool isChild;
-  final controller = Get.put(AddEntityController());
-  AddEntityRowSwitcher({this.property, this.type,this.isChild});
+  final bool isLast;
+  final AddEntityController controller = Get.find();
+  AddEntityRowSwitcher({this.property, this.type,this.isChild, this.value, this.isLast = false});
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +213,7 @@ class AddEntityRowSwitcher extends StatelessWidget {
       height: 40,
       width: Get.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(isChild?0:5)),
+        borderRadius: isLast ?BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)) : BorderRadius.all(Radius.circular(isChild? 0: 5)),
         color: Colors.white,
       ),
       child: SingleChildScrollView(
@@ -208,20 +231,19 @@ class AddEntityRowSwitcher extends StatelessWidget {
                       fit: FlexFit.loose,
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
-                        child: Text(property),
+                        child: Text(property + " " + value.toString()),
                       )),
                   Flexible(
                       flex: 2,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 5),
-                        child: SwitcherButton(
-                          onColor: Colors.blue,
-                          offColor: Colors.red,
-                          value: true,
-                          onChange: (value) {
-                            controller.setSwitch(type, value);
-                          },
+                        child: Switch(
+                          value: value,
+                          onChanged: (bool vl) {
+                            controller.isTeleport.value = vl;
+                        },
+
                         ),
                       )),
                 ],
@@ -305,7 +327,8 @@ class AddEntityRowExpand extends StatelessWidget {
 class AddEntityRowTextField extends StatelessWidget {
   final String property;
   final TextEditingController textEditingController;
-  AddEntityRowTextField({this.property, this.textEditingController});
+  final bool isChild;
+  AddEntityRowTextField({this.property, this.textEditingController, this.isChild});
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +336,7 @@ class AddEntityRowTextField extends StatelessWidget {
         height: 60,
         width: Get.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
+          borderRadius: BorderRadius.all(Radius.circular(isChild ? 0 : 5)),
           color: Colors.white,
         ),
         child: Row(
