@@ -31,21 +31,13 @@ class CreatorPage extends GetWidget {
         ],
       ),
       body: Obx(() => ListView.builder(
-            itemCount: controller.newCreatorDefault.value.items.length,
+            itemCount: controller.defaultCreator.value.items.length,
             itemBuilder: (context, index) {
-              if(index == 0){
-                return InkResponse(
-                  onTap: () {
-                    print(controller.listDataDefault[0].toJson());
-                    print('a');
-                  },
-                  child: Text('data'),
-                );
-              } else {
                 return InkResponse(
                   onTap: () => Get.to(() => AddEntityPage(
                     creatorItem:
-                    controller.listDataDefault[0],
+                    controller
+                        .defaultCreator.value.items[index],
                     index: index,
                   )),
                   child: Padding(
@@ -53,17 +45,12 @@ class CreatorPage extends GetWidget {
                     child: Column(
                       children: [
                         Text(controller
-                            .newCreatorDefault.value.items[index].itemName),
-                        Text(controller
-                            .newCreatorDefault.value.items[index].itemIcon),
-                        Text(controller
-                            .newCreatorDefault.value.items[index].itemSkin)
+                            .defaultCreator.value.items[index].itemName),
                       ],
                     ),
                   ),
                 );
               }
-            },
           )),
     );
   }

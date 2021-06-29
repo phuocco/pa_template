@@ -87,7 +87,7 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
       item.entities = await creatorController.getEntityDynamic(item.itemEntityDir);
     }
     print('a');
-    components = item.entities[mEntityKey][componentsKey];
+    components = item.entities[mItemKey][componentsKey];
     teleport = components[mTeleportKey];
 
     isTeleport.value = teleport == null

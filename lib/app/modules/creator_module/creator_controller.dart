@@ -27,10 +27,11 @@ class CreatorController extends GetxController{
 
   var listDataDefault = <CreatorItem>[].obs;
   var listDataProject = <CreatorItem>[].obs;
-  var defaultItem  = ItemDefault().obs;
   Map componentsDefault;
+
   var itemEdit = CreatorItem().obs;
-  var defaultCreator = Creator("aaa").obs;
+  var defaultCreator = Creator("phuoc").obs;
+
 
   var newItemDefault = NewCreatorItem(itemName: "aaa", itemIcon: "bbb", itemSkin: "ccc").obs;
   var newCreatorDefault = NewCreator().obs;
@@ -44,9 +45,7 @@ class CreatorController extends GetxController{
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    newCreatorDefault.value.items = [];
-    newCreatorDefault.value.authorName = 'phuoc';
-    newCreatorDefault.value.addonName ='gun';
+    defaultCreator.value.items = [];
     getCreatorItem();
     initListDefault();
     setDefault();
@@ -66,16 +65,15 @@ class CreatorController extends GetxController{
   add(){
     print('add');
     String name = Random().nextInt(10).toString();
-    NewCreatorItem add = NewCreatorItem(
-        itemName: name, itemSkin: "skin", itemIcon: "icon");
-    newCreatorDefault.value.items.add(add);
-    newCreatorDefault.refresh();
-    print(newCreatorDefault.value.items.length);
+    CreatorItem add = listDataDefault[1];
+    add.itemName = name;
+    defaultCreator.value.items.add(add);
+    defaultCreator.refresh();
   }
 
-  save(NewCreatorItem newCreatorItem, int index){
-    newCreatorDefault.value.items[index] = newCreatorItem;
-    newCreatorDefault.refresh();
+  save(CreatorItem creatorItem, int index){
+    // newCreatorDefault.value.items[index] = newCreatorItem;
+    // newCreatorDefault.refresh();
   }
 
   Future<dynamic> getEntityDynamic(String src) async {

@@ -10,14 +10,7 @@
       "minecraft:foil": false,
       "minecraft:hand_equipped": true,
       "minecraft:max_damage": 1000,
-      "minecraft:max_stack_size": 1,
-      "minecraft:teleport": {
-        "randomTeleports": true,
-        "maxRandomTeleportTime": 30,
-        "randomTeleportCube": [ 32, 32, 32 ],
-        "targetDistance": 16,
-        "lightTeleportChance": 0.01
-      }
+      "minecraft:max_stack_size": 1
     }
   }
 }
