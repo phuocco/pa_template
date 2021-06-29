@@ -24,7 +24,7 @@ class CreatorPage extends GetWidget {
               icon: Icon(Icons.add)),
           IconButton(
               onPressed: () {
-               String str =  newCreatorToJson([controller.newCreatorDefault.value]);
+               var str =  controller.listDataDefault[0].toJson();
                print(str);
               },
               icon: Icon(Icons.update)),

@@ -99,6 +99,10 @@ flutter:
     - assets/mcpe/json/
     - assets/mcpe/weapon/
     - assets/mcpe/weapon/armchairs/
+    - assets/mcpe/projectile/
+    - assets/mcpe/projectile/file/
+    - assets/mcpe/projectile/icons/
+    - assets/mcpe/projectile/skins/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

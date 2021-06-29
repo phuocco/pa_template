@@ -28,9 +28,8 @@ class AddEntityPage extends GetWidget {
               onPressed: () {
                //save
                //  creatorController.save(newCreatorItem, index);
-                print(controller.isTeleport.value);
-                controller.isTeleport.value = !controller.isTeleport.value ;
-                // Get.back();
+                controller.sendBackCreatorItem(creatorController, creatorItem);
+                Get.back();
               },
               icon: Icon(Icons.save)),
         ],

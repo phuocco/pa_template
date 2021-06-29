@@ -84,29 +84,28 @@ class AddEntityController extends GetxController with SingleGetTickerProviderMix
     print('a');
 
     if(item.entities == null){
-      item.entities = await creatorController.getEntityDynamic();
+      item.entities = await creatorController.getEntityDynamic(item.itemEntityDir);
     }
     print('a');
-    components = item.entities[mItemKey][componentsKey];
+    components = item.entities[mEntityKey][componentsKey];
     teleport = components[mTeleportKey];
 
     isTeleport.value = teleport == null
         ? false
         : true;
-
-
     teleport = Map.from(isTeleport.value
         ? teleport
         : creatorController.componentsDefault[mTeleportKey]);
-
     update();
-
   }
 
   sendBackCreatorItem(CreatorController creatorController,  CreatorItem item){
     //todo get item after edit
     components['minecraft:teleport'] =
     isTeleport.value ? teleport : null;
+
+    item.entities["minecraft:entity"]["components"] = components;
+    print('a');
   }
 
   @override

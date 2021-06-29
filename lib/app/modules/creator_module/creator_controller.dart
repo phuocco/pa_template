@@ -78,9 +78,9 @@ class CreatorController extends GetxController{
     newCreatorDefault.refresh();
   }
 
-  Future<dynamic> getEntityDynamic() async {
+  Future<dynamic> getEntityDynamic(String src) async {
     try {
-      String jsonString = await rootBundle.loadString("assets/mcpe/weapon/weapon.json");
+      String jsonString = await rootBundle.loadString("assets/$src");
       return json.decode(jsonString);
     } catch (e) {
       print(e);
