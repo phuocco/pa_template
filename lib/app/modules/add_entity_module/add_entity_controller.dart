@@ -277,6 +277,20 @@ class AddEntityController extends GetxController
     }
     idController.text = id;
 
+    if (item.baseID == null) {
+      item.baseID =
+      item.entities["minecraft:item"]["description"]["identifier"];
+      nameController.text = item.itemName;
+      print('a');
+    } else {
+      if (item.data is String) {
+        nameController.text = item.data;
+      } else {
+        if (item.data != null && item.data["name"] != null) {
+          nameController.text = item.data["name"];
+        }
+      }
+    }
 
 
     update();

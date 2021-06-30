@@ -107,13 +107,13 @@ class AddEntityPage extends GetWidget {
                       ),
                     ],
                   )),
-              
+
               SizedBox(height: 10),
 
               //fixme: name field
               AddEntityRowTextField(
                 property: 'Name',
-                textEditingController: controller.textCtrlName,
+                textEditingController: controller.nameController,
                 isChild: false,
               ),
               SizedBox(height: 10),
@@ -364,6 +364,14 @@ class AddEntityRowTextField extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextField(
                   controller: textEditingController,
+                  onChanged: (value){
+                    textEditingController.value = TextEditingValue(
+                        text: value,
+                        selection: TextSelection(
+                            baseOffset: value.length,
+                            extentOffset: value.length)
+                    );
+                  },
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
