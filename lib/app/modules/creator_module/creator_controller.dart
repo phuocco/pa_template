@@ -7,6 +7,8 @@ import 'package:mods_guns/models/creator.dart';
 import 'dart:convert';
 
 import 'package:mods_guns/models/new_creator.dart';
+
+import '../../../main.dart';
 /**
  * GetX Template Generator - fb.com/htngu.99
  * */
@@ -65,9 +67,10 @@ class CreatorController extends GetxController{
   add(){
     print('add');
     String name = Random().nextInt(10).toString();
-    CreatorItem add = listDataDefault[1];
-    add.itemName = name;
+    CreatorItem add = CreatorItem();
+    add = listDataDefault[1];
     defaultCreator.value.items.add(add);
+    print('a');
     defaultCreator.refresh();
   }
 
@@ -98,6 +101,16 @@ class CreatorController extends GetxController{
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<List> getList(String dir) async {
+    if (dir.endsWith("/zombie")) {
+      dir = dir + "/";
+    }
+    return manifestMap.keys
+        .where((String key) => key.contains("assets/$dir"))
+        .where((key) => !key.contains("DS_Store"))
+        .toList();
   }
 
   setDataDefault(list, componentsData) {

@@ -46,6 +46,7 @@ class CreatorPage extends GetWidget {
                       children: [
                         Text(controller
                             .defaultCreator.value.items[index].itemName),
+                        Text(index.toString()),
                       ],
                     ),
                   ),

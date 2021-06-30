@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mods_guns/main.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:mods_guns/app/data/repository/home_repository.dart';
 import 'package:get/get.dart';
@@ -64,14 +65,17 @@ class HomeController extends GetxController {
   void onInit()  {
     // TODO: implement onInit
     super.onInit();
+    _initImages();
     countOpen();
-
-
     initPages();
     searchTextEditingController = TextEditingController();
     if (box.hasData('LOCALE')) {
       Get.updateLocale(Locale(box.read("LOCALE")));
     }
+  }
+  Future _initImages() async {
+    final manifestContent = await DefaultAssetBundle.of(Get.context).loadString('AssetManifest.json');
+    manifestMap = json.decode(manifestContent);
   }
 
   @override

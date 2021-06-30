@@ -61,18 +61,24 @@ class AddEntityPage extends GetWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
-                              flex: 3,
+                              flex: 1,
                               child: Text('ID'),
                             ),
                             Flexible(
-                              flex: 3,
+                              flex: 4,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 child: TextField(
-                                  controller: controller.textCtrlId,
+                                  controller: controller.idController,
                                   onChanged: (value){
                                     controller.setTextId(value);
+                                    controller.idController.value = TextEditingValue(
+                                        text: value,
+                                        selection: TextSelection(
+                                            baseOffset: value.length,
+                                            extentOffset: value.length)
+                                    );
                                   },
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -97,9 +103,11 @@ class AddEntityPage extends GetWidget {
                           ],
                         ),
                       ),
-                      Obx(() => Text('Command /give @pamobile:' + controller.textId.value),),
+                      Obx(() => Text('Command /give @pamobile:' + controller.textId.value, maxLines: 1,overflow: TextOverflow.ellipsis,),
+                      ),
                     ],
                   )),
+              
               SizedBox(height: 10),
 
               //fixme: name field

@@ -21,6 +21,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 }
+Map<String, dynamic> manifestMap = Map<String, dynamic>();
 
 class MyApp extends StatelessWidget {
   @override
