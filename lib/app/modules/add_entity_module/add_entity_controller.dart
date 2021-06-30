@@ -139,6 +139,8 @@ class AddEntityController extends GetxController
   var waterBreath;
   //endregion
 
+  dynamic model;
+
   //region bool
   var isGravity = true.obs;
   var isShooter = false.obs;
@@ -232,7 +234,14 @@ class AddEntityController extends GetxController
   var textCtrlExplodePower = TextEditingController();
   //endregion
 
-  String skin = "";
+  var _skin = ''.obs;
+  set skin(value) => _skin.value = value;
+  get skin => _skin.value;
+
+  updateSkin(String path){
+    skin = path;
+    update();
+  }
 
   setSwitch(String type, bool value) {
     print(!value);
@@ -263,13 +272,13 @@ class AddEntityController extends GetxController
       item.entities =
           await creatorController.getEntityDynamic(item.itemEntityDir);
     }
-    //todo: id
+    //fixme: id
     var id = "";
-    if (item.entities["minecraft:item"]["components"]
+    if (item.entities["minecraft:entity"]["components"]
             ["minecraft:identifier"] ==
         null) {
       // id = "${item.entities["minecraft:entity"]["description"]["identifier"]}";
-      id = "${item.entities["minecraft:item"]["description"]["identifier"]}";
+      id = "${item.entities["minecraft:entity"]["description"]["identifier"]}";
       print('a');
     } else {
       id =
@@ -277,9 +286,10 @@ class AddEntityController extends GetxController
     }
     idController.text = id;
 
+    //fixme name
     if (item.baseID == null) {
       item.baseID =
-      item.entities["minecraft:item"]["description"]["identifier"];
+      item.entities["minecraft:entity"]["description"]["identifier"];
       nameController.text = item.itemName;
       print('a');
     } else {
@@ -289,6 +299,12 @@ class AddEntityController extends GetxController
         if (item.data != null && item.data["name"] != null) {
           nameController.text = item.data["name"];
         }
+      }
+    }
+    //fixme: model
+    if (item.dataModel != null) {
+      if (item.dataModel['model'] != null) {
+        model = item.dataModel['model'];
       }
     }
 

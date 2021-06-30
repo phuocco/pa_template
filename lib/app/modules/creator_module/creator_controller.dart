@@ -68,7 +68,7 @@ class CreatorController extends GetxController{
     print('add');
     String name = Random().nextInt(10).toString();
     CreatorItem add = CreatorItem();
-    add = listDataDefault[1];
+    add = listDataDefault[0];
     defaultCreator.value.items.add(add);
     print('a');
     defaultCreator.refresh();

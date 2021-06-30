@@ -107,7 +107,6 @@ class AddEntityPage extends GetWidget {
                       ),
                     ],
                   )),
-
               SizedBox(height: 10),
 
               //fixme: name field
@@ -117,6 +116,15 @@ class AddEntityPage extends GetWidget {
                 isChild: false,
               ),
               SizedBox(height: 10),
+
+              //fixme: texture field
+              AddEntityRowTexture(
+                property: 'Texture',
+                controller: controller,
+                creatorItem: creatorItem,
+              ),
+              SizedBox(height: 10),
+
 
               //fixme: power field
               AddEntityRowTextField(
@@ -387,6 +395,80 @@ class AddEntityRowTextField extends StatelessWidget {
                       ),
                       filled: true,
                       fillColor: kBackgroundColorAddEntity),
+                ),
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class AddEntityRowTexture extends StatelessWidget {
+  final String property;
+  final AddEntityController controller;
+  final CreatorItem creatorItem;
+  AddEntityRowTexture({this.property, this.controller, this.creatorItem});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 60,
+        width: Get.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(property),
+                )),
+            Obx(() => Flexible(
+                flex: 2,
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: controller.skin.isEmpty ? SizedBox() : Image.asset(controller.skin, fit: BoxFit.contain,),
+                )),),
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TextButton(
+                  onPressed: () {
+                    Get.dialog(Dialog(
+                      child: GridView.builder(
+                        itemCount: creatorItem.listSkin.length,
+                        gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
+                            childAspectRatio: 1 / 1.40,
+                            crossAxisCount: 4),
+                        itemBuilder: (context, index) {
+                          return InkResponse(
+                            onTap: () {
+                              controller.updateSkin(creatorItem.listSkin[index]);
+                              Get.back();
+                            },
+                              child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: Image.asset(creatorItem.listSkin[index],
+                                    fit: BoxFit.contain,)));
+                        },
+                      ),
+                    ),);
+                  },
+                  child: Text('Change'.toUpperCase()),
                 ),
               ),
             ),
