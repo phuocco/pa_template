@@ -142,89 +142,36 @@ class AddEntityController extends GetxController
   dynamic model;
 
   //region bool
-  var isGravity = true.obs;
-  var isShooter = false.obs;
-  var isEditModel = false.obs;
-  var isSpawnRules = false.obs;
-  var isPickSounds = false.obs;
-  var isFollowOwner = false.obs;
-  var isBoss = false.obs;
-  var isNameable = false.obs;
-  var isInventory = false.obs;
-  var isNewMob = false.obs;
-  var isPlayerRide = false.obs;
+
+  var isCatchFire = false.obs;
+  var isExplode = true.obs;
+  var isSpawnMob = false.obs;
+  var isBaby = false.obs;
   var isTeleport = false.obs;
-  var isBreath = false.obs;
-  var isDaylight = false.obs;
-  var isFly = false.obs;
-  var isClimb = false.obs;
-  var isWet = false.obs;
-  var isImmune = false.obs;
-  var isTrade = false.obs;
-  var isSpawnEntity = false.obs;
-  var isDamage = false.obs;
-  var isMelee = false.obs;
-  var isRanged = false.obs;
-  var isNearest = false.obs;
-  var isAvoidMob = false.obs;
-  var isLeap = false.obs;
-  var isWaterFloat = false.obs;
-  var isPanic = false.obs;
-  var isBreedAble = false.obs;
-  var isTamable = false.obs;
-  var isTransform = false.obs;
-  var isFleeSun = false.obs;
-  var isRideTame = false.obs;
-  var isRestrictSun = false.obs;
-  var isRestrictFall = false.obs;
-  var isShouldDarkenSky = false.obs;
-  var isAlwaysShow = false.obs;
-  var isAllowNameTagRenaming = false.obs;
-  var isBubble = false.obs;
-  var isTarget = false.obs;
-  var isMultipleTexture = false.obs;
-  var isBlockFilter = false.obs;
+  var nameTexture = "".obs;
+  var nameSkin = "".obs;
+  var spawnType = "".obs;
+  var isCauseFire = false.obs;
+
+  var isRecipe = false.obs;
+  var isKnockBack = true.obs;
+  var isExplodeCausesFire = true.obs;
 
   //endregion
 
   //region TextEditingController
-  var flyController = TextEditingController();
   var myController = TextEditingController();
   var idController = TextEditingController();
   var nameController = TextEditingController();
-  var healthController = TextEditingController();
-  var expController = TextEditingController();
-  var moveController = TextEditingController();
-  var sizeController = TextEditingController();
-  var inventorySizeController = TextEditingController();
-  var hudController = TextEditingController();
-  var weightController = TextEditingController(text: "100");
-  var controllerAttackType = TextEditingController();
-  var controllerBaby = TextEditingController();
-  var leapController = TextEditingController();
-  var radiusController = TextEditingController();
-  var speedRangedController = TextEditingController();
-  var radiusRangedController = TextEditingController();
-  var shotsRangedController = TextEditingController();
-  var intervalRangedController = TextEditingController();
-  var valueDamageController = TextEditingController();
-  var speedMeleeController = TextEditingController();
-  var positionXController = TextEditingController();
-  var positionYController = TextEditingController();
-  var positionZController = TextEditingController();
-  var randomTimeController = TextEditingController();
-  var distanceController = TextEditingController();
-  var timesController = TextEditingController();
-  var limitSpawnController = TextEditingController(text: "2");
-  var cooldownController = TextEditingController(text: "1");
+  var powerController = TextEditingController(text: "5");
+  var gravityController = TextEditingController(text: "0.05");
+  var damageController = TextEditingController(text: "5");
+  var shotDelayController = TextEditingController(text: "2");
+  var explodePowerController = TextEditingController(text: "5");
 
   //endregion
 
   //region old
-  // var isTeleport = false.obs;
-  var isKnockBack = true.obs;
-  var isCatchFire = true.obs;
-  var isExplodeCausesFire = true.obs;
 
   var textCtrlId = TextEditingController();
   var textCtrlName = TextEditingController();
@@ -238,7 +185,7 @@ class AddEntityController extends GetxController
   set skin(value) => _skin.value = value;
   get skin => _skin.value;
 
-  updateSkin(String path){
+  updateSkin(String path) {
     skin = path;
     update();
   }
@@ -257,6 +204,9 @@ class AddEntityController extends GetxController
         break;
       case 'ExplodeCausesFire':
         isExplodeCausesFire.value = !value;
+        break;
+      case 'Explode':
+        isExplode.value = !value;
         break;
     }
   }
@@ -289,7 +239,7 @@ class AddEntityController extends GetxController
     //fixme name
     if (item.baseID == null) {
       item.baseID =
-      item.entities["minecraft:entity"]["description"]["identifier"];
+          item.entities["minecraft:entity"]["description"]["identifier"];
       nameController.text = item.itemName;
       print('a');
     } else {
@@ -307,7 +257,6 @@ class AddEntityController extends GetxController
         model = item.dataModel['model'];
       }
     }
-
 
     update();
   }

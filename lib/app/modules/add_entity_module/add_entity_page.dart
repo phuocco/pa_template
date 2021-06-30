@@ -16,20 +16,19 @@ class AddEntityPage extends GetWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //todo assign
     // controller.onStart();
-    controller.getData(creatorController,creatorItem);
+    controller.getData(creatorController, creatorItem);
     return Scaffold(
       appBar: AppBar(
         title: Text('AddEntity Page'),
         actions: [
           IconButton(
               onPressed: () {
-               //save
-               //  creatorController.save(newCreatorItem, index);
-               //  controller.sendBackCreatorItem(creatorController, creatorItem);
-               //  Get.back();
+                //save
+                //  creatorController.save(newCreatorItem, index);
+                //  controller.sendBackCreatorItem(creatorController, creatorItem);
+                //  Get.back();
                 print(creatorItem.toJson());
               },
               icon: Icon(Icons.save)),
@@ -44,7 +43,7 @@ class AddEntityPage extends GetWidget {
               Container(
                   height: 90,
                   width: Get.width,
-                  padding: EdgeInsets.only(left: 10,bottom: 5),
+                  padding: EdgeInsets.only(left: 10, bottom: 5),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     color: Colors.white,
@@ -71,14 +70,14 @@ class AddEntityPage extends GetWidget {
                                     horizontal: 10, vertical: 5),
                                 child: TextField(
                                   controller: controller.idController,
-                                  onChanged: (value){
+                                  onChanged: (value) {
                                     controller.setTextId(value);
-                                    controller.idController.value = TextEditingValue(
-                                        text: value,
-                                        selection: TextSelection(
-                                            baseOffset: value.length,
-                                            extentOffset: value.length)
-                                    );
+                                    controller.idController.value =
+                                        TextEditingValue(
+                                            text: value,
+                                            selection: TextSelection(
+                                                baseOffset: value.length,
+                                                extentOffset: value.length));
                                   },
                                   decoration: InputDecoration(
                                       focusedBorder: OutlineInputBorder(
@@ -103,7 +102,12 @@ class AddEntityPage extends GetWidget {
                           ],
                         ),
                       ),
-                      Obx(() => Text('Command /give @pamobile:' + controller.textId.value, maxLines: 1,overflow: TextOverflow.ellipsis,),
+                      Obx(
+                        () => Text(
+                          'Command /give @pamobile:' + controller.textId.value,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   )),
@@ -125,84 +129,96 @@ class AddEntityPage extends GetWidget {
               ),
               SizedBox(height: 10),
 
-
               //fixme: power field
               AddEntityRowTextField(
                 property: 'Power',
-                textEditingController: controller.textCtrlPower,
+                textEditingController: controller.powerController,
                 isChild: false,
               ),
-
               SizedBox(height: 10),
+
               //fixme: gravity field
               AddEntityRowTextField(
                 property: 'Gravity',
-                textEditingController: controller.textCtrlGravity,
+                textEditingController: controller.gravityController,
                 isChild: false,
               ),
               SizedBox(height: 10),
+
+              //fixme: damage field
+              AddEntityRowTextField(
+                property: 'Damage',
+                textEditingController: controller.damageController,
+                isChild: false,
+              ),
+              SizedBox(height: 10),
+
               //fixme shot delay
               AddEntityRowTextField(
                 property: 'Shot Delay',
-                textEditingController: controller.textCtrlShotDelay,
+                textEditingController: controller.shotDelayController,
                 isChild: false,
               ),
               SizedBox(height: 10),
+
               //fixme knock back
-              AddEntityRowSwitcher(
-                property: 'Knock back',
-                type: 'KnockBack',
-                value: controller.isKnockBack.value,
-                isChild: false,
+              Obx(
+                () => AddEntityRowSwitcher(
+                  property: 'Knock back',
+                  type: 'KnockBack',
+                  value: controller.isKnockBack.value,
+                  isChild: false,
+                ),
               ),
               SizedBox(height: 10),
-
               //fixme catch fire
-              AddEntityRowSwitcher(
-                property: 'Catch Fire',
-                type: 'CatchFire',
-                value: controller.isCatchFire.value,
-                isChild: false,
+              Obx(
+                () => AddEntityRowSwitcher(
+                  property: 'Catch fire',
+                  type: 'CatchFire',
+                  value: controller.isCatchFire.value,
+                  isChild: false,
+                ),
+              ),
+              SizedBox(height: 10),
+              //fixme teleport
+              Obx(
+                () => AddEntityRowSwitcher(
+                  property: 'Teleport',
+                  type: 'Teleport',
+                  value: controller.isTeleport.value,
+                  isChild: false,
+                ),
               ),
               SizedBox(height: 10),
 
-              //fixme teleport
-              Obx(() =>AddEntityRowSwitcher(
-                property: 'Teleport',
-                type: 'Teleport',
-                value: controller.isTeleport.value,
-                isChild: false,
-              ),),
-
-
-              SizedBox(height: 10),
               //fixme explode
-              AddEntityRowExpand(
-                property: 'Explode',
-                expandHeight: 140,
-                childWidget: Container(
-                  height: 100,
-                  width: Get.width,
-                  child:  Column(
+              Obx(
+                () => AddEntityRowExpand(
+                  property: 'Explode',
+                  type: 'Explode',
+                  value: controller.isExplode.value,
+                  heightExpand: 180,
+                  childWidget: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      AddEntityRowTextField(
-                        property: 'Power',
-                        textEditingController: controller.textCtrlExplodePower,
-                        isChild: true,
-                      ),
                       AddEntityRowSwitcher(
                         property: 'Causes Fire',
                         type: 'ExplodeCausesFire',
                         value: controller.isExplodeCausesFire.value,
                         isChild: true,
-                        isLast: true,
+                      ),
+                      AddEntityRowTextField(
+                        property: 'Power',
+                        textEditingController:
+                            controller.explodePowerController,
+                        isChild: true,
                       ),
                     ],
                   ),
                 ),
               ),
-
+              Obx(() =>AddEntityRowRecipe()),
             ],
           ),
         ),
@@ -212,6 +228,15 @@ class AddEntityPage extends GetWidget {
   }
 }
 
+class AddEntityRowRecipe extends StatelessWidget {
+  AddEntityRowRecipe();
+  final AddEntityController controller = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(height:10, color: Colors.blue);
+  }
+}
 
 
 class AddEntityRowSwitcher extends StatelessWidget {
@@ -221,52 +246,60 @@ class AddEntityRowSwitcher extends StatelessWidget {
   final bool isChild;
   final bool isLast;
   final AddEntityController controller = Get.find();
-  AddEntityRowSwitcher({this.property, this.type,this.isChild, this.value, this.isLast = false});
+  AddEntityRowSwitcher(
+      {this.property,
+      this.type,
+      this.isChild,
+      this.value,
+      this.isLast = false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40,
+      height: 60,
       width: Get.width,
+      padding:
+          !isChild ? EdgeInsets.all(0) : EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
-        borderRadius: isLast ?BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)) : BorderRadius.all(Radius.circular(isChild? 0: 5)),
+        borderRadius: isLast
+            ? BorderRadius.only(
+                bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5))
+            : BorderRadius.all(Radius.circular(isChild ? 0 : 5)),
         color: Colors.white,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                      flex: 5,
-                      fit: FlexFit.loose,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(property + " " + value.toString()),
-                      )),
-                  Flexible(
-                      flex: 2,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 5),
-                        child: Switch(
-                          value: value,
-                          onChanged: (bool vl) {
-                            controller.isTeleport.value = vl;
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                    flex: 5,
+                    fit: FlexFit.loose,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(property),
+                    )),
+                Flexible(
+                    flex: 2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Switch(
+                        value: value,
+                        onChanged: (bool vl) {
+                          // controller.isTeleport.value = vl;
+                          controller.setSwitch(type, value);
                         },
-
-                        ),
-                      )),
-                ],
-              ),
+                      ),
+                    )),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -274,132 +307,70 @@ class AddEntityRowSwitcher extends StatelessWidget {
 
 class AddEntityRowExpand extends StatelessWidget {
   final String property;
-  final Widget childWidget;
   final String type;
-  final double expandHeight;
-  final controller = Get.put(AddEntityController());
-  AddEntityRowExpand({this.property, this.childWidget, this.type, this.expandHeight});
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() => Container(
-          height: controller.isExpand.value ? expandHeight : 40,
-          width: Get.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            color: Colors.white,
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                          flex: 5,
-                          fit: FlexFit.loose,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Text(property),
-                          )),
-                      Flexible(
-                          flex: 2,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            child: SwitcherButton(
-                              onColor: Colors.blue,
-                              offColor: Colors.red,
-                              value: true,
-                              onChange: (value) {
-                                // controller.setExpand(value);
-                                controller.setExpand(value);
-                              },
-                            ),
-                          )),
-                    ],
-                  ),
-                ),
-
-                  Visibility(
-                    visible: controller.isExpand.value,
-                    child: SizeTransition(
-                        axisAlignment: 1.0,
-                        sizeFactor: controller.animation,
-                        child: childWidget),
-                  ),
-
-              ],
-            ),
-          ),
-        ));
-  }
-}
-
-class AddEntityRowTextField extends StatelessWidget {
-  final String property;
-  final TextEditingController textEditingController;
-  final bool isChild;
-  AddEntityRowTextField({this.property, this.textEditingController, this.isChild});
+  final bool value;
+  final Widget childWidget;
+  final double heightExpand;
+  final AddEntityController controller = Get.find();
+  AddEntityRowExpand(
+      {this.property,
+      this.type,
+      this.childWidget,
+      this.value,
+      this.heightExpand});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 60,
-        width: Get.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(isChild ? 0 : 5)),
-          color: Colors.white,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(property),
-                )),
-            Flexible(
-              flex: 3,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: TextField(
-                  controller: textEditingController,
-                  onChanged: (value){
-                    textEditingController.value = TextEditingValue(
-                        text: value,
-                        selection: TextSelection(
-                            baseOffset: value.length,
-                            extentOffset: value.length)
-                    );
-                  },
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
+      height: value ? heightExpand : 60,
+      width: Get.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                    flex: 5,
+                    fit: FlexFit.loose,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(property),
+                    )),
+                Flexible(
+                    flex: 2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      child: Switch(
+                        value: value,
+                        onChanged: (bool vl) {
+                          // controller.isTeleport.value = vl;
+                          controller.setSwitch(type, value);
+                        },
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: kBackgroundColorAddEntity),
-                ),
-              ),
+                    )),
+              ],
             ),
-          ],
-        ));
+          ),
+          Visibility(
+            visible: value,
+            child: SizeTransition(
+                axisAlignment: 1.0,
+                sizeFactor: controller.animation,
+                child: childWidget),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -428,47 +399,124 @@ class AddEntityRowTexture extends StatelessWidget {
                   padding: EdgeInsets.only(left: 10),
                   child: Text(property),
                 )),
-            Obx(() => Flexible(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.only(left: 10),
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: controller.skin.isEmpty ? SizedBox() : Image.asset(controller.skin, fit: BoxFit.contain,),
-                )),),
+            Obx(
+              () => Flexible(
+                  flex: 2,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: controller.skin.isEmpty
+                        ? SizedBox()
+                        : Image.asset(
+                            controller.skin,
+                            fit: BoxFit.contain,
+                          ),
+                  )),
+            ),
             Flexible(
               flex: 3,
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextButton(
                   onPressed: () {
-                    Get.dialog(Dialog(
-                      child: GridView.builder(
-                        itemCount: creatorItem.listSkin.length,
-                        gridDelegate:
-                        SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 8.0,
-                            childAspectRatio: 1 / 1.40,
-                            crossAxisCount: 4),
-                        itemBuilder: (context, index) {
-                          return InkResponse(
-                            onTap: () {
-                              controller.updateSkin(creatorItem.listSkin[index]);
-                              Get.back();
-                            },
-                              child: Container(
-                                  padding: EdgeInsets.all(5),
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: Image.asset(creatorItem.listSkin[index],
-                                    fit: BoxFit.contain,)));
-                        },
+                    Get.dialog(
+                      Dialog(
+                        child: GridView.builder(
+                          itemCount: creatorItem.listSkin.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisSpacing: 8.0,
+                                  crossAxisSpacing: 8.0,
+                                  childAspectRatio: 1 / 1.40,
+                                  crossAxisCount: 4),
+                          itemBuilder: (context, index) {
+                            return InkResponse(
+                                onTap: () {
+                                  controller
+                                      .updateSkin(creatorItem.listSkin[index]);
+                                  Get.back();
+                                },
+                                child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: Image.asset(
+                                      creatorItem.listSkin[index],
+                                      fit: BoxFit.contain,
+                                    )));
+                          },
+                        ),
                       ),
-                    ),);
+                    );
                   },
                   child: Text('Change'.toUpperCase()),
+                ),
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class AddEntityRowTextField extends StatelessWidget {
+  final String property;
+  final TextEditingController textEditingController;
+  final bool isChild;
+  AddEntityRowTextField(
+      {this.property, this.textEditingController, this.isChild});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 60,
+        width: Get.width,
+        padding:
+            !isChild ? EdgeInsets.all(0) : EdgeInsets.symmetric(horizontal: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(isChild ? 0 : 5)),
+          color: Colors.white,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(property),
+                )),
+            Flexible(
+              flex: 3,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: TextField(
+                  controller: textEditingController,
+                  onChanged: (value) {
+                    textEditingController.value = TextEditingValue(
+                        text: value,
+                        selection: TextSelection(
+                            baseOffset: value.length,
+                            extentOffset: value.length));
+                  },
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: kBackgroundColorAddEntity),
                 ),
               ),
             ),
