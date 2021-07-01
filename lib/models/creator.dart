@@ -74,6 +74,7 @@ class CreatorItem {
   dynamic entities;
   dynamic data;
   dynamic dataModel;
+  dynamic dataModelBullet;
   dynamic mobLoot;
   dynamic mobEquipment;
   dynamic mobTrade;
@@ -98,6 +99,7 @@ class CreatorItem {
         this.jsonObject,
         this.data,
         this.dataModel,
+        this.dataModelBullet,
         this.mobLoot,
         this.mobEquipment,
         this.mobTrade,
@@ -128,6 +130,7 @@ class CreatorItem {
       jsonObject: json["json_object"],
       data: json["data"] == null ? null : json["data"],
       dataModel: json["dataModel"] == null ? null : json["dataModel"],
+      dataModelBullet: json["dataModelBullet"] == null ? null : json["dataModelBullet"],
       mobLoot: json["mobLoot"] == null ? null : json["mobLoot"],
       mobEquipment: json["mobEquipment"] == null ? null : json["mobEquipment"],
       mobTrade: json["mobTrade"] == null ? null : json["mobTrade"],
@@ -157,6 +160,7 @@ class CreatorItem {
   "json_object": jsonObject == null ? null : jsonObject,
   "data": data == null ? null : data,
   "dataModel": dataModel == null ? null : dataModel,
+  "dataModelBullet": dataModelBullet == null ? null : dataModelBullet,
   "mobLoot": mobLoot == null ? null : mobLoot,
   "mobEquipment": mobEquipment == null ? null : mobEquipment,
   "mobTrade": mobTrade == null ? null : mobTrade,

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:mods_guns/app/data/repository/add_entity_repository.dart';
@@ -25,14 +26,6 @@ class AddEntityController extends GetxController
   var _obj = ''.obs;
   set obj(value) => _obj.value = value;
   get obj => _obj.value;
-
-  var name = ''.obs;
-  var power = ''.obs;
-  var gravity = ''.obs;
-  var damage = ''.obs;
-  var shotDelay = ''.obs;
-
-  var explodePower = ''.obs;
 
 //region key
   static const String mEntityKey = "minecraft:entity";
@@ -141,10 +134,30 @@ class AddEntityController extends GetxController
 
   dynamic model;
 
+  var definition_event = {
+    "affectProjectile": true,
+    "eventTrigger": {"event": "minecraft:explode", "target": "self"}
+  };
+  var entities;
+  var collision_box;
+  var projectile;
+  Map on_hit;
+  dynamic modelBullet;
+  var explode;
+  var spawn_mob;
+  String keyOnHit = "on_hit";
+  File imageCustom;
+
   //region bool
+  var name = ''.obs;
+  var power = 0.0.obs;
+  var gravity = 0.0.obs;
+  var damage = ''.obs;
+  var shotDelay = ''.obs;
+  var explodePower = ''.obs;
 
   var isCatchFire = false.obs;
-  var isExplode = true.obs;
+  var isExplode = false.obs;
   var isSpawnMob = false.obs;
   var isBaby = false.obs;
   var isTeleport = false.obs;
@@ -154,7 +167,7 @@ class AddEntityController extends GetxController
   var isCauseFire = false.obs;
 
   var isRecipe = false.obs;
-  var isKnockBack = true.obs;
+  var isKnockBack = false.obs;
   var isExplodeCausesFire = true.obs;
 
   //endregion
@@ -168,17 +181,6 @@ class AddEntityController extends GetxController
   var damageController = TextEditingController(text: "5");
   var shotDelayController = TextEditingController(text: "2");
   var explodePowerController = TextEditingController(text: "5");
-
-  //endregion
-
-  //region old
-
-  var textCtrlId = TextEditingController();
-  var textCtrlName = TextEditingController();
-  var textCtrlPower = TextEditingController();
-  var textCtrlGravity = TextEditingController();
-  var textCtrlShotDelay = TextEditingController();
-  var textCtrlExplodePower = TextEditingController();
   //endregion
 
   var _skin = ''.obs;
@@ -211,50 +213,95 @@ class AddEntityController extends GetxController
     }
   }
 
-  Future getData(CreatorController creatorController, CreatorItem item) async {
+  CreatorItem item;
+  Future getData(
+      CreatorController creatorController, CreatorItem creatorItem) async {
     creatorController.componentsDefault =
         jsonDecode(jsonEncode(creatorController.componentsDefault));
-    print('a');
-    item.listSkin = await creatorController.getList(item.itemIconsDir);
-    skin = item?.itemSkin ?? "";
+
+    item = creatorItem;
 
     if (item.entities == null) {
       item.entities =
           await creatorController.getEntityDynamic(item.itemEntityDir);
     }
-    //fixme: id
-    var id = "";
-    if (item.entities["minecraft:entity"]["components"]
-            ["minecraft:identifier"] ==
-        null) {
-      // id = "${item.entities["minecraft:entity"]["description"]["identifier"]}";
-      id = "${item.entities["minecraft:entity"]["description"]["identifier"]}";
-      print('a');
-    } else {
-      id =
-          "${item.entities["minecraft:entity"]["components"]["minecraft:identifier"]["id"]}";
-    }
-    idController.text = id;
+    entities = item.entities;
 
-    //fixme name
-    if (item.baseID == null) {
-      item.baseID =
-          item.entities["minecraft:entity"]["description"]["identifier"];
-      nameController.text = item.itemName;
-      print('a');
-    } else {
-      if (item.data is String) {
-        nameController.text = item.data;
-      } else {
-        if (item.data != null && item.data["name"] != null) {
-          nameController.text = item.data["name"];
-        }
-      }
+    item.listSkin = await creatorController.getList(item.itemIconsDir);
+
+    nameTexture.value = (item?.itemTexture ?? "");
+    if (nameTexture.value.startsWith("mcpe/projectile/icons")) {
+      nameTexture.value = "";
+      nameController.text = nameTexture.value;
     }
-    //fixme: model
+
+    var arrName = item.itemName.split("_");
+    if (arrName.length > 2) {
+      nameController.text = arrName[1];
+    }
+
+    nameSkin.value = item?.itemSkin ?? "";
+    print(item.toJson());
+
+    components = item.entities["minecraft:entity"]["components"];
+    collision_box = components['minecraft:collision_box'];
+    projectile = components['minecraft:projectile'];
+
+    if (item.entities["format_version"] == "1.10.0") {
+      keyOnHit = "onHit";
+    }
+
+    power.value = components['minecraft:projectile']["power"];
+    powerController.text = power.toString();
+
+    gravity.value = components['minecraft:projectile']["gravity"];
+    gravityController.text = gravity.value.toString();
+
+    projectile = components['minecraft:projectile'];
+
+    if (item.entities["format_version"] == "1.10.0") {
+      keyOnHit = "onHit";
+    }
+
+    on_hit = components['minecraft:projectile'][keyOnHit];
+
+    explode =
+        item.entities["minecraft:entity"]["components"]["minecraft:explode"];
+
+    if (!isExplode.value) {
+      explode = item.entities["minecraft:entity"]['component_groups']
+          ['minecraft:exploding']['minecraft:explode'];
+      print('a');
+    }
+    isExplode.value = explode != null;
+    print('a');
+    explodePowerController.text = explode["power"].toString();
+
+    if (explode["causesFire"] != null) {
+      isCauseFire.value = explode["causesFire"];
+    } else if (explode["causes_fire"] != null) {
+      isCauseFire.value = explode["causes_fire"];
+    } else if (explode["catchFire"] != null) {
+      isCauseFire.value = explode["catchFire"];
+    }
+
     if (item.dataModel != null) {
       if (item.dataModel['model'] != null) {
         model = item.dataModel['model'];
+      }
+    }
+
+    if (on_hit != null) {
+      print(on_hit);
+      isTeleport.value = on_hit['teleport_owner'] != null;
+    }
+
+    if (item.dataModelBullet != null) {
+      if (item.dataModelBullet['model'] != null) {
+        modelBullet = item.dataModelBullet['model'];
+
+        // if ()
+
       }
     }
 

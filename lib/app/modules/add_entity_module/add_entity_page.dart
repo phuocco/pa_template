@@ -205,7 +205,7 @@ class AddEntityPage extends GetWidget {
                       AddEntityRowSwitcher(
                         property: 'Causes Fire',
                         type: 'ExplodeCausesFire',
-                        value: controller.isExplodeCausesFire.value,
+                        value: controller.isCauseFire.value,
                         isChild: true,
                       ),
                       AddEntityRowTextField(
@@ -218,7 +218,7 @@ class AddEntityPage extends GetWidget {
                   ),
                 ),
               ),
-              Obx(() =>AddEntityRowRecipe()),
+              // Obx(() =>AddEntityRowRecipe()),
             ],
           ),
         ),
@@ -234,7 +234,7 @@ class AddEntityRowRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(height:10, color: Colors.blue);
+    return Container(height:10, color: controller.isRecipe.value ? Colors.blue : Colors.red);
   }
 }
 
