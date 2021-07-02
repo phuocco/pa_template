@@ -27,8 +27,8 @@ class AddEntityPage extends GetWidget {
               onPressed: () {
                 //save
                 //  creatorController.save(newCreatorItem, index);
-                //  controller.sendBackCreatorItem(creatorController, creatorItem);
-                //  Get.back();
+                 controller.sendBackCreatorItem(creatorController, creatorItem, index);
+                 Get.back();
                 print(creatorItem.toJson());
               },
               icon: Icon(Icons.save)),

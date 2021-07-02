@@ -77,6 +77,8 @@ class CreatorController extends GetxController{
   save(CreatorItem creatorItem, int index){
     // newCreatorDefault.value.items[index] = newCreatorItem;
     // newCreatorDefault.refresh();
+    defaultCreator.value.items[index] = creatorItem;
+    defaultCreator.refresh();
   }
 
   Future<dynamic> getEntityDynamic(String src) async {

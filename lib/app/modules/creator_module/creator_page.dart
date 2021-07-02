@@ -47,6 +47,11 @@ class CreatorPage extends GetWidget {
                         Text(controller
                             .defaultCreator.value.items[index].itemName),
                         Text(index.toString()),
+                        TextButton(onPressed: (){
+                          print(controller
+                              .defaultCreator.value.items[index].entities["minecraft:entity"]["components"]['minecraft:projectile']["power"]);
+                        }, child: Text('item')),
+
                       ],
                     ),
                   ),

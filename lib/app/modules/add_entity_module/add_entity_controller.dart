@@ -308,13 +308,83 @@ class AddEntityController extends GetxController
     update();
   }
 
-  sendBackCreatorItem(CreatorController creatorController, CreatorItem item) {
+  sendBackCreatorItem(CreatorController creatorController, CreatorItem item, int index) {
     //todo get item after edit
-    components['minecraft:teleport'] = isTeleport.value ? teleport : null;
+
+    power.value = double.parse(powerController.text);
+    gravity.value = double.parse(gravityController.text);
+    on_hit = {
+      "impact_damage": {
+        "damage": num.parse(damageController.text),
+        "knockback": true,
+        "semi_random_diff_damage": false,
+        "destroy_on_hit": true
+      },
+      "arrow_effect": {}
+    };
+
+    if (!isExplode.value) {
+      item.entities["minecraft:entity"]["components"]["minecraft:explode"] =
+      null;
+    } else {
+      if (explode["causesFire"] != null) {
+        explode["causesFire"] = isCauseFire.value;
+      } else if (explode["causes_fire"] != null) {
+        explode["causes_fire"] = isCauseFire.value;
+      } else if (explode["catchFire"] != null) {
+        explode["catchFire"] = isCauseFire.value;
+      }
+      explode["power"] = num.parse(explodePowerController.text);
+      explode["fuseLength"] = num.parse("0");
+      item.entities["minecraft:entity"]["components"]["minecraft:explode"] =
+          explode;
+    }
+
+    if (isTeleport.value) {
+      on_hit['teleport_owner'] = {};
+    }
+
+    item.entities["minecraft:entity"]["description"]["identifier"] =
+    "${idController.text}";
+
+    components['minecraft:projectile']["power"] = power;
+    components['minecraft:projectile']["gravity"] = gravity;
+    components['minecraft:projectile'][keyOnHit] = on_hit;
 
     item.entities["minecraft:entity"]["components"] = components;
+
+    if (isExplode.value) {
+      findOnHit(item.entities);
+    }
+
+    for (var entry in components.entries.toList()) {
+      if (entry.value == null) {
+        components.remove(entry.key);
+      }
+    }
+    item.itemName = "Projectile_${nameController.text}_custom";
+    // item.data["delay"] = num.parse(shotDelayController.text) == ""
+    //     ? 1
+    //     : num.parse(shotDelayController.text);
+    // Map element = {'id': idController.text, 'name': nameController.text};
+
+    creatorController.save(item, index);
     print('a');
   }
+
+  dynamic findOnHit(var components) {
+    if (components is Map) {
+      for (var entry in components.entries.toList()) {
+        if (entry.key == "on_hit" || entry.key == "onHit") {
+          components[entry.key] = on_hit;
+          print("has find on hit");
+        } else {
+          findOnHit(entry.value);
+        }
+      }
+    }
+  }
+
 
   @override
   void onInit() {
