@@ -11,8 +11,8 @@ class AddEntityPage extends GetWidget {
   final AddEntityController controller = Get.put(AddEntityController());
   final CreatorController creatorController = Get.find();
   final CreatorItem creatorItem;
-  final int index;
-  AddEntityPage({this.creatorItem, this.index});
+
+  AddEntityPage({this.creatorItem});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class AddEntityPage extends GetWidget {
               onPressed: () {
                 //save
                 //  creatorController.save(newCreatorItem, index);
-                 controller.sendBackCreatorItem(creatorController, creatorItem, index);
+                 controller.sendBackCreatorItem(creatorController, creatorItem);
                  Get.back();
-                print(creatorItem.toJson());
+
               },
               icon: Icon(Icons.save)),
         ],

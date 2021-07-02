@@ -27,13 +27,12 @@ class CreatorController extends GetxController{
     return instance;
   }
 
-  var listDataDefault = <CreatorItem>[].obs;
+  var listSelectEntity = <CreatorItem>[].obs;
   var listDataProject = <CreatorItem>[].obs;
   Map componentsDefault;
 
   var itemEdit = CreatorItem().obs;
   var defaultCreator = Creator("phuoc").obs;
-
 
   var newItemDefault = NewCreatorItem(itemName: "aaa", itemIcon: "bbb", itemSkin: "ccc").obs;
   var newCreatorDefault = NewCreator().obs;
@@ -49,7 +48,7 @@ class CreatorController extends GetxController{
     super.onInit();
     defaultCreator.value.items = [];
     getCreatorItem();
-    initListDefault();
+    // initListDefault();
     setDefault();
   }
 
@@ -57,28 +56,29 @@ class CreatorController extends GetxController{
   void onClose() {
     // TODO: implement onClose
     super.onClose();
-    print('closeup lua bang');
   }
 
   setDefault(){
 
   }
 
+  var listItem = <CreatorItem>[].obs;
+
   add(){
     print('add');
     String name = Random().nextInt(10).toString();
     CreatorItem add = CreatorItem();
-    add = listDataDefault[0];
     defaultCreator.value.items.add(add);
     print('a');
     defaultCreator.refresh();
   }
 
-  save(CreatorItem creatorItem, int index){
-    // newCreatorDefault.value.items[index] = newCreatorItem;
-    // newCreatorDefault.refresh();
-    defaultCreator.value.items[index] = creatorItem;
-    defaultCreator.refresh();
+
+  save(CreatorItem creatorItem){
+    CreatorItem add = new CreatorItem();
+    add = creatorItem;
+    listDataProject.add(add);
+    print('a');
   }
 
   Future<dynamic> getEntityDynamic(String src) async {
@@ -116,14 +116,14 @@ class CreatorController extends GetxController{
   }
 
   setDataDefault(list, componentsData) {
-    listDataDefault.assignAll(list);
+    listSelectEntity.assignAll(list);
     componentsDefault = componentsData;
     print('a');
   }
   initListDefault() {
     List list;
     if (listDataProject.isNotEmpty) {
-      listDataDefault.forEach((e1) {
+      listSelectEntity.forEach((e1) {
         ItemDefault itemDefault = ItemDefault();
         CreatorItem item = listDataProject.firstWhere(
                 (item) => item.itemName == e1.itemName,

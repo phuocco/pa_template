@@ -213,13 +213,16 @@ class AddEntityController extends GetxController
     }
   }
 
-  CreatorItem item;
+  CreatorItem item = new CreatorItem();
+
   Future getData(
-      CreatorController creatorController, CreatorItem creatorItem) async {
+      CreatorController creatorController,CreatorItem creatorItem) async {
     creatorController.componentsDefault =
         jsonDecode(jsonEncode(creatorController.componentsDefault));
 
-    item = creatorItem;
+    item = projectItemsFromJson(projectItemsToJson(creatorItem));
+
+    // item = creatorItem;
 
     if (item.entities == null) {
       item.entities =
@@ -241,7 +244,7 @@ class AddEntityController extends GetxController
     }
 
     nameSkin.value = item?.itemSkin ?? "";
-    print(item.toJson());
+
 
     components = item.entities["minecraft:entity"]["components"];
     collision_box = components['minecraft:collision_box'];
@@ -308,7 +311,7 @@ class AddEntityController extends GetxController
     update();
   }
 
-  sendBackCreatorItem(CreatorController creatorController, CreatorItem item, int index) {
+  sendBackCreatorItem(CreatorController creatorController, CreatorItem creatorItem) {
     //todo get item after edit
 
     power.value = double.parse(powerController.text);
@@ -368,7 +371,7 @@ class AddEntityController extends GetxController
     //     : num.parse(shotDelayController.text);
     // Map element = {'id': idController.text, 'name': nameController.text};
 
-    creatorController.save(item, index);
+    creatorController.save(item);
     print('a');
   }
 

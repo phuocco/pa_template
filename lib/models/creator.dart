@@ -65,7 +65,6 @@ class CreatorItem {
   String itemIconsDir;
   String itemEntityDir;
   String itemSkin;
-  String itemDesc;
   var jsonObject;
   List<List> craftMap;
 
@@ -107,7 +106,6 @@ class CreatorItem {
         this.premium,
         this.isNewMob,
         this.baseID,
-        this.itemDesc,
         this.craftMap});
 
   factory CreatorItem.fromJson(Map<String, dynamic> json) => new CreatorItem(
@@ -121,7 +119,6 @@ class CreatorItem {
       itemEntityDir:
       json["item_entity_dir"] == null ? null : json["item_entity_dir"],
       itemSkin: json["item_skin"] == null ? null : json["item_skin"],
-      itemDesc: json["item_desc"] == null ? null : json["item_desc"],
       entities: json["entities"] == null ? null : json["entities"],
       itemEntityTexture: json["itemEntityTexture"] == null
           ? null
@@ -155,7 +152,6 @@ class CreatorItem {
   "entities": entities == null ? null : entities,
   "itemEntityTexture":
   itemEntityTexture == null ? [] : itemEntityTexture,
-  "item_desc": itemDesc == null ? [] : itemDesc,
   "effects": effects == null ? null : effects,
   "json_object": jsonObject == null ? null : jsonObject,
   "data": data == null ? null : data,
