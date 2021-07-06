@@ -21,24 +21,23 @@ class CreatorPage extends GetWidget {
           IconButton(
               onPressed: () {
                  Get.to(() => AddEntityPage(
-               creatorItem:   controller.listSelectEntity[0]
+               creatorItem:   projectItemsFromJson(projectItemsToJson(controller.listSelectEntity[0]))
                 ));
               },
               icon: Icon(Icons.add)),
           IconButton(
               onPressed: () {
-               var str =  controller.listSelectEntity[0].toJson();
-               print(str);
+               controller.exportAddon();
               },
-              icon: Icon(Icons.update)),
+              icon: Icon(Icons.save)),
+          IconButton(
+              onPressed: () {
+                controller.chooseImage();
+              },
+              icon: Icon(Icons.save_outlined)),
         ],
       ),
-      // body: Obx(() => ListView.builder(
-      //   itemCount: controller.listItem.length,
-      //   itemBuilder: (context, index){
-      //     return Text(controller.listItem[index].name);
-      //   },
-      // )),
+
       body: Obx(() => ListView.builder(
             itemCount: controller.listDataProject.length,
             itemBuilder: (context, index) {

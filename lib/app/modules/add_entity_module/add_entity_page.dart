@@ -27,6 +27,7 @@ class AddEntityPage extends GetWidget {
               onPressed: () {
                 //save
                 //  creatorController.save(newCreatorItem, index);
+                creatorItem.itemSkin = controller.skin;
                  controller.sendBackCreatorItem(creatorController, creatorItem);
                  Get.back();
 
@@ -125,7 +126,7 @@ class AddEntityPage extends GetWidget {
               AddEntityRowTexture(
                 property: 'Texture',
                 controller: controller,
-                creatorItem: creatorItem,
+                creatorItem: controller.item,
               ),
               SizedBox(height: 10),
 
@@ -421,6 +422,7 @@ class AddEntityRowTexture extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextButton(
                   onPressed: () {
+
                     Get.dialog(
                       Dialog(
                         child: GridView.builder(

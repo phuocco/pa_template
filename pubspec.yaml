@@ -63,6 +63,9 @@ dependencies:
   app_tracking_transparency: ^1.0.1+1
   connectivity_plus: ^0.8.1
   fluttertoast: ^7.1.8
+  permission_handler: ^5.1.0+2
+  uuid: ^2.2.2
+  image_picker: ^0.6.7+22
 
 dependency_overrides:
   get_storage: ^1.4.0
@@ -103,6 +106,35 @@ flutter:
     - assets/mcpe/projectile/file/
     - assets/mcpe/projectile/icons/
     - assets/mcpe/projectile/skins/
+
+    - assets/addon/
+    - assets/addon/client/
+    - assets/addon/client/animations/
+    - assets/addon/client/materials/
+    - assets/addon/client/models/entity/
+    - assets/addon/client/render_controllers/
+    - assets/addon/client/texts/
+    - assets/addon/client/particles/
+    - assets/addon/client/textures/
+    - assets/addon/client/textures/pa_particles/
+    - assets/addon/server/
+    - assets/addon/server/loot_tables/
+    - assets/addon/server/animation_controllers/
+    - assets/addon/server/loot_tables/entities/
+    - assets/addon/client/
+    - assets/addon/client/animations/
+    - assets/addon/client/animation_controllers/
+    - assets/addon/client/materials/
+    - assets/addon/client/models/entity/
+    - assets/addon/client/render_controllers/
+    - assets/addon/client/texts/
+    - assets/addon/client/particles/
+    - assets/addon/client/textures/
+    - assets/addon/client/textures/pa_particles/
+    - assets/addon/server/
+    - assets/addon/server/loot_tables/
+    - assets/addon/server/animation_controllers/
+    - assets/addon/server/loot_tables/entities/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

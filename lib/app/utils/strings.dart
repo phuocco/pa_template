@@ -4,6 +4,9 @@
 
 String home = 'Home';
 
+var pathAddon = "/storage/emulated/0/games/Guns/";
+var imageAddon = "/storage/emulated/0/games/a.jpg";
+
 const kBackgroundHorizontalImage = "assets/images/bg_hor.png";
 const kLauncherImage = "assets/images/ic_gun.jpg";
 

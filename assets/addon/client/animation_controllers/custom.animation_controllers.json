@@ -1,0 +1,36 @@
+{
+	"format_version" : "1.10.0",
+	"animation_controllers" : {
+    "controller.animation.nethercat.look_at_target" : {
+			"initial_state" : "default",
+			"states" : {
+				"default" : {
+					"animations" : [ "look_at_target" ]
+				}
+			}
+		},
+		"controller.animation.nethercat.move" : {
+			"initial_state" : "walking",
+			"states" : {
+				"walking" : {
+					"animations" : [ { "walk" : "query.modified_move_speed" } ],
+					"transitions" : [
+						{
+							"attacking" : "query.is_delayed_attacking == 1"
+						}
+					]
+				},
+				"attacking" : {
+					"animations" : [ "attack" ],
+          "blend_transition" : 0.2,
+          "blend_via_shortest_path" : true,
+					"transitions" : [
+						{
+							"walking" : "query.is_delayed_attacking == 0"
+						}
+					]
+				}
+			}
+		}
+	}
+}
