@@ -125,6 +125,14 @@ class AddEntityPage extends GetWidget {
               //fixme: texture field
               AddEntityRowTexture(
                 property: 'Texture',
+                type: 'Texture',
+                controller: controller,
+                creatorItem: controller.item,
+              ),
+              SizedBox(height: 10),
+              AddEntityRowTexture(
+                property: 'Skin',
+                type: 'Skin',
                 controller: controller,
                 creatorItem: controller.item,
               ),
@@ -377,9 +385,10 @@ class AddEntityRowExpand extends StatelessWidget {
 
 class AddEntityRowTexture extends StatelessWidget {
   final String property;
+  final String type;
   final AddEntityController controller;
   final CreatorItem creatorItem;
-  AddEntityRowTexture({this.property, this.controller, this.creatorItem});
+  AddEntityRowTexture({this.property,this.type, this.controller, this.creatorItem});
 
   @override
   Widget build(BuildContext context) {
@@ -422,7 +431,6 @@ class AddEntityRowTexture extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: TextButton(
                   onPressed: () {
-
                     Get.dialog(
                       Dialog(
                         child: GridView.builder(
@@ -437,7 +445,7 @@ class AddEntityRowTexture extends StatelessWidget {
                             return InkResponse(
                                 onTap: () {
                                   controller
-                                      .updateSkin(creatorItem.listSkin[index]);
+                                      .updateSkin(type, creatorItem.listSkin[index]);
                                   Get.back();
                                 },
                                 child: Container(

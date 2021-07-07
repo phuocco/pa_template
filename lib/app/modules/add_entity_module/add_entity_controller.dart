@@ -186,9 +186,21 @@ class AddEntityController extends GetxController
   var _skin = ''.obs;
   set skin(value) => _skin.value = value;
   get skin => _skin.value;
+  var _texture = ''.obs;
+  set texture(value) => _texture.value = value;
+  get texture => _texture.value;
 
-  updateSkin(String path) {
-    skin = path;
+  updateSkin(String type ,String path) {
+  switch(type){
+    case 'Texture':
+      texture = path;
+      nameTexture.value = path;
+      break;
+    case 'Skin':
+      skin = path;
+      nameSkin.value = path;
+      break;
+  }
     update();
   }
 
@@ -326,6 +338,9 @@ class AddEntityController extends GetxController
       "arrow_effect": {}
     };
 
+    item.itemTexture = nameTexture.value;
+    item.itemSkin = nameSkin.value;
+
     if (!isExplode.value) {
       item.entities["minecraft:entity"]["components"]["minecraft:explode"] =
       null;
@@ -369,9 +384,14 @@ class AddEntityController extends GetxController
     // item.data["delay"] = num.parse(shotDelayController.text) == ""
     //     ? 1
     //     : num.parse(shotDelayController.text);
-    // Map element = {'id': idController.text, 'name': nameController.text};
+    Map element = {'id': idController.text, 'name': nameController.text};
 
-    creatorController.save(item);
+    List<dynamic> data = [];
+    List<dynamic> data2 = [];
+
+
+
+    creatorController.save(projectItemsFromJson(projectItemsToJson(item)));
     print('a');
   }
 

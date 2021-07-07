@@ -20,48 +20,49 @@ class CreatorPage extends GetWidget {
         actions: [
           IconButton(
               onPressed: () {
-                 Get.to(() => AddEntityPage(
-               creatorItem:   projectItemsFromJson(projectItemsToJson(controller.listSelectEntity[0]))
-                ));
+                Get.to(() => AddEntityPage(
+                    creatorItem: projectItemsFromJson(
+                        projectItemsToJson(controller.listSelectEntity[0]))));
               },
               icon: Icon(Icons.add)),
           IconButton(
               onPressed: () {
-               controller.exportAddon();
+                controller.exportAddon();
               },
               icon: Icon(Icons.save)),
           IconButton(
               onPressed: () {
-                controller.chooseImage();
+                print('a');
+                print(controller.listDataProject.length);
               },
               icon: Icon(Icons.save_outlined)),
         ],
       ),
-
       body: Obx(() => ListView.builder(
-            itemCount: controller.listDataProject.length,
-            itemBuilder: (context, index) {
-                return InkResponse(
-                  onTap: () => Get.to(() => AddEntityPage(
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-
-                    child: Column(
-                      children: [
-                        Text(controller
-                            .listDataProject[index].itemName),
-                        Text(controller
-                            .listDataProject[index].entities["minecraft:entity"]["components"]['minecraft:projectile']["power"].toString()),
-                        Image.asset("assets/"+controller
-                            .listDataProject[index].itemIcon),
-                        SizedBox(height: 20,),
-                      ],
+          itemCount: controller.listDataProject.length,
+          itemBuilder: (context, index) {
+            return InkResponse(
+              onTap: () => Get.to(() => AddEntityPage()),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text(controller.listDataProject[index].itemName),
+                    Text(controller
+                        .listDataProject[index]
+                        .entities["minecraft:entity"]["components"]
+                            ['minecraft:projectile']["power"]
+                        .toString()),
+                    Image.asset(
+                        "assets/" + controller.listDataProject[index].itemIcon),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
-                );
-              }
-          )),
+                  ],
+                ),
+              ),
+            );
+          })),
     );
   }
 }

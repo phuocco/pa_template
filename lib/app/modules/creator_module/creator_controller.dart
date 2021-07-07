@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
+import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
 import 'package:mods_guns/models/behavior_manifest.dart';
 import 'package:mods_guns/models/item_texture.dart';
 import 'package:mods_guns/models/resource_manifest.dart';
@@ -108,8 +109,8 @@ class CreatorController extends GetxController {
   save(CreatorItem creatorItem) {
     CreatorItem add = new CreatorItem();
     add = creatorItem;
-    listDataProject.add(add);
-    defaultCreator.value.items.assignAll(listDataProject);
+    listDataProject.add(creatorItem);
+    // defaultCreator.value.items.assignAll(listDataProject);
     print('a');
   }
 
@@ -231,7 +232,9 @@ class CreatorController extends GetxController {
           Get.back();
           /* Show dialog Success */
           Get.dialog(Dialog(
-            child: Text('asdasdasd'),
+            child: TextButton(onPressed: () {
+              DetailController().importToMinecraft(file.addonUrl);
+            }, child: Text('Import to MC')),
           ));
         }
       }
