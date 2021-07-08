@@ -31,12 +31,6 @@ class MainController extends GetxController{
   get countInterAd => _countInterAd.value;
   set countInterAd(value) => _countInterAd.value = value;
 
-  var indexStack = 0.obs;
-  setIndexStack(int index){
-    indexStack.value = index;
-    update();
-  }
-
   final listAddon = <dynamic>[].obs;
 
 

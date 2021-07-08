@@ -237,6 +237,23 @@ class HomePage extends StatelessWidget {
                                                     FontWeight.bold))),
                                       ),
                                     ),
+                                    // TextButton(
+                                    //   onPressed: () => Get.back(),
+                                    //   child: Text('CANCEL',
+                                    //       style: TextStyle(
+                                    //           color: Colors.white,
+                                    //           fontSize: 13,
+                                    //           fontWeight: FontWeight.bold)),
+                                    //   style: ButtonStyle(
+                                    //     foregroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             kColorDownloadButtonForeground),
+                                    //     backgroundColor:
+                                    //         MaterialStateProperty.all<Color>(
+                                    //             Colors.grey),
+                                    //   ),
+                                    // ),
+
                                     InkWell(
                                       onTap: () => SystemNavigator.pop(),
                                       child: Container(
@@ -258,6 +275,7 @@ class HomePage extends StatelessWidget {
                                     )
                                   ],
                                 )),
+
                             Container(
                               color: Colors.black.withOpacity(0.05),
                               // child: LoadingNativeAdWidget(adType: "Detail",),
@@ -280,7 +298,7 @@ class HomePage extends StatelessWidget {
         // bottomNavigationBar: Obx(() => adsController.list.length == 0
         //     ? Text(adsController.list.length.toString())
         //     :Text(adsController.list.length.toString()),)
-        bottomNavigationBar: GetPlatform.isAndroid ? BaseBanner() : SizedBox(),
+        bottomNavigationBar: BaseBanner(),
       ),
     );
   }
