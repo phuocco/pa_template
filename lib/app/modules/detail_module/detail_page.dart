@@ -306,7 +306,7 @@ class DetailPage extends StatelessWidget {
       controller.installAddon(item.fileUrl).then((value) {
         if (controller.isDownloaded.value) {
           print('downloaded');
-          mainController.savePrefDownloadedItem(
+          mainController.savePrefDownloadedItem(item,
               item.itemId, controller.finalPath.value);
           if (isDetail) {
             controller.isDownloaded.value = true;

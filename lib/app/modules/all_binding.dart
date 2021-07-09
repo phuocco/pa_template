@@ -8,6 +8,7 @@ import 'package:mods_guns/app/data/repository/home_repository.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:mods_guns/app/data/repository/search_repository.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
 import 'package:mods_guns/app/modules/language_module/language_controller.dart';
 import 'package:mods_guns/app/modules/more_apps_module/more_apps_controller.dart';
@@ -34,6 +35,8 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => DetailController());
     Get.lazyPut(() => MoreAppsController());
     Get.lazyPut(() => FavoriteController());
+    Get.lazyPut(() => DownloadedPage());
+
     Get.lazyPut(() => SearchController(repository: SearchRepository(provider: SearchProvider())));
 
 

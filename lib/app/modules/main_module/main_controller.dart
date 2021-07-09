@@ -9,6 +9,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
+import 'package:mods_guns/app/modules/language_module/language_page.dart';
+import 'package:mods_guns/app/modules/main_module/main_page.dart';
+import 'package:mods_guns/app/modules/question_module/question_page.dart';
+import 'package:mods_guns/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
@@ -58,11 +62,18 @@ class MainController extends GetxController{
     }
   }
 
+  var indexStack = 0.obs;
+  setIndexStack(int index){
+    indexStack.value = index;
+    update();
+  }
+
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+
     getItems(Get.context);
     getPrefDownloaded();
     getPrefFavorite();
@@ -115,21 +126,27 @@ class MainController extends GetxController{
       isConnecting.value = false;
     }
   }
-
+  DownloadedItemModel downloadedItemModel;
   final listDownloaded = <DownloadedItemModel>[].obs;
+  final listDownloadedNew = <AddonsItem>[].obs;
 
   getPrefDownloaded() async {
     if (box.hasData('LIST_DOWNLOADED')) {
       List<DownloadedItemModel> tempDownload =
       downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
       listDownloaded.assignAll(tempDownload);
+
+      List<AddonsItem> tempDownloadNew =
+      addonsItemFromJson(jsonEncode(box.read('LIST_DOWNLOADEDNEW')));
+      listDownloadedNew.assignAll(tempDownloadNew);
     }
   }
-  DownloadedItemModel downloadedItemModel;
 
-  savePrefDownloadedItem(String id, String pathFile) async {
+  savePrefDownloadedItem(AddonsItem addonsItem, String id, String pathFile) async {
     downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
     listDownloaded.add(downloadedItemModel);
+    listDownloadedNew.add(addonsItem);
+    box.write("LIST_DOWNLOADEDNEW", listDownloadedNew);
     box.write("LIST_DOWNLOADED", listDownloaded);
   }
 

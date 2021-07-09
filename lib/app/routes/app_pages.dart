@@ -1,3 +1,6 @@
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_bindings.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
+
 import '../../app/modules/search_module/search_page.dart';
 import '../../app/modules/search_module/search_bindings.dart';
 import '../../app/modules/favorite_module/favorite_page.dart';
@@ -102,6 +105,11 @@ abstract class AppPages {
       name: Routes.SEARCH,
       page: () => SearchPage(),
       binding: SearchBinding(),
+    ),
+    GetPage(
+      name: Routes.DOWNLOADED,
+      page: () => DownloadedPage(),
+      binding: DownloadedBinding(),
     ),
   ];
 }

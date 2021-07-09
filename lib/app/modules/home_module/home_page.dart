@@ -298,7 +298,7 @@ class HomePage extends StatelessWidget {
         // bottomNavigationBar: Obx(() => adsController.list.length == 0
         //     ? Text(adsController.list.length.toString())
         //     :Text(adsController.list.length.toString()),)
-        bottomNavigationBar: BaseBanner(),
+        bottomNavigationBar: GetPlatform.isAndroid ? BaseBanner() : SizedBox(),
       ),
     );
   }
