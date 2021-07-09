@@ -181,6 +181,7 @@ class MainController extends GetxController{
   savePrefDownloadedItem(AddonsItem addonsItem, String id, String pathFile) async {
     downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
     listDownloaded.add(downloadedItemModel);
+    addonsItem.pathUrl = pathFile;
     listDownloadedNew.add(addonsItem);
     box.write("LIST_DOWNLOADEDNEW", listDownloadedNew);
     box.write("LIST_DOWNLOADED", listDownloaded);

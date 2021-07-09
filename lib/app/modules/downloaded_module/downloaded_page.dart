@@ -17,7 +17,7 @@ class DownloadedPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (mainController.listAddon.length == 0) {
+      if (mainController.listDownloadedNew.length == 0) {
         //TODO: UI loading before get data
         return Center(
           child: DefaultTextStyle(
@@ -43,7 +43,7 @@ class DownloadedPage extends StatelessWidget{
             ? ListView.builder(
             itemCount: mainController.listDownloadedNew.length,
             itemBuilder: (context, index) {
-              if (mainController.listFavoriteWithAds[index] == 'Ads') {
+              if (mainController.listDownloadedNew[index] == 'Ads') {
                 return Card(
                   // key: ValueKey<int>(index),
                   shape: RoundedRectangleBorder(
@@ -65,12 +65,11 @@ class DownloadedPage extends StatelessWidget{
                     return false;
                   }
                 });
-                // element.id == mainController.listAddon[index].itemId
                 String pathFile = '';
-                if (indexDownload != -1) {
-                  mainController.listFavorite[index].isDownloaded = true;
-                  mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
-                }
+                // if (indexDownload != -1) {
+                //   mainController.listFavorite[index].isDownloaded = true;
+                //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
+                // }
 
                 var indexFavorite =
                 mainController.listFavorite.indexWhere((element) {
@@ -84,6 +83,7 @@ class DownloadedPage extends StatelessWidget{
                 if (indexFavorite != -1) {
                   mainController.listFavorite[index].isFavorite = true;
                 }
+                // return Text(mainController.listDownloadedNew[index].toJson().toString());
                 return BuildPhone(
                   controller: mainController,
                   pathFile: mainController.listDownloadedNew[index].pathUrl,
@@ -106,7 +106,7 @@ class DownloadedPage extends StatelessWidget{
                         mainController.listFavoriteWithAds[index]);
                     mainController.listAddon.refresh();
                   },
-                  addonsItem: mainController.listFavoriteWithAds[index],
+                  addonsItem: mainController.listDownloadedNew[index],
                 );
               }
             })
@@ -131,20 +131,20 @@ class DownloadedPage extends StatelessWidget{
                 semanticContainer: false,
               );
             } else {
-              var indexDownload =
-              mainController.listDownloaded.indexWhere((element) {
-                if (mainController.listAddon[index] != 'Ads') {
-                  return element.id == mainController.listAddon[index].itemId;
-                } else {
-                  return false;
-                }
-              });
+              // var indexDownload =
+              // mainController.listDownloaded.indexWhere((element) {
+              //   if (mainController.listAddon[index] != 'Ads') {
+              //     return element.id == mainController.listAddon[index].itemId;
+              //   } else {
+              //     return false;
+              //   }
+              // });
               String pathFile = '';
-              if (indexDownload != -1) {
-                mainController.listAddon[index].isDownloaded = true;
-                mainController.listFavorite[index].isDownloaded = true;
-                mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
-              }
+              // if (indexDownload != -1) {
+              //   mainController.listAddon[index].isDownloaded = true;
+              //   mainController.listFavorite[index].isDownloaded = true;
+              //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
+              // }
 
               var indexFavorite = mainController.listFavorite.indexWhere(
                       (element) =>

@@ -83,7 +83,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.add),
+                            Expanded(child: Image.asset('assets/images/icons/ic_hottest.png')),
                             Text('Hottest'),
                           ],
                         ),
@@ -95,7 +95,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.add),
+                            Expanded(child: Image.asset('assets/images/icons/ic_newest.png')),
                             Text('Newest'),
                           ],
                         ),
@@ -107,7 +107,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.add),
+                            Expanded(child: Image.asset('assets/images/icons/ic_search.png')),
                             Text('Search'),
                           ],
                         ),
@@ -119,8 +119,8 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.add),
-                            Text('Downloaded'),
+                            Expanded(child: Image.asset('assets/images/icons/ic_manage.png')),
+                            Text('Manage'),
                           ],
                         ),
                       ),
@@ -577,10 +577,11 @@ class MainPageItemId extends StatelessWidget {
               if (indexFavorite != -1) {
                 controller.listAddonNew[index].isFavorite = true;
               }
+              var indexNew = controller.listAddon.indexOf(controller.listAddonNew[index]);
               return BuildPhone(
                 controller: controller,
                 pathFile: controller.listAddonNew[index].pathUrl,
-                index: index,
+                index: indexNew,
                 onFavoriteTap: () {
                   controller.listAddonNew[index].isFavorite =
                   !controller.listAddonNew[index].isFavorite;
@@ -603,9 +604,9 @@ class MainPageItemId extends StatelessWidget {
               childAspectRatio: 40 / 33,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5),
-          itemCount: controller.listAddon.length,
+          itemCount: controller.listAddonNew.length,
           itemBuilder: (context, index) {
-            if (controller.listAddon[index] == 'Ads') {
+            if (controller.listAddonNew[index] == 'Ads') {
               return Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -622,11 +623,11 @@ class MainPageItemId extends StatelessWidget {
             } else {
               var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
-                  element.id == controller.listAddon[index].itemId);
+                  element.id == controller.listAddonNew[index].itemId);
               String pathFile = '';
               if (indexDownload != -1) {
-                controller.listAddon[index].isDownloaded = true;
-                controller.listAddon[index].pathUrl =
+                controller.listAddonNew[index].isDownloaded = true;
+                controller.listAddonNew[index].pathUrl =
                     controller.listDownloaded[indexDownload].pathFile;
                 pathFile =
                     controller.listDownloaded[indexDownload].pathFile;
@@ -634,21 +635,23 @@ class MainPageItemId extends StatelessWidget {
 
               var indexFavorite = controller.listFavorite.indexWhere(
                       (element) =>
-                  element.itemId == controller.listAddon[index].itemId);
+                  element.itemId == controller.listAddonNew[index].itemId);
               if (indexFavorite != -1) {
                 controller.listAddon[index].isFavorite = true;
               }
+              var indexNew = controller.listAddon.indexOf(controller.listAddonNew[index]);
+
               return BuildTablet(
                 controller: controller,
-                pathFile: controller.listAddon[index].pathUrl,
-                index: index,
-                addonsItem: controller.listAddon[index],
+                pathFile: controller.listAddonNew[index].pathUrl,
+                index: indexNew,
+                addonsItem: controller.listAddonNew[index],
                 onFavoriteTap: () {
-                  controller.listAddon[index].isFavorite =
-                  !controller.listAddon[index].isFavorite;
+                  controller.listAddonNew[index].isFavorite =
+                  !controller.listAddonNew[index].isFavorite;
                   controller
-                      .savePrefFavoriteItem(controller.listAddon[index]);
-                  controller.listAddon.refresh();
+                      .savePrefFavoriteItem(controller.listAddonNew[index]);
+                  controller.listAddonNew.refresh();
                 },
               );
             }
@@ -656,6 +659,9 @@ class MainPageItemId extends StatelessWidget {
     });
   }
 }
+
+
+
 
 class BuildPhone extends StatelessWidget {
   BuildPhone(
