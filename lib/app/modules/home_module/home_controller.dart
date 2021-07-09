@@ -66,7 +66,7 @@ class HomeController extends GetxController {
     super.onInit();
     countOpen();
 
-    initPage2();
+
     initPages();
     searchTextEditingController = TextEditingController();
     if (box.hasData('LOCALE')) {
@@ -80,20 +80,7 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  final selectingPageNew2 = 'Language Download'.obs;
-  final listPages2 = <String, Object>{}.obs;
-  initPage2() {
-    listPages2.addAll({
-      'Main Page Download': MainPageDownload(),
-      'Language Page': LanguagePage(),
-      'Tutorial Page': TutorialPage(),
-      'Question Page': QuestionPage(),
-    });
-  }
-  void selectPageNew2(String string) {
-    selectingPageNew.value = string;
-    update();
-  }
+
 
 
 

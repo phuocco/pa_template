@@ -8,10 +8,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
 import 'package:mods_guns/app/modules/language_module/language_page.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
 import 'package:mods_guns/app/modules/question_module/question_page.dart';
+import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
@@ -36,6 +38,7 @@ class MainController extends GetxController{
   set countInterAd(value) => _countInterAd.value = value;
 
   final listAddon = <dynamic>[].obs;
+  final listAddonNew = <dynamic>[].obs;
 
 
   final adsWidget = NativeAdHomeWidget().obs;
@@ -50,6 +53,12 @@ class MainController extends GetxController{
         for (var i = 3; i < listAddon.length; i += 5) {
           listAddon.insert(i, 'Ads');
         }
+        value.sort((a, b) => b.createTime.toString().compareTo(a.createTime.toString()));
+        listAddonNew.assignAll(value);
+        for (var i = 3; i < listAddonNew.length; i += 5) {
+          listAddonNew.insert(i, 'Ads');
+        }
+
       });
     } else {
       return repository.getItem().then((value){
@@ -57,6 +66,11 @@ class MainController extends GetxController{
         listAddon.assignAll(value);
         for (var i = 2; i < listAddon.length; i += 11) {
           listAddon.insert(i, 'Ads');
+        }
+        value.sort((a, b) => b.createTime.toString().compareTo(a.createTime.toString()));
+        listAddonNew.assignAll(value);
+        for (var i = 3; i < listAddonNew.length; i += 5) {
+          listAddonNew.insert(i, 'Ads');
         }
       });
     }
@@ -68,6 +82,28 @@ class MainController extends GetxController{
     update();
   }
 
+  final selectingPageNew2 = 'Search Page'.obs;
+  final listPages2 = <String, Object>{}.obs;
+
+  initPage2() {
+    listPages2.addAll({
+      'Main Page Download': MainPageDownload(),
+      'Main Page ItemId': MainPageItemId(),
+      'Search Page': SearchPage(),
+      'Downloaded Page': DownloadedPage(),
+    });
+  }
+  void selectPageNew2(String string) {
+    selectingPageNew2.value = string;
+    update();
+  }
+
+
+  @override
+  void onReady() {
+    super.onReady();
+    initPage2();
+  }
 
   @override
   void onInit() {
