@@ -112,6 +112,7 @@ class DetailPage extends StatelessWidget {
                             }
                             mainController.savePrefFavoriteItem(addonsItem);
                             mainController.listAddon.refresh();
+                            mainController.listAddonNew.refresh();
                             controller.addonsItem.refresh();
                             print(controller.addonsItem.value.isFavorite);
                           },
@@ -314,12 +315,14 @@ class DetailPage extends StatelessWidget {
             addonsItem.pathUrl = controller.finalPath.value;
             controller.textButton.value = 'install'.tr;
             mainController.listAddon.refresh();
+            mainController.listAddonNew.refresh();
           } else if (isTablet) {
             item.isDownloaded = true;
             controller.isDownloaded.value = true;
             controller.textButton.value = 'install'.tr;
             item.pathUrl = controller.finalPath.value;
             mainController.listAddon.refresh();
+            mainController.listAddonNew.refresh();
             print("tablet " + controller.finalPath.value);
           } else if (page == 'Search') {
             print(index);
@@ -358,6 +361,7 @@ class DetailPage extends StatelessWidget {
             mainController.updateAddonItemInList(
                 index, controller.finalPath.value);
             mainController.listAddon.refresh();
+            mainController.listAddonNew.refresh();
           }
           //Dialog ask only on android
           // GetPlatform.isAndroid

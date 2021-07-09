@@ -175,6 +175,7 @@ class DownloadedPage extends StatelessWidget{
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
                     mainController.listAddon.refresh();
+                    mainController.listAddonNew.refresh();
                   },
                   addonsItem: mainController.listFavoriteWithAds[index]);
             }

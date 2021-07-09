@@ -147,6 +147,7 @@ class NativeAdControllerNew  extends GetxController{
       listAds.add(completerItemAds);
     }
     mainController.listAddon.refresh();
+    mainController.listAddonNew.refresh();
   }
 
   _getItemAds(NativeAdsOption options, {bool addItem = false}) {

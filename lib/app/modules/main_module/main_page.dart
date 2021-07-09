@@ -83,7 +83,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_hottest.png')),
+                            Expanded(child: Image.asset('assets/images/icons/ic_hottest.png',width: 28,height:28,)),
                             Text('Hottest'),
                           ],
                         ),
@@ -95,7 +95,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_newest.png')),
+                            Expanded(child: Image.asset('assets/images/icons/ic_newest.png',width: 28,height:28,)),
                             Text('Newest'),
                           ],
                         ),
@@ -107,7 +107,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_search.png')),
+                            Expanded(child: Image.asset('assets/images/icons/ic_search.png',width: 28,height:28,)),
                             Text('Search'),
                           ],
                         ),
@@ -119,7 +119,7 @@ class MainPage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_manage.png')),
+                            Expanded(child: Image.asset('assets/images/icons/ic_manage.png',width: 28,height:28,)),
                             Text('Manage'),
                           ],
                         ),
@@ -349,6 +349,7 @@ class MainPage extends StatelessWidget {
       nativeDetailAdControllerNew.requestAds();
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
+      controller.listAddonNew.refresh();
 
       if (detailController.cancelToken.isCancelled) {
         detailController.dio.close();
@@ -439,6 +440,7 @@ class MainPageDownload extends StatelessWidget {
                       controller
                           .savePrefFavoriteItem(controller.listAddon[index]);
                       controller.listAddon.refresh();
+                      controller.listAddonNew.refresh();
                     },
                     addonsItem: controller.listAddon[index],
                   );
@@ -501,6 +503,7 @@ class MainPageDownload extends StatelessWidget {
                       controller
                           .savePrefFavoriteItem(controller.listAddon[index]);
                       controller.listAddon.refresh();
+                      controller.listAddonNew.refresh();
                     },
                   );
                 }
@@ -704,6 +707,7 @@ class BuildPhone extends StatelessWidget {
           nativeDetailAdControllerNew.requestAds();
           nativeHomeAdControllerNew.requestAds();
           MainController().listAddon.refresh();
+          MainController().listAddonNew.refresh();
           detailController.isDownloaded.value = false;
 
           if (detailController.cancelToken.isCancelled) {
@@ -920,6 +924,7 @@ class BuildTablet extends StatelessWidget {
             // DetailController().isDownloaded.value = false;
 
             MainController().listAddon.refresh();
+            MainController().listAddonNew.refresh();
             detailController.isDownloaded.value = false;
             nativeDetailAdControllerNew.listAds.forEach((element) {
               print("detail " + element.hashCode.toString());
