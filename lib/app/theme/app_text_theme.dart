@@ -9,3 +9,11 @@ final TextStyle cardTextStyle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.bold,
 );
+final TextStyle selectedTab = TextStyle(
+  fontSize: 16,
+  color: Colors.black,
+);
+final TextStyle unselectedTab = TextStyle(
+    fontSize: 12,
+  color: Colors.grey
+);

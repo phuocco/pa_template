@@ -18,6 +18,7 @@ import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/question_module/question_page.dart';
 import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/app/theme/app_text_theme.dart';
 import 'package:mods_guns/app/utils/strings.dart';
 import 'package:mods_guns/constants/const_drawer.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
@@ -78,49 +79,50 @@ class MainPage extends StatelessWidget {
                     children: [
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectingPageNew2('Main Page Download'),
+                        onPressed: () => controller.selectPageNew2('Main Page Download'),
                         // onPressed: () => controller.setIndexStack(0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(child: Image.asset('assets/images/icons/ic_hottest.png',width: 28,height:28,)),
-                            Text('Hottest'),
+                            Obx(() => Text('Hottest', style: controller.selectingPageNew2.value == 'Main Page Download' ? selectedTab : unselectedTab),),
                           ],
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectingPageNew2('Main Page ItemId'),
+                        onPressed: () => controller.selectPageNew2('Main Page ItemId'),
                         // onPressed: () => controller.setIndexStack(1),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(child: Image.asset('assets/images/icons/ic_newest.png',width: 28,height:28,)),
-                            Text('Newest'),
+                            Obx(() => Text('Newest', style: controller.selectingPageNew2.value == 'Main Page ItemId' ? selectedTab : unselectedTab),),
                           ],
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectingPageNew2('Search Page'),
+                        onPressed: () => controller.selectPageNew2('Search Page'),
                         // onPressed: () => controller.setIndexStack(2),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(child: Image.asset('assets/images/icons/ic_search.png',width: 28,height:28,)),
-                            Text('Search'),
+                            Obx(() => Text('Search', style: controller.selectingPageNew2.value == 'Search Page' ? selectedTab : unselectedTab),),
+
                           ],
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectingPageNew2('Downloaded Page'),
+                        onPressed: () => controller.selectPageNew2('Downloaded Page'),
                         // onPressed: () => controller.setIndexStack(3),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Expanded(child: Image.asset('assets/images/icons/ic_manage.png',width: 28,height:28,)),
-                            Text('Manage'),
+                            Obx(() => Text('Manage', style: controller.selectingPageNew2.value == 'Downloaded Page' ? selectedTab : unselectedTab),),
                           ],
                         ),
                       ),
