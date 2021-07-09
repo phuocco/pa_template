@@ -79,8 +79,8 @@ class AddonsItem {
     isVerify: json["is_verify"],
     createTime: DateTime.parse(json["create_time"]),
     price: json["price"],
-    isDownloaded: false,
-    pathUrl: null,
+    isDownloaded: json["isDownloaded"] == null ? false : json["isDownloaded"],
+    pathUrl: json["pathUrl"] == null ? null : json["pathUrl"],
     isFavorite: false,
 
   );

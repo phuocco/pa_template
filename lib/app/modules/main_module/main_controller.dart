@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,9 +21,7 @@ import 'package:mods_guns/models/addons_item.dart';
 import 'package:mods_guns/models/downloaded_item_model.dart';
 import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 
-
-class MainController extends GetxController{
-
+class MainController extends GetxController {
   final MainRepository repository;
   MainController({this.repository});
   final box = GetStorage();
@@ -40,34 +37,35 @@ class MainController extends GetxController{
   final listAddon = <dynamic>[].obs;
   final listAddonNew = <dynamic>[].obs;
 
-
   final adsWidget = NativeAdHomeWidget().obs;
   final isFavoritePage = false.obs;
 
   getItems(BuildContext context) async {
-    if(context.isPhone){
-      return repository.getItem().then((value){
-
-        value.sort((a, b) => int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
+    if (context.isPhone) {
+      return repository.getItem().then((value) {
+        value.sort((a, b) =>
+            int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
         listAddon.assignAll(value);
         for (var i = 3; i < listAddon.length; i += 5) {
           listAddon.insert(i, 'Ads');
         }
-        value.sort((a, b) => b.createTime.toString().compareTo(a.createTime.toString()));
+        value.sort((a, b) =>
+            b.createTime.toString().compareTo(a.createTime.toString()));
         listAddonNew.assignAll(value);
         for (var i = 3; i < listAddonNew.length; i += 5) {
           listAddonNew.insert(i, 'Ads');
         }
-
       });
     } else {
-      return repository.getItem().then((value){
-        value.sort((a, b) => int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
+      return repository.getItem().then((value) {
+        value.sort((a, b) =>
+            int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
         listAddon.assignAll(value);
         for (var i = 2; i < listAddon.length; i += 11) {
           listAddon.insert(i, 'Ads');
         }
-        value.sort((a, b) => b.createTime.toString().compareTo(a.createTime.toString()));
+        value.sort((a, b) =>
+            b.createTime.toString().compareTo(a.createTime.toString()));
         listAddonNew.assignAll(value);
         for (var i = 3; i < listAddonNew.length; i += 5) {
           listAddonNew.insert(i, 'Ads');
@@ -77,12 +75,12 @@ class MainController extends GetxController{
   }
 
   var indexStack = 0.obs;
-  setIndexStack(int index){
+  setIndexStack(int index) {
     indexStack.value = index;
     update();
   }
 
-  final selectingPageNew2 = 'Search Page'.obs;
+  final selectingPageNew2 = 'Main Page Download'.obs;
   final listPages2 = <String, Object>{}.obs;
 
   initPage2() {
@@ -93,11 +91,11 @@ class MainController extends GetxController{
       'Downloaded Page': DownloadedPage(),
     });
   }
+
   void selectPageNew2(String string) {
     selectingPageNew2.value = string;
     update();
   }
-
 
   @override
   void onReady() {
@@ -115,9 +113,12 @@ class MainController extends GetxController{
     getPrefFavorite();
     checkConnection();
 
-    connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.mobile || result == ConnectivityResult.wifi) {
-        if(!isConnecting.value){
+    connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.mobile ||
+          result == ConnectivityResult.wifi) {
+        if (!isConnecting.value) {
           Fluttertoast.showToast(
               msg: "You are connected to the internet",
               toastLength: Toast.LENGTH_SHORT,
@@ -125,8 +126,7 @@ class MainController extends GetxController{
               timeInSecForIosWeb: 1,
               backgroundColor: kColorAppbar,
               textColor: Colors.white,
-              fontSize: 16.0
-          );
+              fontSize: 16.0);
         }
         isConnecting.value = true;
       } else if (result == ConnectivityResult.none) {
@@ -137,13 +137,11 @@ class MainController extends GetxController{
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0
-        );
+            fontSize: 16.0);
         isConnecting.value = false;
       }
     });
   }
-
 
   @override
   void onClose() {
@@ -156,12 +154,14 @@ class MainController extends GetxController{
 
   checkConnection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       isConnecting.value = true;
     } else if (connectivityResult == ConnectivityResult.none) {
       isConnecting.value = false;
     }
   }
+
   DownloadedItemModel downloadedItemModel;
   final listDownloaded = <DownloadedItemModel>[].obs;
   final listDownloadedNew = <AddonsItem>[].obs;
@@ -169,16 +169,17 @@ class MainController extends GetxController{
   getPrefDownloaded() async {
     if (box.hasData('LIST_DOWNLOADED')) {
       List<DownloadedItemModel> tempDownload =
-      downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
+          downloadedItemFromJson(jsonEncode(box.read('LIST_DOWNLOADED')));
       listDownloaded.assignAll(tempDownload);
 
       List<AddonsItem> tempDownloadNew =
-      addonsItemFromJson(jsonEncode(box.read('LIST_DOWNLOADEDNEW')));
+          addonsItemFromJson(jsonEncode(box.read('LIST_DOWNLOADEDNEW')));
       listDownloadedNew.assignAll(tempDownloadNew);
     }
   }
 
-  savePrefDownloadedItem(AddonsItem addonsItem, String id, String pathFile) async {
+  savePrefDownloadedItem(
+      AddonsItem addonsItem, String id, String pathFile) async {
     downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
     listDownloaded.add(downloadedItemModel);
     addonsItem.pathUrl = pathFile;
@@ -190,8 +191,9 @@ class MainController extends GetxController{
   final listFavorite = <AddonsItem>[].obs;
   final listFavoriteWithAds = <dynamic>[].obs;
   getPrefFavorite() async {
-    if(box.hasData('LIST_FAVORITE')){
-      List<AddonsItem> tempFavorite = addonsItemFromJson(jsonEncode(box.read('LIST_FAVORITE')));
+    if (box.hasData('LIST_FAVORITE')) {
+      List<AddonsItem> tempFavorite =
+          addonsItemFromJson(jsonEncode(box.read('LIST_FAVORITE')));
       listFavorite.assignAll(tempFavorite);
       listFavoriteWithAds.assignAll(tempFavorite);
       for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
@@ -199,23 +201,22 @@ class MainController extends GetxController{
       }
     }
   }
-  savePrefFavoriteItem(AddonsItem addonsItem){
+
+  savePrefFavoriteItem(AddonsItem addonsItem) {
     // if(listFavorite.contains(addonsItem)){
     //   listFavorite.remove(addonsItem);
     // } else {
     //   listFavorite.add(addonsItem);
     // }
-    int count=0;
+    int count = 0;
     listFavorite.forEach((element) {
-      if(element.itemId == addonsItem.itemId)
-        count++;
+      if (element.itemId == addonsItem.itemId) count++;
     });
-    if(count>0){
+    if (count > 0) {
       listFavorite.remove(addonsItem);
     } else {
       listFavorite.add(addonsItem);
     }
-
 
     listFavoriteWithAds.assignAll(listFavorite);
     for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
@@ -223,10 +224,9 @@ class MainController extends GetxController{
     }
     listFavoriteWithAds.refresh();
     box.write('LIST_FAVORITE', listFavorite);
-
   }
 
-  updateAddonItemInList(int index, String pathUrl){
+  updateAddonItemInList(int index, String pathUrl) {
     listAddon[index].isDownloaded = true;
     listAddon[index].pathUrl = pathUrl;
   }

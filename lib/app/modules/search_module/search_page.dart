@@ -15,6 +15,7 @@ class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     controller.getSearchItems(context, controller.searchText);
+
     return Obx(() => context.isPhone
         ? ListView.builder(
             itemCount: controller.listAddonSearchWithAds.length,

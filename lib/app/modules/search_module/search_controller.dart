@@ -23,7 +23,7 @@ class SearchController extends GetxController{
 
 
   getSearchItems(BuildContext context, String searchText) async {
-    print(searchText);
+
     if(context.isPhone){
       return repository.getSearchItems(searchText).then((value){
         listAddonSearch.assignAll(value);

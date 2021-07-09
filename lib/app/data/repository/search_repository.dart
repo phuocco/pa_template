@@ -9,6 +9,11 @@ class SearchRepository {
 
   SearchRepository({@required this.provider}) : assert(provider != null);
 
-  getSearchItems(String searchText, {bool isFetchNewData = false}) => provider.getSearchItems(searchText,isFetchNewData:isFetchNewData);
+  getSearchItems(String searchText, {bool isFetchNewData = false}) {
+    if(searchText.isEmpty){
+      return provider.getSearchItems('Guns',isFetchNewData:isFetchNewData);
+    }
+    return provider.getSearchItems(searchText,isFetchNewData:isFetchNewData);
+  }
 
 }

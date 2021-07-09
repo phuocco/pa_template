@@ -822,7 +822,7 @@ class BuildPhone extends StatelessWidget {
                                       .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
-                              !addonsItem.isDownloaded
+                              addonsItem.pathUrl == null
                                   ? 'download'.tr
                                   : 'install'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold),

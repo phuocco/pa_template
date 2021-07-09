@@ -88,7 +88,7 @@ class DownloadedPage extends StatelessWidget{
                   controller: mainController,
                   pathFile: mainController.listDownloadedNew[index].pathUrl,
                   index: index,
-                  page: 'Favorite',
+                  page: 'Downloaded',
                   onFavoriteTap: () {
                     mainController.listFavoriteWithAds[index].isFavorite =
                     false;
@@ -105,6 +105,7 @@ class DownloadedPage extends StatelessWidget{
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
                     mainController.listAddon.refresh();
+                    mainController.listAddonNew.refresh();
                   },
                   addonsItem: mainController.listDownloadedNew[index],
                 );
