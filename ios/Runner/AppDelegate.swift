@@ -127,6 +127,8 @@ import Firebase
         factoryId: "adFactoryId",
         nativeAdFactory: nativeAdFactory)
     
+    paintSafeAreaBottomInset(withColor: UIColor.white)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
     
@@ -184,6 +186,26 @@ import Firebase
           }
     }
    
+    
+    func paintSafeAreaBottomInset(withColor color: UIColor) {
+            guard #available(iOS 11.0, *) else {
+                return
+            }
+    //        if let insetView = self.window.rootViewController!.view.viewWithTag(UIViewController.insetBackgroundViewTag) {
+    //            insetView.backgroundColor = color
+    //            return
+    //        }
+            let insetView = UIView(frame: .zero)
+    //        insetView.tag = UIViewController.insetBackgroundViewTag
+            insetView.translatesAutoresizingMaskIntoConstraints = false
+            self.window.rootViewController!.view.addSubview(insetView)
+            self.window.rootViewController!.view.sendSubviewToBack(insetView)
+            insetView.leadingAnchor.constraint(equalTo: self.window.rootViewController!.view.leadingAnchor).isActive = true
+            insetView.bottomAnchor.constraint(equalTo: self.window.rootViewController!.view.bottomAnchor).isActive = true
+            insetView.trailingAnchor.constraint(equalTo: self.window.rootViewController!.view.trailingAnchor).isActive = true
+            insetView.topAnchor.constraint(equalTo: self.window.rootViewController!.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            insetView.backgroundColor = color
+        }
     
     
     func isNotFirstTime() -> Bool{
@@ -327,4 +349,5 @@ extension String {
         return NSURL(fileURLWithPath: self).pathExtension ?? ""
     }
 }
+
 
