@@ -18,6 +18,7 @@ void main() async {
   runApp(MyApp());
 
 }
+Map<String, dynamic> manifestMap = Map<String, dynamic>();
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.pages,
       initialBinding: AllBinding(),
       initialRoute: '/home',
+      smartManagement: SmartManagement.keepFactory,
     );
   }
 }
