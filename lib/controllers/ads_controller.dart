@@ -65,7 +65,8 @@ class AdsController extends GetxController {
     '4A50245291F2A618FEA096DE31D72C62',
     'f8323379feb22fa26dcceb6ffc9a3841',
     '4ef4c95ec1b16bba8f690c014a724c08',
-    '37383e7fb3ef7121f81cac2d25ddf8b5'
+    '37383e7fb3ef7121f81cac2d25ddf8b5',
+    '6cc45e7428cb7b57da58db6d278464a1'
   ]);
 
   // NativeAd myNativeAd;

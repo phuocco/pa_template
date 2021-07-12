@@ -16,15 +16,16 @@ void main() async {
   MobileAds.instance.initialize();
   await GetStorage.init();
   runApp(MyApp());
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return GetMaterialApp(
       title: 'Guns Mod - Weapons Addon for MCPE',
       debugShowCheckedModeBanner: false,

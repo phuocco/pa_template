@@ -149,12 +149,16 @@ import Firebase
     }
     
     func requestAppOpenAd(_ showAd:Bool = false){
+        
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers =
+            [ "6cc45e7428cb7b57da58db6d278464a1" ]
+        
         self.appOpenAd = nil;
         GADAppOpenAd.load(withAdUnitID: "ca-app-pub-9131188183332364/6021730010", request: GADRequest(), orientation: UIInterfaceOrientation.portrait) { (appOpenAd: GADAppOpenAd?, error: Error?) in
             self.appOpenAd = appOpenAd;
             self.appOpenAd?.fullScreenContentDelegate = self;
             self.loadTime = Date()
-            
+        
             if(appOpenAd != nil && showAd && self.isNotFirstTime()){
                 let rootController = self.window.rootViewController!
                 appOpenAd?.present(fromRootViewController: rootController)

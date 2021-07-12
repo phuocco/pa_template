@@ -190,7 +190,6 @@ class MainPage extends StatelessWidget {
                       height: 50,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
                             onPressed: () => Get.back(),
@@ -199,6 +198,7 @@ class MainPage extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
+                          Spacer(),
                           Text(
                             addonsItem.itemName,
                             style: TextStyle(
@@ -206,13 +206,14 @@ class MainPage extends StatelessWidget {
                                 fontSize: 22,
                                 color: Colors.white),
                           ),
-                          IconButton(
-                            onPressed: () => Get.back(),
-                            icon: Icon(
-                              Icons.share_outlined,
-                              color: Colors.white,
-                            ),
-                          ),
+                          Spacer(),
+                          // IconButton(
+                          //   onPressed: () => Get.back(),
+                          //   icon: Icon(
+                          //     Icons.share_outlined,
+                          //     color: Colors.white,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
