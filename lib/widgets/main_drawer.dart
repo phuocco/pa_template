@@ -118,7 +118,7 @@ Widget drawerItem(String icIcon, String text, Function onTapDrawerItem) {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           //child: Icon(Icons.share),
-          child: Image.asset(icIcon, color: Colors.blue, height: 24),
+          child: Image.asset(icIcon, color: kColorAppbar, height: 24),
         ),
         Text(
           text,

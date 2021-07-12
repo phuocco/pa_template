@@ -60,9 +60,10 @@ class MainPage extends StatelessWidget {
                   //     ],
                   //   ),),
                   // ),
-                  Expanded(child: GetX<MainController>(
+                  Expanded(
+                      child: GetX<MainController>(
                     initState: controller.initPage2(),
-                    builder: (_){
+                    builder: (_) {
                       return _.listPages2[_.selectingPageNew2];
                     },
                   )),
@@ -79,51 +80,114 @@ class MainPage extends StatelessWidget {
                     children: [
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectPageNew2('Main Page Download'),
+                        onPressed: () =>
+                            controller.selectPageNew2('Main Page Download'),
                         // onPressed: () => controller.setIndexStack(0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_hottest.png',width: 28,height:28,)),
-                            Obx(() => Text('Hottest', style: controller.selectingPageNew2.value == 'Main Page Download' ? selectedTab : unselectedTab),),
-                          ],
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: Image.asset(
+                                'assets/images/icons/ic_hottest.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.selectingPageNew2.value ==
+                                        'Main Page Download'
+                                    ? kColorAppbar
+                                    : Colors.grey,
+                              )),
+                              Text('Hottest',
+                                  style: controller.selectingPageNew2.value ==
+                                          'Main Page Download'
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectPageNew2('Main Page ItemId'),
+                        onPressed: () =>
+                            controller.selectPageNew2('Main Page ItemId'),
                         // onPressed: () => controller.setIndexStack(1),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_newest.png',width: 28,height:28,)),
-                            Obx(() => Text('Newest', style: controller.selectingPageNew2.value == 'Main Page ItemId' ? selectedTab : unselectedTab),),
-                          ],
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: Image.asset(
+                                'assets/images/icons/ic_newest.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.selectingPageNew2.value ==
+                                        'Main Page ItemId'
+                                    ? kColorAppbar
+                                    : Colors.grey,
+                              )),
+                              Text('Newest',
+                                  style: controller.selectingPageNew2.value ==
+                                          'Main Page ItemId'
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectPageNew2('Search Page'),
+                        onPressed: () =>
+                            controller.selectPageNew2('Search Page'),
                         // onPressed: () => controller.setIndexStack(2),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_search.png',width: 28,height:28,)),
-                            Obx(() => Text('Search', style: controller.selectingPageNew2.value == 'Search Page' ? selectedTab : unselectedTab),),
-
-                          ],
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: Image.asset(
+                                'assets/images/icons/ic_search.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.selectingPageNew2.value ==
+                                        'Search Page'
+                                    ? kColorAppbar
+                                    : Colors.grey,
+                              )),
+                              Text('Search',
+                                  style: controller.selectingPageNew2.value ==
+                                          'Search Page'
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () => controller.selectPageNew2('Downloaded Page'),
+                        onPressed: () =>
+                            controller.selectPageNew2('Downloaded Page'),
                         // onPressed: () => controller.setIndexStack(3),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(child: Image.asset('assets/images/icons/ic_manage.png',width: 28,height:28,)),
-                            Obx(() => Text('Manage', style: controller.selectingPageNew2.value == 'Downloaded Page' ? selectedTab : unselectedTab),),
-                          ],
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Expanded(
+                                  child: Image.asset(
+                                'assets/images/icons/ic_manage.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.selectingPageNew2.value ==
+                                        'Downloaded Page'
+                                    ? kColorAppbar
+                                    : Colors.grey,
+                              )),
+                              Text('Manage',
+                                  style: controller.selectingPageNew2.value ==
+                                          'Downloaded Page'
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -133,7 +197,6 @@ class MainPage extends StatelessWidget {
             ),
           );
   }
-
 
   showDetailDialog({AddonsItem addonsItem, String pathFile}) {
     detailController.textButton.value =
@@ -367,7 +430,7 @@ class MainPage extends StatelessWidget {
 class MainPageDownload extends StatelessWidget {
   MainPageDownload();
 
-  final  controller = Get.put(MainController());
+  final controller = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {
@@ -546,127 +609,128 @@ class MainPageItemId extends StatelessWidget {
       }
       return context.isPhone
           ? ListView.builder(
-          itemCount: controller.listAddonNew.length,
-          itemBuilder: (context, index) {
-            //region phone
-            if (controller.listAddonNew[index] == 'Ads') {
-              return Card(
-                // key: ValueKey<int>(index),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: NativeAdHomeWidget(
-                  adItem: nativeHomeAdControllerNew == null
-                      ? null
-                      : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                ),
-                elevation: 5,
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                semanticContainer: false,
-              );
-            } else {
-              var indexDownload = controller.listDownloaded.indexWhere(
+              itemCount: controller.listAddonNew.length,
+              itemBuilder: (context, index) {
+                //region phone
+                if (controller.listAddonNew[index] == 'Ads') {
+                  return Card(
+                    // key: ValueKey<int>(index),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    semanticContainer: false,
+                  );
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
-                  element.id == controller.listAddonNew[index].itemId);
-              String pathFile = '';
-              if (indexDownload != -1) {
-                controller.listAddonNew[index].isDownloaded = true;
-                controller.listAddonNew[index].pathUrl =
-                    controller.listDownloaded[indexDownload].pathFile;
-                pathFile =
-                    controller.listDownloaded[indexDownload].pathFile;
-              }
-              var indexFavorite = controller.listFavorite.indexWhere(
+                          element.id == controller.listAddonNew[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddonNew[index].isDownloaded = true;
+                    controller.listAddonNew[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
+                  var indexFavorite = controller.listFavorite.indexWhere(
                       (element) =>
-                  element.itemId == controller.listAddonNew[index].itemId);
-              if (indexFavorite != -1) {
-                controller.listAddonNew[index].isFavorite = true;
+                          element.itemId ==
+                          controller.listAddonNew[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddonNew[index].isFavorite = true;
+                  }
+                  var indexNew = controller.listAddon
+                      .indexOf(controller.listAddonNew[index]);
+                  return BuildPhone(
+                    controller: controller,
+                    pathFile: controller.listAddonNew[index].pathUrl,
+                    index: indexNew,
+                    onFavoriteTap: () {
+                      controller.listAddonNew[index].isFavorite =
+                          !controller.listAddonNew[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddonNew[index]);
+                      controller.listAddonNew.refresh();
+                    },
+                    addonsItem: controller.listAddonNew[index],
+                  );
+                }
               }
-              var indexNew = controller.listAddon.indexOf(controller.listAddonNew[index]);
-              return BuildPhone(
-                controller: controller,
-                pathFile: controller.listAddonNew[index].pathUrl,
-                index: indexNew,
-                onFavoriteTap: () {
-                  controller.listAddonNew[index].isFavorite =
-                  !controller.listAddonNew[index].isFavorite;
-                  controller
-                      .savePrefFavoriteItem(controller.listAddonNew[index]);
-                  controller.listAddonNew.refresh();
-                },
-                addonsItem: controller.listAddonNew[index],
-              );
-            }
-          }
-        //endregion
+              //endregion
 
-      )
+              )
           :
-      //fixme: tablet
-      GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 40 / 33,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5),
-          itemCount: controller.listAddonNew.length,
-          itemBuilder: (context, index) {
-            if (controller.listAddonNew[index] == 'Ads') {
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: NativeAdHomeWidget(
-                  adItem: nativeHomeAdControllerNew == null
-                      ? null
-                      : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                ),
-                elevation: 5,
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                semanticContainer: false,
-              );
-            } else {
-              var indexDownload = controller.listDownloaded.indexWhere(
+          //fixme: tablet
+          GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 40 / 33,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5),
+              itemCount: controller.listAddonNew.length,
+              itemBuilder: (context, index) {
+                if (controller.listAddonNew[index] == 'Ads') {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    semanticContainer: false,
+                  );
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
-                  element.id == controller.listAddonNew[index].itemId);
-              String pathFile = '';
-              if (indexDownload != -1) {
-                controller.listAddonNew[index].isDownloaded = true;
-                controller.listAddonNew[index].pathUrl =
-                    controller.listDownloaded[indexDownload].pathFile;
-                pathFile =
-                    controller.listDownloaded[indexDownload].pathFile;
-              }
+                          element.id == controller.listAddonNew[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddonNew[index].isDownloaded = true;
+                    controller.listAddonNew[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
 
-              var indexFavorite = controller.listFavorite.indexWhere(
+                  var indexFavorite = controller.listFavorite.indexWhere(
                       (element) =>
-                  element.itemId == controller.listAddonNew[index].itemId);
-              if (indexFavorite != -1) {
-                controller.listAddon[index].isFavorite = true;
-              }
-              var indexNew = controller.listAddon.indexOf(controller.listAddonNew[index]);
+                          element.itemId ==
+                          controller.listAddonNew[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddon[index].isFavorite = true;
+                  }
+                  var indexNew = controller.listAddon
+                      .indexOf(controller.listAddonNew[index]);
 
-              return BuildTablet(
-                controller: controller,
-                pathFile: controller.listAddonNew[index].pathUrl,
-                index: indexNew,
-                addonsItem: controller.listAddonNew[index],
-                onFavoriteTap: () {
-                  controller.listAddonNew[index].isFavorite =
-                  !controller.listAddonNew[index].isFavorite;
-                  controller
-                      .savePrefFavoriteItem(controller.listAddonNew[index]);
-                  controller.listAddonNew.refresh();
-                },
-              );
-            }
-          });
+                  return BuildTablet(
+                    controller: controller,
+                    pathFile: controller.listAddonNew[index].pathUrl,
+                    index: indexNew,
+                    addonsItem: controller.listAddonNew[index],
+                    onFavoriteTap: () {
+                      controller.listAddonNew[index].isFavorite =
+                          !controller.listAddonNew[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddonNew[index]);
+                      controller.listAddonNew.refresh();
+                    },
+                  );
+                }
+              });
     });
   }
 }
-
-
-
 
 class BuildPhone extends StatelessWidget {
   BuildPhone(
@@ -756,10 +820,14 @@ class BuildPhone extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        page == 'Downloaded' ? kDeleteIcon : addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded'
+                            ? kDeleteIcon
+                            : addonsItem.isFavorite
+                                ? kHeartFull
+                                : kHeartAround,
                         color: kColorLikeIcon,
                         height: 24,
-                          width: 24,
+                        width: 24,
                       ),
                     )),
               ]),
@@ -971,7 +1039,11 @@ class BuildTablet extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        page == 'Downloaded' ? kDeleteIcon : addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded'
+                            ? kDeleteIcon
+                            : addonsItem.isFavorite
+                                ? kHeartFull
+                                : kHeartAround,
                         color: kColorLikeIcon,
                         height: 24,
                         width: 24,
