@@ -45,4 +45,5 @@ const  kMcpeAppId = "479516143";
 
 const kHeartAround = 'assets/images/icons/heart_black.svg';
 const kHeartFull = 'assets/images/icons/heart_red.svg';
+const kDeleteIcon = 'assets/images/icons/delete.svg';
 

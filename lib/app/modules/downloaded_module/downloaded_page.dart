@@ -90,22 +90,9 @@ class DownloadedPage extends StatelessWidget{
                   index: index,
                   page: 'Downloaded',
                   onFavoriteTap: () {
-                    mainController.listFavoriteWithAds[index].isFavorite =
-                    false;
-                    int indexItem =
-                    mainController.listAddon.indexWhere((element) {
-                      if (element != 'Ads') {
-                        return element.itemId ==
-                            mainController.listFavoriteWithAds[index].itemId;
-                      } else {
-                        return false;
-                      }
-                    });
-                    mainController.listAddon[indexItem].isFavorite = false;
-                    mainController.savePrefFavoriteItem(
-                        mainController.listFavoriteWithAds[index]);
-                    mainController.listAddon.refresh();
-                    mainController.listAddonNew.refresh();
+                    print('hi');
+                    mainController.listDownloadedNew.removeAt(index);
+                    mainController.listDownloadedNew.refresh();
                   },
                   addonsItem: mainController.listDownloadedNew[index],
                 );
@@ -117,9 +104,9 @@ class DownloadedPage extends StatelessWidget{
               childAspectRatio: 40 / 33,
               crossAxisSpacing: 5,
               mainAxisSpacing: 5),
-          itemCount: mainController.listFavoriteWithAds.length,
+          itemCount: mainController.listDownloadedNew.length,
           itemBuilder: (context, index) {
-            if (mainController.listFavoriteWithAds[index] == 'Ads') {
+            if (mainController.listDownloadedNew[index] == 'Ads') {
               return Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
@@ -132,52 +119,44 @@ class DownloadedPage extends StatelessWidget{
                 semanticContainer: false,
               );
             } else {
-              // var indexDownload =
-              // mainController.listDownloaded.indexWhere((element) {
-              //   if (mainController.listAddon[index] != 'Ads') {
-              //     return element.id == mainController.listAddon[index].itemId;
-              //   } else {
-              //     return false;
-              //   }
-              // });
+              var indexDownload =
+              mainController.listDownloaded.indexWhere((element) {
+                if (mainController.listAddon[index] != 'Ads') {
+                  return element.id == mainController.listAddon[index].itemId;
+                } else {
+                  return false;
+                }
+              });
               String pathFile = '';
               // if (indexDownload != -1) {
-              //   mainController.listAddon[index].isDownloaded = true;
               //   mainController.listFavorite[index].isDownloaded = true;
               //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
               // }
 
-              var indexFavorite = mainController.listFavorite.indexWhere(
-                      (element) =>
-                  element.itemId ==
-                      mainController.listAddon[index].itemId);
+              var indexFavorite =
+              mainController.listFavorite.indexWhere((element) {
+                if (mainController.listAddon[index] != 'Ads') {
+                  return element.itemId ==
+                      mainController.listAddon[index].itemId;
+                } else {
+                  return false;
+                }
+              });
               if (indexFavorite != -1) {
                 mainController.listFavorite[index].isFavorite = true;
               }
+              // return Text(mainController.listDownloadedNew[index].toJson().toString());
               return BuildTablet(
                   controller: mainController,
-                  pathFile: mainController.listFavoriteWithAds[index].pathUrl,
+                  pathFile: mainController.listDownloadedNew[index].pathUrl,
                   index: index,
-                  page: 'Favorite',
-                  onFavoriteTap: () {
-                    mainController.listFavoriteWithAds[index].isFavorite =
-                    false;
-                    int indexItem =
-                    mainController.listAddon.indexWhere((element) {
-                      if (element != 'Ads') {
-                        return element.itemId ==
-                            mainController.listFavoriteWithAds[index].itemId;
-                      } else {
-                        return false;
-                      }
-                    });
-                    mainController.listAddon[indexItem].isFavorite = false;
-                    mainController.savePrefFavoriteItem(
-                        mainController.listFavoriteWithAds[index]);
-                    mainController.listAddon.refresh();
-                    mainController.listAddonNew.refresh();
-                  },
-                  addonsItem: mainController.listFavoriteWithAds[index]);
+                  page: 'Downloaded',
+                onFavoriteTap: () {
+                  mainController.listDownloadedNew.removeAt(index);
+                  mainController.listDownloadedNew.refresh();
+                },
+                addonsItem: mainController.listDownloadedNew[index]
+              );
             }
           },
         );

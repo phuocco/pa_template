@@ -756,8 +756,10 @@ class BuildPhone extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded' ? kDeleteIcon : addonsItem.isFavorite ? kHeartFull : kHeartAround,
                         color: kColorLikeIcon,
+                        height: 24,
+                          width: 24,
                       ),
                     )),
               ]),
@@ -969,8 +971,10 @@ class BuildTablet extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded' ? kDeleteIcon : addonsItem.isFavorite ? kHeartFull : kHeartAround,
                         color: kColorLikeIcon,
+                        height: 24,
+                        width: 24,
                       ),
                     )),
               ]),
@@ -1034,7 +1038,7 @@ class BuildTablet extends StatelessWidget {
                                       .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
-                              !addonsItem.isDownloaded
+                              addonsItem.pathUrl == null
                                   ? 'download'.tr
                                   : 'install'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold),
