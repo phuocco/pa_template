@@ -21,18 +21,18 @@ class SearchPage extends StatelessWidget {
             itemCount: controller.listAddonSearchWithAds.length,
             itemBuilder: (context, index) {
               if (controller.listAddonSearchWithAds[index] == 'Ads') {
-                return Card(
+                return mainController.indexStack.value == 2 ? Card(
                   // key: ValueKey<int>(index),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: NativeAdHomeWidget(
                       adItem:
-                          nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                      nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
                   elevation: 5,
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   semanticContainer: false,
-                );
+                ) : SizedBox();
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
                     (element) =>
@@ -77,17 +77,17 @@ class SearchPage extends StatelessWidget {
             itemCount: controller.listAddonSearchWithAds.length,
             itemBuilder: (context, index) {
               if (controller.listAddonSearchWithAds[index] == 'Ads') {
-                return Card(
+                return mainController.indexStack.value == 2 ? Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: NativeAdHomeWidget(
                       adItem:
-                          nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
+                      nativeHomeAdControllerNew.getAdsByIncreaseIndex()),
                   elevation: 5,
                   margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   semanticContainer: false,
-                );
+                ) :  SizedBox();
               } else {
                 var indexDownload = mainController.listDownloaded.indexWhere(
                     (element) =>

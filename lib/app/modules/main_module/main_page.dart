@@ -49,24 +49,24 @@ class MainPage extends StatelessWidget {
             child: Scaffold(
               body: Column(
                 children: [
-                  // Expanded(
-                  //   child: Obx(() => IndexedStack(
-                  //     index: controller.indexStack.value,
-                  //     children: [
-                  //       MainPageDownload(),
-                  //       MainPageItemId(),
-                  //       SearchPage(),
-                  //       DownloadedPage(),
-                  //     ],
-                  //   ),),
-                  // ),
                   Expanded(
-                      child: GetX<MainController>(
-                    initState: controller.initPage2(),
-                    builder: (_) {
-                      return _.listPages2[_.selectingPageNew2];
-                    },
-                  )),
+                    child: Obx(() => IndexedStack(
+                      index: controller.indexStack.value,
+                      children: [
+                        MainPageDownload(),
+                        MainPageItemId(),
+                        SearchPage(),
+                        DownloadedPage(),
+                      ],
+                    ),),
+                  ),
+                  // Expanded(
+                  //     child: GetX<MainController>(
+                  //   initState: controller.initPage2(),
+                  //   builder: (_) {
+                  //     return _.listPages2[_.selectingPageNew2];
+                  //   },
+                  // )),
                   BaseBanner(),
                 ],
               ),
@@ -80,9 +80,9 @@ class MainPage extends StatelessWidget {
                     children: [
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () =>
-                            controller.selectPageNew2('Main Page Download'),
-                        // onPressed: () => controller.setIndexStack(0),
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Main Page Download'),
+                        onPressed: () => controller.setIndexStack(0),
                         child: Obx(
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -92,14 +92,14 @@ class MainPage extends StatelessWidget {
                                 'assets/images/icons/ic_hottest.png',
                                 width: 28,
                                 height: 28,
-                                color: controller.selectingPageNew2.value ==
-                                        'Main Page Download'
+                                color: controller.indexStack.value ==
+                                        0
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
                               Text('Hottest',
-                                  style: controller.selectingPageNew2.value ==
-                                          'Main Page Download'
+                                  style: controller.indexStack.value ==
+                                      0
                                       ? selectedTab
                                       : unselectedTab),
                             ],
@@ -108,9 +108,9 @@ class MainPage extends StatelessWidget {
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () =>
-                            controller.selectPageNew2('Main Page ItemId'),
-                        // onPressed: () => controller.setIndexStack(1),
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Main Page ItemId'),
+                        onPressed: () => controller.setIndexStack(1),
                         child: Obx(
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -120,14 +120,14 @@ class MainPage extends StatelessWidget {
                                 'assets/images/icons/ic_newest.png',
                                 width: 28,
                                 height: 28,
-                                color: controller.selectingPageNew2.value ==
-                                        'Main Page ItemId'
+                                color: controller.indexStack.value ==
+                                    1
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
                               Text('Newest',
-                                  style: controller.selectingPageNew2.value ==
-                                          'Main Page ItemId'
+                                  style: controller.indexStack.value ==
+                                      1
                                       ? selectedTab
                                       : unselectedTab),
                             ],
@@ -136,9 +136,9 @@ class MainPage extends StatelessWidget {
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () =>
-                            controller.selectPageNew2('Search Page'),
-                        // onPressed: () => controller.setIndexStack(2),
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Search Page'),
+                        onPressed: () => controller.setIndexStack(2),
                         child: Obx(
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -148,14 +148,14 @@ class MainPage extends StatelessWidget {
                                 'assets/images/icons/ic_search.png',
                                 width: 28,
                                 height: 28,
-                                color: controller.selectingPageNew2.value ==
-                                        'Search Page'
+                                color: controller.indexStack.value ==
+                                    2
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
                               Text('Search',
-                                  style: controller.selectingPageNew2.value ==
-                                          'Search Page'
+                                  style: controller.indexStack.value ==
+                                      2
                                       ? selectedTab
                                       : unselectedTab),
                             ],
@@ -164,9 +164,9 @@ class MainPage extends StatelessWidget {
                       ),
                       MaterialButton(
                         minWidth: 40,
-                        onPressed: () =>
-                            controller.selectPageNew2('Downloaded Page'),
-                        // onPressed: () => controller.setIndexStack(3),
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Downloaded Page'),
+                        onPressed: () => controller.setIndexStack(3),
                         child: Obx(
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -176,14 +176,14 @@ class MainPage extends StatelessWidget {
                                 'assets/images/icons/ic_manage.png',
                                 width: 28,
                                 height: 28,
-                                color: controller.selectingPageNew2.value ==
-                                        'Downloaded Page'
+                                color: controller.indexStack.value ==
+                                    3
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
                               Text('Manage',
-                                  style: controller.selectingPageNew2.value ==
-                                          'Downloaded Page'
+                                  style: controller.indexStack.value ==
+                                      3
                                       ? selectedTab
                                       : unselectedTab),
                             ],
@@ -463,7 +463,7 @@ class MainPageDownload extends StatelessWidget {
               itemBuilder: (context, index) {
                 //region phone
                 if (controller.listAddon[index] == 'Ads') {
-                  return Card(
+                  return controller.indexStack.value == 0 ? Card(
                     // key: ValueKey<int>(index),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -476,7 +476,7 @@ class MainPageDownload extends StatelessWidget {
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     semanticContainer: false,
-                  );
+                  ) : SizedBox();
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
@@ -525,7 +525,7 @@ class MainPageDownload extends StatelessWidget {
               itemCount: controller.listAddon.length,
               itemBuilder: (context, index) {
                 if (controller.listAddon[index] == 'Ads') {
-                  return Card(
+                  return controller.indexStack.value == 0 ? Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -537,7 +537,7 @@ class MainPageDownload extends StatelessWidget {
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     semanticContainer: false,
-                  );
+                  ) : SizedBox();
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
@@ -613,7 +613,7 @@ class MainPageItemId extends StatelessWidget {
               itemBuilder: (context, index) {
                 //region phone
                 if (controller.listAddonNew[index] == 'Ads') {
-                  return Card(
+                  return controller.indexStack.value == 1 ? Card(
                     // key: ValueKey<int>(index),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -626,7 +626,7 @@ class MainPageItemId extends StatelessWidget {
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                     semanticContainer: false,
-                  );
+                  ) : SizedBox();
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
@@ -677,7 +677,7 @@ class MainPageItemId extends StatelessWidget {
               itemCount: controller.listAddonNew.length,
               itemBuilder: (context, index) {
                 if (controller.listAddonNew[index] == 'Ads') {
-                  return Card(
+                  return controller.indexStack.value == 1 ? Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -689,7 +689,7 @@ class MainPageItemId extends StatelessWidget {
                     elevation: 5,
                     margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                     semanticContainer: false,
-                  );
+                  ) :  SizedBox();
                 } else {
                   var indexDownload = controller.listDownloaded.indexWhere(
                       (element) =>
