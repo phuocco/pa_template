@@ -79,6 +79,7 @@ class MainPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Main Page Download'),
@@ -97,16 +98,21 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('HOTTEST',
-                                  style: controller.indexStack.value ==
-                                      0
-                                      ? selectedTab
-                                      : unselectedTab),
+                              Container(
+
+                                child:Text('HOTTEST',
+                                    style: controller.indexStack.value ==
+                                        0
+                                        ? selectedTab
+                                        : unselectedTab),
+                              ),
+
                             ],
                           ),
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Main Page ItemId'),
@@ -125,16 +131,20 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('NEWEST',
-                                  style: controller.indexStack.value ==
-                                      1
-                                      ? selectedTab
-                                      : unselectedTab),
+                        Container(
+                          child: Text('NEWEST',
+                              style: controller.indexStack.value ==
+                                  1
+                                  ? selectedTab
+                                  : unselectedTab),
+                        ),
+
                             ],
                           ),
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Search Page'),
@@ -163,6 +173,7 @@ class MainPage extends StatelessWidget {
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Downloaded Page'),
