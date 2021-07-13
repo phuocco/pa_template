@@ -67,7 +67,7 @@ class MainController extends GetxController {
         value.sort((a, b) =>
             b.createTime.toString().compareTo(a.createTime.toString()));
         listAddonNew.assignAll(value);
-        for (var i = 3; i < listAddonNew.length; i += 5) {
+        for (var i = 3; i < listAddonNew.length; i += 11) {
           listAddonNew.insert(i, 'Ads');
         }
       });
@@ -197,8 +197,14 @@ class MainController extends GetxController {
           addonsItemFromJson(jsonEncode(box.read('LIST_FAVORITE')));
       listFavorite.assignAll(tempFavorite);
       listFavoriteWithAds.assignAll(tempFavorite);
-      for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
-        listFavoriteWithAds.insert(i, 'Ads');
+      if(Get.context.isPhone) {
+        for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
+          listFavoriteWithAds.insert(i, 'Ads');
+        }
+      } else {
+        for (var i = 2; i < listFavoriteWithAds.length; i += 11) {
+          listFavoriteWithAds.insert(i, 'Ads');
+        }
       }
     }
   }
@@ -220,8 +226,14 @@ class MainController extends GetxController {
     }
 
     listFavoriteWithAds.assignAll(listFavorite);
-    for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
-      listFavoriteWithAds.insert(i, 'Ads');
+    if(Get.context.isPhone){
+      for (var i = 2; i < listFavoriteWithAds.length; i += 5) {
+        listFavoriteWithAds.insert(i, 'Ads');
+      }
+    } else {
+      for (var i = 2; i < listFavoriteWithAds.length; i += 11) {
+        listFavoriteWithAds.insert(i, 'Ads');
+      }
     }
     listFavoriteWithAds.refresh();
     box.write('LIST_FAVORITE', listFavorite);
