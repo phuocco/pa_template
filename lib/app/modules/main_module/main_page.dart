@@ -74,7 +74,7 @@ class MainPage extends StatelessWidget {
                 shape: CircularNotchedRectangle(),
                 notchMargin: 10,
                 child: Container(
-                  height: 60,
+                  height: 80,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -85,7 +85,7 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(0),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_hottest.png',
@@ -112,7 +112,7 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(1),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_newest.png',
@@ -139,7 +139,7 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(2),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_search.png',
@@ -166,7 +166,7 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(3),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_manage.png',

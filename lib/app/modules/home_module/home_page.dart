@@ -172,7 +172,7 @@ class HomePage extends StatelessWidget {
     print('init home');
     return SafeArea(
       top: false,
-      bottom: true,
+      bottom: false,
       child: Scaffold(
         // key: scaffoldKey,
         key: controller.scaffoldKey,
