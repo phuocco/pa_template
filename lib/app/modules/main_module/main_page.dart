@@ -97,7 +97,7 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('Hottest',
+                              Text('HOTTEST',
                                   style: controller.indexStack.value ==
                                       0
                                       ? selectedTab
@@ -125,7 +125,7 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('Newest',
+                              Text('NEWEST',
                                   style: controller.indexStack.value ==
                                       1
                                       ? selectedTab
@@ -153,7 +153,7 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('Search',
+                              Text('SEARCH',
                                   style: controller.indexStack.value ==
                                       2
                                       ? selectedTab
@@ -181,7 +181,7 @@ class MainPage extends StatelessWidget {
                                     ? kColorAppbar
                                     : Colors.grey,
                               )),
-                              Text('Manage',
+                              Text('MANAGE',
                                   style: controller.indexStack.value ==
                                       3
                                       ? selectedTab
