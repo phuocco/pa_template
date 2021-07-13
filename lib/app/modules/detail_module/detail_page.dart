@@ -238,6 +238,7 @@ class DetailPage extends StatelessWidget {
                   ? Text(addonsItem.description)
                   : HtmlWidget(addonsItem.htmlDescription),
             ),
+            GetPlatform.isIOS ? SizedBox(height:25) : SizedBox(),
           ],
         ),
       ),

@@ -127,7 +127,7 @@ import Firebase
         factoryId: "adFactoryId",
         nativeAdFactory: nativeAdFactory)
     
-    paintSafeAreaBottomInset(withColor: UIColor.white)
+    paintSafeAreaBottomInset(withColor: UIColor.init(white: 1, alpha: 1))
     
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
