@@ -1,5 +1,7 @@
 
 
+import 'dart:io';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,11 +29,7 @@ class DownloadedPage extends StatelessWidget{
             ),
             child: AnimatedTextKit(
               animatedTexts: [
-                FadeAnimatedText('Loading',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data ...',
+                FadeAnimatedText('Empty',
                     textStyle: TextStyle(color: kColorAppbar)),
               ],
               repeatForever: true,
@@ -90,9 +88,50 @@ class DownloadedPage extends StatelessWidget{
                   index: index,
                   page: 'Downloaded',
                   onFavoriteTap: () {
-                    print('hi');
-                    mainController.listDownloadedNew.removeAt(index);
-                    mainController.listDownloadedNew.refresh();
+                    print(mainController.listDownloaded.length);
+                    // print(mainController.listDownloadedNew[index].pathUrl);
+                    var indexDownloaded = mainController.listDownloaded.indexWhere((element) => element.id == mainController.listDownloadedNew[index].itemId);
+                    if(indexDownloaded != -1){
+
+                      var indexHot =
+                      mainController.listAddon.indexWhere((element) {
+                        if (element != 'Ads') {
+                          return element.itemId == mainController.listDownloadedNew[index].itemId;
+                        } else {
+                          return false;
+                        }
+                      });
+                      if(indexHot != -1){
+                        mainController.listAddon[indexHot].pathUrl ='';
+                        mainController.listAddon[indexHot].isDownloaded = false;
+                      }
+
+                      var indexNew =
+                      mainController.listAddonNew.indexWhere((element) {
+                        if (element != 'Ads') {
+                          return element.itemId == mainController.listDownloadedNew[index].itemId;
+                        } else {
+                          return false;
+                        }
+                      });
+                      if(indexHot != -1){
+                        mainController.listAddonNew[indexNew].pathUrl ='';
+                        mainController.listAddonNew[indexNew].isDownloaded = false;
+                      }
+
+
+
+
+
+                      File delete = File(mainController.listDownloadedNew[index].pathUrl);
+                      delete.existsSync();
+                      mainController.listDownloaded.removeAt(indexDownloaded);
+                      mainController.listDownloadedNew.removeAt(index);
+                      mainController.listAddon.refresh();
+                      mainController.listAddonNew.refresh();
+                      mainController.listDownloadedNew.refresh();
+                    }
+
                   },
                   addonsItem: mainController.listDownloadedNew[index],
                 );
@@ -152,8 +191,46 @@ class DownloadedPage extends StatelessWidget{
                   index: index,
                   page: 'Downloaded',
                 onFavoriteTap: () {
-                  mainController.listDownloadedNew.removeAt(index);
-                  mainController.listDownloadedNew.refresh();
+                  print(mainController.listDownloaded.length);
+                  // print(mainController.listDownloadedNew[index].pathUrl);
+                  var indexDownloaded = mainController.listDownloaded.indexWhere((element) => element.id == mainController.listDownloadedNew[index].itemId);
+                  if(indexDownloaded != -1){
+
+                    var indexHot =
+                    mainController.listAddon.indexWhere((element) {
+                      if (element != 'Ads') {
+                        return element.itemId == mainController.listDownloadedNew[index].itemId;
+                      } else {
+                        return false;
+                      }
+                    });
+                    if(indexHot != -1){
+                      mainController.listAddon[indexHot].pathUrl ='';
+                      mainController.listAddon[indexHot].isDownloaded = false;
+                    }
+
+                    var indexNew =
+                    mainController.listAddonNew.indexWhere((element) {
+                      if (element != 'Ads') {
+                        return element.itemId == mainController.listDownloadedNew[index].itemId;
+                      } else {
+                        return false;
+                      }
+                    });
+                    if(indexHot != -1){
+                      mainController.listAddonNew[indexNew].pathUrl ='';
+                      mainController.listAddonNew[indexNew].isDownloaded = false;
+                    }
+                    
+
+                    File delete = File(mainController.listDownloadedNew[index].pathUrl);
+                    delete.existsSync();
+                    mainController.listDownloaded.removeAt(indexDownloaded);
+                    mainController.listDownloadedNew.removeAt(index);
+                    mainController.listAddon.refresh();
+                    mainController.listAddonNew.refresh();
+                    mainController.listDownloadedNew.refresh();
+                  }
                 },
                 addonsItem: mainController.listDownloadedNew[index]
               );

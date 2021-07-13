@@ -183,6 +183,7 @@ class MainController extends GetxController {
     downloadedItemModel = DownloadedItemModel(id: id, pathFile: pathFile);
     listDownloaded.add(downloadedItemModel);
     addonsItem.pathUrl = pathFile;
+    addonsItem.isDownloaded = true;
     listDownloadedNew.add(addonsItem);
     box.write("LIST_DOWNLOADEDNEW", listDownloadedNew);
     box.write("LIST_DOWNLOADED", listDownloaded);

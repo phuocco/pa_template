@@ -898,7 +898,7 @@ class BuildPhone extends StatelessWidget {
                                       .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
-                              addonsItem.pathUrl == null
+                              !addonsItem.isDownloaded
                                   ? 'download'.tr
                                   : 'install'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -1110,7 +1110,7 @@ class BuildTablet extends StatelessWidget {
                                       .dialogAskInstall(addonsItem.pathUrl);
                             },
                             child: Text(
-                              addonsItem.pathUrl == null
+                              !addonsItem.isDownloaded
                                   ? 'download'.tr
                                   : 'install'.tr,
                               style: TextStyle(fontWeight: FontWeight.bold),
