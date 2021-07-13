@@ -64,7 +64,11 @@ class HomePage extends StatelessWidget {
           }),
       title: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        color: kColorTextFieldAppBar,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: kColorTextFieldAppBar,
+        ),
+        // color: kColorTextFieldAppBar,
         height: AppBar().preferredSize.height * 0.64,
         width: double.infinity,
         child: Row(
@@ -116,7 +120,13 @@ class HomePage extends StatelessWidget {
                     searchController.searchText =
                         controller.searchTextEditingController.text;
                     if (!controller.searchTextEditingController.text.isBlank)
-                      controller.selectPageNew('Search Page');
+                      // controller.selectPageNew('Search Page');
+                      // searchController.listAddonSearch.clear();
+                    searchController.getSearchItems(Get.context, searchController.searchText);
+                    searchController.listAddonSearchWithAds.refresh();
+                    searchController.listAddonSearch.refresh();
+                    mainController.setIndexStack(2);
+
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
@@ -234,7 +244,7 @@ class HomePage extends StatelessWidget {
                                                     color: Colors.white,
                                                     fontSize: 13,
                                                     fontWeight:
-                                                    FontWeight.bold))),
+                                                        FontWeight.bold))),
                                       ),
                                     ),
                                     // TextButton(
@@ -275,7 +285,6 @@ class HomePage extends StatelessWidget {
                                     )
                                   ],
                                 )),
-
                             Container(
                               color: Colors.black.withOpacity(0.05),
                               // child: LoadingNativeAdWidget(adType: "Detail",),

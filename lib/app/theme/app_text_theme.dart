@@ -11,7 +11,7 @@ final TextStyle cardTextStyle = TextStyle(
 );
 final TextStyle selectedTab = TextStyle(
   fontSize: 16,
-  color: Colors.black,
+  color: kColorAppbar,
 );
 final TextStyle unselectedTab = TextStyle(
     fontSize: 12,
