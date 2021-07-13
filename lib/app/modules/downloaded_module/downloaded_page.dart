@@ -162,32 +162,32 @@ class DownloadedPage extends StatelessWidget{
                 semanticContainer: false,
               ) : SizedBox();
             } else {
-              var indexDownload =
-              mainController.listDownloaded.indexWhere((element) {
-                if (mainController.listAddon[index] != 'Ads') {
-                  return element.id == mainController.listAddon[index].itemId;
-                } else {
-                  return false;
-                }
-              });
+              // var indexDownload =
+              // mainController.listDownloaded.indexWhere((element) {
+              //   if (mainController.listAddon[index] != 'Ads') {
+              //     return element.id == mainController.listAddon[index].itemId;
+              //   } else {
+              //     return false;
+              //   }
+              // });
               String pathFile = '';
               // if (indexDownload != -1) {
               //   mainController.listFavorite[index].isDownloaded = true;
               //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
               // }
 
-              var indexFavorite =
-              mainController.listFavorite.indexWhere((element) {
-                if (mainController.listAddon[index] != 'Ads') {
-                  return element.itemId ==
-                      mainController.listAddon[index].itemId;
-                } else {
-                  return false;
-                }
-              });
-              if (indexFavorite != -1) {
-                mainController.listFavorite[index].isFavorite = true;
-              }
+              // var indexFavorite =
+              // mainController.listFavorite.indexWhere((element) {
+              //   if (mainController.listAddon[index] != 'Ads') {
+              //     return element.itemId ==
+              //         mainController.listAddon[index].itemId;
+              //   } else {
+              //     return false;
+              //   }
+              // });
+              // if (indexFavorite != -1) {
+              //   mainController.listFavorite[index].isFavorite = true;
+              // }
               // return Text(mainController.listDownloadedNew[index].toJson().toString());
               return BuildTablet(
                   controller: mainController,

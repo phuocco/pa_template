@@ -978,7 +978,7 @@ class BuildTablet extends StatelessWidget {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
         }
-        if (GetPlatform.isAndroid) {
+        // if (GetPlatform.isAndroid) {
           Get.to(() => DetailPage(
                 addonsItem: addonsItem,
                 pathFile: pathFile,
@@ -1005,12 +1005,12 @@ class BuildTablet extends StatelessWidget {
               print("home " + element.hashCode.toString());
             });
           });
-        } else {
-          MainPage().showDetailDialog(
-            addonsItem: addonsItem,
-            pathFile: pathFile,
-          );
-        }
+        // } else {
+        //   MainPage().showDetailDialog(
+        //     addonsItem: addonsItem,
+        //     pathFile: pathFile,
+        //   );
+        // }
       },
       child: Card(
         shape: RoundedRectangleBorder(
