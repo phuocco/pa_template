@@ -88,25 +88,20 @@ class MainPage extends StatelessWidget {
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_hottest.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                        0
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
-                              Container(
-
-                                child:Text('HOTTEST',
-                                    style: controller.indexStack.value ==
-                                        0
-                                        ? selectedTab
-                                        : unselectedTab),
+                                    0
+                                ? kColorAppbar
+                                : Colors.grey,
                               ),
-
+                              Text('HOTTEST',
+                                  style: controller.indexStack.value ==
+                                      0
+                                      ? selectedTab
+                                      : unselectedTab),
                             ],
                           ),
                         ),
@@ -121,24 +116,20 @@ class MainPage extends StatelessWidget {
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_newest.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    1
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
-                        Container(
-                          child: Text('NEWEST',
-                              style: controller.indexStack.value ==
-                                  1
-                                  ? selectedTab
-                                  : unselectedTab),
-                        ),
-
+                                1
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
+                              Text('NEWEST',
+                                  style: controller.indexStack.value ==
+                                      1
+                                      ? selectedTab
+                                      : unselectedTab),
                             ],
                           ),
                         ),
@@ -153,16 +144,15 @@ class MainPage extends StatelessWidget {
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_search.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    2
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                2
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('SEARCH',
                                   style: controller.indexStack.value ==
                                       2
@@ -182,16 +172,15 @@ class MainPage extends StatelessWidget {
                           () => Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_manage.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    3
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                3
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('MANAGE',
                                   style: controller.indexStack.value ==
                                       3
