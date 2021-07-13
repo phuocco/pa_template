@@ -85,18 +85,17 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(0),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_hottest.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                        0
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                    0
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('Hottest',
                                   style: controller.indexStack.value ==
                                       0
@@ -113,18 +112,17 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(1),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_newest.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    1
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                1
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('Newest',
                                   style: controller.indexStack.value ==
                                       1
@@ -141,18 +139,17 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(2),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_search.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    2
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                2
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('Search',
                                   style: controller.indexStack.value ==
                                       2
@@ -169,18 +166,17 @@ class MainPage extends StatelessWidget {
                         onPressed: () => controller.setIndexStack(3),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Expanded(
-                                  child: Image.asset(
+                              Image.asset(
                                 'assets/images/icons/ic_manage.png',
                                 width: 28,
                                 height: 28,
                                 color: controller.indexStack.value ==
-                                    3
-                                    ? kColorAppbar
-                                    : Colors.grey,
-                              )),
+                                3
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
                               Text('Manage',
                                   style: controller.indexStack.value ==
                                       3
