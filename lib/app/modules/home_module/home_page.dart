@@ -122,7 +122,9 @@ class HomePage extends StatelessWidget {
                     if (!controller.searchTextEditingController.text.isBlank)
                       // controller.selectPageNew('Search Page');
                       // searchController.listAddonSearch.clear();
+                      searchController.listAddonSearchWithAds.clear();
                     searchController.getSearchItems(Get.context, searchController.searchText);
+
                     searchController.listAddonSearchWithAds.refresh();
                     searchController.listAddonSearch.refresh();
                     mainController.setIndexStack(2);

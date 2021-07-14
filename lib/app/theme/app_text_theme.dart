@@ -10,10 +10,13 @@ final TextStyle cardTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 final TextStyle selectedTab = TextStyle(
-  fontSize: 16,
-  color: kColorAppbar,
+  fontSize: 12,
+   color: kColorAppbar,
+    fontWeight: FontWeight.bold
 );
 final TextStyle unselectedTab = TextStyle(
-    fontSize: 12,
-  color: Colors.grey
+    fontSize: 10,
+  color: Colors.grey,
+  fontWeight: FontWeight.bold
+
 );

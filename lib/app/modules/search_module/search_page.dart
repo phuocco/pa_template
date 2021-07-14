@@ -28,11 +28,9 @@ class SearchPage extends StatelessWidget {
             ),
             child: AnimatedTextKit(
               animatedTexts: [
-                FadeAnimatedText('Loading',
+                FadeAnimatedText('Searching',
                     textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data ...',
+                FadeAnimatedText('Searching data ...',
                     textStyle: TextStyle(color: kColorAppbar)),
               ],
               repeatForever: true,

@@ -79,15 +79,15 @@ class MainPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Main Page Download'),
                         onPressed: () => controller.setIndexStack(0),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-
                               Image.asset(
                                 'assets/images/icons/ic_hottest.png',
                                 width: 28,
@@ -97,7 +97,7 @@ class MainPage extends StatelessWidget {
                                 ? kColorAppbar
                                 : Colors.grey,
                               ),
-                              Text('Hottest',
+                              Text('HOTTEST',
                                   style: controller.indexStack.value ==
                                       0
                                       ? selectedTab
@@ -107,13 +107,14 @@ class MainPage extends StatelessWidget {
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Main Page ItemId'),
                         onPressed: () => controller.setIndexStack(1),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_newest.png',
@@ -124,7 +125,7 @@ class MainPage extends StatelessWidget {
                                 ? kColorAppbar
                                 : Colors.grey,
                               ),
-                              Text('Newest',
+                              Text('NEWEST',
                                   style: controller.indexStack.value ==
                                       1
                                       ? selectedTab
@@ -134,13 +135,14 @@ class MainPage extends StatelessWidget {
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Search Page'),
                         onPressed: () => controller.setIndexStack(2),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_search.png',
@@ -151,7 +153,7 @@ class MainPage extends StatelessWidget {
                                 ? kColorAppbar
                                 : Colors.grey,
                               ),
-                              Text('Search',
+                              Text('SEARCH',
                                   style: controller.indexStack.value ==
                                       2
                                       ? selectedTab
@@ -161,13 +163,14 @@ class MainPage extends StatelessWidget {
                         ),
                       ),
                       MaterialButton(
+                        padding: EdgeInsets.all(5),
                         minWidth: 40,
                         // onPressed: () =>
                         //     controller.selectPageNew2('Downloaded Page'),
                         onPressed: () => controller.setIndexStack(3),
                         child: Obx(
                           () => Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
                                 'assets/images/icons/ic_manage.png',
@@ -178,7 +181,7 @@ class MainPage extends StatelessWidget {
                                 ? kColorAppbar
                                 : Colors.grey,
                               ),
-                              Text('Manage',
+                              Text('MANAGE',
                                   style: controller.indexStack.value ==
                                       3
                                       ? selectedTab
