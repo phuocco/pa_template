@@ -50,25 +50,49 @@ class SearchPage extends StatelessWidget {
                         if (controller.listAddonSearchWithAds[index] == 'Ads') {
                           return mainController.indexStack.value == 2
                               ? Card(
-                            // key: ValueKey<int>(index),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: NativeAdHomeWidget(
-                                adItem: nativeHomeAdControllerNew
-                                    .getAdsByIncreaseIndex()),
-                            elevation: 5,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            semanticContainer: false,
-                          )
+                                  // key: ValueKey<int>(index),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: NativeAdHomeWidget(
+                                      adItem: nativeHomeAdControllerNew
+                                          .getAdsByIncreaseIndex()),
+                                  elevation: 5,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                  semanticContainer: false,
+                                )
                               : SizedBox();
+                        } else if (index == 0) {
+                          return Column(
+                            children: [
+                              Text('Addon found: '+ controller.listAddonSearch.length.toString()),
+                              BuildPhone(
+                                controller: mainController,
+                                pathFile: controller
+                                    .listAddonSearchWithAds[0].pathUrl,
+                                index: 0,
+                                page: 'Search',
+                                onFavoriteTap: () {
+                                  controller.listAddonSearchWithAds[0]
+                                          .isFavorite =
+                                      !controller.listAddonSearchWithAds[0]
+                                          .isFavorite;
+                                  mainController.savePrefFavoriteItem(
+                                      controller.listAddonSearchWithAds[0]);
+                                  controller.listAddonSearchWithAds.refresh();
+                                },
+                                addonsItem:
+                                    controller.listAddonSearchWithAds[0],
+                              ),
+                            ],
+                          );
                         } else {
                           var indexDownload = mainController.listDownloaded
                               .indexWhere((element) =>
-                          element.id ==
-                              controller
-                                  .listAddonSearchWithAds[index].itemId);
+                                  element.id ==
+                                  controller
+                                      .listAddonSearchWithAds[index].itemId);
                           String pathFile = '';
                           if (indexDownload != -1) {
                             controller.listAddonSearchWithAds[index]
@@ -81,9 +105,9 @@ class SearchPage extends StatelessWidget {
                           }
                           var indexFavorite = mainController.listFavorite
                               .indexWhere((element) =>
-                          element.itemId ==
-                              controller
-                                  .listAddonSearchWithAds[index].itemId);
+                                  element.itemId ==
+                                  controller
+                                      .listAddonSearchWithAds[index].itemId);
                           if (indexFavorite != -1) {
                             controller.listAddonSearchWithAds[index]
                                 .isFavorite = true;
@@ -96,87 +120,111 @@ class SearchPage extends StatelessWidget {
                             page: 'Search',
                             onFavoriteTap: () {
                               controller.listAddonSearchWithAds[index]
-                                  .isFavorite =
-                              !controller
-                                  .listAddonSearchWithAds[index].isFavorite;
+                                      .isFavorite =
+                                  !controller
+                                      .listAddonSearchWithAds[index].isFavorite;
                               mainController.savePrefFavoriteItem(
                                   controller.listAddonSearchWithAds[index]);
                               controller.listAddonSearchWithAds.refresh();
                             },
                             addonsItem:
-                            controller.listAddonSearchWithAds[index],
+                                controller.listAddonSearchWithAds[index],
                           );
                         }
                       })
                   : GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 40 / 33,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5),
-                itemCount: controller.listAddonSearchWithAds.length,
-                itemBuilder: (context, index) {
-                  if (controller.listAddonSearchWithAds[index] == 'Ads') {
-                    return mainController.indexStack.value == 2
-                        ? Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: NativeAdHomeWidget(
-                          adItem: nativeHomeAdControllerNew
-                              .getAdsByIncreaseIndex()),
-                      elevation: 5,
-                      margin: EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 5),
-                      semanticContainer: false,
-                    )
-                        : SizedBox();
-                  } else {
-                    var indexDownload = mainController.listDownloaded
-                        .indexWhere((element) =>
-                    element.id ==
-                        controller
-                            .listAddonSearchWithAds[index].itemId);
-                    String pathFile = '';
-                    if (indexDownload != -1) {
-                      controller.listAddonSearchWithAds[index]
-                          .isDownloaded = true;
-                      controller.listAddonSearchWithAds[index].pathUrl =
-                          mainController
-                              .listDownloaded[indexDownload].pathFile;
-                      pathFile = mainController
-                          .listDownloaded[indexDownload].pathFile;
-                    }
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 40 / 33,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 5),
+                      itemCount: controller.listAddonSearchWithAds.length,
+                      itemBuilder: (context, index) {
+                        if (controller.listAddonSearchWithAds[index] == 'Ads') {
+                          return mainController.indexStack.value == 2
+                              ? Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: NativeAdHomeWidget(
+                                      adItem: nativeHomeAdControllerNew
+                                          .getAdsByIncreaseIndex()),
+                                  elevation: 5,
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 5),
+                                  semanticContainer: false,
+                                )
+                              : SizedBox();
+                        } else if (index == 0){
+                          return Column(
+                            children: [
+                              Text('Addon found: '+ controller.listAddonSearch.length.toString()),
+                              BuildTablet(
+                                  controller: mainController,
+                                  pathFile: controller
+                                      .listAddonSearchWithAds[0].pathUrl,
+                                  index: 0,
+                                  page: 'Search',
+                                  onFavoriteTap: () {
+                                    controller.listAddonSearchWithAds[0]
+                                        .isFavorite =
+                                    !controller.listAddonSearchWithAds[0]
+                                        .isFavorite;
+                                    mainController.savePrefFavoriteItem(
+                                        controller.listAddonSearchWithAds[0]);
+                                    controller.listAddonSearchWithAds.refresh();
+                                  },
+                                  addonsItem:
+                                  controller.listAddonSearchWithAds[0])
+                            ],
+                          );
+                        }
+                        else {
+                          var indexDownload = mainController.listDownloaded
+                              .indexWhere((element) =>
+                                  element.id ==
+                                  controller
+                                      .listAddonSearchWithAds[index].itemId);
+                          String pathFile = '';
+                          if (indexDownload != -1) {
+                            controller.listAddonSearchWithAds[index]
+                                .isDownloaded = true;
+                            controller.listAddonSearchWithAds[index].pathUrl =
+                                mainController
+                                    .listDownloaded[indexDownload].pathFile;
+                            pathFile = mainController
+                                .listDownloaded[indexDownload].pathFile;
+                          }
 
-                    var indexFavorite = mainController.listFavorite
-                        .indexWhere((element) =>
-                    element.itemId ==
-                        controller
-                            .listAddonSearchWithAds[index].itemId);
-                    if (indexFavorite != -1) {
-                      controller.listAddonSearchWithAds[index]
-                          .isFavorite = true;
-                    }
-                    return BuildTablet(
-                        controller: mainController,
-                        pathFile: controller
-                            .listAddonSearchWithAds[index].pathUrl,
-                        index: index,
-                        page: 'Search',
-                        onFavoriteTap: () {
-                          controller.listAddonSearchWithAds[index]
-                              .isFavorite =
-                          !controller.listAddonSearchWithAds[index]
-                              .isFavorite;
-                          mainController.savePrefFavoriteItem(
-                              controller.listAddonSearchWithAds[index]);
-                          controller.listAddonSearchWithAds.refresh();
-                        },
-                        addonsItem:
-                        controller.listAddonSearchWithAds[index]);
-                  }
-                },
-              );
+                          var indexFavorite = mainController.listFavorite
+                              .indexWhere((element) =>
+                                  element.itemId ==
+                                  controller
+                                      .listAddonSearchWithAds[index].itemId);
+                          if (indexFavorite != -1) {
+                            controller.listAddonSearchWithAds[index]
+                                .isFavorite = true;
+                          }
+                          return BuildTablet(
+                              controller: mainController,
+                              pathFile: controller
+                                  .listAddonSearchWithAds[index].pathUrl,
+                              index: index,
+                              page: 'Search',
+                              onFavoriteTap: () {
+                                controller.listAddonSearchWithAds[index]
+                                        .isFavorite =
+                                    !controller.listAddonSearchWithAds[index]
+                                        .isFavorite;
+                                mainController.savePrefFavoriteItem(
+                                    controller.listAddonSearchWithAds[index]);
+                                controller.listAddonSearchWithAds.refresh();
+                              },
+                              addonsItem:
+                                  controller.listAddonSearchWithAds[index]);
+                        }
+                      },
+                    );
             });
     });
   }

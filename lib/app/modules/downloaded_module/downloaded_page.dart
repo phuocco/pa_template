@@ -24,19 +24,7 @@ class DownloadedPage extends StatelessWidget{
       if (mainController.listDownloadedNew.length == 0) {
         //TODO: UI loading before get data
         return Center(
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                FadeAnimatedText('Empty',
-                    textStyle: TextStyle(color: kColorAppbar)),
-              ],
-              repeatForever: true,
-            ),
-          ),
+          child: Text('Manage Download', style: TextStyle(fontSize: 25),),
         );
       } else {
        return context.isPhone
