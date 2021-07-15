@@ -39,36 +39,46 @@ class MainController extends GetxController {
 
   final adsWidget = NativeAdHomeWidget().obs;
   final isFavoritePage = false.obs;
+  final timeOutText = ''.obs;
 
   getItems(BuildContext context) async {
+    timeOutText.value = '';
     if (context.isPhone) {
       return repository.getItem().then((value) {
-        value.sort((a, b) =>
-            int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
-        listAddon.assignAll(value);
-        for (var i = 3; i < listAddon.length; i += 5) {
-          listAddon.insert(i, 'Ads');
-        }
-        value.sort((a, b) =>
-            b.createTime.toString().compareTo(a.createTime.toString()));
-        listAddonNew.assignAll(value);
-        for (var i = 3; i < listAddonNew.length; i += 5) {
-          listAddonNew.insert(i, 'Ads');
+        if(value == 'timeOut'){
+          timeOutText.value = value;
+        } else {
+          value.sort((a, b) =>
+              int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
+          listAddon.assignAll(value);
+          for (var i = 3; i < listAddon.length; i += 5) {
+            listAddon.insert(i, 'Ads');
+          }
+          value.sort((a, b) =>
+              b.createTime.toString().compareTo(a.createTime.toString()));
+          listAddonNew.assignAll(value);
+          for (var i = 3; i < listAddonNew.length; i += 5) {
+            listAddonNew.insert(i, 'Ads');
+          }
         }
       });
     } else {
       return repository.getItem().then((value) {
-        value.sort((a, b) =>
-            int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
-        listAddon.assignAll(value);
-        for (var i = 2; i < listAddon.length; i += 11) {
-          listAddon.insert(i, 'Ads');
-        }
-        value.sort((a, b) =>
-            b.createTime.toString().compareTo(a.createTime.toString()));
-        listAddonNew.assignAll(value);
-        for (var i = 3; i < listAddonNew.length; i += 11) {
-          listAddonNew.insert(i, 'Ads');
+        if(value == 'timeOut'){
+          timeOutText.value = value;
+        } else {
+          value.sort((a, b) =>
+              int.parse(b.downloadCount).compareTo(int.parse(a.downloadCount)));
+          listAddon.assignAll(value);
+          for (var i = 2; i < listAddon.length; i += 11) {
+            listAddon.insert(i, 'Ads');
+          }
+          value.sort((a, b) =>
+              b.createTime.toString().compareTo(a.createTime.toString()));
+          listAddonNew.assignAll(value);
+          for (var i = 3; i < listAddonNew.length; i += 11) {
+            listAddonNew.insert(i, 'Ads');
+          }
         }
       });
     }

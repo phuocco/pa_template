@@ -11,7 +11,13 @@ const baseUrl = 'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_
 class MainProvider extends GetConnect {
   static final MainProvider _singleton = MainProvider._internal();
   factory MainProvider() => _singleton;
-  Dio dio = new Dio();
+  Dio dio = new Dio(
+    BaseOptions(
+      baseUrl: "https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3",
+      connectTimeout: 10000,
+      receiveTimeout: 15000,
+    ),
+  );
   DioCacheManager _dioCacheManager;
   MainProvider._internal() {
     _dioCacheManager = DioCacheManager(CacheConfig(
@@ -41,6 +47,7 @@ class MainProvider extends GetConnect {
       if (response.statusCode == 200) {
         var data = response.data;
         var decodedData = addonsItemFromJson(data);
+        print("length : " + decodedData.length.toString());
 
         return decodedData;
       } else {
@@ -51,6 +58,12 @@ class MainProvider extends GetConnect {
       if (e.message.contains("DatabaseException")) {
         _dioCacheManager.clearAll();
         return getItem();
+      }
+      if (e.type == DioErrorType.CONNECT_TIMEOUT) {
+        return 'timeOut';
+      }
+      if (e.type == DioErrorType.RECEIVE_TIMEOUT) {
+        return 'timeOut';
       }
       return [];
     }

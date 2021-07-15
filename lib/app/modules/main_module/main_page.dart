@@ -457,6 +457,14 @@ class MainPageDownload extends StatelessWidget {
           ),
         );
       }
+      if (!controller.timeOutText.value.isBlank) {
+        Center(
+          child: Text(
+            'Connection timeout',
+            style: TextStyle(fontSize: 25),
+          ),
+        );
+      }
       return context.isPhone
           ? ListView.builder(
               itemCount: controller.listAddon.length,
