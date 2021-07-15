@@ -28,16 +28,7 @@ class SearchPage extends StatelessWidget {
               if (controller.listAddonSearchWithAds.length == 0) {
                 //TODO: UI loading before get data
                 return Center(
-                  child: Text(controller.isSearching.value ? 'Searching' : 'No result',style: TextStyle(fontSize: 25),),
-                );
-              }
-
-              if (controller.timeOutText.value == 'timeOut') {
-                Center(
-                  child: Text(
-                    'Connection timeout',
-                    style: TextStyle(fontSize: 25),
-                  ),
+                  child: Text(controller.isSearching.value ? 'Searching' : controller.timeOutText.value == 'timeOut' ? 'timeOut' : 'no result', style: TextStyle(fontSize: 25),)
                 );
               }
               return context.isPhone

@@ -438,33 +438,10 @@ class MainPageDownload extends StatelessWidget {
       if (controller.listAddon.length == 0) {
         //TODO: UI loading before get data
         return Center(
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                FadeAnimatedText('Loading',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data ...',
-                    textStyle: TextStyle(color: kColorAppbar)),
-              ],
-              repeatForever: true,
-            ),
-          ),
+            child: Text(controller.timeOutText.value == 'timeOut' ? 'timeOut' : 'Loading', style: TextStyle(fontSize: 25),),
         );
       }
-      if (controller.timeOutText.value == 'timeOut') {
-        Center(
-          child: Text(
-            'Connection timeout',
-            style: TextStyle(fontSize: 25),
-          ),
-        );
-      }
+
       return context.isPhone
           ? ListView.builder(
               itemCount: controller.listAddon.length,
