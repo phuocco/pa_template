@@ -32,6 +32,7 @@ class SearchController extends GetxController{
         isSearching.value = false;
         if(value == 'timeOut'){
           timeOutText.value = value;
+          print('a');
         } else {
           listAddonSearch.assignAll(value);
           listAddonSearchWithAds.assignAll(value);

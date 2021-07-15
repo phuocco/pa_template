@@ -21,14 +21,15 @@ class SearchPage extends StatelessWidget {
       return controller.searchText.toString() == ""
           ? Center(
               child: Text(
-              'Empty',
+              'Type to search...',
               style: TextStyle(fontSize: 25),
             ))
           : Obx(() {
               if (controller.listAddonSearchWithAds.length == 0) {
                 //TODO: UI loading before get data
                 return Center(
-                  child: Text(controller.isSearching.value ? 'Searching' : controller.timeOutText.value == 'timeOut' ? 'timeOut' : 'no result', style: TextStyle(fontSize: 25),)
+                  // child: Text(controller.isSearching.value ? 'Searching' : controller.timeOutText.value == 'timeOut' ? 'timeOut' : 'no result', style: TextStyle(fontSize: 25),)
+                  child: controller.isSearching.value ? CircularProgressIndicator() : controller.timeOutText.value == 'timeOut' ? Text('Timeout, can’t connect to server',style: TextStyle(fontSize: 20)) : Text('No result', style: TextStyle(fontSize: 20),),
                 );
               }
               return context.isPhone

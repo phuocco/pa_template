@@ -14,8 +14,8 @@ class MainProvider extends GetConnect {
   Dio dio = new Dio(
     BaseOptions(
       baseUrl: "https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3",
-      connectTimeout: 10000,
-      receiveTimeout: 15000,
+      connectTimeout: 30 * 1000,
+      receiveTimeout: 30 * 1000,
     ),
   );
   DioCacheManager _dioCacheManager;

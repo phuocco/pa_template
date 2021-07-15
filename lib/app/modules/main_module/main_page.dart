@@ -438,7 +438,7 @@ class MainPageDownload extends StatelessWidget {
       if (controller.listAddon.length == 0) {
         //TODO: UI loading before get data
         return Center(
-            child: Text(controller.timeOutText.value == 'timeOut' ? 'timeOut' : 'Loading', style: TextStyle(fontSize: 25),),
+            child: Text(controller.timeOutText.value == 'timeOut' ? 'Timeout, can’t connect to server' : 'Loading', style: TextStyle(fontSize: 25),),
         );
       }
 
