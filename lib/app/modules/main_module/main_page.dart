@@ -457,7 +457,7 @@ class MainPageDownload extends StatelessWidget {
           ),
         );
       }
-      if (!controller.timeOutText.value.isBlank) {
+      if (controller.timeOutText.value == 'timeOut') {
         Center(
           child: Text(
             'Connection timeout',

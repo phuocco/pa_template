@@ -28,13 +28,11 @@ class SearchPage extends StatelessWidget {
               if (controller.listAddonSearchWithAds.length == 0) {
                 //TODO: UI loading before get data
                 return Center(
-                  child: Text(
-                    'No result',
-                    style: TextStyle(fontSize: 25),
-                  ),
+                  child: Text(controller.isSearching.value ? 'Searching' : 'No result',style: TextStyle(fontSize: 25),),
                 );
               }
-              if (!controller.timeOutText.value.isBlank) {
+
+              if (controller.timeOutText.value == 'timeOut') {
                 Center(
                   child: Text(
                     'Connection timeout',
@@ -66,7 +64,8 @@ class SearchPage extends StatelessWidget {
                         } else if (index == 0) {
                           return Column(
                             children: [
-                              Text('Addon found: '+ controller.listAddonSearch.length.toString()),
+                              Text('Addon found: ' +
+                                  controller.listAddonSearch.length.toString()),
                               BuildPhone(
                                 controller: mainController,
                                 pathFile: controller
@@ -76,8 +75,8 @@ class SearchPage extends StatelessWidget {
                                 onFavoriteTap: () {
                                   controller.listAddonSearchWithAds[0]
                                           .isFavorite =
-                                      !controller.listAddonSearchWithAds[0]
-                                          .isFavorite;
+                                      !controller
+                                          .listAddonSearchWithAds[0].isFavorite;
                                   mainController.savePrefFavoriteItem(
                                       controller.listAddonSearchWithAds[0]);
                                   controller.listAddonSearchWithAds.refresh();
@@ -155,10 +154,11 @@ class SearchPage extends StatelessWidget {
                                   semanticContainer: false,
                                 )
                               : SizedBox();
-                        } else if (index == 0){
+                        } else if (index == 0) {
                           return Column(
                             children: [
-                              Text('Addon found: '+ controller.listAddonSearch.length.toString()),
+                              Text('Addon found: ' +
+                                  controller.listAddonSearch.length.toString()),
                               BuildTablet(
                                   controller: mainController,
                                   pathFile: controller
@@ -167,19 +167,18 @@ class SearchPage extends StatelessWidget {
                                   page: 'Search',
                                   onFavoriteTap: () {
                                     controller.listAddonSearchWithAds[0]
-                                        .isFavorite =
-                                    !controller.listAddonSearchWithAds[0]
-                                        .isFavorite;
+                                            .isFavorite =
+                                        !controller.listAddonSearchWithAds[0]
+                                            .isFavorite;
                                     mainController.savePrefFavoriteItem(
                                         controller.listAddonSearchWithAds[0]);
                                     controller.listAddonSearchWithAds.refresh();
                                   },
                                   addonsItem:
-                                  controller.listAddonSearchWithAds[0])
+                                      controller.listAddonSearchWithAds[0])
                             ],
                           );
-                        }
-                        else {
+                        } else {
                           var indexDownload = mainController.listDownloaded
                               .indexWhere((element) =>
                                   element.id ==

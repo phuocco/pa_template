@@ -22,11 +22,14 @@ class SearchController extends GetxController{
   final listAddonSearchWithAds = <dynamic>[].obs;
 
   final timeOutText = ''.obs;
+  final isSearching = false.obs;
 
   getSearchItems(BuildContext context, String searchText) async {
     timeOutText.value = '';
+    isSearching.value = true;
     if(context.isPhone){
       return repository.getSearchItems(searchText).then((value){
+        isSearching.value = false;
         if(value == 'timeOut'){
           timeOutText.value = value;
         } else {
@@ -39,6 +42,7 @@ class SearchController extends GetxController{
       });
     } else {
       return repository.getSearchItems(searchText).then((value){
+        isSearching.value = false;
         if(value == 'timeOut'){
           timeOutText.value = value;
         } else {
