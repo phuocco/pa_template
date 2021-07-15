@@ -79,13 +79,22 @@ class HomePage extends StatelessWidget {
               child: TextField(
                 autofocus: false,
                 controller: controller.searchTextEditingController,
+                textInputAction: TextInputAction.search,
                 cursorColor: Colors.lightBlueAccent,
                 style: TextStyle(color: Colors.black),
                 onSubmitted: (text) {
                   //todo search
                   searchController.searchText = text;
+                  // if (!text.isBlank) controller.selectPageNew('Search Page');
 
-                  if (!text.isBlank) controller.selectPageNew('Search Page');
+                  searchController.listAddonSearchWithAds.clear();
+                  searchController.getSearchItems(Get.context, searchController.searchText);
+
+                  searchController.listAddonSearchWithAds.refresh();
+                  searchController.listAddonSearch.refresh();
+                  mainController.setIndexStack(2);
+
+
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
@@ -120,8 +129,7 @@ class HomePage extends StatelessWidget {
                     searchController.searchText =
                         controller.searchTextEditingController.text;
                     if (!controller.searchTextEditingController.text.isBlank)
-                      // controller.selectPageNew('Search Page');
-                      // searchController.listAddonSearch.clear();
+
                       searchController.listAddonSearchWithAds.clear();
                     searchController.getSearchItems(Get.context, searchController.searchText);
 
