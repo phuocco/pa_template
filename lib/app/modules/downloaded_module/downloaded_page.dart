@@ -2,15 +2,12 @@
 
 import 'dart:io';
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/modules/main_module/item_phone.dart';
 import 'package:mods_guns/app/modules/main_module/item_tablet.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
-import 'package:mods_guns/app/modules/main_module/main_page.dart';
-import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/widgets/native_ad_home_widget.dart';
 
