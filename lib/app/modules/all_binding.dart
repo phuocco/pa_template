@@ -20,8 +20,6 @@ import 'package:mods_guns/app/modules/search_module/search_controller.dart';
 import 'package:mods_guns/app/modules/tutorial_module/tutorial_controller.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
-import 'add_entity_module/add_entity_controller.dart';
-import 'creator_module/creator_controller.dart';
 import 'home_module/home_controller.dart';
 import 'main_module/main_controller.dart';
 
@@ -44,8 +42,7 @@ class AllBinding extends Bindings {
     Get.lazyPut(() => DownloadedPage());
 
     Get.lazyPut(() => SearchController(repository: SearchRepository(provider: SearchProvider())));
-    Get.lazyPut(() => CreatorController(repository: CreatorRepository(provider: CreatorProvider())));
-    Get.lazyPut(() => AddEntityController(repository: AddEntityRepository(provider: AddEntityProvider())));
+
 
 
     // Get.lazyPut(() => GalleryItemController(repository: GalleryItemRepository(provider: GalleryItemProvider())));

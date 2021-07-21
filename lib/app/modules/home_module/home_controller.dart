@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mods_guns/main.dart';
 import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:mods_guns/app/data/repository/home_repository.dart';
@@ -46,7 +45,6 @@ class HomeController extends GetxController {
 
   final box = GetStorage();
 
-  final cardDetail = defaultCard.obs;
   final selectingPage = 0.obs;
   final selectingPageNew = 'Main Page'.obs;
 
@@ -174,32 +172,6 @@ class HomeController extends GetxController {
     }
   }
 
-  final historyCard = HistoryCardModel(card: defaultCard).obs;
 
-  Future<void> saveImage(String fileName) async {
-    Future cardPathF = UtilFunctions().exportToImage(
-        globalKey: cardKey,
-        fileName: fileName.toString(),
-        isSaveToGallery: true,
-        folder: "");
-    Future thumbnailPathF = UtilFunctions().exportToImage(
-        globalKey: cardKey,
-        fileName: fileName.toString() + '_Thumbnail',
-        isSaveToGallery: false,
-        folder: '.thumbnail');
 
-    Future.wait([cardPathF, thumbnailPathF]).then((value) {
-      cardDetail.value.cardImg = value[0];
-      cardDetail.value.thumbUrl = value[1];
-      int id = DateTime.now().millisecondsSinceEpoch;
-      historyCard.value = HistoryCardModel(
-          card: cardDetail.value, isUploaded: false, id: id.toString());
-      HistoryCardModel tempCard =
-          HistoryCardModel.fromJson(historyCard.toJson());
-
-      listHistory.add(tempCard);
-      box.write('LIST_HISTORY', listHistory);
-      print('a');
-    });
-  }
 }

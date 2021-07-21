@@ -96,45 +96,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/icons/
-    - assets/images/tutorial_image/android/
-    - assets/images/tutorial_image/mods/
     - assets/images/icons_about/
-    - assets/mcpe/json/
-    - assets/mcpe/weapon/
-    - assets/mcpe/weapon/armchairs/
-    - assets/mcpe/projectile/
-    - assets/mcpe/projectile/file/
-    - assets/mcpe/projectile/icons/
-    - assets/mcpe/projectile/skins/
 
-    - assets/addon/
-    - assets/addon/client/
-    - assets/addon/client/animations/
-    - assets/addon/client/materials/
-    - assets/addon/client/models/entity/
-    - assets/addon/client/render_controllers/
-    - assets/addon/client/texts/
-    - assets/addon/client/particles/
-    - assets/addon/client/textures/
-    - assets/addon/client/textures/pa_particles/
-    - assets/addon/server/
-    - assets/addon/server/loot_tables/
-    - assets/addon/server/animation_controllers/
-    - assets/addon/server/loot_tables/entities/
-    - assets/addon/client/
-    - assets/addon/client/animations/
-    - assets/addon/client/animation_controllers/
-    - assets/addon/client/materials/
-    - assets/addon/client/models/entity/
-    - assets/addon/client/render_controllers/
-    - assets/addon/client/texts/
-    - assets/addon/client/particles/
-    - assets/addon/client/textures/
-    - assets/addon/client/textures/pa_particles/
-    - assets/addon/server/
-    - assets/addon/server/loot_tables/
-    - assets/addon/server/animation_controllers/
-    - assets/addon/server/loot_tables/entities/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
