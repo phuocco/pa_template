@@ -5,5 +5,5 @@
         android:radius="5dp"
         />
     <solid
-        android:color="#2C8F92" />
+        android:color="@color/download" />
 </shape>

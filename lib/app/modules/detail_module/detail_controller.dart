@@ -180,7 +180,6 @@ class DetailController extends GetxController {
       isDownloading.value = false;
       print(finalPath);
       return response;
-
   }
 
   installMapSeed(String link) async {
