@@ -15,13 +15,10 @@ import 'package:mods_guns/app/modules/question_module/question_page.dart';
 import 'package:mods_guns/app/modules/search_module/search_controller.dart';
 import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/modules/submit_module/submit_page.dart';
-import 'package:mods_guns/app/modules/tutorial_module/tutorial_page.dart';
-import 'package:mods_guns/constants/default_card.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/functions/util_functions.dart';
 import 'package:mods_guns/models/downloaded_item_model.dart';
-import 'package:mods_guns/models/history_card_model.dart';
 import 'package:mods_guns/utils/services/remote_config_service.dart';
 import 'package:package_info/package_info.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -90,7 +87,6 @@ class HomeController extends GetxController {
     list.value.addAll([
       {'page': MainPage(), 'title': 'Main Screen'},
       {'page': LanguagePage(), 'title': 'Language Screen'},
-      {'page': TutorialPage(), 'title': 'Tutorial Screen'},
       {'page': QuestionPage(), 'title': 'Question Screen'},
       {'page': SubmitPage(), 'title': 'Submit Screen'},
       {'page': AboutPage(), 'title': 'About Screen'},
@@ -100,7 +96,6 @@ class HomeController extends GetxController {
     listPages.addAll({
       'Main Page': MainPage(),
       'Language Page': LanguagePage(),
-      'Tutorial Page': TutorialPage(),
       'Question Page': QuestionPage(),
       'Submit Page': SubmitPage(),
       'About Page': AboutPage(),
@@ -120,20 +115,13 @@ class HomeController extends GetxController {
     update();
   }
 
-  final listHistory = <HistoryCardModel>[].obs;
-  getPref() async {
-    if (box.hasData('LIST_HISTORY')) {
-      List<HistoryCardModel> tempReport =
-          historyCardFromJson(jsonEncode(box.read('LIST_HISTORY')));
-      listHistory.assignAll(tempReport);
-    }
-  }
+
 
 // called after the widget is rendered on screen
   @override
   void onReady() async {
     super.onReady();
-    getPref();
+
     await checkUpdate();
     await getTimeOpenInterAd();
 

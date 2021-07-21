@@ -13,7 +13,6 @@ import 'package:mods_guns/app/modules/language_module/language_page.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
 import 'package:mods_guns/app/modules/question_module/question_page.dart';
 import 'package:mods_guns/app/modules/search_module/search_page.dart';
-import 'package:mods_guns/app/modules/tutorial_module/tutorial_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';

@@ -1,13 +1,9 @@
 
 
 import 'package:get/get.dart';
-import 'package:mods_guns/app/data/provider/add_entity_provider.dart';
-import 'package:mods_guns/app/data/provider/creator_provider.dart';
 import 'package:mods_guns/app/data/provider/home_provider.dart';
 import 'package:mods_guns/app/data/provider/main_provider.dart';
 import 'package:mods_guns/app/data/provider/search_provider.dart';
-import 'package:mods_guns/app/data/repository/add_entity_repository.dart';
-import 'package:mods_guns/app/data/repository/creator_repository.dart';
 import 'package:mods_guns/app/data/repository/home_repository.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:mods_guns/app/data/repository/search_repository.dart';
@@ -17,7 +13,6 @@ import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
 import 'package:mods_guns/app/modules/language_module/language_controller.dart';
 import 'package:mods_guns/app/modules/more_apps_module/more_apps_controller.dart';
 import 'package:mods_guns/app/modules/search_module/search_controller.dart';
-import 'package:mods_guns/app/modules/tutorial_module/tutorial_controller.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'home_module/home_controller.dart';
@@ -34,7 +29,6 @@ class AllBinding extends Bindings {
     // Get.lazyPut(() => SavedController(repository: SavedRepository(provider: SavedProvider())));
     Get.lazyPut(() => AdsController());
     Get.lazyPut(() => LanguageController());
-    Get.lazyPut(() => TutorialController());
     Get.lazyPut(() => NativeAdControllerNew());
     Get.lazyPut(() => DetailController());
     Get.lazyPut(() => MoreAppsController());

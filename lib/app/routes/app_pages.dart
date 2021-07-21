@@ -9,14 +9,11 @@ import '../../app/modules/more_apps_module/more_apps_page.dart';
 import '../../app/modules/more_apps_module/more_apps_bindings.dart';
 import '../../app/modules/question_module/question_page.dart';
 import '../../app/modules/question_module/question_bindings.dart';
-import '../../app/modules/tutorial_module/tutorial_page.dart';
-import '../../app/modules/tutorial_module/tutorial_bindings.dart';
 import '../../app/modules/language_module/language_page.dart';
 import '../../app/modules/language_module/language_bindings.dart';
 import '../../app/modules/detail_module/detail_page.dart';
 import '../../app/modules/detail_module/detail_bindings.dart';
-import '../../app/modules/test_native_module/test_native_page.dart';
-import '../../app/modules/test_native_module/test_native_bindings.dart';
+
 
 
 import '../../app/modules/main_module/main_page.dart';
@@ -66,11 +63,7 @@ abstract class AppPages {
     //   page: () => DialogCardPage(),
     //   binding: DialogCardBinding(),
     // ),
-    GetPage(
-      name: Routes.TEST_NATIVE,
-      page: () => TestNativePage(),
-      binding: TestNativeBinding(),
-    ),
+
     GetPage(
       name: Routes.DETAIL,
       page: () => DetailPage(),
@@ -81,11 +74,7 @@ abstract class AppPages {
       page: () => LanguagePage(),
       binding: LanguageBinding(),
     ),
-    GetPage(
-      name: Routes.TUTORIAL,
-      page: () => TutorialPage(),
-      binding: TutorialBinding(),
-    ),
+
     GetPage(
       name: Routes.QUESTION,
       page: () => QuestionPage(),
