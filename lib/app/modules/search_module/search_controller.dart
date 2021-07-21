@@ -21,24 +21,37 @@ class SearchController extends GetxController{
   final listAddonSearch = <AddonsItem>[].obs;
   final listAddonSearchWithAds = <dynamic>[].obs;
 
+  final timeOutText = ''.obs;
+  final isSearching = false.obs;
 
   getSearchItems(BuildContext context, String searchText) async {
-    print(searchText);
+    timeOutText.value = '';
+    isSearching.value = true;
     if(context.isPhone){
       return repository.getSearchItems(searchText).then((value){
-        listAddonSearch.assignAll(value);
-        listAddonSearchWithAds.assignAll(value);
-        for (var i = 2; i < listAddonSearchWithAds.length; i += 5) {
-          listAddonSearchWithAds.insert(i, 'Ads');
+        isSearching.value = false;
+        if(value == 'timeOut'){
+          timeOutText.value = value;
+          print('a');
+        } else {
+          listAddonSearch.assignAll(value);
+          listAddonSearchWithAds.assignAll(value);
+          for (var i = 2; i < listAddonSearchWithAds.length; i += 5) {
+            listAddonSearchWithAds.insert(i, 'Ads');
+          }
         }
       });
     } else {
       return repository.getSearchItems(searchText).then((value){
-        listAddonSearch.assignAll(value);
-        listAddonSearchWithAds.assignAll(value);
-
-        for (var i = 2; i < listAddonSearchWithAds.length; i += 11) {
-          listAddonSearchWithAds.insert(i, 'Ads');
+        isSearching.value = false;
+        if(value == 'timeOut'){
+          timeOutText.value = value;
+        } else {
+          listAddonSearch.assignAll(value);
+          listAddonSearchWithAds.assignAll(value);
+          for (var i = 2; i < listAddonSearchWithAds.length; i += 11) {
+            listAddonSearchWithAds.insert(i, 'Ads');
+          }
         }
       });
     }

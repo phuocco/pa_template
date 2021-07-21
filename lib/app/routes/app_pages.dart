@@ -1,7 +1,6 @@
-import '../../app/modules/add_entity_module/add_entity_page.dart';
-import '../../app/modules/add_entity_module/add_entity_bindings.dart';
-import '../../app/modules/creator_module/creator_page.dart';
-import '../../app/modules/creator_module/creator_bindings.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_bindings.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
+
 import '../../app/modules/search_module/search_page.dart';
 import '../../app/modules/search_module/search_bindings.dart';
 import '../../app/modules/favorite_module/favorite_page.dart';
@@ -108,14 +107,9 @@ abstract class AppPages {
       binding: SearchBinding(),
     ),
     GetPage(
-      name: Routes.CREATOR,
-      page: () => CreatorPage(),
-      binding: CreatorBinding(),
-    ),
-    GetPage(
-      name: Routes.ADD_ENTITY,
-      page: () => AddEntityPage(),
-      binding: AddEntityBinding(),
+      name: Routes.DOWNLOADED,
+      page: () => DownloadedPage(),
+      binding: DownloadedBinding(),
     ),
   ];
 }

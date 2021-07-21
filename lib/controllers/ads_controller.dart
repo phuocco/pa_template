@@ -66,6 +66,7 @@ class AdsController extends GetxController {
     'f8323379feb22fa26dcceb6ffc9a3841',
     '4ef4c95ec1b16bba8f690c014a724c08',
     '37383e7fb3ef7121f81cac2d25ddf8b5',
+    'kGADSimulatorID'
     '6cc45e7428cb7b57da58db6d278464a1'
   ]);
 

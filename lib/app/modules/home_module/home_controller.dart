@@ -84,6 +84,10 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
+
+
+
+
   void initPages() {
     list.value.addAll([
       {'page': MainPage(), 'title': 'Main Screen'},

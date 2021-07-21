@@ -43,8 +43,8 @@ class FavoritePage extends StatelessWidget {
                 // element.id == mainController.listAddon[index].itemId
                 String pathFile = '';
                 if (indexDownload != -1) {
-                  mainController.listFavorite[index].isDownloaded = true;
-                  mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
+                  mainController.listFavoriteWithAds[index].isDownloaded = true;
+                  mainController.listFavoriteWithAds[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
                 }
 
                 var indexFavorite =
@@ -57,7 +57,7 @@ class FavoritePage extends StatelessWidget {
                   }
                 });
                 if (indexFavorite != -1) {
-                  mainController.listFavorite[index].isFavorite = true;
+                  mainController.listFavoriteWithAds[index].isFavorite = true;
                 }
                 return BuildPhone(
                   controller: mainController,
@@ -80,6 +80,7 @@ class FavoritePage extends StatelessWidget {
                     mainController.savePrefFavoriteItem(
                         mainController.listFavoriteWithAds[index]);
                     mainController.listAddon.refresh();
+                    mainController.listAddonNew.refresh();
                   },
                   addonsItem: mainController.listFavoriteWithAds[index],
                 );
@@ -149,6 +150,7 @@ class FavoritePage extends StatelessWidget {
                       mainController.savePrefFavoriteItem(
                           mainController.listFavoriteWithAds[index]);
                       mainController.listAddon.refresh();
+                      mainController.listAddonNew.refresh();
                     },
                     addonsItem: mainController.listFavoriteWithAds[index]);
               }

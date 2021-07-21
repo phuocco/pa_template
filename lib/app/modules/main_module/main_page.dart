@@ -7,17 +7,24 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:mods_guns/app/modules/about_module/about_page.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_page.dart';
+import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
+import 'package:mods_guns/app/modules/favorite_module/favorite_page.dart';
 import 'package:mods_guns/app/modules/home_module/home_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
+import 'package:mods_guns/app/modules/question_module/question_page.dart';
+import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
+import 'package:mods_guns/app/theme/app_text_theme.dart';
 import 'package:mods_guns/app/utils/strings.dart';
 import 'package:mods_guns/constants/const_drawer.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/models/addons_item.dart';
+import 'package:mods_guns/widgets/base_banner.dart';
 import 'package:mods_guns/widgets/loading_native_ad_widget.dart';
 import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
 import 'package:mods_guns/widgets/native_ad_home_widget.dart';
@@ -35,143 +42,160 @@ class MainPage extends StatelessWidget {
     // TODO: implement build
     controller.onStart();
 
-      return Obx(
-            () {
-              if(controller.listAddon.length == 0) {
-                //TODO: UI loading before get data
-                return Center(
-                  child: DefaultTextStyle(
-                    style: const TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    child: AnimatedTextKit(
-                      animatedTexts: [
-                        FadeAnimatedText('Loading', textStyle: TextStyle(color: kColorAppbar)),
-                        FadeAnimatedText('Loading data', textStyle: TextStyle(color: kColorAppbar)),
-                        FadeAnimatedText('Loading data ...', textStyle: TextStyle(color: kColorAppbar)),
+    return GetPlatform.isAndroid
+        ? MainPageDownload()
+        : Container(
+            color: Colors.red,
+            child: Scaffold(
+              body: Column(
+                children: [
+                  Expanded(
+                    child: Obx(() => IndexedStack(
+                      index: controller.indexStack.value,
+                      children: [
+                        MainPageDownload(),
+                        MainPageItemId(),
+                        SearchPage(),
+                        DownloadedPage(),
                       ],
-                      repeatForever: true,
-                    ),
+                    ),),
                   ),
-                );
-              }
-             return context.isPhone
-                  ? ListView.builder(
-                  itemCount: controller.listAddon.length,
-                  itemBuilder: (context, index) {
-
-                    //region phone
-                    if (controller.listAddon[index] == 'Ads') {
-                      return Card(
-                        // key: ValueKey<int>(index),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                  // Expanded(
+                  //     child: GetX<MainController>(
+                  //   initState: controller.initPage2(),
+                  //   builder: (_) {
+                  //     return _.listPages2[_.selectingPageNew2];
+                  //   },
+                  // )),
+                  BaseBanner(),
+                ],
+              ),
+              bottomNavigationBar: BottomAppBar(
+                shape: CircularNotchedRectangle(),
+                notchMargin: 10,
+                child: Container(
+                  height: 60,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MaterialButton(
+                        padding: EdgeInsets.all(5),
+                        minWidth: 40,
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Main Page Download'),
+                        onPressed: () => controller.setIndexStack(0),
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                'assets/images/icons/ic_hottest.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.indexStack.value ==
+                                    0
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
+                              Text('HOTTEST',
+                                  style: controller.indexStack.value ==
+                                      0
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
-                        child: NativeAdHomeWidget(
-                          adItem: nativeHomeAdControllerNew == null
-                              ? null
-                              : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                      ),
+                      MaterialButton(
+                        padding: EdgeInsets.all(5),
+                        minWidth: 40,
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Main Page ItemId'),
+                        onPressed: () => controller.setIndexStack(1),
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                'assets/images/icons/ic_newest.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.indexStack.value ==
+                                1
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
+                              Text('NEWEST',
+                                  style: controller.indexStack.value ==
+                                      1
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
-                        elevation: 5,
-                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                        semanticContainer: false,
-                      );
-                    } else {
-                      var indexDownload = controller.listDownloaded.indexWhere(
-                              (element) =>
-                          element.id == controller.listAddon[index].itemId);
-                      String pathFile = '';
-                      if (indexDownload != -1) {
-                        controller.listAddon[index].isDownloaded = true;
-                        controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
-                        pathFile =
-                            controller.listDownloaded[indexDownload].pathFile;
-                      }
-                      var indexFavorite = controller.listFavorite.indexWhere(
-                              (element) =>
-                          element.itemId == controller.listAddon[index].itemId);
-                      if (indexFavorite != -1) {
-                        controller.listAddon[index].isFavorite = true;
-                      }
-                      return BuildPhone(
-                        controller: controller,
-                        pathFile: controller.listAddon[index].pathUrl,
-                        index: index,
-                        onFavoriteTap: () {
-                          controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
-                          controller
-                              .savePrefFavoriteItem(controller.listAddon[index]);
-                          controller.listAddon.refresh();
-                        },
-                        addonsItem: controller.listAddon[index],
-                      );
-                    }
-                  }
-                //endregion
-
-
-              )
-                  :
-              //fixme: tablet
-              GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 40 / 33,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5),
-                  itemCount: controller.listAddon.length,
-                  itemBuilder: (context, index) {
-                    if (controller.listAddon[index] == 'Ads') {
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      MaterialButton(
+                        padding: EdgeInsets.all(5),
+                        minWidth: 40,
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Search Page'),
+                        onPressed: () => controller.setIndexStack(2),
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                'assets/images/icons/ic_search.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.indexStack.value ==
+                                2
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
+                              Text('SEARCH',
+                                  style: controller.indexStack.value ==
+                                      2
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
-                        child: NativeAdHomeWidget(
-                          adItem: nativeHomeAdControllerNew == null
-                              ? null
-                              : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                      ),
+                      MaterialButton(
+                        padding: EdgeInsets.all(5),
+                        minWidth: 40,
+                        // onPressed: () =>
+                        //     controller.selectPageNew2('Downloaded Page'),
+                        onPressed: () => controller.setIndexStack(3),
+                        child: Obx(
+                          () => Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Image.asset(
+                                'assets/images/icons/ic_manage.png',
+                                width: 28,
+                                height: 28,
+                                color: controller.indexStack.value ==
+                                3
+                                ? kColorAppbar
+                                : Colors.grey,
+                              ),
+                              Text('MANAGE',
+                                  style: controller.indexStack.value ==
+                                      3
+                                      ? selectedTab
+                                      : unselectedTab),
+                            ],
+                          ),
                         ),
-                        elevation: 5,
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                        semanticContainer: false,
-                      );
-                    } else {
-                      var indexDownload = controller.listDownloaded.indexWhere(
-                              (element) =>
-                          element.id == controller.listAddon[index].itemId);
-                      String pathFile = '';
-                      if (indexDownload != -1) {
-                        controller.listAddon[index].isDownloaded = true;
-                        controller.listAddon[index].pathUrl = controller.listDownloaded[indexDownload].pathFile;
-                        pathFile =
-                            controller.listDownloaded[indexDownload].pathFile;
-                      }
-
-                      var indexFavorite = controller.listFavorite.indexWhere(
-                              (element) =>
-                          element.itemId == controller.listAddon[index].itemId);
-                      if (indexFavorite != -1) {
-                        controller.listAddon[index].isFavorite = true;
-                      }
-                      return BuildTablet(
-                        controller: controller,
-                        pathFile: controller.listAddon[index].pathUrl,
-                        index: index,
-                        addonsItem: controller.listAddon[index],
-                        onFavoriteTap: () {
-                          controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
-                          controller
-                              .savePrefFavoriteItem(controller.listAddon[index]);
-                          controller.listAddon.refresh();
-                        },
-                      );
-                    }
-                  });
-            }
-      );
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
   }
 
   showDetailDialog({AddonsItem addonsItem, String pathFile}) {
@@ -391,14 +415,305 @@ class MainPage extends StatelessWidget {
       nativeDetailAdControllerNew.requestAds();
       nativeHomeAdControllerNew.requestAds();
       controller.listAddon.refresh();
+      controller.listAddonNew.refresh();
 
-      if(detailController.cancelToken.isCancelled){
+      if (detailController.cancelToken.isCancelled) {
         detailController.dio.close();
         detailController.cancelToken.cancel();
       }
       detailController.progress.value = 0;
       detailController.isDownloading.value = false;
       detailController.isDownloaded.value = false;
+    });
+  }
+}
+
+class MainPageDownload extends StatelessWidget {
+  MainPageDownload();
+
+  final controller = Get.put(MainController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (controller.listAddon.length == 0) {
+        //TODO: UI loading before get data
+        return Center(
+            child: Text(controller.timeOutText.value == 'timeOut' ? 'Timeout, can’t connect to server' : 'Loading', style: TextStyle(fontSize: 25),),
+        );
+      }
+
+      return context.isPhone
+          ? ListView.builder(
+              itemCount: controller.listAddon.length,
+              itemBuilder: (context, index) {
+                //region phone
+                if (controller.listAddon[index] == 'Ads') {
+                  return controller.indexStack.value == 0 ? Card(
+                    // key: ValueKey<int>(index),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    semanticContainer: false,
+                  ) : SizedBox();
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
+                      (element) =>
+                          element.id == controller.listAddon[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId == controller.listAddon[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddon[index].isFavorite = true;
+                  }
+                  return BuildPhone(
+                    controller: controller,
+                    pathFile: controller.listAddon[index].pathUrl,
+                    index: index,
+                    onFavoriteTap: () {
+                      controller.listAddon[index].isFavorite =
+                          !controller.listAddon[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddon[index]);
+                      controller.listAddon.refresh();
+                      controller.listAddonNew.refresh();
+                    },
+                    addonsItem: controller.listAddon[index],
+                  );
+                }
+              }
+              //endregion
+
+              )
+          :
+          //fixme: tablet
+          GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 40 / 33,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5),
+              itemCount: controller.listAddon.length,
+              itemBuilder: (context, index) {
+                if (controller.listAddon[index] == 'Ads') {
+                  return controller.indexStack.value == 0 ? Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    semanticContainer: false,
+                  ) : SizedBox();
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
+                      (element) =>
+                          element.id == controller.listAddon[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddon[index].isDownloaded = true;
+                    controller.listAddon[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
+
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId == controller.listAddon[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddon[index].isFavorite = true;
+                  }
+                  return BuildTablet(
+                    controller: controller,
+                    pathFile: controller.listAddon[index].pathUrl,
+                    index: index,
+                    addonsItem: controller.listAddon[index],
+                    onFavoriteTap: () {
+                      controller.listAddon[index].isFavorite =
+                          !controller.listAddon[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddon[index]);
+                      controller.listAddon.refresh();
+                      controller.listAddonNew.refresh();
+                    },
+                  );
+                }
+              });
+    });
+  }
+}
+
+class MainPageItemId extends StatelessWidget {
+  MainPageItemId();
+
+  final MainController controller = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (controller.listAddonNew.length == 0) {
+        //TODO: UI loading before get data
+        return Center(
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 32.0,
+              fontWeight: FontWeight.bold,
+            ),
+            child: AnimatedTextKit(
+              animatedTexts: [
+                FadeAnimatedText('Loading',
+                    textStyle: TextStyle(color: kColorAppbar)),
+                FadeAnimatedText('Loading data',
+                    textStyle: TextStyle(color: kColorAppbar)),
+                FadeAnimatedText('Loading data ...',
+                    textStyle: TextStyle(color: kColorAppbar)),
+              ],
+              repeatForever: true,
+            ),
+          ),
+        );
+      }
+      return context.isPhone
+          ? ListView.builder(
+              itemCount: controller.listAddonNew.length,
+              itemBuilder: (context, index) {
+                //region phone
+                if (controller.listAddonNew[index] == 'Ads') {
+                  return controller.indexStack.value == 1 ? Card(
+                    // key: ValueKey<int>(index),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    semanticContainer: false,
+                  ) : SizedBox();
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
+                      (element) =>
+                          element.id == controller.listAddonNew[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddonNew[index].isDownloaded = true;
+                    controller.listAddonNew[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId ==
+                          controller.listAddonNew[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddonNew[index].isFavorite = true;
+                  }
+                  var indexNew = controller.listAddon
+                      .indexOf(controller.listAddonNew[index]);
+                  return BuildPhone(
+                    controller: controller,
+                    pathFile: controller.listAddonNew[index].pathUrl,
+                    index: indexNew,
+                    onFavoriteTap: () {
+                      controller.listAddonNew[index].isFavorite =
+                          !controller.listAddonNew[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddonNew[index]);
+                      controller.listAddonNew.refresh();
+                    },
+                    addonsItem: controller.listAddonNew[index],
+                  );
+                }
+              }
+              //endregion
+
+              )
+          :
+          //fixme: tablet
+          GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 40 / 33,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5),
+              itemCount: controller.listAddonNew.length,
+              itemBuilder: (context, index) {
+                if (controller.listAddonNew[index] == 'Ads') {
+                  return controller.indexStack.value == 1 ? Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: NativeAdHomeWidget(
+                      adItem: nativeHomeAdControllerNew == null
+                          ? null
+                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
+                    ),
+                    elevation: 5,
+                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    semanticContainer: false,
+                  ) :  SizedBox();
+                } else {
+                  var indexDownload = controller.listDownloaded.indexWhere(
+                      (element) =>
+                          element.id == controller.listAddonNew[index].itemId);
+                  String pathFile = '';
+                  if (indexDownload != -1) {
+                    controller.listAddonNew[index].isDownloaded = true;
+                    controller.listAddonNew[index].pathUrl =
+                        controller.listDownloaded[indexDownload].pathFile;
+                    pathFile =
+                        controller.listDownloaded[indexDownload].pathFile;
+                  }
+
+                  var indexFavorite = controller.listFavorite.indexWhere(
+                      (element) =>
+                          element.itemId ==
+                          controller.listAddonNew[index].itemId);
+                  if (indexFavorite != -1) {
+                    controller.listAddon[index].isFavorite = true;
+                  }
+                  var indexNew = controller.listAddon
+                      .indexOf(controller.listAddonNew[index]);
+
+                  return BuildTablet(
+                    controller: controller,
+                    pathFile: controller.listAddonNew[index].pathUrl,
+                    index: indexNew,
+                    addonsItem: controller.listAddonNew[index],
+                    onFavoriteTap: () {
+                      controller.listAddonNew[index].isFavorite =
+                          !controller.listAddonNew[index].isFavorite;
+                      controller
+                          .savePrefFavoriteItem(controller.listAddonNew[index]);
+                      controller.listAddonNew.refresh();
+                    },
+                  );
+                }
+              });
     });
   }
 }
@@ -444,9 +759,10 @@ class BuildPhone extends StatelessWidget {
           nativeDetailAdControllerNew.requestAds();
           nativeHomeAdControllerNew.requestAds();
           MainController().listAddon.refresh();
+          MainController().listAddonNew.refresh();
           detailController.isDownloaded.value = false;
 
-          if(detailController.cancelToken.isCancelled){
+          if (detailController.cancelToken.isCancelled) {
             detailController.dio.close();
             detailController.cancelToken.cancel();
           }
@@ -490,8 +806,14 @@ class BuildPhone extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded'
+                            ? kDeleteIcon
+                            : addonsItem.isFavorite
+                                ? kHeartFull
+                                : kHeartAround,
                         color: kColorLikeIcon,
+                        height: 24,
+                        width: 24,
                       ),
                     )),
               ]),
@@ -642,7 +964,7 @@ class BuildTablet extends StatelessWidget {
           controller.countInterAd = 0;
           Get.find<AdsController>().showIntersAds();
         }
-        if (GetPlatform.isAndroid) {
+        // if (GetPlatform.isAndroid) {
           Get.to(() => DetailPage(
                 addonsItem: addonsItem,
                 pathFile: pathFile,
@@ -651,7 +973,7 @@ class BuildTablet extends StatelessWidget {
             nativeDetailAdControllerNew.requestAds();
             nativeHomeAdControllerNew.requestAds();
 
-            if(detailController.cancelToken.isCancelled){
+            if (detailController.cancelToken.isCancelled) {
               detailController.dio.close();
               detailController.cancelToken.cancel();
             }
@@ -660,6 +982,7 @@ class BuildTablet extends StatelessWidget {
             // DetailController().isDownloaded.value = false;
 
             MainController().listAddon.refresh();
+            MainController().listAddonNew.refresh();
             detailController.isDownloaded.value = false;
             nativeDetailAdControllerNew.listAds.forEach((element) {
               print("detail " + element.hashCode.toString());
@@ -668,12 +991,12 @@ class BuildTablet extends StatelessWidget {
               print("home " + element.hashCode.toString());
             });
           });
-        } else {
-          MainPage().showDetailDialog(
-            addonsItem: addonsItem,
-            pathFile: pathFile,
-          );
-        }
+        // } else {
+        //   MainPage().showDetailDialog(
+        //     addonsItem: addonsItem,
+        //     pathFile: pathFile,
+        //   );
+        // }
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -702,8 +1025,14 @@ class BuildTablet extends StatelessWidget {
                     child: GestureDetector(
                       onTap: onFavoriteTap,
                       child: SvgPicture.asset(
-                        addonsItem.isFavorite ? kHeartFull : kHeartAround,
+                        page == 'Downloaded'
+                            ? kDeleteIcon
+                            : addonsItem.isFavorite
+                                ? kHeartFull
+                                : kHeartAround,
                         color: kColorLikeIcon,
+                        height: 24,
+                        width: 24,
                       ),
                     )),
               ]),

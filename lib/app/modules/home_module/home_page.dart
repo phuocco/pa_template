@@ -65,7 +65,11 @@ class HomePage extends StatelessWidget {
           }),
       title: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        color: kColorTextFieldAppBar,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          color: kColorTextFieldAppBar,
+        ),
+        // color: kColorTextFieldAppBar,
         height: AppBar().preferredSize.height * 0.64,
         width: double.infinity,
         child: Row(
@@ -76,13 +80,22 @@ class HomePage extends StatelessWidget {
               child: TextField(
                 autofocus: false,
                 controller: controller.searchTextEditingController,
+                textInputAction: TextInputAction.search,
                 cursorColor: Colors.lightBlueAccent,
                 style: TextStyle(color: Colors.black),
                 onSubmitted: (text) {
                   //todo search
                   searchController.searchText = text;
+                  // if (!text.isBlank) controller.selectPageNew('Search Page');
 
-                  if (!text.isBlank) controller.selectPageNew('Search Page');
+                  searchController.listAddonSearchWithAds.clear();
+                  searchController.getSearchItems(Get.context, searchController.searchText);
+
+                  searchController.listAddonSearchWithAds.refresh();
+                  searchController.listAddonSearch.refresh();
+                  mainController.setIndexStack(2);
+
+
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
                   }
@@ -117,7 +130,14 @@ class HomePage extends StatelessWidget {
                     searchController.searchText =
                         controller.searchTextEditingController.text;
                     if (!controller.searchTextEditingController.text.isBlank)
-                      controller.selectPageNew('Search Page');
+
+                      searchController.listAddonSearchWithAds.clear();
+                    searchController.getSearchItems(Get.context, searchController.searchText);
+
+                    searchController.listAddonSearchWithAds.refresh();
+                    searchController.listAddonSearch.refresh();
+                    mainController.setIndexStack(2);
+
                     if (!currentFocus.hasPrimaryFocus) {
                       currentFocus.unfocus();
                     }
@@ -137,7 +157,7 @@ class HomePage extends StatelessWidget {
               //todo more app
               // provider.selectPage('MoreAppsScreen');
               controller.selectPageNew('More App Page');
-              // print(GetStorage().read('LOCALE'));
+              // print(mainController.indexStack.value);
             },
             child: Image.asset(
               kMoreIcon,
@@ -236,7 +256,7 @@ class HomePage extends StatelessWidget {
                                                     color: Colors.white,
                                                     fontSize: 13,
                                                     fontWeight:
-                                                    FontWeight.bold))),
+                                                        FontWeight.bold))),
                                       ),
                                     ),
                                     // TextButton(
@@ -277,7 +297,6 @@ class HomePage extends StatelessWidget {
                                     )
                                   ],
                                 )),
-
                             Container(
                               color: Colors.black.withOpacity(0.05),
                               // child: LoadingNativeAdWidget(adType: "Detail",),
@@ -300,7 +319,7 @@ class HomePage extends StatelessWidget {
         // bottomNavigationBar: Obx(() => adsController.list.length == 0
         //     ? Text(adsController.list.length.toString())
         //     :Text(adsController.list.length.toString()),)
-        bottomNavigationBar: BaseBanner(),
+        bottomNavigationBar: GetPlatform.isAndroid ? BaseBanner() : SizedBox(),
       ),
     );
   }
