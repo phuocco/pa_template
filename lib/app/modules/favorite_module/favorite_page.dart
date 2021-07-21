@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
+import 'package:mods_guns/app/modules/main_module/item_phone.dart';
+import 'package:mods_guns/app/modules/main_module/item_tablet.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
@@ -20,7 +22,6 @@ class FavoritePage extends StatelessWidget {
             itemBuilder: (context, index) {
               if (mainController.listFavoriteWithAds[index] == 'Ads') {
                 return Card(
-                  // key: ValueKey<int>(index),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -40,7 +41,6 @@ class FavoritePage extends StatelessWidget {
                     return false;
                   }
                 });
-                // element.id == mainController.listAddon[index].itemId
                 String pathFile = '';
                 if (indexDownload != -1) {
                   mainController.listFavoriteWithAds[index].isDownloaded = true;
@@ -59,7 +59,7 @@ class FavoritePage extends StatelessWidget {
                 if (indexFavorite != -1) {
                   mainController.listFavoriteWithAds[index].isFavorite = true;
                 }
-                return BuildPhone(
+                return ItemPhone(
                   controller: mainController,
                   pathFile: mainController.listFavoriteWithAds[index].pathUrl,
                   index: index,
@@ -121,7 +121,6 @@ class FavoritePage extends StatelessWidget {
                   mainController.listFavorite[index].isDownloaded = true;
                   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
                 }
-
                 var indexFavorite = mainController.listFavorite.indexWhere(
                     (element) =>
                         element.itemId ==
@@ -129,7 +128,7 @@ class FavoritePage extends StatelessWidget {
                 if (indexFavorite != -1) {
                   mainController.listFavorite[index].isFavorite = true;
                 }
-                return BuildTablet(
+                return ItemTablet(
                     controller: mainController,
                     pathFile: mainController.listFavoriteWithAds[index].pathUrl,
                     index: index,

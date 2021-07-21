@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,9 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
-import 'package:mods_guns/app/modules/home_module/home_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/search_module/search_controller.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
@@ -17,11 +14,6 @@ import 'package:mods_guns/app/utils/strings.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
 import 'package:mods_guns/models/addons_item.dart';
 import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
-import 'package:mods_guns/widgets/native_ad_home_widget.dart';
-import 'package:sn_progress_dialog/sn_progress_dialog.dart';
-/**
- * GetX Template Generator - fb.com/htngu.99
- * */
 
 class DetailPage extends StatelessWidget {
   final DetailController controller = Get.find();
@@ -36,10 +28,8 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.textButton.value =
         addonsItem.isDownloaded ? 'install'.tr : 'download'.tr;
-    print(!controller.isDownloaded.value);
-    print(pathFile);
-    print(addonsItem.pathUrl);
     controller.addonsItem.value = addonsItem;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kColorAppbar,
@@ -137,7 +127,7 @@ class DetailPage extends StatelessWidget {
                           SizedBox(
                             width: 5,
                           ),
-                          SvgPicture.asset('assets/images/icons/download.svg'),
+                          SvgPicture.asset(kDownloadIcon),
                         ],
                       ),
                     ],
@@ -161,10 +151,7 @@ class DetailPage extends StatelessWidget {
                     onTap: () async {
                       !addonsItem.isDownloaded
                           ? downloadInstallAddon(addonsItem, isDetail: true)
-                          // : controller.importToMinecraft(mainController
-                          //     .listDownloaded[indexDownload].pathFile);
                           : dialogAskInstall(addonsItem.pathUrl);
-                      // : print(addonsItem.pathUrl);
                     },
                     child: Container(
                       margin: EdgeInsets.all(10),
@@ -220,20 +207,9 @@ class DetailPage extends StatelessWidget {
                 ),
               ],
             ),
-            // Image.asset('assets/images/ads.png'),
-            // Container(
-            //   margin: EdgeInsets.all(10),
-            //   child: BaseNative(
-            //       adWidget: AdWidget(
-            //         ad: adsController.myNativeAd,
-            //       ),
-            //       completer: adsController.nativeAdCompleter),
-            // ),
-
             Container(
               margin: EdgeInsets.all(10),
               color: Colors.blue.withOpacity(0.01),
-              // child: Text(addonsItem.description),
               child: addonsItem.htmlDescription.isNullOrBlank
                   ? Text(addonsItem.description)
                   : HtmlWidget(addonsItem.htmlDescription),
@@ -261,10 +237,7 @@ class DetailPage extends StatelessWidget {
     }
     if (!controller.isDownloading.value || controller.cancelToken.isCancelled) {
       adsController.showIntersAds();
-      // ProgressDialog pr;
       if (!isDetail && !isTablet) {
-        // pr = new ProgressDialog(context: Get.context);
-        // pr.show(max: 100, msg: "misc_download_message".tr, barrierDismissible: true);
         Get.dialog(WillPopScope(
           onWillPop: () async {
           if(controller.isDownloaded.value == false){
@@ -279,7 +252,6 @@ class DetailPage extends StatelessWidget {
               children: [
                 CircularProgressIndicator(),
                 Text('misc_download_message'.tr),
-                // Obx(() => Text(controller.progress.value.toString()),),
               ],
             ),
             actions: [
@@ -291,14 +263,6 @@ class DetailPage extends StatelessWidget {
                 controller.isDownloaded.value = false;
                 Get.back();
               }, child: Text('CANCEL', style: TextStyle(color: Colors.black),),
-                // style: ButtonStyle(
-                //     backgroundColor: MaterialStateProperty.all<Color>(
-                //         Colors.grey
-                //     ),
-                //     foregroundColor: MaterialStateProperty.all<Color>(
-                //         Colors.white
-                //     )
-                // ),
               ),
             ],
           ),
@@ -327,7 +291,6 @@ class DetailPage extends StatelessWidget {
             print("tablet " + controller.finalPath.value);
           } else if (page == 'Search') {
             print(index);
-            // pr.close();
             Get.back();
             searchController.listAddonSearchWithAds[index].pathUrl =
                 controller.finalPath.value;
@@ -348,7 +311,7 @@ class DetailPage extends StatelessWidget {
 
           } else if (page == 'Favorite') {
             print(index);
-            // pr.close();
+
             Get.back();
             mainController.listFavoriteWithAds[index].pathUrl =
                 controller.finalPath.value;
@@ -364,11 +327,6 @@ class DetailPage extends StatelessWidget {
             mainController.listAddon.refresh();
             mainController.listAddonNew.refresh();
           }
-          //Dialog ask only on android
-          // GetPlatform.isAndroid
-          //     ? dialogAskImport()
-          //     : controller.importToMinecraft(controller.finalPath.value);
-          //both android ios
           dialogAskImport();
         }
       });
@@ -383,7 +341,6 @@ class DetailPage extends StatelessWidget {
       }
     }
   }
-
   dialogAskImport() {
     if (controller.isDownloaded.value) {
       // Get.back();
@@ -407,7 +364,6 @@ class DetailPage extends StatelessWidget {
           barrierDismissible: false);
     }
   }
-
   dialogAskInstall(String path) {
     adsController.showIntersAds();
     Get.dialog(

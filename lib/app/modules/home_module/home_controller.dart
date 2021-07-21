@@ -42,7 +42,6 @@ class HomeController extends GetxController {
 
   final box = GetStorage();
 
-  final selectingPage = 0.obs;
   final selectingPageNew = 'Main Page'.obs;
 
 
@@ -84,15 +83,7 @@ class HomeController extends GetxController {
 
 
   void initPages() {
-    list.value.addAll([
-      {'page': MainPage(), 'title': 'Main Screen'},
-      {'page': LanguagePage(), 'title': 'Language Screen'},
-      {'page': QuestionPage(), 'title': 'Question Screen'},
-      {'page': SubmitPage(), 'title': 'Submit Screen'},
-      {'page': AboutPage(), 'title': 'About Screen'},
-      {'page': MoreAppsPage(), 'title': 'More App Screen'},
-      {'page': FavoritePage(), 'title': 'Favorite Screen'},
-    ]);
+
     listPages.addAll({
       'Main Page': MainPage(),
       'Language Page': LanguagePage(),
@@ -105,10 +96,7 @@ class HomeController extends GetxController {
     });
   }
 
-  void selectPage(int id) {
-    selectingPage.value = id;
-    update();
-  }
+
 
   void selectPageNew(String string) {
     selectingPageNew.value = string;
@@ -116,12 +104,10 @@ class HomeController extends GetxController {
   }
 
 
-
 // called after the widget is rendered on screen
   @override
   void onReady() async {
     super.onReady();
-
     await checkUpdate();
     await getTimeOpenInterAd();
 
@@ -131,7 +117,6 @@ class HomeController extends GetxController {
    box.write('TIME_OPEN', int.parse(timeOpen));
 
   }
-
   checkUpdate() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     var versionInApp = packageInfo.buildNumber;
@@ -159,7 +144,5 @@ class HomeController extends GetxController {
      PACoreGetX().countOpen(packageName);
     }
   }
-
-
 
 }

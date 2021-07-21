@@ -6,14 +6,14 @@ import 'package:mods_guns/models/addons_item.dart';
 const baseUrl =
     'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_by_type';
 const base =
-    'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3';
+    'https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=0';
 
 class SearchProvider extends GetConnect {
   static final SearchProvider _singleton = SearchProvider._internal();
   factory SearchProvider() => _singleton;
   Dio dio = new Dio(
     BaseOptions(
-      baseUrl: "https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=3",
+      baseUrl: "https://mcpecenter.com/mine-craft-sv/index.php/MainHome/search_items_v3?search_keyword=gun&limit_count=0",
       connectTimeout: 30 * 1000,
       receiveTimeout: 30 * 1000,
     ),

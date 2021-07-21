@@ -8,17 +8,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/data/repository/main_repository.dart';
 import 'package:get/get.dart';
 import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
-import 'package:mods_guns/app/modules/favorite_module/favorite_controller.dart';
-import 'package:mods_guns/app/modules/language_module/language_page.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
-import 'package:mods_guns/app/modules/question_module/question_page.dart';
 import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
-import 'package:mods_guns/controllers/ads_controller.dart';
-import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/models/addons_item.dart';
 import 'package:mods_guns/models/downloaded_item_model.dart';
 import 'package:mods_guns/widgets/native_ad_home_widget.dart';
+
+import 'main_page_create_time.dart';
+import 'main_page_download.dart';
 
 class MainController extends GetxController {
   final MainRepository repository;
@@ -89,20 +87,20 @@ class MainController extends GetxController {
     update();
   }
 
-  final selectingPageNew2 = 'Main Page Download'.obs;
+  final selectingPageNew = 'Main Page Download'.obs;
   final listPages2 = <String, Object>{}.obs;
 
   initPage2() {
     listPages2.addAll({
       'Main Page Download': MainPageDownload(),
-      'Main Page ItemId': MainPageItemId(),
+      'Main Page Create Time': MainPageCreateTime(),
       'Search Page': SearchPage(),
       'Downloaded Page': DownloadedPage(),
     });
   }
 
-  void selectPageNew2(String string) {
-    selectingPageNew2.value = string;
+  void selectPageNew(String string) {
+    selectingPageNew.value = string;
     update();
   }
 

@@ -7,10 +7,6 @@ import 'package:mods_guns/app/modules/language_module/language_controller.dart';
 
 class LanguagePage extends GetWidget<LanguageController> {
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
 

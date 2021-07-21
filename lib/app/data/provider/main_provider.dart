@@ -34,7 +34,6 @@ class MainProvider extends GetConnect {
   }
 
 
-
   getItem({bool isFetchNewData = false}) async {
     try {
       //404

@@ -1,11 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_controller.dart';
 import 'package:mods_guns/app/modules/detail_module/detail_page.dart';
 import 'package:mods_guns/app/modules/downloaded_module/downloaded_page.dart';
@@ -20,7 +18,9 @@ import 'package:mods_guns/controllers/native_ad_controller_new.dart';
 import 'package:mods_guns/models/addons_item.dart';
 import 'package:mods_guns/widgets/base_banner.dart';
 import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
-import 'package:mods_guns/widgets/native_ad_home_widget.dart';
+
+import 'main_page_create_time.dart';
+import 'main_page_download.dart';
 
 class MainPage extends StatelessWidget {
   final controller = Get.put(MainController());
@@ -32,7 +32,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     controller.onStart();
 
     return GetPlatform.isAndroid
@@ -43,23 +42,18 @@ class MainPage extends StatelessWidget {
               body: Column(
                 children: [
                   Expanded(
-                    child: Obx(() => IndexedStack(
-                      index: controller.indexStack.value,
-                      children: [
-                        MainPageDownload(),
-                        MainPageItemId(),
-                        SearchPage(),
-                        DownloadedPage(),
-                      ],
-                    ),),
+                    child: Obx(
+                      () => IndexedStack(
+                        index: controller.indexStack.value,
+                        children: [
+                          MainPageDownload(),
+                          MainPageCreateTime(),
+                          SearchPage(),
+                          DownloadedPage(),
+                        ],
+                      ),
+                    ),
                   ),
-                  // Expanded(
-                  //     child: GetX<MainController>(
-                  //   initState: controller.initPage2(),
-                  //   builder: (_) {
-                  //     return _.listPages2[_.selectingPageNew2];
-                  //   },
-                  // )),
                   BaseBanner(),
                 ],
               ),
@@ -71,118 +65,112 @@ class MainPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      MaterialButton(
-                        padding: EdgeInsets.all(5),
-                        minWidth: 40,
-                        // onPressed: () =>
-                        //     controller.selectPageNew2('Main Page Download'),
-                        onPressed: () => controller.setIndexStack(0),
-                        child: Obx(
-                          () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/images/icons/ic_hottest.png',
-                                width: 28,
-                                height: 28,
-                                color: controller.indexStack.value ==
-                                    0
-                                ? kColorAppbar
-                                : Colors.grey,
-                              ),
-                              Text('HOTTEST',
-                                  style: controller.indexStack.value ==
-                                      0
-                                      ? selectedTab
-                                      : unselectedTab),
-                            ],
-                          ),
-                        ),
+                      BottomButton(
+                        controller: controller,
+                        onPress: controller.setIndexStack(0),
+                        iconPath: kHottestIcon,
+                        indexStack: 0,
+                        text: 'HOTTEST',
                       ),
-                      MaterialButton(
-                        padding: EdgeInsets.all(5),
-                        minWidth: 40,
-                        // onPressed: () =>
-                        //     controller.selectPageNew2('Main Page ItemId'),
-                        onPressed: () => controller.setIndexStack(1),
-                        child: Obx(
-                          () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/images/icons/ic_newest.png',
-                                width: 28,
-                                height: 28,
-                                color: controller.indexStack.value ==
-                                1
-                                ? kColorAppbar
-                                : Colors.grey,
-                              ),
-                              Text('NEWEST',
-                                  style: controller.indexStack.value ==
-                                      1
-                                      ? selectedTab
-                                      : unselectedTab),
-                            ],
-                          ),
-                        ),
+                      BottomButton(
+                        controller: controller,
+                        onPress: controller.setIndexStack(1),
+                        iconPath: kNewestIcon,
+                        indexStack: 1,
+                        text: 'NEWEST',
                       ),
-                      MaterialButton(
-                        padding: EdgeInsets.all(5),
-                        minWidth: 40,
-                        // onPressed: () =>
-                        //     controller.selectPageNew2('Search Page'),
-                        onPressed: () => controller.setIndexStack(2),
-                        child: Obx(
-                          () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/images/icons/ic_search.png',
-                                width: 28,
-                                height: 28,
-                                color: controller.indexStack.value ==
-                                2
-                                ? kColorAppbar
-                                : Colors.grey,
-                              ),
-                              Text('SEARCH',
-                                  style: controller.indexStack.value ==
-                                      2
-                                      ? selectedTab
-                                      : unselectedTab),
-                            ],
-                          ),
-                        ),
+                      BottomButton(
+                        controller: controller,
+                        onPress: controller.setIndexStack(2),
+                        iconPath: kSearchIcon,
+                        indexStack: 2,
+                        text: 'SEARCH',
                       ),
-                      MaterialButton(
-                        padding: EdgeInsets.all(5),
-                        minWidth: 40,
-                        // onPressed: () =>
-                        //     controller.selectPageNew2('Downloaded Page'),
-                        onPressed: () => controller.setIndexStack(3),
-                        child: Obx(
-                          () => Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/images/icons/ic_manage.png',
-                                width: 28,
-                                height: 28,
-                                color: controller.indexStack.value ==
-                                3
-                                ? kColorAppbar
-                                : Colors.grey,
-                              ),
-                              Text('MANAGE',
-                                  style: controller.indexStack.value ==
-                                      3
-                                      ? selectedTab
-                                      : unselectedTab),
-                            ],
-                          ),
-                        ),
+                      BottomButton(
+                        controller: controller,
+                        onPress: controller.setIndexStack(3),
+                        iconPath: kManageIcon,
+                        indexStack: 3,
+                        text: 'MANAGE',
                       ),
+                      // MaterialButton(
+                      //   padding: EdgeInsets.all(5),
+                      //   minWidth: 40,
+                      //   // onPressed: () =>
+                      //   //     controller.selectPageNew2('Main Page Create Time'),
+                      //   onPressed: () => controller.setIndexStack(1),
+                      //   child: Obx(
+                      //     () => Column(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //       children: [
+                      //         Image.asset(
+                      //           'assets/images/icons/ic_newest.png',
+                      //           width: 28,
+                      //           height: 28,
+                      //           color: controller.indexStack.value == 1
+                      //               ? kColorAppbar
+                      //               : Colors.grey,
+                      //         ),
+                      //         Text('NEWEST',
+                      //             style: controller.indexStack.value == 1
+                      //                 ? selectedTab
+                      //                 : unselectedTab),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // MaterialButton(
+                      //   padding: EdgeInsets.all(5),
+                      //   minWidth: 40,
+                      //   // onPressed: () =>
+                      //   //     controller.selectPageNew2('Search Page'),
+                      //   onPressed: () => controller.setIndexStack(2),
+                      //   child: Obx(
+                      //     () => Column(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //       children: [
+                      //         Image.asset(
+                      //           'assets/images/icons/ic_search.png',
+                      //           width: 28,
+                      //           height: 28,
+                      //           color: controller.indexStack.value == 2
+                      //               ? kColorAppbar
+                      //               : Colors.grey,
+                      //         ),
+                      //         Text('SEARCH',
+                      //             style: controller.indexStack.value == 2
+                      //                 ? selectedTab
+                      //                 : unselectedTab),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // MaterialButton(
+                      //   padding: EdgeInsets.all(5),
+                      //   minWidth: 40,
+                      //   // onPressed: () =>
+                      //   //     controller.selectPageNew2('Downloaded Page'),
+                      //   onPressed: () => controller.setIndexStack(3),
+                      //   child: Obx(
+                      //     () => Column(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      //       children: [
+                      //         Image.asset(
+                      //           'assets/images/icons/ic_manage.png',
+                      //           width: 28,
+                      //           height: 28,
+                      //           color: controller.indexStack.value == 3
+                      //               ? kColorAppbar
+                      //               : Colors.grey,
+                      //         ),
+                      //         Text('MANAGE',
+                      //             style: controller.indexStack.value == 3
+                      //                 ? selectedTab
+                      //                 : unselectedTab),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -224,13 +212,7 @@ class MainPage extends StatelessWidget {
                                 color: Colors.white),
                           ),
                           Spacer(),
-                          // IconButton(
-                          //   onPressed: () => Get.back(),
-                          //   icon: Icon(
-                          //     Icons.share_outlined,
-                          //     color: Colors.white,
-                          //   ),
-                          // ),
+
                         ],
                       ),
                     ),
@@ -421,717 +403,43 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class MainPageDownload extends StatelessWidget {
-  MainPageDownload();
+class BottomButton extends StatelessWidget {
+  const BottomButton({
+    @required this.controller,
+    @required this.onPress,
+    @required this.iconPath,
+    @required this.indexStack,
+    @required this.text,
+  });
 
-  final controller = Get.put(MainController());
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.listAddon.length == 0) {
-        //TODO: UI loading before get data
-        return Center(
-            child: Text(controller.timeOutText.value == 'timeOut' ? 'Timeout, can’t connect to server' : 'Loading', style: TextStyle(fontSize: 25),),
-        );
-      }
-
-      return context.isPhone
-          ? ListView.builder(
-              itemCount: controller.listAddon.length,
-              itemBuilder: (context, index) {
-                //region phone
-                if (controller.listAddon[index] == 'Ads') {
-                  return controller.indexStack.value == 0 ? Card(
-                    // key: ValueKey<int>(index),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    semanticContainer: false,
-                  ) : SizedBox();
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddon[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddon[index].isDownloaded = true;
-                    controller.listAddon[index].pathUrl =
-                        controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
-                          element.itemId == controller.listAddon[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddon[index].isFavorite = true;
-                  }
-                  return BuildPhone(
-                    controller: controller,
-                    pathFile: controller.listAddon[index].pathUrl,
-                    index: index,
-                    onFavoriteTap: () {
-                      controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddon[index]);
-                      controller.listAddon.refresh();
-                      controller.listAddonNew.refresh();
-                    },
-                    addonsItem: controller.listAddon[index],
-                  );
-                }
-              }
-              //endregion
-
-              )
-          :
-          //fixme: tablet
-          GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 40 / 33,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5),
-              itemCount: controller.listAddon.length,
-              itemBuilder: (context, index) {
-                if (controller.listAddon[index] == 'Ads') {
-                  return controller.indexStack.value == 0 ? Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    semanticContainer: false,
-                  ) : SizedBox();
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddon[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddon[index].isDownloaded = true;
-                    controller.listAddon[index].pathUrl =
-                        controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
-                          element.itemId == controller.listAddon[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddon[index].isFavorite = true;
-                  }
-                  return BuildTablet(
-                    controller: controller,
-                    pathFile: controller.listAddon[index].pathUrl,
-                    index: index,
-                    addonsItem: controller.listAddon[index],
-                    onFavoriteTap: () {
-                      controller.listAddon[index].isFavorite =
-                          !controller.listAddon[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddon[index]);
-                      controller.listAddon.refresh();
-                      controller.listAddonNew.refresh();
-                    },
-                  );
-                }
-              });
-    });
-  }
-}
-
-class MainPageItemId extends StatelessWidget {
-  MainPageItemId();
-
-  final MainController controller = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.listAddonNew.length == 0) {
-        //TODO: UI loading before get data
-        return Center(
-          child: DefaultTextStyle(
-            style: const TextStyle(
-              fontSize: 32.0,
-              fontWeight: FontWeight.bold,
-            ),
-            child: AnimatedTextKit(
-              animatedTexts: [
-                FadeAnimatedText('Loading',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data',
-                    textStyle: TextStyle(color: kColorAppbar)),
-                FadeAnimatedText('Loading data ...',
-                    textStyle: TextStyle(color: kColorAppbar)),
-              ],
-              repeatForever: true,
-            ),
-          ),
-        );
-      }
-      return context.isPhone
-          ? ListView.builder(
-              itemCount: controller.listAddonNew.length,
-              itemBuilder: (context, index) {
-                //region phone
-                if (controller.listAddonNew[index] == 'Ads') {
-                  return controller.indexStack.value == 1 ? Card(
-                    // key: ValueKey<int>(index),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    semanticContainer: false,
-                  ) : SizedBox();
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddonNew[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddonNew[index].isDownloaded = true;
-                    controller.listAddonNew[index].pathUrl =
-                        controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
-                          element.itemId ==
-                          controller.listAddonNew[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddonNew[index].isFavorite = true;
-                  }
-                  var indexNew = controller.listAddon
-                      .indexOf(controller.listAddonNew[index]);
-                  return BuildPhone(
-                    controller: controller,
-                    pathFile: controller.listAddonNew[index].pathUrl,
-                    index: indexNew,
-                    onFavoriteTap: () {
-                      controller.listAddonNew[index].isFavorite =
-                          !controller.listAddonNew[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddonNew[index]);
-                      controller.listAddonNew.refresh();
-                    },
-                    addonsItem: controller.listAddonNew[index],
-                  );
-                }
-              }
-              //endregion
-
-              )
-          :
-          //fixme: tablet
-          GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 40 / 33,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5),
-              itemCount: controller.listAddonNew.length,
-              itemBuilder: (context, index) {
-                if (controller.listAddonNew[index] == 'Ads') {
-                  return controller.indexStack.value == 1 ? Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: NativeAdHomeWidget(
-                      adItem: nativeHomeAdControllerNew == null
-                          ? null
-                          : nativeHomeAdControllerNew.getAdsByIncreaseIndex(),
-                    ),
-                    elevation: 5,
-                    margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                    semanticContainer: false,
-                  ) :  SizedBox();
-                } else {
-                  var indexDownload = controller.listDownloaded.indexWhere(
-                      (element) =>
-                          element.id == controller.listAddonNew[index].itemId);
-                  String pathFile = '';
-                  if (indexDownload != -1) {
-                    controller.listAddonNew[index].isDownloaded = true;
-                    controller.listAddonNew[index].pathUrl =
-                        controller.listDownloaded[indexDownload].pathFile;
-                    pathFile =
-                        controller.listDownloaded[indexDownload].pathFile;
-                  }
-
-                  var indexFavorite = controller.listFavorite.indexWhere(
-                      (element) =>
-                          element.itemId ==
-                          controller.listAddonNew[index].itemId);
-                  if (indexFavorite != -1) {
-                    controller.listAddon[index].isFavorite = true;
-                  }
-                  var indexNew = controller.listAddon
-                      .indexOf(controller.listAddonNew[index]);
-
-                  return BuildTablet(
-                    controller: controller,
-                    pathFile: controller.listAddonNew[index].pathUrl,
-                    index: indexNew,
-                    addonsItem: controller.listAddonNew[index],
-                    onFavoriteTap: () {
-                      controller.listAddonNew[index].isFavorite =
-                          !controller.listAddonNew[index].isFavorite;
-                      controller
-                          .savePrefFavoriteItem(controller.listAddonNew[index]);
-                      controller.listAddonNew.refresh();
-                    },
-                  );
-                }
-              });
-    });
-  }
-}
-
-class BuildPhone extends StatelessWidget {
-  BuildPhone(
-      {Key key,
-      @required this.controller,
-      @required this.pathFile,
-      @required this.index,
-      @required this.onFavoriteTap,
-      @required this.addonsItem,
-      this.page})
-      : super(key: key);
-  final DetailController detailController = Get.find();
   final MainController controller;
-  final String pathFile;
-  final int index;
-  final Function onFavoriteTap;
-  final AddonsItem addonsItem;
-  final String page;
-
+  final Function onPress;
+  final String iconPath;
+  final int indexStack;
+  final String text;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      // key: ValueKey<int>(index),
-      onTap: () {
-        controller.countInterAd++;
-        if (GetStorage().hasData('TIME_OPEN')) {
-          if (controller.countInterAd == GetStorage().read('TIME_OPEN')) {
-            controller.countInterAd = 0;
-            Get.find<AdsController>().showIntersAds();
-          }
-        } else if (controller.countInterAd == 3) {
-          controller.countInterAd = 0;
-          Get.find<AdsController>().showIntersAds();
-        }
-        Get.to(() => DetailPage(
-              addonsItem: addonsItem,
-              pathFile: pathFile,
-            )).whenComplete(() {
-          print('dispose detail');
-          nativeDetailAdControllerNew.requestAds();
-          nativeHomeAdControllerNew.requestAds();
-          MainController().listAddon.refresh();
-          MainController().listAddonNew.refresh();
-          detailController.isDownloaded.value = false;
-
-          if (detailController.cancelToken.isCancelled) {
-            detailController.dio.close();
-            detailController.cancelToken.cancel();
-          }
-          detailController.progress.value = 0;
-          detailController.isDownloading.value = false;
-          // DetailController().isDownloaded.value = false;
-
-          nativeDetailAdControllerNew.listAds.forEach((element) {
-            print("detail " + element.hashCode.toString());
-          });
-          nativeHomeAdControllerNew.listAds.forEach((element) {
-            print("home " + element.hashCode.toString());
-          });
-        });
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+    return MaterialButton(
+      padding: EdgeInsets.all(5),
+      minWidth: 40,
+      onPressed: onPress,
+      child: Obx(
+        () => Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Image.asset(
+              iconPath,
+              width: 28,
+              height: 28,
+              color:
+                  controller.indexStack.value == indexStack ? kColorAppbar : Colors.grey,
+            ),
+            Text(text,
+                style: controller.indexStack.value == indexStack
+                    ? selectedTab
+                    : unselectedTab),
+          ],
         ),
-        child: Container(
-          child: Column(
-            children: [
-              Stack(children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: CachedNetworkImage(
-                      imageUrl: addonsItem.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                //phone
-                Positioned(
-                    top: 15,
-                    right: 15,
-                    child: GestureDetector(
-                      onTap: onFavoriteTap,
-                      child: SvgPicture.asset(
-                        page == 'Downloaded'
-                            ? kDeleteIcon
-                            : addonsItem.isFavorite
-                                ? kHeartFull
-                                : kHeartAround,
-                        color: kColorLikeIcon,
-                        height: 24,
-                        width: 24,
-                      ),
-                    )),
-              ]),
-              Container(
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: kColorBottomItem,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            width: Get.width * 0.50,
-                            height: 60,
-                            child: GestureDetector(
-                              onTap: () => print(addonsItem.isFavorite),
-                              child: Text(
-                                addonsItem.itemName,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                textAlign: TextAlign.left,
-                                maxLines: 2,
-                              ),
-                            )),
-                        SizedBox(
-                          width: Get.width * 0.50,
-                          child: GestureDetector(
-                            onTap: () => print(addonsItem.pathUrl),
-                            child: Text(
-                              addonsItem.authorName,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color(0xff000000),
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        //todo: phone button
-                        Container(
-                          width: 110,
-                          child: TextButton(
-                            onPressed: () async {
-                              addonsItem.pathUrl == null
-                                  ? DetailPage().downloadInstallAddon(
-                                      addonsItem,
-                                      isDetail: false,
-                                      isTablet: false,
-                                      page: page,
-                                      index: index)
-                                  : DetailPage()
-                                      .dialogAskInstall(addonsItem.pathUrl);
-                            },
-                            child: Text(
-                              !addonsItem.isDownloaded
-                                  ? 'download'.tr
-                                  : 'install'.tr,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  kColorDownloadButtonForeground),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  addonsItem.isDownloaded
-                                      ? kColorInstallButtonBackground
-                                      : kColorDownloadButtonBackground),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              addonsItem.downloadCount,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            SvgPicture.asset(
-                                'assets/images/icons/download.svg'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        elevation: 5,
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        semanticContainer: false,
-      ),
-    );
-  }
-}
-
-class BuildTablet extends StatelessWidget {
-  BuildTablet(
-      {Key key,
-      @required this.controller,
-      @required this.pathFile,
-      @required this.index,
-      @required this.onFavoriteTap,
-      @required this.addonsItem,
-      this.page})
-      : super(key: key);
-  final DetailController detailController = Get.find();
-  final MainController controller;
-  final String pathFile;
-  final int index;
-  final Function onFavoriteTap;
-  final AddonsItem addonsItem;
-  final String page;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        controller.countInterAd++;
-        if (GetStorage().hasData('TIME_OPEN')) {
-          if (controller.countInterAd == GetStorage().read('TIME_OPEN')) {
-            controller.countInterAd = 0;
-            Get.find<AdsController>().showIntersAds();
-          }
-        } else if (controller.countInterAd == 3) {
-          controller.countInterAd = 0;
-          Get.find<AdsController>().showIntersAds();
-        }
-        // if (GetPlatform.isAndroid) {
-          Get.to(() => DetailPage(
-                addonsItem: addonsItem,
-                pathFile: pathFile,
-              )).whenComplete(() {
-            print('dispose detail');
-            nativeDetailAdControllerNew.requestAds();
-            nativeHomeAdControllerNew.requestAds();
-
-            if (detailController.cancelToken.isCancelled) {
-              detailController.dio.close();
-              detailController.cancelToken.cancel();
-            }
-            detailController.progress.value = 0;
-            detailController.isDownloading.value = false;
-            // DetailController().isDownloaded.value = false;
-
-            MainController().listAddon.refresh();
-            MainController().listAddonNew.refresh();
-            detailController.isDownloaded.value = false;
-            nativeDetailAdControllerNew.listAds.forEach((element) {
-              print("detail " + element.hashCode.toString());
-            });
-            nativeHomeAdControllerNew.listAds.forEach((element) {
-              print("home " + element.hashCode.toString());
-            });
-          });
-        // } else {
-        //   MainPage().showDetailDialog(
-        //     addonsItem: addonsItem,
-        //     pathFile: pathFile,
-        //   );
-        // }
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Container(
-          child: Column(
-            children: [
-              Stack(children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: CachedNetworkImage(
-                      imageUrl: addonsItem.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Positioned(
-                    top: 15,
-                    right: 15,
-                    child: GestureDetector(
-                      onTap: onFavoriteTap,
-                      child: SvgPicture.asset(
-                        page == 'Downloaded'
-                            ? kDeleteIcon
-                            : addonsItem.isFavorite
-                                ? kHeartFull
-                                : kHeartAround,
-                        color: kColorLikeIcon,
-                        height: 24,
-                        width: 24,
-                      ),
-                    )),
-              ]),
-              Container(
-                padding: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: kColorBottomItem,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                            alignment: Alignment.centerLeft,
-                            width: Get.width * 0.25,
-                            height: 60,
-                            child: Text(
-                              addonsItem.itemName,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
-                              ),
-                              textAlign: TextAlign.left,
-                              maxLines: 2,
-                            )),
-                        SizedBox(
-                          width: Get.width * 0.25,
-                          child: Text(
-                            addonsItem.authorName,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff000000),
-                            ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          width: 110,
-                          child: TextButton(
-                            onPressed: () async {
-                              addonsItem.pathUrl.isNullOrBlank
-                                  ? DetailPage().downloadInstallAddon(
-                                      addonsItem,
-                                      isDetail: false,
-                                      isTablet: false,
-                                      page: page,
-                                      index: index)
-                                  : DetailPage()
-                                      .dialogAskInstall(addonsItem.pathUrl);
-                            },
-                            child: Text(
-                              !addonsItem.isDownloaded
-                                  ? 'download'.tr
-                                  : 'install'.tr,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(
-                                  kColorDownloadButtonForeground),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  addonsItem.isDownloaded
-                                      ? kColorInstallButtonBackground
-                                      : kColorDownloadButtonBackground),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              addonsItem.downloadCount,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            SvgPicture.asset(
-                                'assets/images/icons/download.svg'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        elevation: 5,
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        semanticContainer: false,
       ),
     );
   }

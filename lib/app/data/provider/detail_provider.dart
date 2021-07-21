@@ -6,18 +6,6 @@ import 'package:mods_guns/models/addons_item.dart';
 
 class DetailProvider extends GetConnect {
 
-  getItem() async {
 
-      final response = await httpClient.get(baseUrl);
-      if (response.statusCode == 200) {
-        var data = response.bodyString;
-        var decodedData = addonsItemFromJson(data);
-        print(response.statusCode);
-        return decodedData;
-      } else {
-        print('error' + response.statusCode.toString());
-        return addonsItemFromJson("[]");
-      }
-  }
 
 }

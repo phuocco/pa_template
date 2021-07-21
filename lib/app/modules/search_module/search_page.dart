@@ -1,6 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mods_guns/app/modules/main_module/item_phone.dart';
+import 'package:mods_guns/app/modules/main_module/item_tablet.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
 import 'package:mods_guns/app/modules/search_module/search_controller.dart';
@@ -58,7 +60,7 @@ class SearchPage extends StatelessWidget {
                             children: [
                               Text('Addon found: ' +
                                   controller.listAddonSearch.length.toString()),
-                              BuildPhone(
+                              ItemPhone(
                                 controller: mainController,
                                 pathFile: controller
                                     .listAddonSearchWithAds[0].pathUrl,
@@ -103,7 +105,7 @@ class SearchPage extends StatelessWidget {
                             controller.listAddonSearchWithAds[index]
                                 .isFavorite = true;
                           }
-                          return BuildPhone(
+                          return ItemPhone(
                             controller: mainController,
                             pathFile: controller
                                 .listAddonSearchWithAds[index].pathUrl,
@@ -151,7 +153,7 @@ class SearchPage extends StatelessWidget {
                             children: [
                               Text('Addon found: ' +
                                   controller.listAddonSearch.length.toString()),
-                              BuildTablet(
+                              ItemTablet(
                                   controller: mainController,
                                   pathFile: controller
                                       .listAddonSearchWithAds[0].pathUrl,
@@ -196,7 +198,7 @@ class SearchPage extends StatelessWidget {
                             controller.listAddonSearchWithAds[index]
                                 .isFavorite = true;
                           }
-                          return BuildTablet(
+                          return ItemTablet(
                               controller: mainController,
                               pathFile: controller
                                   .listAddonSearchWithAds[index].pathUrl,

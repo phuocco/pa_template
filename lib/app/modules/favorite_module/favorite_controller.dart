@@ -18,32 +18,9 @@ class FavoriteController extends GetxController{
   final box = GetStorage();
 
 
-
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
   }
-  // getList(List<AddonsItem> list){
-  //   listAddon.assignAll(list);
-  //   print("abc "+listAddon.length.toString());
-  //   print("abc "+listFavoriteAddon.length.toString());
-  // }
-  // getFavoriteList(List<AddonsItem> list){
-  //   listFavoriteAddon.assignAll(list);
-  //   print("abc :"+listAddon.length.toString());
-  //   print("abc :"+listFavoriteAddon.length.toString());
-  // }
-
-
-  // addFavoriteItem(AddonsItem addonsItem){
-  //   if(listFavoriteAddon.contains(addonsItem)){
-  //     listFavoriteAddon.remove(addonsItem);
-  //   } else {
-  //     listFavoriteAddon.add(addonsItem);
-  //   }
-  // }
-
-
-
 }

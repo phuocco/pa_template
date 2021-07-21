@@ -9,6 +9,6 @@ class DetailRepository {
 
   DetailRepository({@required this.provider}) : assert(provider != null);
 
-  getItem() => provider.getItem();
+
 
 }

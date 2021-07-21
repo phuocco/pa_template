@@ -1,26 +1,14 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:mods_guns/widgets/loading_native_ad_widget.dart';
-import 'package:pa_core_flutter/pa_core_flutter.dart';
 import 'package:mods_guns/app/modules/home_module/home_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/search_module/search_controller.dart';
-import 'package:mods_guns/app/modules/search_module/search_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
 import 'package:mods_guns/app/utils/strings.dart';
-import 'package:mods_guns/constants/const_drawer.dart';
-import 'package:mods_guns/controllers/native_ad_controller_new.dart';
-import 'package:mods_guns/functions/util_functions.dart';
-import 'package:mods_guns/models/downloaded_item_model.dart';
 import 'package:mods_guns/widgets/base_banner.dart';
 import 'package:mods_guns/controllers/ads_controller.dart';
-import 'package:mods_guns/widgets/base_app_bar.dart';
 import 'package:mods_guns/widgets/main_drawer.dart';
 import 'package:mods_guns/widgets/native_ad_detail_widget.dart';
 
@@ -84,15 +72,14 @@ class HomePage extends StatelessWidget {
                 onSubmitted: (text) {
                   //todo search
                   searchController.searchText = text;
-                  // if (!text.isBlank) controller.selectPageNew('Search Page');
 
                   searchController.listAddonSearchWithAds.clear();
-                  searchController.getSearchItems(Get.context, searchController.searchText);
+                  searchController.getSearchItems(
+                      Get.context, searchController.searchText);
 
                   searchController.listAddonSearchWithAds.refresh();
                   searchController.listAddonSearch.refresh();
                   mainController.setIndexStack(2);
-
 
                   if (!currentFocus.hasPrimaryFocus) {
                     currentFocus.unfocus();
@@ -128,9 +115,9 @@ class HomePage extends StatelessWidget {
                     searchController.searchText =
                         controller.searchTextEditingController.text;
                     if (!controller.searchTextEditingController.text.isBlank)
-
                       searchController.listAddonSearchWithAds.clear();
-                    searchController.getSearchItems(Get.context, searchController.searchText);
+                    searchController.getSearchItems(
+                        Get.context, searchController.searchText);
 
                     searchController.listAddonSearchWithAds.refresh();
                     searchController.listAddonSearch.refresh();
@@ -147,7 +134,6 @@ class HomePage extends StatelessWidget {
         ),
       ),
       actions: [
-
         Padding(
           padding: const EdgeInsets.only(right: 10, left: 10),
           child: GestureDetector(
@@ -257,22 +243,6 @@ class HomePage extends StatelessWidget {
                                                         FontWeight.bold))),
                                       ),
                                     ),
-                                    // TextButton(
-                                    //   onPressed: () => Get.back(),
-                                    //   child: Text('CANCEL',
-                                    //       style: TextStyle(
-                                    //           color: Colors.white,
-                                    //           fontSize: 13,
-                                    //           fontWeight: FontWeight.bold)),
-                                    //   style: ButtonStyle(
-                                    //     foregroundColor:
-                                    //         MaterialStateProperty.all<Color>(
-                                    //             kColorDownloadButtonForeground),
-                                    //     backgroundColor:
-                                    //         MaterialStateProperty.all<Color>(
-                                    //             Colors.grey),
-                                    //   ),
-                                    // ),
 
                                     InkWell(
                                       onTap: () => SystemNavigator.pop(),
@@ -314,9 +284,6 @@ class HomePage extends StatelessWidget {
                 return false;
               }
             }),
-        // bottomNavigationBar: Obx(() => adsController.list.length == 0
-        //     ? Text(adsController.list.length.toString())
-        //     :Text(adsController.list.length.toString()),)
         bottomNavigationBar: GetPlatform.isAndroid ? BaseBanner() : SizedBox(),
       ),
     );

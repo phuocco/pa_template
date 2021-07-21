@@ -6,6 +6,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mods_guns/app/modules/main_module/item_phone.dart';
+import 'package:mods_guns/app/modules/main_module/item_tablet.dart';
 import 'package:mods_guns/app/modules/main_module/main_controller.dart';
 import 'package:mods_guns/app/modules/main_module/main_page.dart';
 import 'package:mods_guns/app/theme/app_colors.dart';
@@ -33,7 +35,6 @@ class DownloadedPage extends StatelessWidget{
             itemBuilder: (context, index) {
               if (mainController.listDownloadedNew[index] == 'Ads') {
                 return mainController.indexStack.value == 3 ? Card(
-                  // key: ValueKey<int>(index),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -45,19 +46,8 @@ class DownloadedPage extends StatelessWidget{
                   semanticContainer: false,
                 ) : SizedBox();
               } else {
-                // var indexDownload =
-                // mainController.listDownloaded.indexWhere((element) {
-                //   if (mainController.listAddon[index] != 'Ads') {
-                //     return element.id == mainController.listAddon[index].itemId;
-                //   } else {
-                //     return false;
-                //   }
-                // });
+
                 String pathFile = '';
-                // if (indexDownload != -1) {
-                //   mainController.listFavorite[index].isDownloaded = true;
-                //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
-                // }
 
                 var indexFavorite =
                 mainController.listFavorite.indexWhere((element) {
@@ -71,15 +61,13 @@ class DownloadedPage extends StatelessWidget{
                 if (indexFavorite != -1) {
                   mainController.listFavorite[index].isFavorite = true;
                 }
-                // return Text(mainController.listDownloadedNew[index].toJson().toString());
-                return BuildPhone(
+                return ItemPhone(
                   controller: mainController,
                   pathFile: mainController.listDownloadedNew[index].pathUrl,
                   index: index,
                   page: 'Downloaded',
                   onFavoriteTap: () {
                     print(mainController.listDownloaded.length);
-                    // print(mainController.listDownloadedNew[index].pathUrl);
                     var indexDownloaded = mainController.listDownloaded.indexWhere((element) => element.id == mainController.listDownloadedNew[index].itemId);
                     if(indexDownloaded != -1){
 
@@ -108,10 +96,6 @@ class DownloadedPage extends StatelessWidget{
                         mainController.listAddonNew[indexNew].pathUrl ='';
                         mainController.listAddonNew[indexNew].isDownloaded = false;
                       }
-
-
-
-
 
                       File delete = File(mainController.listDownloadedNew[index].pathUrl);
                       delete.existsSync();
@@ -150,41 +134,26 @@ class DownloadedPage extends StatelessWidget{
                 semanticContainer: false,
               ) : SizedBox();
             } else {
-              // var indexDownload =
-              // mainController.listDownloaded.indexWhere((element) {
-              //   if (mainController.listAddon[index] != 'Ads') {
-              //     return element.id == mainController.listAddon[index].itemId;
-              //   } else {
-              //     return false;
-              //   }
-              // });
               String pathFile = '';
-              // if (indexDownload != -1) {
-              //   mainController.listFavorite[index].isDownloaded = true;
-              //   mainController.listFavorite[index].pathUrl = mainController.listDownloaded[indexDownload].pathFile;
-              // }
-
-              // var indexFavorite =
-              // mainController.listFavorite.indexWhere((element) {
-              //   if (mainController.listAddon[index] != 'Ads') {
-              //     return element.itemId ==
-              //         mainController.listAddon[index].itemId;
-              //   } else {
-              //     return false;
-              //   }
-              // });
-              // if (indexFavorite != -1) {
-              //   mainController.listFavorite[index].isFavorite = true;
-              // }
-              // return Text(mainController.listDownloadedNew[index].toJson().toString());
-              return BuildTablet(
+              var indexFavorite =
+              mainController.listFavorite.indexWhere((element) {
+                if (mainController.listAddon[index] != 'Ads') {
+                  return element.itemId ==
+                      mainController.listAddon[index].itemId;
+                } else {
+                  return false;
+                }
+              });
+              if (indexFavorite != -1) {
+                mainController.listFavorite[index].isFavorite = true;
+              }
+              return ItemTablet(
                   controller: mainController,
                   pathFile: mainController.listDownloadedNew[index].pathUrl,
                   index: index,
                   page: 'Downloaded',
                 onFavoriteTap: () {
                   print(mainController.listDownloaded.length);
-                  // print(mainController.listDownloadedNew[index].pathUrl);
                   var indexDownloaded = mainController.listDownloaded.indexWhere((element) => element.id == mainController.listDownloadedNew[index].itemId);
                   if(indexDownloaded != -1){
 
